@@ -1,8 +1,8 @@
 renderer : mediawiki
-input_path : Appunti_DB.tex
-output_path : out/output
-doc_title: Basi di Dati
-base_path: "User:Riccardo Iaconelli"
+input_path : geometriadifferenziale.tex
+output_path : out/out.mw
+doc_title: Geometria_Differenziale
+base_path: User:Riccardo Iaconelli
 collapse_content_level: 1
 collapse_pages_level: 1
 create_index: True
@@ -17,4 +17,3 @@ plugins_configs:
     math_check_online:
         threads: 3
         domain: wikitolearn.org
-
