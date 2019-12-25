@@ -1,0 +1,566 @@
+\documentclass[a4paper,11pt]{article}
+	 \usepackage[a4paper, left=2.5cm, bottom=2.5cm]{geometry}
+     \usepackage[italian]{babel}
+     \usepackage[utf8]{inputenc}
+     \usepackage{siunitx}
+     \usepackage{graphicx}
+     \usepackage{amsfonts}
+     \title{Fisica I}
+     \author{Appunti vari}
+     \date{\today}
+     
+\begin{document}
+	
+	\maketitle
+	\tableofcontents
+	\newpage
+\section{Operatori e coordinate}
+Riporto in tabella i principali operatori espressi in coordinate cilindriche ($\hat{r},\hat{\theta},\hat{z}$) e sferiche ($\hat{r},\hat{\theta},\hat{\phi}$), insieme a qualche identità vettoriale ricorrente
+
+\begin{itemize}
+	\item\textbf{Gradiente: } \[\nabla a=\frac{\partial a}{\partial r}\hat{r}+\frac{1}{r}\frac{\partial a}{\partial \theta}+\frac{\partial a}{\partial z}\hat{z}=\frac{\partial a}{\partial r}\hat{r}+\frac{1}{r}\frac{\partial a}{\partial \theta}+\frac{1}{r\sin\theta}\frac{\partial a}{\partial \phi}\hat{\phi}\]
+	\item\textbf{Divergenza: } \[\nabla\cdot\vec{a}=\frac{1}{r}\frac{\partial(ra_r)}{\partial r}+\frac{1}{r}\frac{\partial a_\theta}{\partial \theta}+\frac{\partial a_z}{\partial z}=\frac{1}{r^2}\frac{\partial(r^2a_r)}{\partial r}+\frac{1}{r\sin\theta}\frac{\partial(\sin\theta a_\theta)}{\partial \theta}+\frac{1}{r\sin\theta}\frac{\partial a_\phi}{\partial \phi}\]
+	\item\textbf{Rotore: } \[\nabla\times\vec{a}=\left(\frac{1}{r}\frac{\partial a_z}{\partial \theta}-\frac{\partial a_\theta}{\partial z}\right)\hat{r}+\left(\frac{\partial a_r}{\partial z}-\frac{\partial a_z}{\partial r}\right)\hat{\theta}+\frac{1}{r}\left(\frac{\partial\left(ra_\theta\right)}{\partial r}-\frac{\partial a_r}{\partial \theta}\right)\hat{z}=\]
+	\[=\frac{1}{r\sin\theta}\left(\frac{\partial\left(\sin\theta a_\phi\right)}{\partial\theta}-\frac{\partial a_\theta}{\partial \phi}\right)\hat{r}+\frac{1}{r}\left(\frac{1}{\sin\theta}\frac{\partial a_r}{\partial \phi}-\frac{\partial\left(ra_\phi\right)}{\partial r}\right)\hat{\theta}+\frac{1}{r}\left(\frac{\partial\left(r a_\theta\right)}{\partial r}-\frac{\partial a_r}{\partial \theta}\right)\hat{\phi}\]
+	\item\textbf{Laplaciano di uno scalare: }
+	\[\nabla^2 f=\frac{1}{r}\frac{\partial}{\partial r}\left(r\frac{\partial f}{\partial r}\right)+\frac{1}{r^2}\frac{\partial^2 f}{\partial\theta^2}+\frac{\partial^2f}{\partial z^2}=\frac{1}{r^2}\frac{\partial}{\partial r}\left(r^2\frac{\partial f}{\partial r}\right)+\frac{1}{r^2\sin\theta}\frac{\partial}{\partial \theta}\left(\sin\theta\frac{\partial f}{\partial \theta}\right)+\frac{1}{r^2\sin^2\theta}\frac{\partial^2f}{\partial\phi^2}\]	
+	\item\textbf{Identità vettoriali: }
+	\[\nabla\cdot\nabla f=\nabla^2f\]
+	\[\nabla\times\nabla f=0\]
+	\[\nabla\cdot\nabla\times\vec{v}=0\]
+	\[\nabla\times(\nabla\times\vec{v})=-\nabla^2\vec{v}+\nabla(\nabla\cdot\vec{v})\]
+	\[\frac{1}{2}\nabla\vec{v}^2=\vec{v}\times(\nabla\times\vec{v})+(\vec{v}\cdot\nabla)\vec{v}\]
+\end{itemize}
+
+
+
+\newpage
+\section{Onde}
+Consideriamo $N$ molle di uguale costante $k$ che collegano altrettante masse $m$ tutte uguali, vincolate su una retta. Indichiamo con $x_n(t)$ la posizione dell'$n$-esima massa al tempo $t$. Le equazioni del moto sono banalmente
+\[m\ddot{x}_n=-k(2x_n-x_{n-1}-x_{n+1})\]
+che in forma matriciale diventano
+\[\left(\begin{array}{c}
+\ddot{x}_1 \\
+\ddot{x}_2 \\
+\ddot{x}_3 \\
+\vdots \\
+{x}_n
+\end{array}\right)=-\Omega^2\left(
+\begin{array}{c c c c c}
+2 & -1 & 0  & \cdots & 0 \\
+-1 & 2 & -1 &\cdots & 0 \\
+0 & -1 & 2 & \cdots & 0 \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+0 & 0 & 0 & \cdots & 2 \\
+\end{array}\right)
+\left(\begin{array}{c}
+x_1 \\ x_2 \\ x_3 \\ \vdots \\ x_n
+\end{array}\right)\]
+dove si è posto $\Omega^2=k/m$. Se immaginiamo una soluzione del tipo $x_n=~A_ne^{i\omega t}$, otteniamo
+\[A_n=B\cos(n\theta)+C\sin(n\theta)\]
+con
+\[\cos\theta=\frac{2\Omega^2-\omega^2}{2\Omega^2}\]
+con l'ovvia condizone $\omega\leq\Omega$.
+Se ora le estremità libere delle due molle agli estremi sono fissate, otteniamo le condizioni al contorno
+\[x_0(t)=x_{N+1}(t)=0\]
+Da semplici conti risulta allora
+\[\theta=\frac{m\pi}{N+1}\]
+\[\omega=2\omega_0\sin\frac{m\pi}{2(N+1)}\]
+per un certo $m$ intero.
+
+\noindent Se ora facciamo tendere $N$ a $+\infty$, detti $\rho$ e $E$ la densità e il modulo di elasticità, otteniamo
+\begin{equation}
+\rho\frac{\partial^2\xi(x,t)}{\partial t^2}=E\frac{\partial^2\xi(x,t)}{\partial x^2}
+\label{waveequation}
+\end{equation}
+dove con $\xi(x,t)$ si è indicato lo spostamento dalla posizione di equilibrio dell'elemento di massa che, in assenza di oscillazioni, si trova nel punto di ascissa $x$. Posto $c^2=E/\rho$, si ottiene banalmente
+\[\left(\frac{1}{c^2}\frac{\partial^2}{\partial t^2}-\frac{\partial^2}{\partial x^2}\right)\xi(x,t)=0\]
+Se ora immaginiamo una soluzione del tipo $\xi(x,t)=a(x)e^{-i\omega t}$, si ottiene
+\[\frac{\partial^2a(x)}{\partial x^2}+\frac{\omega^2}{c^2}a(x)=0\]
+Ponendo $\kappa=\omega/c$, si ottiene
+\[\xi(x,t)=Ae^{i(\kappa x-\omega t)}+Be^{-i(\kappa x+\omega t)}\]
+Le costanti $c$, $\omega$ e $\kappa$ sono rispettivamente la velocità di propagazione, la pulsazione e il numero d'onda, legati a lunghezza d'onda $\lambda$ e frequenza $\nu$ dalle relazioni
+\[c=\lambda\nu\]
+\[\omega=2\pi\nu\]
+\[\kappa=\frac{2\pi}{\lambda}\]
+Inoltre, notiamo che con la sostituzione $\xi=x-ct$ e $\eta=x+ct$, si ottiene che una funzione $f$ risolve l'equazione d'onda se e solo se $\frac{\partial^2f}{\partial\xi\partial\eta}=0$. Questo fatto implica facilmente che $f$ è della forma $f(x,t)=\psi(x+ct)+\varphi(x-ct)$.
+
+\noindent Infine, si ottiene un risultato analogo alla (\ref{waveequation}) se si studiano le onde trasversali su un corda tesa, nell'ipotesi che l'ampiezza di oscillazione sia piccola rispetto alla lunghezza d'onda. L'unica differenza è la costante $c$, che diventa $c=\sqrt{T/\rho}$, con $T$ tensione del filo.
+
+\subsection{Riflessione}
+Immaginiamo una corda semi-infinita, la cui estremità è fissata a una parete in $x=0$. Consideriamo un'onda che si propaga verso la parete e immaginiamo di prolungare la corda anche oltre la parete. Possiamo interpretare l'ovvia condizione $y(0,t)=0$ immaginando che un'onda "virtuale", di ampiezza opposta all'onda reale, si stia propagando lungo il prolungamento della corda, sempre in direzione della parete. A questo punto, è chiaro che dopo "l'urto" con la parete si genererà un'onda identica alla prima, ma di ampiezza opposta, che si propagherà allontanandosi dal muro.
+
+\noindent Supponiamo ora che all'estremità della corda ci sia un anellino privo di massa che può scorrere senza attrito lungo la parete e, come prima, consideriamo un'onda che si propaga verso la parete. La condizione da imporre è $\frac{\partial y(0,t)}{\partial x}=0$. In questo caso, possiamo modellizzare un'onda virtuale di ampiezza uguale alla prima che si propaga sempre verso la parete. Otteniamo quindi che dopo la riflessione l'onda non viene sfasata di $\pi$.
+
+\subsection{Esercizi}
+\subsubsection{Corda curiosa}
+\textit{(a) Si consideri una corda di lunghezza $l$, densità lineare $\rho$ e tesa con una tensione $T$, fissata alle due estremità. Trovare le autofrequenze delle piccole oscillazioni trasversali sulla corda.}
+
+\noindent \textit{(b) Consideriamo ora il caso in cui un'estremità della corda sia libera e l'altra è fissata a una sbarra verticale in rotazione con velocità angolare $\omega$. Trascurando la gravità, scrivere l'equazione d'onda per le piccole oscillazioni trasversali.}
+\vspace{5mm}
+
+\noindent (a) Immaginando una soluzione del tipo $y(x,t)=\left(A\cos(\kappa x)+B\sin(\kappa x)\right)e^{i\omega t}$, e imponendo l'ovvia condizione $y(l,t)=0$ otteniamo
+\[\kappa_m l=m\pi\]
+con $m$ intero. Ricordando l'espressione di $\kappa$ otteniamo le autofrequenze
+\[\omega_m=m\frac{\pi}{l}\sqrt{\frac{T}{\rho}}\]
+
+\noindent (b) In questo caso $T$ non è più costante lungo la corda, ma deve equilibrare la forza centrifuga, ovvero
+\[\frac{\mathrm{d}T}{\mathrm{d}x}=-\rho\omega^2x\]
+che, insieme alla condizione $T(l)=0$, dà
+\[T(x)=\frac{1}{2}\rho\omega^2(l^2-x^2)\]
+L'equazione d'onda è allora
+\[\rho\frac{\partial^2y(x,t)}{\partial t^2}=\frac{\partial}{\partial x}\left[\frac{1}{2}\rho\omega^2(l^2-x^2)\frac{\partial y(x,t)}{\partial x}\right]\]
+
+\subsubsection{Corda con attrito}
+\textit{Si consideri una corda di lunghezza $L$ e densità $\rho$ su cui si propagano onde longitudinali, i cui estremi sono fissati. Sia $T$ la tensione nella corda e si consideri il caso in cui su un tratto lungo $\delta x$ di corda con velocità $v$ agisca una forza d'attrito $-kv\delta x$.}
+
+\noindent\textit{(a) Trovare l'equazione d'onda.}
+
+\noindent\textit{(b) Trovare tutte le soluzioni della forma $y(x,t)=\xi(x)\tau(t)$, assumendo $\frac{k^2L^2}{\rho T}<1$.}
+\vspace{5mm}
+
+\noindent (a) L'equazione d'onda è semplicemente
+\[\rho\frac{\partial^2 y(x,t)}{\partial t^2}+k\frac{\partial y(x,t)}{\partial t}=T\frac{\partial^2y(x,t)}{\partial x^2}\]
+\noindent (b) Posto $a=k/\rho$ e $b=T/\rho$ otteniamo
+\[\frac{1}{\tau}\left(\frac{\mathrm{d}^2\tau}{\mathrm{d} t^2}+a\frac{\mathrm{d} \tau}{\mathrm{d} t}\right)=\frac{b}{\xi}\frac{\mathrm{d}^2\xi}{\mathrm{d} x^2}\]
+Dato che entrambi i membri dipendono da una sola variabile, essi dovranno essere uguali a una certa costante, diciamo $-\alpha^2$. Allora otteniamo
+\[b\frac{\mathrm{d}^2\xi}{\mathrm{d}x^2}+\alpha^2\xi=0\]
+\[\frac{\mathrm{d}^2\tau}{\mathrm{d}t^2}+a\frac{\mathrm{d}\tau}{\mathrm{d}t}+\alpha^2\tau=0\]
+Dalla prima, $\xi(x)=A\cos((\alpha^2/b)x)+B\sin((\alpha^2/b)x)$, che con le condizioni iniziali diventa
+\[\xi_n(x)=B\sin(\frac{n\pi x}{L})\]
+con $n$ intero. Sostituendo $\alpha^2=(nb\pi)/L$ nella seconda ottieniamo un oscillatore armonico smorzato, che con la disuaglianza proposta risulta sottosmorzato. Allora si ha 
+\[\tau_n(t)=Ae^{-\frac{k}{2\rho}t}\cos(\omega_nt+\phi)\]
+con 
+\[\omega_n^2=\frac{n^2\pi^2T}{\rho L^2}-\frac{k^2}{4\rho^2}\]
+\newpage
+
+\section{Fluidodinamica}
+Consideriamo un fluido come un corpo continuo e deformabile. Ciò significa che siamo interessati a studiare le proprietà di un volumetto di fluido che rispetti le due seguenti proprietà:
+
+\begin{enumerate}
+	\item il volumetto è di dimensioni trascurabili rispetto al fluido nel suo complesso, in modo da poter essere considerato infinitesimo
+	\item il volumetto è di dimensioni molto maggiori delle particelle del fluido, in modo tale da non dover descrivere nel dettaglio ciò che avviene da un punto di vista microscopico
+\end{enumerate}
+
+\noindent Applichiamo ora a tale fluido la conservazione della massa, dell'energia e la seconda legge di Newton. Otteniamo in tal caso i risultati seguenti
+
+\subsection{Equazione di continuità}
+In un volume di fluido $V$ di densità $\rho$ e superficie $S$, la variazione di massa per unità di tempo è
+\[-\int_{S}\rho\vec{v}\cdot\mathrm{d}\vec{S}\]
+D'altro canto tale variazione è anche
+\[\frac{\partial}{\partial t}\int_{V}\rho\mathrm{d}V\]
+Uguagliando i due integrali precedenti e usando il teorema della divergenza otteniamo l'equazione di continuità
+\[\frac{\partial\rho}{\partial t}+\vec{\nabla}\cdot(\rho\vec{v})=0\]
+
+\subsection{Equazione di Eulero}
+Consideriamo un fluido immerso in un campo conservativo $\vec{A}$. La forza interna agente su un volume $V$ di fluido è
+\[\vec{F}=-\int_{S}p\mathrm{d}\vec{S}=-\int_{V}\vec{\nabla} p\mathrm{d}V\]
+Sia ora $\vec{v}=\vec{v}(x,y,z,t)$ il campo di velocità del fluido. Si ottiene dalla terza legge di Newton
+\[\rho\frac{\mathrm{d}\vec{v}}{\mathrm{d}t}=\frac{\mathrm{d}\vec{F}}{\mathrm{d}V}+\rho\vec{A}\]
+Da cui otteniamo l'equazione di Eulero
+\[\frac{\partial\vec{v}}{\partial t}+(\vec{v}\cdot\vec{\nabla})\vec{v}=-\frac{1}{\rho}\vec{\nabla}p+\frac{\vec{A}}{\rho}\]
+Utilizzando la seguente identità vettoriale
+\begin{equation}\frac{1}{2}\vec{\nabla}\vec v^2=\vec v\times(\vec{\nabla}\times\vec v)+(\vec v\cdot\vec \nabla)\vec v\label{vettori}\end{equation}
+in cui la quantità $\vec{\Omega}=\vec{\nabla}\times \vec{v}$ si chiama vorticità, e supponendo che sul fluido agisca un campo conservativo descritto da un potenziale del tipo $\rho\vec{\nabla}\phi$, l'equazione di Eulero si può anche scrivere come
+\[\frac{\partial \vec{v}}{\partial t}+\vec{\Omega}\times\vec{v}+\frac{1}{2}\vec{\nabla}\vec{v}^2=-\frac{1}{\rho}\vec{\nabla}p-\vec{\nabla}\phi\]
+
+\noindent Per completezza, dimostriamo la (\ref{vettori}). Sviluppando i conti otteniamo infatti
+\[\frac{1}{2}\vec{\nabla}\vec v^2=v_i\frac{\partial v_i}{\partial x_j}\hat{x}_j\]
+\[\vec v\times(\vec{\nabla}\times\vec v)=\varepsilon_{ijk}\varepsilon_{klm}v_j\frac{\partial v_m}{\partial x_l}\hat{x}_i=v_m\frac{\partial v_m}{\partial x_i}\hat{x}_i-v_j\frac{\partial v_i}{\partial x_j}\hat{x}_i\]
+\[(\vec v\cdot\vec \nabla)\vec v=v_i\frac{\partial v_j}{\partial x_i}\hat{x}_j\]
+Volendo, nel caso di fluido isolato e incompribile si può ottenere una forma dell'equazione di Eulero in cui compare solo la velocità.
+Considerando il fluido come sistema termodinamico e dette $h$ e $s$ l'entalpia e l'entropia per unità di volume, otteniamo
+\[\mathrm{d}h=T\mathrm{d}s+\frac{1}{\rho}\mathrm{d}p\]
+Dato che il sistema è isolato, $\mathrm{d}s=0$ e dunque $\vec{\nabla}p=\rho\vec{\nabla}h$. Ottengo quindi
+\[\frac{\partial \vec{v}}{\partial t}-\vec{v}\times\left(\vec{\nabla}\times\vec{v}\right)=-\vec{\nabla}\left(h+\frac{1}{2}\vec{v}^2\right)\]
+Prendo ora il rotore ambo i membri e noto che, se $f$ è un campo scalare sufficientemente bello (i.e. con derivate miste continue), si ha \[\vec{\nabla}\times\vec{\nabla}f=\hat{x}_i\varepsilon_{ijk}\frac{\partial\left(\vec{\nabla}f\right)_k}{\partial x_j}=\hat{x}_i\varepsilon_{ijk}\frac{\partial^2f}{\partial x_j\partial x_k}=0\]
+Ottengo così
+\[\frac{\partial}{\partial t}\left(\vec{\nabla}\times\vec{v}\right)=\vec{\nabla}\times\left[v\times\left(\vec{\nabla}\times\vec{v}\right)\right]\]
+
+\subsection{Equazione di Bernoulli}
+Se consideriamo un fluido incomprimibile immerso in gravità, l'equazione di Eulero è 
+\begin{equation}\frac{\partial \vec{v}}{\partial t}+\frac{1}{2}\vec{\nabla}\vec{v}^2=-\frac{1}{\rho}\vec{\nabla}p+\vec{v}\times\left(\vec{\nabla}\times\vec{v}\right)+\vec{g}
+\label{eulero_bernoulli}\end{equation}
+Se supponiamo che il flusso sia stazionario, prendendo il prodotto scalare ambo i membri e notando che $\vec{g}=-\vec{\nabla}\left(gz\right)$, otteniamo
+\[\vec{v}\cdot\vec{\nabla}\left[\frac{1}{2}v^2+\frac{p}{\rho}+gz\right]=0\]
+Che vuol dire che, lungo una linea di flusso, abbiamo la seguente legge di conservazione
+\[p+\frac{1}{2}\rho v^2+\rho gz=\mathcal{H}\]
+In generale, la costante $\mathcal{H}$ varia da linea di flusso a linea di flusso. Se il flusso è irrotazionale (i.e. $\vec \Omega=0$), la costante $\mathcal{H}$ è la stessa ovunque, come si vede facilmente dalla (\ref{eulero_bernoulli}).
+
+
+\subsection{Equazione di Bernoulli instazionaria}
+Generalizziamo Bernoulli al caso in cui il moto del fluido non sia necessariamente stazionario, ma comunque irrotazionale. In tal caso, la velocità si può scrivere come un potenziale, i.e. $\vec v=-\vec \nabla\Phi$, e l'equazione di Eulero diventa
+\[\rho\left[-\frac{\partial\vec \nabla\Phi}{\partial t}+\frac{1}{2}\vec \nabla\left(\vec{\nabla}\Phi\right)^2\right]=-\vec{\nabla}p+\rho\vec{g}\]
+In maniera analoga al caso precedente, otteniamo
+\[\vec{\nabla}\left[-\rho\frac{\partial\Phi}{\partial t}+\frac{1}{2}\rho\left(\vec{\nabla}\Phi\right)^2+p+\rho gz\right]=0\]
+Ovvero
+\[-\rho\frac{\partial\Phi}{\partial t}+\frac{1}{2}\rho\left(\vec{\nabla}\Phi\right)^2+p+\rho gz=\mathcal{H}(t)\]
+\subsection{Equazione di Navier-Stokes per fluidi incomprimibili}
+La pressione modelliza le forze di superficie normali. Per modellizzare gli sforzi di taglio, si introduce la viscosità $\eta$, definita da
+\[\frac{\mathrm{d}\vec F}{\mathrm{d}S}=\eta\hat{\tau}\partial_{\hat n}v\]
+dove $\mathrm{d}F$ è la forza con cui interagiscono due parti di fluido a contatto in una sezione $\mathrm{d}S$ e $\hat n$ è il versore ortogonale a $\mathrm{d}S$, $v$ la componente della velocità parallela alla superficie e $\hat{\tau}$ il versore parallelo a $\mathrm{d}S$. In generale, se considero un volume infinitesimo $\mathrm{d}x\mathrm{d}y\mathrm{d}z$, le forze interne dipenderanno sia dal punto di applicazione che dal verso del vettore superficie. Introduco quindi il tensore di stress, definito da
+\[T=\left(\begin{array}{c c c}
+\frac{F_{xx}}{\mathrm{d}y\mathrm{d}z} & \frac{F_{yx}}{\mathrm{d}y\mathrm{d}z} & \frac{F_{zx}}{\mathrm{d}y\mathrm{d}z} \\
+\frac{F_{xy}}{\mathrm{d}y\mathrm{d}z} & \frac{F_{yy}}{\mathrm{d}y\mathrm{d}z} & \frac{F_{zy}}{\mathrm{d}y\mathrm{d}z} \\
+\frac{F_{xz}}{\mathrm{d}y\mathrm{d}z} & \frac{F_{yz}}{\mathrm{d}y\mathrm{d}z} & \frac{F_{zz}}{\mathrm{d}y\mathrm{d}z} \end{array}\right)\]
+dove l'$i$-esima riga rappresenta la forza per unità di superficie, quando quest'ultima è perpendicolare a $\hat{x}_i$ e ha lati $\mathrm{d}x_j$ e $\mathrm{d}x_k$. A questo punto si ricava da $T$ una forza di volume $\vec F$, tale che
+\[\mathrm{d}F_i=\frac{\partial T_{ij}}{\partial x_j}\mathrm{d}V\]
+Per come ho definito la viscosità, si deve avere una relazione del tipo
+\[T_{ij}=\eta\frac{\partial v_i}{\partial x_j}\]
+Che però ha il grave problema di non essere invariante per rotazioni. Ciò significa che una semplice rotazione del corpo (o, equivalentemente, del sistema di riferimento) comporta la presenza di uno stress interno, che è assurdo. Cerchiamo quindi un tensore di stress simmetrico, ad esempio posso prendere
+\[T_{ij}=\eta\left(\frac{\partial v_i}{\partial x_j}+\frac{\partial v_j}{\partial x_i}\right)\]
+Posto $f_i=\frac{\mathrm{d}F_i}{\mathrm{d}V}$, si ha quindi
+\[f_i=\eta\left(\frac{\partial^2v_i}{\partial x_j\partial x_j}+\frac{\partial^2v_j}{\partial x_j\partial x_i}\right)\]
+Dove si è assunto che $\eta$ sia costante. Se ora supponiamo che il fluido sia incomprimibile e che il campo di velocità rispetti le ipotesi del teorema di Schwarz, l'ultimo termine nella parentesi è
+\[\frac{\partial}{\partial x_i}\vec{\nabla}\cdot\vec{v}=0\]
+Otteniamo quindi
+\[\frac{\partial\vec v}{\partial t}+\vec{\Omega}\times\vec{v}+\frac{1}{2}\vec{\nabla}v^2=-\frac{1}{\rho}\vec{\nabla}p-\vec{\nabla}\phi+\frac{\eta}{\rho}\vec\nabla^2\vec{v}\]
+Se in un problema è presente una lunghezza caratteristica $l$ e una velocità caratteristica $v$, il coefficiente adimensionale
+\[\textrm{Re}=\frac{\rho v l}{\eta}\]
+si chiama numero di Reynolds. Questo numero è molto utile perchè, passando alle coordinate adimensionali $x'=x/l$, $t'=t(v/l)$, si ottiene una versione adimensionale di Navier-Stokes
+\[\frac{\partial\vec v'}{\partial t'}+\vec{\Omega'}\times\vec{v'}+\frac{1}{2}\vec{\nabla'}v'^2=-\vec{\nabla'}p'-\vec{\nabla'}\phi'+\frac{1}{\textrm{Re}}\vec\nabla'^2\vec{v'}\]
+Il comportamento delle soluzioni di questa equazione dipende unicamente dal valore di Re.
+\subsection{Legge di Stevino}
+Per un fluido immerso in gravità, vale banalmente $\frac{\mathrm{d}\vec{F}}{\mathrm{d}V}=\rho\vec{g}$, allora otteniamo
+\[\vec\nabla p=-\rho\vec{g}\]
+
+\subsection{Spinta di Archimede}
+Consideriamo un corpo di volume $V$ e densità $\rho$ immerso in un liquido di densità $\rho_L$. Le forze agenti sul corpo sono allora
+\[\vec F=\vec g\int_{V}\rho\mathrm{d}V+\int_{V}\vec{\nabla}p\mathrm{d}V\]
+dove il segno positivo del secondo integrale è giustificato dal fatto che la pressione viene esercitata \textit{dal} liquido sul corpo. Per la legge di Stevino otteniamo
+\[\vec F=\vec g\int_{V}(\rho-\rho_L)\mathrm{d}V\]
+cioè il corpo riceve una spinta verso l'alto pari al peso del liquido che occuperebbe il suo stesso volume.
+
+\subsection{Esercizi}
+\subsubsection{Tappo}
+\textit{Un tappo di massa $m$ a forma di tronco di cono si trova in un recipiente cilindrico di altezza $H$ contenente un liquido di densità $\rho$, in modo che la base minore, di raggio $r$ si trovi al di sotto di quella maggiore, di raggio $R$. Trovare condizioni su $r$, $R$ e l'altezza del tappo $h$ affinchè esso rimanga sul fondo.}
+\vspace{5mm}
+
+\noindent \textit{Primo approccio.} Un'idea è sfondare il problema di conti.
+
+\noindent\textit{Secondo approccio.} Un'idea decisamente migliore e più elegante è affrontare il problema nel seguente modo: sappiamo che la forza di Archimede è dovuta alla risultante della forza dovuta alla pressione sull'intera superficie del corpo. In questo caso, dato che la base minore non è a contatto con il liquido. Allora la forza dovuta all'interazione con il liquido è semplicemente
+\[\vec{F}=\left[\frac{1}{3}\rho\pi h\left(R^2+r^2+Rr\right)-\rho g\pi r^2H\right]\hat{z}\]
+Allora, detta $\vec{N}=N\hat{z}$ la reazione vincolare del fondo della bottiglia, all'equilibrio si deve avere
+\[\frac{1}{3}\rho\pi h\left(R^2+r^2+Rr\right)-\rho g\pi r^2H+N-mg=0\]
+Banalmente la condizione da imporre è $N\geq 0$.
+\subsubsection{Pianeta}
+\textit{Si consideri un pianeta quasi sferico formato interamente di un fluido incomprimibile di densità $\rho$, massa totale $M$ in rotazione intorno al proprio asse con una bassa velocità angolare $\omega$. All'equilibrio, la distanza tra il centro del pianeta e i poli è $R_p$.}
+
+\noindent\textit{(a) Approssimando il potenziale gravitazionale sulla superficie con $-GM/r$, trovare la pressione in prossimità della superficie}
+
+\noindent\textit{(b) Trovare un'equazione per la superficie del pianeta.}
+
+\noindent\textit{(c) Detto $R_e$ il raggio all'equatore, supponendo che $|R_e-R_p|\ll R_p$), trovare un'espressione che descriva la deviazione della sfericità e valutarla per la terra ($R_p=6400$ km, $M=6\cdot10^{24}$ kg).}
+\vspace{5mm}
+
+\noindent (a) Mi metto nel sistema non inerziale solidale al pianeta, con asse $\hat{z}$ diretto lungo l'asse di rotazione e origine nel centro del pianeta. In coordinate sferiche, e all'equilibrio, l'equazione di Eulero si scrive come
+\[\frac{\partial p}{\partial r}\hat{r}+\frac{1}{r}\frac{\partial p}{\partial \theta}\hat{\theta}=-\frac{GM\rho}{r^2}\hat{r}+\rho\omega^2r\sin\theta\left(\hat{\theta}\cos\theta+\hat{r}\sin\theta\right)\]
+Dato che il pianeta è simmetrico lungo $\hat{\phi}$. In particolare, si ha
+\[\frac{\partial p}{\partial r}=-\frac{GM\rho}{r^2}+\rho\omega^2\sin^2\theta\]
+Ovvero, se $R=R(\theta)$ è la distanza tra superficie e centro del pianeta all'angolo $\theta$:
+\[p(h,\theta)=GM\rho\left(\frac{1}{R(\theta)-h}-\frac{1}{R(\theta)}\right)+\frac{1}{2}\rho\omega^2\sin^2\theta\left[\left(R(\theta)-h\right)^2-R^2(\theta)\right]\]
+Dove si è indicata con $h$ la profondità e si è usato il fatto che $p(0,\theta)=0$. Se $h\ll R$, si ha
+\[p(h,\theta)\approx\frac{GM\rho h}{R^2(\theta)}+\rho\omega^2R\sin^2\theta h\]
+
+\noindent (b) Il potenziale sulla superficie è
+\[U=-\frac{GM}{R(\theta)}-\frac{1}{2}\omega^2R^2(\theta)\sin^2\theta\]
+E dato che la superficie deve essere equipotenziale, ottengo
+\[2KR(\theta)=2GM+\omega^2R^3(\theta)\sin^2\theta\]
+per un'opportuna costante $K$. Dato che $R(0)=R(\pi)=R_p$, ottengo
+\[K=\frac{GM}{R_p}\]
+
+\noindent (c) All'equatore si ha
+\[2\frac{GM}{R_p}R_e=2GM+\omega^2R_e^3\]
+Ovvero
+\[R_e-R_p=\frac{\omega^2R_e^3R_p}{2GM}\approx\frac{\omega^2R_p^4}{2GM}\]
+E per la Terra risulta $R_e-R_p\sim 10$ km.
+
+\subsubsection{Moto laminare}
+\textit{Un fluido incomprimibile di viscosità $\eta$ si muove grazie a una pompa in un tubo circolare di raggio $R$ e lunghezza $L$. Il moto è laminare e la velocità di un punto del fluido è costante nel tempo, la pressione del fluido è $p_1$ in entrata e $p_2$ in uscita ($p_1>p_2$). Trovare la portata del tubo. Trascurare la gravità.}
+\vspace{5mm}
+
+\noindent Scrivo Navier-Stokes:
+\[\rho\frac{\partial\vec{v}}{\partial t}+\rho\left(\vec{v}\cdot\vec{\nabla}\right)\vec{v}+\vec{\nabla}p=\vec{F}+\eta\vec{\nabla}^2\vec{v}\]
+E scelgo le coordinate cilindriche. Per simmetria e laminarità, ho $\vec{v}=v(r)\hat{z}$, e inoltre $\vec{F}=0$. Ho quindi:
+\[\frac{\partial \vec{v}}{\partial t}=0\]
+\[\left(\vec{v}\cdot\vec{\nabla}\right)\vec{v}=v\frac{\partial\vec{v}}{\partial z}=0\]
+\[\vec{\nabla}^2\vec{v}=\frac{1}{r}\frac{\partial}{\partial r}\left(r\frac{\partial v}{\partial r}\right)\hat{z}\]
+Dove ho usato l'espressione del laplaciano in cilindriche. Allora Navier-Stokes si riduce a 
+\[\vec{\nabla}p=\eta\frac{1}{r}\frac{\partial}{\partial r}\left(r\frac{\partial v}{\partial r}\right)\hat{z}\]
+Da cui, dall'espressione del gradiente in cilindriche, ottengo $p=p(z)$. Allora ho
+\[\frac{\partial p}{\partial z}=\eta\frac{1}{r}\frac{\partial}{\partial r}\left(r\frac{\partial v}{\partial r}\right)\]
+Entrambi i membri dipendono rispettivamente da una sola variabile, quindi sono entrambi uguali a una costante. In particolare
+\[\frac{\partial p}{\partial z}=\frac{p_2-p_1}{L}\]
+Allora, posto $\Delta p=p_1-p_2>0$, ottengo
+\[\frac{\partial}{\partial r}\left(r\frac{\partial v}{\partial r}\right)=-\frac{\Delta p}{\eta L}r\]
+Che integrata due volte dà
+\[v(r)=-\frac{\Delta p}{4\eta L}r^2+B\log r+C\]
+Con $B$ e $C$ costanti di integrazione. Le condizioni $v(R)=0$ e $v(0)$ finita determinano $B$ e $C$, ottenendo
+\[v(r)=\frac{\Delta p}{4\eta L}\left(R^2-r^2\right)\]
+A questo punto, detta $Q$ la portata, si ha
+\[Q=2\pi\int_{0}^{R}rv(r)\mathrm{d}r=\frac{\pi R^4\Delta p}{8\eta L}\]
+Questa relazione è nota come legge di Poiseuille.
+
+\subsubsection{Moto di un fluido}
+\textit{Si consideri un cilindro di raggio $R$ e lunghezza infinita circondato da un fluido il cui campo di velocità, a grande distanza dal cilindro, è perpendicolare all'asse di quest'ultimo. Se il fluido è incomprimibile e il moto è irrotazionale, trovare il campo di velocità.}
+\vspace{5mm}
+
+\noindent Le equazioni di Eulero e di continuità si scrivono come
+\[\vec{\nabla}\times\vec{v}=0\]
+\[\vec{\nabla}\cdot\vec{v}=0\]
+Scegliamo un sistema di riferimento cartesiano centrato nell'asse del cilindro e tale che a grande distanza la velocità del fluido sia (circa) orizzontale. In tale sistema, le condizioni al contorno sono
+Le condizioni al contorno $\lim\limits_{x\to\infty}\hat{y}\cdot\vec{v}(\vec{r})=\lim\limits_{y\to\infty}\hat{y}\cdot\vec{v}(\vec{r})=0$ 
+e che la velocità sia tangente al cilindro quando $|\vec{r}|=R$. Consideriamo il campo di velocità
+\[\vec{v}(\vec{r})=\left\{\begin{array}{l l r}
+E\vec{r}&&\textrm{ se $|\vec{r}|\leq R$}\\
+E\frac{R^2}{|\vec{r}|^2}\vec{r}&&\textrm{se $|\vec{r}|\geq R$}
+\end{array}\right.\]
+Dove $E$ è un'opportuna costante. Ora immaginiamo di sovrapporre due di tali campi, uno centrato in $(\delta,0)$ e uno, con $E$ opposta, centrato in $(-\delta,0)$. Se $\delta\ll R$, si ottiene il campo di velocità
+\[\vec{v}(\vec{r})=\left\{\begin{array}{l l r}
+-2E\delta\hat{x}&&\textrm{ se $|\vec{r}|\leq R$}\\
+-2\delta ER^2\left(\frac{y^2-x^2}{r^4}\hat{x}-\frac{2xy}{r^4}\hat{y}\right)&&\textrm{se $|\vec{r}|\geq R$}
+\end{array}\right.\]
+Una tale soluzione è valida per $|\vec{r}|\geq R$. Inoltre, ci aspettiamo che in assenza del cilidro anche $\vec{v}=v_0\hat{x}$ sia soluzione. Resta da determinare se esistono soluzioni aggiuntive del tipo
+\[\vec{v}(\vec{r})=f(r)\left(-\frac{y}{r}\hat{x}+\frac{x}{r}\hat{y}\right)\]
+Una soluzione di questo tipo risolve sempre $\vec{\nabla}\cdot\vec{v}=0$. La condizione di irrotazionalità è
+soddisfatta se 
+\[f(r)=\frac{k}{r}\]
+Allora il campo cercato è del tipo
+\[v_x(\vec{r})=v_0\left(1+\frac{R^2(y^2-x^2)}{r^4}\right)-\frac{ky}{r^2}\]
+\[v_y(\vec{r})=-2v_0\frac{R^2xy}{r^4}+\frac{kx}{r^2}\]
+Dove si posto $-2\delta E=v_0$.
+
+\subsubsection{Regime di Stokes}
+\textit{Mostrare che se il numero di Reynolds è basso, la forza agente su una sfera di raggio $R$ in moto con velocità $v$ in un fluido incomprimibile di densità $\rho$ e viscosità $\eta$ è $F=6\pi\eta Rv$.}
+\vspace{5mm}
+
+\noindent Immaginiamo la sfera ferma nell'origine e il fluido in moto a velocità $\vec v$, pressochè orizzontale a grande distanza dalla sfera. Se il numero di Reynolds è sufficientemente basso, possiamo scrivere approssimativamente
+\[\vec{\nabla}\cdot\vec{v}=0\]
+\[\vec{\nabla}p=\eta\vec{\nabla}^2\vec{v}=-\eta\vec{\nabla}\times\vec\Omega\]
+In coordinate cilindriche con asse $\hat{z}$ parallelo a $\vec{v}$ a grandi distanze dall'origine, quel volpone di Stokes ha trovato la soluzione
+\[v_r=-\frac{1}{r}\frac{\partial\psi(x,z)}{\partial z}\]
+\[v_z=\frac{1}{r}\frac{\partial\psi(x,z)}{\partial r}\]
+Dove $\psi(x,z)$ è la funzione
+\[\psi(x,z)=-\frac{1}{2}vr^2\left[1-\frac{3}{2}\frac{R}{\sqrt{r^2+z^2}}+\frac{1}{2}\left(\frac{R}{\sqrt{r^2+z^2}}\right)^3\right]\]
+Sorprendentemente, si scopre che la forza per unità di superficie è costante lungo la sfera e pari a
+\[\frac{3\eta v}{2 R}\hat{z}\]
+Da cui $F=6\pi\eta Rv$.
+\newpage
+\section{Calorimetria e termodinamica}
+\subsection{Equazione del calore}
+Consideriamo un corpo in una dimensione e sia $T(x,t)$ il suo campo di temperatura. Definiamo flusso di calore la quantità $J=\dot{Q}/S$. Diamo per nota la legge di Fourier, secondo cui il flusso di calore rispetta l'equazione
+\[J=-\sigma\frac{\partial T(x,t)}{\partial x}\]
+valida solamente in regime di conduzione. Da ciò si può ottenere l'equazione del calore. Infatti, in generale vale
+\[c\frac{\partial T(x,t)}{\partial t}=-\frac{\partial J}{\partial x}\]
+da cui
+\[\frac{\partial T(x,t)}{\partial t}=\mu\frac{\partial^2T(x,t)}{\partial x^2}\]
+con $\mu=\sigma/c$, dove $\sigma$ e $c$ sono rispettivamente la conducibilità termica e la capacità termica per unità di volume. In generale, equazioni di questo tipo descrivono un rilassamento nel tempo di una grandezza fisica
+
+\noindent Generalizzando a tre dimensioni, si ottiene
+\[\left(\frac{\partial}{\partial t}-\mu\nabla^2\right)T(x,y,z,t)=0\]
+
+\subsubsection{Resistenze termiche}
+In generale, detto $\dot{Q}$ la quantità di calore che attraversa per unità di tempo una data superficie in cui la differenza di temperatura tra le due facce è $\Delta T$, posso dire che
+\[\dot{Q}\propto \Delta T\]
+Posto allora $I=\dot{Q}$, ottengo un analogo della legge di Ohm nella forma
+\[\Delta T=-R_TI\]
+dove $I=\dot{Q}$ e $R_T$ prende il nome di resistenza termica, che dipende dalla geometria e dalla composizione del corpo. Ad esempio, per una sbarra lunga $L$ di conducibilità termica $\sigma$ e sezione $S$ costanti si ha
+\[R_T=\frac{L}{\sigma S}\]
+Più in generale, vale
+\[I=-\int_{S}\sigma\frac{\partial T}{\partial x}\mathrm{d}S\]
+Da un punto di vista formale posso modellizzare i contatti termici come resistenze termiche e trattare i corpi come condensatori, in cui la capacità è rimpiazzata dalla capacità termica e il potenziale dall'energia. A questo punto la trattazione è analoga a quella dei circuiti. Inoltre, se ho dei corpi collegati tra di loro da contatti termici posso studiarli in modo analogo a quanto fatto per gli oscillatori accoppiati. Tra l'altro, se si immagina una sequenza infinita di corpi uguali collegati da contatti termici uguali, si deduce l'equazione del calore in modo analogo a quanto fatto con l'equazione d'onda.
+
+\subsection{Primo principio}
+Vogliamo ottenere una forma equivalente della conservazione dell'energia per un sistema termidinamico. L'idea è scrivere 
+\[\Delta U+L=Q\]
+dove $Q$ è un'opportuna funzione, introdotta dal momento che il lavoro $L$ non dipende solamente dallo stato iniziale e da quello finale, come invece accade per $U$. In sostanza, $Q$ modellizza il fatto che un sistema termodinamico può scambiare energia anche sotto forme diverse dal lavoro meccanico. Viene naturale allora scrivere il primo principio in forma differenziale come segue
+\[\mathrm{d}U=\delta Q-\delta L\]
+dove il simbolo $\delta$ indica un differenziale inesatto, ovvero l'incremento della quantità considerata (nel nostro caso, $Q$ o $L$) dipende dal particolare percorso tra lo stato iniziale e lo stato finale.
+
+\subsection{Differenziali esatti}
+Supponiamo di avere una quantità $A$ il cui incremento si può scrivere come
+\[\mathrm{d}A=f(x,y)\mathrm{d}x+g(x,y)\mathrm{d}y\]
+L'idea è che $A$ è scrivibile come funzione di $x$ e $y$ solo se si verifica la condizione
+\[\frac{\partial f(x,y)}{\partial y}=\frac{\partial g(x,y)}{\partial x}\]
+ovvero che le derivate miste commutino, i.e.
+\[\frac{\partial^2A}{\partial x\partial y}=\frac{\partial^2A}{\partial y\partial x}\]
+Se ciò accade, $\mathrm{d}A$ è un differenziale esatto. Questa condizione è analoga al test del rotore per la conservatività di una forza.
+
+\subsubsection{Capacità termica}
+Sappiamo che la capacità termica è per definizione $C=\mathrm{d}Q/\mathrm{d}T$. Dato che in generale $\mathrm{d}Q$ dipende dalla trasformazione considerata, avremo diversi valori di $C$ a seconda che la trasformazione avvenga, ad esempio, a pressione o a volume costante. Se scriviamo ora il primo principio
+\[\mathrm{d}U=\delta Q-p\mathrm{d}V\]
+Otteniamo le due seguenti capacità termiche
+\[C_P=\left(\frac{\partial U}{\partial T}\right)_p+p\left(\frac{\partial V}{\partial T}\right)_p\]
+\[C_V=\left(\frac{\partial U}{\partial T}\right)_V\]
+In generale, per un sistema $P,V,T$ si ha
+\[C_P-C_V=T\left(\frac{\partial V}{\partial T}\right)_{p}\left(\frac{\partial p}{\partial T}\right)_{V}\]
+
+\subsection{Gas perfetti}
+Definiamo gas perfetto un gas che obbedisce all'equazione di stato $pV=nRT$ e la cui energia interna è scrivibile come $U=c_vnT$. In realtà, la seconda ipotesi è ridondante, come sarà mostrato nella sezione \ref{energia}.
+
+\subsection{Entropia}
+\subsection{Secondo principio}
+\textbf{Enunciato di Clausius:} è impossibile realizzare una trasformazione il cui unico risultato sia trasferire calore da un corpo freddo a un corpo caldo.
+
+\noindent\textbf{Enunciato di Kelvin-Planck:} è impossibile realizzare una trasformazione ciclica che converta integralmente in lavoro il calore assorbito da una sorgente.
+
+\noindent Il secondo principio implica che lo spazio delle fasi di un sistema termodinamico può essere partizionato nelle superfici che collegano punti su una stessa adiabatica.
+
+\subsection{Definizione di temperatura assoluta alla Carathéodory}
+Consideriamo un sistema termodinamico con due variabili $X_1,X_2$. Se $\theta$ indica la temperatura fenomenologica, posso descrivere le superfici appartenenti ad una adiabatica come insiemi di livello di una certa funzione $\sigma(\theta,X_1,X_2)$. Inoltre, l'energia interna sarà $U=U(\theta,X_1,X_2)$. Ora, se baro un po', posso scrivere $\theta=\theta(\sigma,X_1,X_2)$, pertanto il primo principio si scrive come
+\[\delta Q=\frac{\partial U}{\partial \sigma}\mathrm{d}\sigma+\frac{\partial U}{\partial X_1}\mathrm{d}X_1+\frac{\partial U}{\partial X_2}\mathrm{d}X_2+Y_1\mathrm{d}X_1+Y_2\mathrm{d}X_2\]
+Dove $Y_1,Y_2$ modellizzano un qualche lavoro generalizzato. Se consideriamo un'adiabatica reversibile, si ha $\delta Q=0$ e $\mathrm{d}\sigma=0$, pertanto
+\[\left(\frac{\partial U}{\partial X_1}+Y_1\right)\mathrm{d}X_1+\left(\frac{\partial U}{\partial X_2}+Y_2\right)\mathrm{d}X_2=0\]
+Data l'arbitrarietà della trasformazione, i due termini tra parentesi sono entrambi nulli. Allora posso scrivere
+\[\mathrm{d}\sigma=\frac{\delta Q}{\left(\frac{\partial U}{\partial \sigma}\right)_{X_1,X_2}}\]
+Ovvero, il secondo principio implica che esiste un opportuno fattore integrante $u$ tale che $u\delta Q$ è un differenziale esatto. Poniamo per brevità di notazione $\lambda=\frac{\partial U}{\partial \sigma}$.
+\vspace{5mm}
+
+\noindent Consideriamo ora due corpi in contatto termico, ed entrambi in contatto termico con un bagno termico a temperatura $\theta$. Per ciascuno dei due corpi esistono le funzioni $\sigma(\theta,X_1,X_2)$, $\lambda(\theta,X_1,X_2)$ e $\hat{\sigma}(\theta,\hat{X}_1,\hat X_2)$, $\hat{\lambda}(\theta,\hat X_1,\hat X_2)$. Inoltre, per il sistema costituito dai due corpi esistono le funzioni $\overline{\sigma}(\theta,X_1\hat X_1,X_2,\hat X_2)$ e $\overline{\lambda}(\theta,\sigma,\hat{\sigma},X_1,\hat X_1)$. Facendo un paio di conti, si giunge a
+\[\frac{\lambda}{\overline{\lambda}}=\frac{\partial \overline{\sigma}}{\partial \sigma}\]
+\[\frac{\hat\lambda}{\overline{\lambda}}=\frac{\partial \overline{\sigma}}{\partial \hat\sigma}\]
+Se $\lambda,\hat{\lambda}$ e $\overline{\lambda}$ non dipendessero da $\theta$, si avrebbe $\delta Q=\lambda(\sigma)\mathrm{d}\sigma$, ovvero $\delta Q$ sarebbe un differenziale esatto. Data però la relazione sui rapporti, $\lambda,\hat{\lambda}$ e $\overline{\lambda}$ devono dipendere da $\theta$ allo stesso modo. Scrivo quindi
+\[\lambda=\varphi(\theta)f(\sigma)\]
+\[\hat{\lambda}=\varphi(\theta)\hat{f}(\hat\sigma)\]
+\[\overline{\lambda}=\varphi(\theta)\overline{f}(\overline\sigma)\]
+Dato che $f(\sigma)\mathrm{d}\sigma$ (e analogamente per le quantità barrate e con cappuccio) è un differenziale esatto, $\varphi(\theta)$ è un fattore interante per $\delta Q$. Se ora considero il rendimento di un ciclo di Carnot, trovo che
+\[\frac{\varphi(\theta_1)}{\varphi(\theta_2)}=\frac{\theta_1}{\theta_2}\]
+Definisco $T=\varphi(\theta)$ come temperatura assoluta, e noto che in realtà la stavo già utilizzando nel caso di un gas perfetto. Chiamo entropia la quantità che ha per differenziale $\mathrm{d}S=f(\sigma)\mathrm{d}\sigma$, ottenendo
+\[\delta Q=T\mathrm{d}S\]
+Bisogna notare che tale relazione vale solo per trasformazioni reversibili. Se due punti $A$ e $B$ sono collegati da una trasformazione irreversibile, si può calcolare la variazione di entropia su una qualunque trasformazione reversibile che collega $A$ e $B$.
+
+\subsection{Entropia e primo principio}
+\[\Delta S=\int_{A}^{B}\frac{\delta Q_{rev}}{T}\]
+\[\mathrm{d}U+p\mathrm{d}V=T\mathrm{d}S\]
+\subsection{Indipendenza dell'energia interna dal volume \label{energia}}
+Dato che $S$ è una funzione di stato, $\mathrm{dS}$ è un differenziale esatto. Per il primo principio possiamo scrivere
+\[\mathrm{d}S=\frac{1}{T}\left[\left(\frac{\partial U}{\partial V}\right)_T\mathrm{d}V+\left(\frac{\partial U}{\partial T}\right)_V\mathrm{d}T+p\mathrm{d}V\right]\]
+Quindi otteniamo la condizione
+\[\frac{\partial}{\partial T}\left[\frac{p}{T}+\frac{1}{T}\left(\frac{\partial U}{\partial V}\right)_T\right]=\frac{\partial}{\partial V}\left[\frac{1}{T}\left(\frac{\partial U}{\partial T}\right)_V\right]\]
+ovvero 
+\[T\left(\frac{\partial p}{\partial T}\right)_V=p+\left(\frac{\partial U}{\partial V}\right)_T\]
+Inserendo $pV=nRT$, valida per un gas perfetto, otteniamo
+\[\left(\frac{\partial U}{\partial V}\right)_T=0\]
+cioè $U=U(T)$.
+
+\subsection{Teorema di Carnot}
+\textit{Ogni trasformazione ciclica tra due sorgenti ha un rendimento al più uguale al rendimento di un ciclo di Carnot tra le stesse sorgenti.}
+
+\noindent Immaginiamo due sorgenti a temperature $T_1$ e $T_2<T_1$ e una macchina termica tra le due sorgenti, con rendimento $\eta$ maggiore del corrispondente rendimento di Carnot $\eta_c$. Se la macchina estrae un calore $Q_1$ dalla sorgente calda e cede un calore $Q_2$ alla sorgente fredda, il lavoro ottenuto è $W=Q_1-Q_2$. Se usiamo questo lavoro per far lavorare al contrario una macchina di Carnot tra le stesse sorgenti, il calore estratto dalla sorgente a temperatura $T_2$ è
+\[Q_2'=\frac{1-\eta_c}{\eta_c}W\]
+E il calore ceduto alla sorgente a temperatura $T_1$ è
+\[Q_1'=W+Q_2'=\frac{W}{\eta_c}\]
+Dato che $W=\eta Q_1$, si ha che in una trasformazione ciclica viene sottratto un calore $\tilde{Q}_2$ dalla sorgente fredda e viene ceduto un calore $\tilde{Q}_1$ alla sorgente calda pari a
+\[\tilde{Q}_1=\tilde{Q}_2=\left(\frac{1}{\eta_c}-\frac{1}{\eta}\right)W>0\]
+Che è in contrasto con il secondo principio, nell'enunciato di Clausius.
+
+\subsection{Disuguaglianza di Clausius}
+\textit{Per una qualunque trasformazione in cui un sistema assorbe del calore $Q_i$ da $n$ sorgenti a temperatura $T_i$, si ha
+\[\sum_{i=1}^{n}\frac{Q_i}{T_i}\leq 0\]
+Con uguaglianza solo se tutte le trasformazioni sono reversibili.}
+
+\noindent Consideriamo un bagno termico a temperatura $T_0$, collegato con ognuna delle sorgenti tramite una macchina di Carnot. Se si fa in modo che il calore ceduto alla sorgente $i$ sia proprio $Q_i$, e detto $Q_{i,0}$ il calore estratto dalla $i$-esima macchina dal bagno termico, si ha
+\[\frac{Q_i}{T_i}=\frac{Q_{i,0}}{T_0}\]
+Ovvero
+\[\sum_{i=1}^{n}\frac{Q_i}{T_i}=\frac{1}{T_0}\sum_{i=1}^{n}Q_{i,0}\]
+Ho quindi costruito una macchina ciclica che estrae un calore $\sum_{i=1}^{n}Q_{i,0}$ dal bagno termico a temperatura $T_0$ e fornisce un lavoro $W$. Se fosse $\sum_{i=1}^{n}Q_{i,0}>0$, violerei il secondo principio, nella formulazione di Kelvin-Planck.
+Se ora $n\to+\infty$ e $Q_i\to0$, ottengo che per una trasformazione ciclica
+\[\oint\frac{\delta Q}{T}\leq0\]
+E se la trasformazione è reversibile
+\[\oint\frac{\delta Q_{rev}}{T}=0\]
+Ovvero ho dimostrato in un altro modo che $\frac{\delta Q_{rev}}{T}$ è un differenziale esatto.
+
+\subsection{Potenziali termodinamici}
+Notiamo che per la disuguaglianza di Clausius abbiamo in una trasformazione infinitesima $\delta Q\leq T\mathrm{d}S$, con uguaglianza se e solo se la trasformazione è reversibile. Allora, per un sistema $p$-$V$ il primo principio si scrive come
+\[\delta L\leq T\mathrm{d}S-\mathrm{d}U\]
+\[\mathrm{d}U-T\mathrm{d}S+p\mathrm{d}V\leq0\]
+Elenco ora un paio di potenziali termodinamici:
+\begin{enumerate}
+	\item Energia interna $U$: vale $\mathrm{d}U=T\mathrm{d}S-p\mathrm{d}V$.
+	\item Entalpia $H$: vale $H=U+pV$, o equivalentemente $\mathrm{d}H=T\mathrm{d}S+V\mathrm{d}p$. Per una trasformazione a pressione e entropia costante, si ha $\mathrm{d}H\leq0$. Se invece solo $p$ è costante, si ha $\mathrm{d}H=\delta Q$.
+	\item Energia libera di Helmholtz $F$: vale $F=U-TS$, o equivalentemente $\mathrm{d}F=-p\mathrm{d}V-~S\mathrm{d}T$. Se considero una trasformazione isocora e isoterma, ho $\mathrm{d}F\leq 0$. In particolare, nelle isoterme $\delta L\leq-\mathrm{d}F$, quindi $F$ è una misura del lavoro estraibile da un sistema.
+	\item Energia libera di Gibbs $G$: vale $G=H-TS$, o equivalentemente $\mathrm{d}G=V\mathrm{d}p-S\mathrm{d}T$. In una trasformazione isobara e isoterma, $\mathrm{d}G\leq 0$.
+\end{enumerate}
+In generale quindi, una particolare trasformazione spontanea, in cui alcune variabili rimangono costanti, si ferma quando uno dei potenziali termodinamici raggiunge un minimo.
+\subsection{Relazioni di Maxwell}
+Dimostro un paio di equazioni chiamate relazioni di Maxwell:
+\begin{enumerate}
+
+\item \[\left(\frac{\partial T}{\partial V}\right)_S=-\left(\frac{\partial p}{\partial S}\right)_V\]
+Infatti dal primo principio si ricavano
+\[T=\left(\frac{\partial U}{\partial S}\right)_V\]
+\[p=-\left(\frac{\partial U}{\partial V}\right)_S\]
+E dato che $U$ è una funzione di stato si ottiene la tesi.
+\item \[\left(\frac{\partial V}{\partial T}\right)_p=-\left(\frac{\partial S}{\partial p}\right)_T\]
+Infatti dall'espressione di $\mathrm{d}G$ si ricavano
+\[V=\left(\frac{\partial G}{\partial p}\right)_T\]
+\[S=-\left(\frac{\partial G}{\partial T}\right)_V\]
+E dato che $G$ è una funzione di stato si ottiene la tesi.
+\item \[\left(\frac{\partial V}{\partial S}\right)_p=\left(\frac{\partial T}{\partial p}\right)_S\]
+Infatti dall'espressione di $\mathrm{d}H$ si ricavano
+\[T=\left(\frac{\partial H}{\partial S}\right)_p\]
+\[V=\left(\frac{\partial H}{\partial p}\right)_S\]
+E dato che $H$ è una funzione di stato si ottiene la tesi.
+\item \[\left(\frac{\partial p}{\partial T}\right)_V=\left(\frac{\partial S}{\partial V}\right)_T\]
+Infatti dall'espressione di $\mathrm{d}F$ si ricavano
+\[p=-\left(\frac{\partial F}{\partial V}\right)_T\]
+\[S=-\left(\frac{\partial F}{\partial T}\right)_V\]
+E dato che $G$ è una funzione di stato si ottiene la tesi.
+\end{enumerate}
+
+\subsection{Equazione di Clapeyron}
+Consideriamo un sistema durante una transizione di fase, e in particolare consideriamo due punti $A$ e $B$ sulla curva di equilibrio. Dato che $\mathrm{d}G=V\mathrm{d}p-S\mathrm{d}T$, $G$ è costante durante una transizione di fase. Allora ottengo
+\[V_A\mathrm{d}p-S_A\mathrm{d}T=V_B\mathrm{d}p-S_B\mathrm{d}T\]
+Noto ora che 
+\[S_B-S_A=\frac{\lambda M}{T}\]
+con $M$ massa del sistema e $\lambda$ calore latente. Allora ottengo
+\[\frac{\mathrm{d}p}{\mathrm{d}T}=\frac{\lambda M}{T\left(V_B-V_A\right)}\]
+
+
+\subsection{Esercizi}
+\subsubsection{Entropia}
+\textit{Consideriamo un sistema termodinamico in cui l'entropia $S$, il numero di particelle $N$, il volume $V$ e l'energia interna $U$ sono legati dalla relazione $S=A\sqrt[3]{NVU}$, con $A$ costante opportuna. Trovare:}
+
+\noindent \textit{(a) una relazione tra $U$, $N$, $V$ e $T$, con $T$ temperatura del sistema}
+
+\noindent \textit{(b) una relazione tra $N$, $V$, $T$ e la pressione $p$}
+
+\noindent \textit{(c) il calore specifico a volume costante $c_V$}
+\vspace{5mm}
+
+\noindent (a) Consideriamo una trasformazione a volume costante. Allora per il primo principio $\mathrm{d}U=T\mathrm{d}S$, da cui
+\[T=\left(\frac{\partial U}{\partial S}\right)_{V,N}\]
+Da cui $27U^2=A^6T^3NV$.
+
+\noindent (b) Utilizzando il primo principio otteniamo
+\[p=-\left(\frac{\partial U}{\partial V}\right)_{N,T}+T\left(\frac{\partial S}{\partial V}\right)_{T,N}\]
+Svolgendo i conti si dovrebbe ottenere
+\[p=\frac{A^2T}{2}\sqrt{\frac{NT}{3V}}\left(T-\frac{1}{3}A\right)\]
+
+\noindent (c) Chiaramente
+\[c_V=\left(\frac{\partial U}{\partial T}\right)_{V}=\frac{A^3}{2}\sqrt{\frac{NVT}{3}}\]
+\subsubsection{Motore ad acqua}
+\textit{Immaginiamo un motore ad acqua come una scatola in cui entrano, con energia cinetica trascurabile, due getti d'acqua a temperature $T_1$ e $T_2$ ($T_1>T_2$) e da cui esce un singolo getto d'acqua ad alta velocità e a temperatura $T$. Considerando la capacità termica per unità di volume $C$ dell'acqua indipendente dalla temperatura, ricavare la velocità in uscita. Qual è il suo valore massimo?}
+
+\noindent Consideriamo due volumi uguali di acqua in entrata che escono poi insieme. Imponendo la conservazione dell'energia per unità di volume, detta $\rho$ la densità dell'acqua, si ha
+
+\[\frac{1}{2}\rho v^2+2CT=CT_1+CT_2\]
+Ovvero
+\[v=\sqrt{\frac{2C}{\rho}\left(T_1+T_2-2T\right)}\]
+
+La variazione di entropia dei due volumi è
+\[\Delta S=C\left(\int_{T_1}^{T}\frac{\mathrm{d}T}{T}+\int_{T_2}^{T}\frac{\mathrm{d}T}{T}\right)=C\log\frac{T^2}{T_1T_2}\]
+Dovendo essere $\Delta S\geq0$, si ha
+\[v\leq v_{max}=\left(\sqrt{T_1}-\sqrt{T_2}\right)\sqrt{\frac{2C}{\rho}}\]
+\subsubsection{Legge di Stefan-Boltzmann}
+\textit{Sapendo che la pressione di radiazione di un'onda elettromagnetica è $p=\frac{1}{3}u$, dove $u$ è la densità di energia, ricavare la legge di Stefan-Boltzmann.}
+
+\noindent Per il primo principio, ho
+\[u=\left(\frac{\partial U}{\partial V}\right)_T=T\left(\frac{\partial S}{\partial V}\right)_T-p\]
+Usando inoltre la relazione di Maxwell
+\[\left(\frac{\partial S}{\partial V}\right)_T=\left(\frac{\partial p}{\partial T}\right)_V\]
+Si ottiene
+\[u=\frac{1}{3}T\frac{\mathrm{d}u}{\mathrm{d}T}-\frac{1}{3}u\]
+Che integrata è proprio
+\[u=\sigma T^4\]
+\end{document}

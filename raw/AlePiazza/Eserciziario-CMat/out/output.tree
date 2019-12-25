@@ -1,0 +1,788 @@
+{
+   "ID":"@",
+   "block_name":"root-block",
+   "N. ch_blocks":"30",
+   "tree_depth":"-1",
+   "title":"Complementi di Matematica - Esercitazioni",
+   "children_blocks":[
+      {
+         "ID":"@-tks",
+         "block_name":"par",
+         "N. ch_blocks":"0",
+         "tree_depth":"0",
+         "children_blocks":[
+         ],
+      }
+      {
+         "ID":"@-rv8",
+         "block_name":"maketitle",
+         "N. ch_blocks":"0",
+         "tree_depth":"0",
+         "title":"Complementi di Matematica - Esercitazioni",
+         "author":"Alessandro Piazza\thanks{alessandro.piazza@sns.it",
+         "date":"",
+         "children_blocks":[
+         ],
+      }
+      {
+         "ID":"@-3wv",
+         "block_name":"par",
+         "N. ch_blocks":"0",
+         "tree_depth":"0",
+         "children_blocks":[
+         ],
+      }
+      {
+         "ID":"@-bye",
+         "block_name":"clearpage",
+         "N. ch_blocks":"0",
+         "tree_depth":"0",
+         "children_blocks":[
+         ],
+      }
+      {
+         "ID":"@-ud9",
+         "block_name":"par",
+         "N. ch_blocks":"0",
+         "tree_depth":"0",
+         "children_blocks":[
+         ],
+      }
+      {
+         "ID":"@-qcg",
+         "block_name":"abstract",
+         "N. ch_blocks":"14",
+         "tree_depth":"0",
+         "children_blocks":[
+            {
+               "ID":"@-qcg-s07",
+               "block_name":"text",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "text":"Questa è una raccolta di esercizi e problemi per il corso di Complementi di Matematica del primo anno della Scuola Normale Superiore (Fulvio Ricci, Simone di Marino, Andrea Mennucci) per mio bisogno come supporto allo studio. La maggior parte delle soluzioni sono state trascritte da quelle date a lezione o sono state scritte da me, ma anche altri allievi del mio anno hanno contribuito. Sono quindi ben accette segnalazioni di errori, sia typo che concettuali. ",
+               "text_length":"463",
+               "children_blocks":[
+               ],
+            }
+            {
+               "ID":"@-qcg-az8",
+               "block_name":"newline",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "text":"
+",
+               "star":"False",
+               "children_blocks":[
+               ],
+            }
+            {
+               "ID":"@-qcg-ixx",
+               "block_name":"text",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "text":"I testi degli esercizi sono ad opera di Simone di Marino (capitoli 1-12), Ugo Bindini (Appendice A), Andrea Mennucci (",
+               "text_length":"118",
+               "children_blocks":[
+               ],
+            }
+            {
+               "ID":"@-qcg-fhc",
+               "block_name":"emph",
+               "N. ch_blocks":"1",
+               "tree_depth":"1",
+               "text":"Database di Esercizi per corso Matematica I anno",
+               "text_length":"48",
+               "format_type":"emph",
+               "children_blocks":[
+                  {
+                     "ID":"@-qcg-fhc-2r4",
+                     "block_name":"text",
+                     "N. ch_blocks":"0",
+                     "tree_depth":"2",
+                     "text":"Database di Esercizi per corso Matematica I anno",
+                     "text_length":"48",
+                     "children_blocks":[
+                     ],
+                  }
+               ],
+            }
+            {
+               "ID":"@-qcg-ilg",
+               "block_name":"text",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "text":" e capitoli 9-18) e Carlo Mantegazza (",
+               "text_length":"38",
+               "children_blocks":[
+               ],
+            }
+            {
+               "ID":"@-qcg-gko",
+               "block_name":"emph",
+               "N. ch_blocks":"1",
+               "tree_depth":"1",
+               "text":"Complementi di matematica - I anno SNS 2013/14. Esercizi",
+               "text_length":"56",
+               "format_type":"emph",
+               "children_blocks":[
+                  {
+                     "ID":"@-qcg-gko-t2x",
+                     "block_name":"text",
+                     "N. ch_blocks":"0",
+                     "tree_depth":"2",
+                     "text":"Complementi di matematica - I anno SNS 2013/14. Esercizi",
+                     "text_length":"56",
+                     "children_blocks":[
+                     ],
+                  }
+               ],
+            }
+            {
+               "ID":"@-qcg-0ht",
+               "block_name":"text",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "text":"). Nell'Appendice A sono riportati i testi di alcuni esercizi dei compiti scritti ad opera dei docenti del corso dell'anno del compito. ",
+               "text_length":"136",
+               "children_blocks":[
+               ],
+            }
+            {
+               "ID":"@-qcg-xy3",
+               "block_name":"newline",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "text":"
+",
+               "star":"False",
+               "children_blocks":[
+               ],
+            }
+            {
+               "ID":"@-qcg-icu",
+               "block_name":"mandatory_space",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "length":"None",
+               "star":"False",
+               "children_blocks":[
+               ],
+            }
+            {
+               "ID":"@-qcg-olx",
+               "block_name":"newline",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "text":"
+",
+               "star":"False",
+               "children_blocks":[
+               ],
+            }
+            {
+               "ID":"@-qcg-is7",
+               "block_name":"text",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "text":"Quest'opera è stata rilasciata con licenza Creative Commons Attribuzione - Condividi allo stesso modo 4.0 Internazionale. Per leggere una copia della licenza visita il sito web ",
+               "text_length":"177",
+               "children_blocks":[
+               ],
+            }
+            {
+               "ID":"@-qcg-k3e",
+               "block_name":"default",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "type":"url",
+               "children_blocks":[
+               ],
+            }
+            {
+               "ID":"@-qcg-alp",
+               "block_name":"text",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "text":". ",
+               "text_length":"2",
+               "children_blocks":[
+               ],
+            }
+            {
+               "ID":"@-qcg-x9o",
+               "block_name":"default",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "type":"href",
+               "children_blocks":[
+               ],
+            }
+         ],
+      }
+      {
+         "ID":"@-efc",
+         "block_name":"par",
+         "N. ch_blocks":"0",
+         "tree_depth":"0",
+         "children_blocks":[
+         ],
+      }
+      {
+         "ID":"@-c1h",
+         "block_name":"default",
+         "N. ch_blocks":"0",
+         "tree_depth":"0",
+         "type":"tableofcontents",
+         "children_blocks":[
+         ],
+      }
+      {
+         "ID":"@-32z",
+         "block_name":"par",
+         "N. ch_blocks":"0",
+         "tree_depth":"0",
+         "children_blocks":[
+         ],
+      }
+      {
+         "ID":"@-zrv",
+         "block_name":"clearpage",
+         "N. ch_blocks":"0",
+         "tree_depth":"0",
+         "children_blocks":[
+         ],
+      }
+      {
+         "ID":"@-46e",
+         "block_name":"par",
+         "N. ch_blocks":"0",
+         "tree_depth":"0",
+         "children_blocks":[
+         ],
+      }
+      {
+         "ID":"@-wq2",
+         "block_name":"section",
+         "N. ch_blocks":"2",
+         "tree_depth":"0",
+         "section_name":"section",
+         "title":"Logica e teoria degli insiemi",
+         "index_title":"None",
+         "star":"False",
+         "children_blocks":[
+            {
+               "ID":"@-wq2-dfv",
+               "block_name":"default",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "type":"input",
+               "children_blocks":[
+               ],
+            }
+            {
+               "ID":"@-wq2-u31",
+               "block_name":"par",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "children_blocks":[
+               ],
+            }
+         ],
+      }
+      {
+         "ID":"@-pgu",
+         "block_name":"section",
+         "N. ch_blocks":"2",
+         "tree_depth":"0",
+         "section_name":"section",
+         "title":"Relazioni e funzioni",
+         "index_title":"None",
+         "star":"False",
+         "children_blocks":[
+            {
+               "ID":"@-pgu-go2",
+               "block_name":"default",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "type":"input",
+               "children_blocks":[
+               ],
+            }
+            {
+               "ID":"@-pgu-4ap",
+               "block_name":"par",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "children_blocks":[
+               ],
+            }
+         ],
+      }
+      {
+         "ID":"@-k27",
+         "block_name":"section",
+         "N. ch_blocks":"2",
+         "tree_depth":"0",
+         "section_name":"section",
+         "title":"Esempi di induzione",
+         "index_title":"None",
+         "star":"False",
+         "children_blocks":[
+            {
+               "ID":"@-k27-eic",
+               "block_name":"default",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "type":"input",
+               "children_blocks":[
+               ],
+            }
+            {
+               "ID":"@-k27-b2m",
+               "block_name":"par",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "children_blocks":[
+               ],
+            }
+         ],
+      }
+      {
+         "ID":"@-az7",
+         "block_name":"section",
+         "N. ch_blocks":"2",
+         "tree_depth":"0",
+         "section_name":"section",
+         "title":"Esempi di principio minimo",
+         "index_title":"None",
+         "star":"False",
+         "children_blocks":[
+            {
+               "ID":"@-az7-qdl",
+               "block_name":"default",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "type":"input",
+               "children_blocks":[
+               ],
+            }
+            {
+               "ID":"@-az7-gp8",
+               "block_name":"par",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "children_blocks":[
+               ],
+            }
+         ],
+      }
+      {
+         "ID":"@-ypf",
+         "block_name":"section",
+         "N. ch_blocks":"2",
+         "tree_depth":"0",
+         "section_name":"section",
+         "title":"Cardinalità I",
+         "index_title":"None",
+         "star":"False",
+         "children_blocks":[
+            {
+               "ID":"@-ypf-gae",
+               "block_name":"default",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "type":"input",
+               "children_blocks":[
+               ],
+            }
+            {
+               "ID":"@-ypf-tpt",
+               "block_name":"par",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "children_blocks":[
+               ],
+            }
+         ],
+      }
+      {
+         "ID":"@-atf",
+         "block_name":"section",
+         "N. ch_blocks":"2",
+         "tree_depth":"0",
+         "section_name":"section",
+         "title":"Cardinalità II",
+         "index_title":"None",
+         "star":"False",
+         "children_blocks":[
+            {
+               "ID":"@-atf-gh0",
+               "block_name":"default",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "type":"input",
+               "children_blocks":[
+               ],
+            }
+            {
+               "ID":"@-atf-vy5",
+               "block_name":"par",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "children_blocks":[
+               ],
+            }
+         ],
+      }
+      {
+         "ID":"@-nvv",
+         "block_name":"section",
+         "N. ch_blocks":"2",
+         "tree_depth":"0",
+         "section_name":"section",
+         "title":"Lemma di Zorn e dintorni",
+         "index_title":"None",
+         "star":"False",
+         "children_blocks":[
+            {
+               "ID":"@-nvv-e89",
+               "block_name":"default",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "type":"input",
+               "children_blocks":[
+               ],
+            }
+            {
+               "ID":"@-nvv-lmf",
+               "block_name":"par",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "children_blocks":[
+               ],
+            }
+         ],
+      }
+      {
+         "ID":"@-u1s",
+         "block_name":"section",
+         "N. ch_blocks":"2",
+         "tree_depth":"0",
+         "section_name":"section",
+         "title":"Cardinalità III e operazioni",
+         "index_title":"None",
+         "star":"False",
+         "children_blocks":[
+            {
+               "ID":"@-u1s-p0u",
+               "block_name":"default",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "type":"input",
+               "children_blocks":[
+               ],
+            }
+            {
+               "ID":"@-u1s-8qw",
+               "block_name":"par",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "children_blocks":[
+               ],
+            }
+         ],
+      }
+      {
+         "ID":"@-rin",
+         "block_name":"section",
+         "N. ch_blocks":"1",
+         "tree_depth":"0",
+         "section_name":"section",
+         "title":"Campi ordinati, disuguaglianze, sup e inf",
+         "index_title":"None",
+         "star":"False",
+         "children_blocks":[
+            {
+               "ID":"@-rin-cce",
+               "block_name":"par",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "children_blocks":[
+               ],
+            }
+         ],
+      }
+      {
+         "ID":"@-j3t",
+         "block_name":"section",
+         "N. ch_blocks":"1",
+         "tree_depth":"0",
+         "section_name":"section",
+         "title":"Successioni I",
+         "index_title":"None",
+         "star":"False",
+         "children_blocks":[
+            {
+               "ID":"@-j3t-umh",
+               "block_name":"par",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "children_blocks":[
+               ],
+            }
+         ],
+      }
+      {
+         "ID":"@-hb7",
+         "block_name":"section",
+         "N. ch_blocks":"1",
+         "tree_depth":"0",
+         "section_name":"section",
+         "title":"Successioni II",
+         "index_title":"None",
+         "star":"False",
+         "children_blocks":[
+            {
+               "ID":"@-hb7-2t6",
+               "block_name":"par",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "children_blocks":[
+               ],
+            }
+         ],
+      }
+      {
+         "ID":"@-915",
+         "block_name":"section",
+         "N. ch_blocks":"1",
+         "tree_depth":"0",
+         "section_name":"section",
+         "title":"Serie",
+         "index_title":"None",
+         "star":"False",
+         "children_blocks":[
+            {
+               "ID":"@-915-20h",
+               "block_name":"par",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "children_blocks":[
+               ],
+            }
+         ],
+      }
+      {
+         "ID":"@-hjx",
+         "block_name":"section",
+         "N. ch_blocks":"2",
+         "tree_depth":"0",
+         "section_name":"section",
+         "title":"Topologia",
+         "index_title":"None",
+         "star":"False",
+         "children_blocks":[
+            {
+               "ID":"@-hjx-y0z",
+               "block_name":"default",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "type":"input",
+               "children_blocks":[
+               ],
+            }
+            {
+               "ID":"@-hjx-a1j",
+               "block_name":"par",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "children_blocks":[
+               ],
+            }
+         ],
+      }
+      {
+         "ID":"@-vut",
+         "block_name":"section",
+         "N. ch_blocks":"2",
+         "tree_depth":"0",
+         "section_name":"section",
+         "title":"Spazi metrici e topologia di $ \R $",
+         "index_title":"None",
+         "star":"False",
+         "children_blocks":[
+            {
+               "ID":"@-vut-h2v",
+               "block_name":"default",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "type":"input",
+               "children_blocks":[
+               ],
+            }
+            {
+               "ID":"@-vut-aed",
+               "block_name":"par",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "children_blocks":[
+               ],
+            }
+         ],
+      }
+      {
+         "ID":"@-l4t",
+         "block_name":"section",
+         "N. ch_blocks":"2",
+         "tree_depth":"0",
+         "section_name":"section",
+         "title":"Successioni di funzioni",
+         "index_title":"None",
+         "star":"False",
+         "children_blocks":[
+            {
+               "ID":"@-l4t-gne",
+               "block_name":"default",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "type":"input",
+               "children_blocks":[
+               ],
+            }
+            {
+               "ID":"@-l4t-5ow",
+               "block_name":"par",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "children_blocks":[
+               ],
+            }
+         ],
+      }
+      {
+         "ID":"@-3dq",
+         "block_name":"section",
+         "N. ch_blocks":"2",
+         "tree_depth":"0",
+         "section_name":"section",
+         "title":"Serie di potenze e funzioni analitiche",
+         "index_title":"None",
+         "star":"False",
+         "children_blocks":[
+            {
+               "ID":"@-3dq-b9k",
+               "block_name":"default",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "type":"input",
+               "children_blocks":[
+               ],
+            }
+            {
+               "ID":"@-3dq-sj7",
+               "block_name":"par",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "children_blocks":[
+               ],
+            }
+         ],
+      }
+      {
+         "ID":"@-8od",
+         "block_name":"section",
+         "N. ch_blocks":"2",
+         "tree_depth":"0",
+         "section_name":"section",
+         "title":"Calcolo differenziale in più variabili",
+         "index_title":"None",
+         "star":"False",
+         "children_blocks":[
+            {
+               "ID":"@-8od-az8",
+               "block_name":"default",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "type":"input",
+               "children_blocks":[
+               ],
+            }
+            {
+               "ID":"@-8od-046",
+               "block_name":"par",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "children_blocks":[
+               ],
+            }
+         ],
+      }
+      {
+         "ID":"@-cpo",
+         "block_name":"section",
+         "N. ch_blocks":"3",
+         "tree_depth":"0",
+         "section_name":"section",
+         "title":"Equazioni differenziali e problemi di punto fisso",
+         "index_title":"None",
+         "star":"False",
+         "children_blocks":[
+            {
+               "ID":"@-cpo-g9p",
+               "block_name":"default",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "type":"input",
+               "children_blocks":[
+               ],
+            }
+            {
+               "ID":"@-cpo-24s",
+               "block_name":"par",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "children_blocks":[
+               ],
+            }
+            {
+               "ID":"@-cpo-fxf",
+               "block_name":"appendix",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "star":"False",
+               "children_blocks":[
+               ],
+            }
+         ],
+      }
+      {
+         "ID":"@-1us",
+         "block_name":"section",
+         "N. ch_blocks":"2",
+         "tree_depth":"0",
+         "section_name":"section",
+         "title":"Compitini ed esercizi vari",
+         "index_title":"None",
+         "star":"False",
+         "children_blocks":[
+            {
+               "ID":"@-1us-1jb",
+               "block_name":"default",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "type":"input",
+               "children_blocks":[
+               ],
+            }
+            {
+               "ID":"@-1us-mfd",
+               "block_name":"par",
+               "N. ch_blocks":"0",
+               "tree_depth":"1",
+               "children_blocks":[
+               ],
+            }
+         ],
+      }
+   ],
+}

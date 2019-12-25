@@ -1,0 +1,235 @@
+\documentclass[a4paper,11pt]{article}
+     \usepackage{beppe_package}
+     \usepackage{bm}
+     \usepackage{mathrsfs}
+     
+     \title{Campi e radiazione di una carica e primi termini dello sviluppo in multipoli}
+     \date{}
+
+	\renewcommand{\d}{\mathrm{d}}
+	\renewcommand{\vec}[1]{\mathbf{#1}}
+	\renewcommand{\t}{t_{\mathrm{rit}}}
+	
+\begin{document}
+	\maketitle
+\section{Introduzione}
+\subsection{Momenti di dipolo e quadrupolo, momento magnetico}
+Consideriamo una distribuzione $\rho$ di carica complessivamente neutra e una distribuzione $\vec{J}$ di corrente. Il momento di dipolo elettrico e il tensore di quadrupolo elettrico associati a $\rho$ sono
+\[\vec{p}(t)=\int\vec{r}\rho(\vec{r},t)\d ^3\]
+\[Q_{ij}(t)=\int \left(3r_ir_j-\delta_{ij}r^2\right)\rho(\vec{r},t)\d^3r\]
+Il momento magnetico associato a $\vec{J}$ è
+\[\vec{m}(t)=\frac{1}{2c}\int\vec{r}\times\vec{J}(\vec{r},t)\d ^3r\]
+Tutti gli integrali sono estesi alle regioni in cui $\rho$ e $\vec{J}$ sono non nulle.
+\subsection{Potenziali ritardati}
+Diamo per noto che, nella gauge di Lorentz, i potenziali $\varphi$ e $\vec{A}$ generati da una certa distribuzione di sorgenti $\rho$ e $\vec{J}$ sono
+\[\varphi(\vec{r},t)=\int\frac{\rho(\vec{r}',t-|\vec{r}-\vec{r}'|/c)}{|\vec{r}-\vec{r}'|}\d^3r'\]
+\[\vec{A}(\vec{r},t)=\frac{1}{c}\int\frac{\vec{J}(\vec{r}',t-|\vec{r}-\vec{r}'|/c)}{|\vec{r}-\vec{r}'|}\d^3r'\]
+\subsection{Sviluppo in multipoli}
+Consideriamo una sorgente localizzata. Se siamo a grande distanza dalla sorgente, può essere interessante considerare uno sviluppo in multipoli. Chiaramente, l'approssimazione di ordine più basso del potenziale vettore è
+\[\vec{A}_0(\vec{r},t)=\frac{1}{cr}\int\vec{J}(\vec{r}',\t)\d^3r'\]
+dove si è posto
+\[\t=t-\frac{r}{c}\]
+Il termine successivo nell'approssimazione non è così semplice, e anzi dipende sia dalla distanza dalla sorgente che dalla lunghezza d'onda dei campi. Infatti, possiamo scegliere se sviluppare il termine $|\vec{r}-\vec{r}'|^{-1}$ oppure la densità di corrente. La correzione al primo termine è dell'ordine di $d/r$, dove $d$ è la scala caratteristica della sorgente. La correzione al secondo termine è invece dell'ordine di $d/\lambda$. Nel seguito supporremo $\lambda\ll r$, dunque considereremo il termine
+\[\vec{A}_1(\vec{r},t)=\frac{1}{c^2r^2}\int \vec{r}\cdot\vec{r}'\pder{\vec{J}}{t}(\vec{r}',\t)\d^3r'\]
+\vspace{10 mm}
+\section{Carica puntiforme}
+\subsection{Potenziali}
+Consideriamo una carica $q$ la cui posizione è $\vec{R}(t)$. I potenziali sono quindi
+\[\varphi(\vec{r},t)=\int\frac{q}{|\vec{r}-\vec{r}'|}\delta\left(\vec{r}'-\vec{R}\left(\t'\right)\right)\d^3r'\]
+\[\vec{A}(\vec{r},t)=\frac{1}{c}\int\frac{q\dot{\vec{R}}(\t')}{|\vec{r}-\vec{r}'|}\delta\left(\vec{r}'-\vec{R}\left(\t'\right)\right)\d^3r'\]
+avendo posto
+\[\t'=t-\frac{|\vec{r}-\vec{r}'|}{c}\]
+A questo punto, poniamo
+\[\t=t-\frac{|\vec{r}-\vec{R}(\t)|}{c}\]
+\[\bm{n}=\vec{r}-\vec{R}(\t)\]
+I potenziali risultano allora \[\varphi(\vec{r},t)=\frac{q}{n-\bm{\beta}(\t)\cdot\vec{n}}\]
+\[\vec{A}(\vec{r},t)=\frac{q\bm{\beta}(\t)}{n-\bm{\beta}(\t)\cdot\vec{n}}\]
+\subsection{Campi}
+Iniziamo calcolando tutte le derivate utili\footnote{Si potrebbe anche partire dalle equazioni di Jefimenko, senza passare dai potenziali.}:
+\begin{align*}
+\nabla\varphi&=-\frac{q}{(n-\bm{\beta}\cdot\vec{n})^2}\left(\nabla n-\nabla(\bm{\beta}\cdot\vec{n})\right)=\\&=\frac{q}{(n-\bm{\beta}\cdot\vec{n})^2}\left[c\nabla\t+(\bm{\beta}\cdot\nabla)\vec{n}+\bm\beta\times(\nabla\times\vec{n})+(\vec{n}\cdot\nabla)\bm{\beta}+\vec n\times(\nabla\times\bm{\beta})\right]
+\end{align*}
+dove si è usata la solita relazione per il gradiente del prodotto scalare e il fatto che $c(t-\t)=n$. Da quest'ultima relazione si ha anche
+\begin{align*}
+	-c\nabla\t&=\nabla|\vec{r}-\vec{R}(t)|=\\&=\hat{x}_i\pder{}{x_i}\sqrt{\sum_{j}(x_j-R_j(\t))^2}=\\&=\frac{\hat{x}_i}{2|\vec{r}-\vec{R}(\t)|}\pder{}{x_i}\sum_{j}(x_j-R_j(\t))^2=\\&=\frac{\hat{x}_i}{|\vec{r}-\vec{R}(\t)|}\sum_{j}(x_j-R_j(\t))\left(\delta_{ij}-c\beta(\t)\pder{\t}{x_i}\right)=\\&=\frac{\vec{r}-\vec{R}(\t)}{|\vec{r}-\vec{R}(\t)|}-c\hat{x}_i\pder{\t}{x_i}\bm{\beta}(\t)\cdot\frac{\vec{r}-\vec{R}(\t)}{|\vec{r}-\vec{R}(\t)|}=\\&=\hat{n}-c\bm{\beta}(\t)\cdot\hat{n}\nabla\t
+\end{align*}
+e infine
+\[\nabla\t=-\frac{\hat{n}}{c(1-\bm{\beta}(\t)\cdot\hat{n})}\]
+Gli altri termini in $\nabla\varphi$ sono
+\begin{align*}
+	(\bm{\beta}\cdot\nabla)\vec{n}&=\hat{x}_i\beta_j\pder{n_i}{x_j}=\\&=\hat{x}_i\beta_j\pder{}{x_j}\left(x_i-R_i\right)=\\&=\hat{x}_i\beta_j\left(\delta_{ij}-c\beta_i\pder{\t}{x_j}\right)=\\&=\bm{\beta}+\bm{\beta}\frac{\bm{\beta}\cdot\hat{n}}{1-\bm{\beta}\cdot\hat{n}}=\\&=\frac{\bm{\beta}}{1-\bm{\beta}\cdot\hat{n}}
+	\\(\vec{n}\cdot\nabla)\bm{\beta}&=\hat{x}_in_j\pder{\beta_i}{x_j}=\\&=\hat{x}_i\dot{\beta}_in_j\pder{\t}{x_j}=\\&=-\dot{\bm{\beta}}\frac{n}{c(1-\bm{\beta}\cdot\hat{n})}
+	\\\bm{\beta}\times(\nabla\times\vec{n})&=\bm{\beta}\times\left(\hat{x}_i\varepsilon_{ijk}\pder{n_k}{x_j}\right)=\\&=\bm{\beta}\times\left[\hat{x}_i\varepsilon_{ijk}\left(\delta_{jk}-c\bm{\beta}_k\pder{\t}{x_j}\right)\right]=\\&=-c\bm{\beta}\times(\nabla\t\times\bm{\beta})=\\&=\frac{\bm{\beta}\times(\hat{n}\times\bm{\beta})}{1-\bm{\beta}\cdot\hat{n}}
+\end{align*}
+\begin{align*}
+	\\\vec{n}\times(\nabla\times\bm{\beta})&=\vec{n}\times\left(\hat{x}_i\varepsilon_{ijk}\pder{\beta_k}{x_j}\right)=\\&=\vec{n}\times\left(\hat{x}_i\varepsilon_{ijk}\pder{\t}{x_j}\dot{\beta}_k\right)=\\&=\vec{n}\times(\nabla\t\times\dot{\bm{\beta}})=\\&=-\frac{n}{c(1-\bm{\beta}\cdot\hat{n})}\hat{n}\times(\hat{n}\times\dot{\bm{\beta}})
+\end{align*}
+In conclusione, si ha
+\[\nabla\varphi=\frac{q}{n^2(1-\bm{\beta}\cdot\hat{n})^3}\left[-\hat{n}+\bm{\beta}-\frac{n}{c}\hat{n}(\hat{n}\cdot\dot{\bm{\beta}})+\bm{\beta}\times(\hat{n}\times\bm{\beta})\right]\]
+Passiamo ora alle derivate del potenziale vettore. Si ha 
+\begin{align*}
+	\pder{\vec{A}}{t}&=q\left[\frac{\dot{\bm{\beta}}}{n-\bm{\beta}\cdot\vec{n}}-\frac{\bm{\beta}}{(n-\bm{\beta}\cdot\vec{n})^2}\left(\pder{n}{t}-\dot{\bm{\beta}}\cdot\vec{n}-\bm{\beta}\cdot\pder{\vec{n}}{t}\right)\right]
+\end{align*}
+D'altro canto si trova facilmente
+\begin{align*}
+	\pder{\vec{n}}{t}&=-c\bm{\beta}\\
+	\pder{n}{t}&=\hat{n}\cdot\pder{\vec{n}}{t}=\\&=-c\hat{n}\cdot\bm{\beta}
+\end{align*}
+Pertanto
+\begin{align*}
+	\pder{\vec{A}}{t}&=\frac{q}{n^2(1-\bm{\beta}\cdot\hat{n})^2}\left[n\dot{\bm{\beta}}-\dot{\bm{\beta}}(\bm{\beta}\cdot\vec{n})+c\bm{\beta}(\hat{n}\cdot\bm{\beta})+\bm{\beta}(\dot{\bm{\beta}}\cdot\vec{n})+c\beta^2\bm{\beta}\right]=\\&=\frac{q}{n^2(1-\bm{\beta}\cdot\hat{n})^2}\left[\vec{n}\times(\bm{\beta}\times\dot{\bm{\beta}})+n\dot{\bm{\beta}}+c\bm{\beta}(\hat{n}\cdot\bm{\beta})+c\beta^2\bm{\beta}\right]
+\end{align*}
+Infine, si ha
+\begin{align*}
+	\nabla\times\vec{A}&=\hat{x}_i\varepsilon_{ijk}\pder{A_k}{x_j}=\\&=\hat{x}_i\varepsilon_{ijk}\frac{\dot{\beta}_k}{n-\bm{\beta}\cdot\vec{n}}\pder{\t}{x_j}-\frac{q\beta_k}{(n-\bm{\beta}\cdot\vec{n})^2}\pder{}{x_j}\left(n-\bm{\beta}\cdot\vec{n}\right)=\\&=\frac{q\nabla\t\times\dot{\bm{\beta}}}{n-\bm{\beta}\cdot\vec{n}}-\frac{q\nabla(n-\bm{\beta}\cdot\vec{n})\times\bm{\beta}}{(n-\bm{\beta}\cdot\vec{n})^2}=\\&=-\frac{q\hat{n}\times\bm{\beta}}{cn(1-\bm{\beta}\cdot\hat{n})^2}-\nabla\varphi\times\bm{\beta}
+\end{align*}
+Per cui concludiamo che i campi generati da una carica puntiforme sono
+\begin{align*}
+	\vec{E}&=-\nabla\varphi-\frac{1}{c}\pder{\vec{A}}{t}=\\&=\frac{q(\hat{n}-\bm{\beta})}{\gamma^2n^2(1-\bm{\beta}\cdot\hat{n})^3}+\frac{q\hat{n}\times((\hat{n}-\bm{\beta})\times\dot{\bm{\beta}})}{cn(1-\bm{\beta}\cdot\hat{n})^3}\\
+	\vec{B}&=\nabla\times\vec{A}=\\&=\hat{n}\times\vec{E}
+\end{align*}
+con tutte le quantità valutate al tempo $\t$.
+\subsection{Radiazione}
+I termini dominanti dei campi in zona di radiazione sono quelli proporzionali a $n^{-1}$, da cui il vettore di Poynting
+\begin{align*}\vec{S}&=\frac{c}{4\pi}\vec{E}\times\vec{B}=\\&=\frac{q^2\hat{n}}{4\pi cn^2}\left|\frac{\hat n\times((\hat{n}-\bm{\beta})\times\dot{\bm{\beta}})}{(1-\bm{\beta}\cdot\hat{n})^3}\right|^2
+\end{align*}
+Osserviamo che, fissata una superficie $S$, l'energia che attraversa un'unità di tale superficie è
+\[U=\int \d\t \vec{S}\cdot\vec{N}\]
+dove $\vec{N}$ è il vettore normale a $S$. Stiamo integrando rispetto a $\t$ perchè effettivamente l'energia irradiata dalla carica al tempo $t$ raggiunge $S$ al tempo $t+r/c$, con $r$ distanza tra la posizione di $q$ e $S$. Se vogliamo la potenza istantanea emessa dalla carica, basta cambiare variabili
+\begin{align*}U&=\int \d t\der{\t}{t}\vec{S}\cdot\vec{N}=\\&=\int \d t(1-\bm{\beta}\cdot\hat{n})\vec{S}\cdot\vec{N}\end{align*}
+La distribuzione angolare di potenza è dunque
+\begin{align*}
+	\der{P}{\Omega}&=\frac{q^2}{4\pi c}\frac{|\hat n\times((\hat{n}-\bm{\beta})\times\dot{\bm{\beta}})|^2}{(1-\bm{\beta}\cdot\hat{n})^5}
+\end{align*}
+Distinguiamo ora due regimi: se il moto è non relativistico, ossia $\beta\simeq0$, abbiamo la seguente distribuzione angolare di potenza irradiata
+\begin{align*}
+\der{P}{\Omega}&=\frac{q^2}{4\pi c}|\hat{n}\times(\hat{n}\times\dot{\bm{\beta}})|^2=\\&=\frac{q^2|\dot{\bm{\beta}}|^2}{4\pi c}\sin^2\theta
+\end{align*}
+dove $\theta$ è l'angolo tra $\hat{n}$ e $\dot{\bm{\beta}}$. Integrando su tutto l'angolo solido otteniamo la potenza totale irraggiata
+\begin{align*}
+P&=\int_{0}^{2\pi}\d\phi\int_{0}^{\pi}\der{P}{\Omega}\sin\theta\d\theta=\\&=\frac{2q^2|\dot{\bm{\beta}}|^2}{3c}
+\end{align*}
+ovvero l'usuale formula di Larmor. Se invece siamo in regime relativistico, non possiamo trascurare alcun termine e si ottiene la formula di Liénard. Detto $\theta$ l'angolo tra $\bm{\beta}$ e $\hat{n}$, $\theta_0$ l'angolo tra $\dot{\bm{\beta}}$ e $\bm{\beta}$, e posto $u=\cos\theta$, si ha
+\begin{align*}P&=\frac{q^2}{4\pi c}\int\frac{|\hat n\times((\hat{n}-\bm{\beta})\times\dot{\bm{\beta}})|^2}{(1-\bm{\beta}\cdot\hat{n})^5}\d\Omega=\\&=\frac{q^2}{4\pi c}\int\frac{|(\hat{n}-\bm{\beta})(\hat{n}\cdot\dot{\bm{\beta}})-\dot{\bm{\beta}}(1-\bm{\beta}\cdot\hat{n})|^2}{(1-\bm{\beta}\cdot\hat{n})^5}\d\Omega=
+\\&=\frac{q^2}{4\pi c}\int\frac{(1-2\bm{\beta}\cdot\hat{n}+\beta^2)(\hat{n}\cdot\dot{\bm{\beta}})^2+\dot{\beta}^2(1-\bm{\beta}\cdot\hat{n})^2-2(\hat{n}\cdot\dot{\bm{\beta}}-\bm{\beta}\cdot\dot{\bm{\beta}})(\hat{n}\cdot\dot{\bm{\beta}})(1-\bm{\beta}\cdot\hat{n})}{(1-\bm{\beta}\cdot\hat{n})^5}\d\Omega=
+\\&=\frac{q^2\dot{\beta}^2}{2c}\int_{-1}^{1}\frac{(1-\beta u+\beta^2)(\hat{n}\cdot\hat{\dot{\beta}})^2+(1-\beta u)^2-2(\hat{n}\cdot\hat{\dot{\beta}}-\beta\cos\theta_0)(\hat{n}\cdot\hat{\dot{\beta}})(1-\beta u)}{(1-\beta u)^5}\d u=
+\\&=
+\\&=\frac{2q^2\gamma^6}{3c}\left(|\dot{\bm{\beta}}|^2-|\bm{\beta}\times\dot{\bm{\beta}}|^2\right)\end{align*}FINISCI
+Si può mostrare che la formula di Liénard può essere riscritta in forma covariante come
+\[P=-\frac{2q^2}{3m^2c^3}\der{p^\mu}{\tau}\der{p_\mu}{\tau}\]
+dove $p^\mu$ è il 4-impulso della particella.
+\vspace{10 mm}
+\section{Dipolo elettrico}
+\subsection{Potenziali}
+Mostriamo che il potenziale vettore associato al momento di dipolo elettrico è
+\[\vec{A}(\vec{r},t)=\frac{1}{cr}\int\vec{J}(\vec{r}',\t)\d^3r'\]
+Notiamo che si ha
+\begin{align*}\nabla'\cdot\left(x_i'\vec{J}(\vec{r}',\t)\right)&=x_i'\nabla'\cdot\vec{J}(\vec{r}',\t)+J_i(\vec{r}',\t)=\\&=-x_i'\pder{\rho}{t}(\vec{r}',\t)+J_i(\vec{r}',\t)\end{align*}
+Di conseguenza, la componente $i$-esima del potenziale vettore si può scrivere come
+\begin{align*}A_{i}(\vec{r},t)&=\frac{1}{cr}\int\left[\nabla'\cdot\left(x_i'\vec{J}(\vec{r}',\t)\right)+x_i'\pder{\rho}{t}(\vec{r}',\t)\right]\d^3r'=\\&=\frac{\dot{p}_i(\t)}{cr}\end{align*}
+Si è usato il fatto che per sorgente localizzate il primo termine nell'integrale dà un contributo nullo. In definitiva, si ottiene
+\[\vec{A}(\vec{r},t)=\frac{\dot{\vec{p}}(\t)}{cr}\]
+A questo punto dalla condizione di Gauge si può ottenere il potenziale scalare
+\begin{align*}\frac{1}{c}\pder{\varphi}{t}&=-\nabla\cdot\vec{A}=\\&=-\pder{}{x_i}\frac{\dot{p}_i(\t)}{cr}\end{align*}
+Notando ora che
+\[\pder{r}{x_i}=\frac{x_i}{r}\]
+\[\pder{\t}{x_i}=-\frac{x_i}{cr}\]
+ricaviamo
+\begin{align*}\frac{1}{c}\pder{\varphi}{t}&=-\frac{1}{cr}\pder{\dot{p}_i(\t)}{x_i}-\dot{p}_i(\t)\pder{r^{-1}}{x_i}=\\&=-\frac{\ddot{p}_i(\t)}{cr}\pder{\t}{x_i}+\frac{\dot{p}_i(\t)}{r^2}\pder{r}{x_i}=\\&=\frac{\ddot{p}_i(\t)x_i}{cr^2}+\frac{\dot{p}_i(\t)x_i}{r^3}\end{align*}
+A meno di fattori costanti, si ha quindi
+\[\varphi(\vec{r},t)=\frac{\hat{r}}{r^2}\cdot\left(\frac{r}{c}\dot{\vec{p}}(\t)+\vec{p}(\t)\right)\]
+\subsection{Campi}
+Partiamo dal campo magnetico. Si ha
+\begin{align*}\vec{B}&=\nabla\times\vec{A}=\\&=\hat{x}_i\varepsilon_{ijk}\pder{}{x_j}\frac{\dot{p}_k(\t)}{cr}=\\&=-\hat{x}_i\varepsilon_{ijk}\left(\frac{\dot{p}_k(\t)x_j}{cr^3}+\frac{\ddot{p}_k(\t)x_j}{c^2r^2}\right)=\\&=\frac{1}{cr^2}\left(\dot{\vec{p}}(\t)+\frac{r}{c}\ddot{\vec{p}}(\t)\right)\times\hat{r}\end{align*}
+Calcoliamo ora il campo elettrico, partendo dalle derivate dei potenziali. Abbiamo
+\begin{align*}\pder{\vec{A}}{t}&=\frac{\ddot{\vec{p}}(\t)}{cr}\\\pder{\varphi}{x_i}&=\pder{}{x_i}\left[\frac{x_j}{r^3}\left(\frac{r}{c}\dot{p}_j(\t)+p_j(\t)\right)\right]=\\&=\frac{\delta_{ij}}{r^3}\left(\frac{r}{c}\dot{p}_j(\t)+p_j(\t)\right)-\frac{3x_ix_j}{r^5}\left(\frac{r}{c}\dot{p}_j(\t)+p_j(\t)\right)+\frac{x_j}{r^3}\left(\frac{x_i}{cr}\dot{p}_j(\t)-\frac{x_i}{c^2}\ddot{p}_j(\t)-\frac{x_i}{cr}\dot{p}_j(\t)\right)\end{align*}
+In definitiva otteniamo
+\begin{align*}\vec{E}&=-\nabla\varphi-\frac{1}{c}\pder{\vec{A}}{t}=\\&=-\frac{1}{r^3}\left(\frac{r}{c}\dot{\vec{p}}(\t)+\vec{p}(\t)\right)+\frac{3\hat{r}}{r^3}\hat{r}\cdot\left(\frac{r}{c}\dot{\vec{p}}(\t)+\vec{p}(\t)\right)+\frac{\hat{r}}{r}\hat{r}\frac{\ddot{\vec{p}}(\t)}{c^2}-\frac{\ddot{\vec{p}}(\t)}{c^2r}=\\&=\frac{3\hat{r}\left(\frac{r}{c}\dot{\vec{p}}(\t)+\vec{p}(\t)\right)\cdot\hat{r}-\left(\frac{r}{c}\dot{\vec{p}}(\t)+\vec{p}(\t)\right)}{r^3}+\frac{\left(\ddot{\vec{p}}(\t)\times\hat{r}\right)\times\hat{r}}{c^2r}\end{align*}
+In particolare, nell'ultima espressione è evidente la distinzione tra il campo prossimo (che dipende dalla velocità delle cariche e decresce come $r^{-3}$) e il campo di radiazione (che dipende dall'accelerazione delle cariche e decresce come $r^{-1}$).
+\subsection{Radiazione}
+In zona di radiazione, il vettore di Poynting è
+\begin{align*}
+	\vec{S}&=\frac{c}{4\pi}\vec{E}\times\vec{B}=\\&=\frac{\left|\ddot{\vec{p}}(\t)\times\hat{r}\right|^2}{4\pi c^3r^2}\hat{r}
+\end{align*}
+Se $\theta$ e $\phi$ sono gli usuali angoli in coordinate sferiche, la distribuzione angolare di potenza è
+\begin{align*}\der{P}{\Omega}&=r^2\hat{r}\cdot\vec{S}=\\&=\frac{1}{4\pi c^3}\left[\ddot{p}_x^2\left(\cos^2\theta+\sin^2\theta\sin^2\phi\right)+\ddot{p}_y^2\left(\cos^2\theta+\sin^2\theta\cos^2\phi\right)+\ddot{p}_z^2\sin^2\theta+\right.\\&\left.-2\ddot{p}_x\ddot{p}_y\sin^2\theta\sin\phi\cos\phi-2\ddot{p}_x\ddot{p}_z\sin\theta\cos\theta\cos\phi-2\ddot{p}_y\ddot{p}_z\sin\theta\cos\theta\sin\phi\right]_{\t}\end{align*}
+Integrando su tutto l'angolo solido, si ricava la potenza irraggiata
+\begin{align*}
+	P&=\int_{0}^{2\pi}\d\phi\int_{0}^{\pi}\der{P}{\Omega}\sin\theta\d\theta=\\&=\frac{2\left|\ddot{\vec{p}}\right|^2}{3c^3}
+\end{align*}
+\vspace{10 mm}
+\section{Quadrupolo elettrico e dipolo magnetico}
+\subsection{Potenziali}
+Veniamo ora al secondo termine dello sviluppo in multipoli, ossia
+\[\vec{A}(\vec{r},t)=\frac{1}{c^2r^2}\int \vec{r}\cdot\vec{r}'\pder{\vec{J}}{t}(\vec{r}',\t)\d^3r'\]
+Notiamo che si ha
+\[\nabla'\cdot\left(x_i'x_j'\pder{\vec{J}}{t}(\vec{r}',\t)\right)=x_j'\pder{J_i}{t}(\vec{r}',\t)+x_i'\pder{J_j}{t}(\vec{r}',\t)-x_i'x_j'\pder[2]{\rho}{t}(\vec{r}',\t)\]
+Scrivendo ora
+\[x_j'\pder{J_i}{t}(\vec{r}',\t)=\frac{1}{2}\left[x_j'\pder{J_i}{t}(\vec{r}',\t)-x_i'\pder{J_j}{t}(\vec{r}',\t)\right]+\frac{1}{2}\left[x_j'\pder{J_i}{t}(\vec{r}',\t)+x_i'\pder{J_j}{t}(\vec{r}',\t)\right]\]
+otteniamo per la componente $i$-esima del potenziale vettore
+\begin{align*}
+	A_{i}(\vec{r},t)&=\frac{x_j}{c^2r^2}\int x_j'\pder{J_i}{t}(\vec{r}',\t)\d^3r'=\\&=\frac{x_j}{2c^2r^2}\int\left[x_j'\pder{J_i}{t}(\vec{r}',\t)-x_i'\pder{J_j}{t}(\vec{r}',\t)\right]\d^3r'+\frac{x_j}{2c^2r^2}\int\left[x_j'\pder{J_i}{t}(\vec{r}',\t)+x_i'\pder{J_j}{t}(\vec{r}',\t)\right]\d^3r'=\\&=\frac{x_j}{2c^2r^2}\int\left[x_j'\pder{J_i}{t}(\vec{r}',\t)-x_i'\pder{J_j}{t}(\vec{r}',\t)\right]\d^3r'+\frac{x_j}{2c^2r^2}\int x_i'x_j'\pder[2]{\rho}{t}(\vec{r}',\t)\d^3r'
+\end{align*}
+Al solito, la localizzazione implica che l'integrale di una divergenza pura si annulla. Trattiamo ora separatamente i due integrali che compaiono all'ultima riga. Per il primo si ha
+\begin{align*}
+	\int\left[x_j'\pder{J_i}{t}(\vec{r}',\t)-x_i'\pder{J_j}{t}(\vec{r}',\t)\right]\d^3r'&=\int\left(\delta_{jm}\delta_{ik}-\delta_{im}\delta_{jk}\right)x_m'\pder{J_k}{t}(\vec{r}',\t)\d^3r'=\\&=\int \varepsilon_{sji}\varepsilon_{smk}x_m'\pder{J_k}{t}(\vec{r}',\t)\d^3r'=\\&=2c\varepsilon_{sji}\dot{m}_s(t)
+\end{align*}
+Il secondo invece dà
+\begin{align*}
+	\int x_i'x_j'\pder[2]{\rho}{t}(\vec{r}',\t)\d^3r'&=\frac{1}{3}\int 3 x_i'x_j'\pder[2]{\rho}{t}(\vec{r}',\t)\d^3r'=\\&=\frac{1}{3}\int \left(3 x_i'x_j'-\delta_{ij}r'\,^2\right)\pder[2]{\rho}{t}(\vec{r}',\t)\d^3r'+\frac{\delta_{ij
+	}}{3}\int r'\,^2\pder[2]{\rho}{t}(\vec{r}',\t)\d^3r'=\\&=\frac{\ddot{Q}_{ij}(\t)}{3}+\frac{\delta_{ij
+}}{3}\int r'\,^2\pder[2]{\rho}{t}(\vec{r}',\t)\d^3r'
+\end{align*}
+In definitiva otteniamo
+\[A_i(\vec{r},t)=\frac{\varepsilon_{sji}x_j\dot{m}_s(\t)}{cr^2}+\frac{x_j\ddot{Q}_{ij}(\t)}{6c^2r^2}+\frac{x_i}{6c^2r^2}\int r'\,^2\pder[2]{\rho}{t}(\vec{r}',\t)\d^3r'\]
+\[\vec{A}(\vec{r},t)=\frac{\dot{\vec{m}}(\t)\times\vec{r}}{cr^2}+\frac{\ddot{Q}(\t)\vec{r}}{6c^2r^2}+\frac{\vec{r}}{6c^2r^2}\int r'\,^2\pder[2]{\rho}{t}(\vec{r}',\t)\d^3r'\]
+Chiaramente, il termine $\ddot{Q}(\t)\vec{r}$ è inteso come moltiplicazione tra una matrice e un vettore. Per calcolare il potenziale scalare dalla condizione di gauge, osserviamo preliminarmente che
+\begin{align*}
+	\pder{A_i}{x_i}&=-\frac{\varepsilon_{ijk}\ddot{m}_jx_ix_k}{c^2r^3}+\frac{\varepsilon_{ijk}\dot{m}_j\delta_{ik}}{cr^2}-\frac{2\varepsilon_{ijk}\dot{m}_jx_ix_k}{cr^4}+\frac{\delta_{ij}\ddot{Q}_{ij}}{6c^2r^2}-\frac{x_ix_j\dddot{Q}_{ij}}{6c^3r^3}-\frac{x_ix_j\ddot{Q}_{ij}}{3c^2r^4}+\\&+\frac{1}{6c^2r^2}\int r'\,^2\pder[2]{\rho}{t}(\vec{r}',\t)\d^3r'-\frac{x_i^2}{3c^2r^4}\int r'\,^2\pder[2]{\rho}{t}(\vec{r}',\t)\d^3r'-\frac{x_i^2}{6c^3r^3}\int r'\,^2\pder[3]{\rho}{t}(\vec{r}',\t)\d^3r'
+\end{align*}
+Notiamo che i termini $\varepsilon_{ijk}\delta_{ik}$ e $\varepsilon_{ijk}x_ix_k$ sono nulli, dato che a $j$ fissato sono il prodotto di un termine simmetrico e uno antisimmetrico in $i$ e $k$. Inoltre, anche il termine $\delta_{ij}\ddot{Q}_{ij}$ è nullo, perchè la traccia del tensore di quadrupolo è 0. Allora, a meno di termini costanti, si ha
+\[\varphi(\vec{r},t)=\frac{\vec{r}\cdot\ddot{Q}(\t)\vec{r}}{6c^2r^3}+\frac{\vec{r}\cdot\dot{Q}(\t)\vec{r}}{3cr^4}+\frac{1}{6cr^2}\int r'\,^2\pder{\rho}{t}(\vec{r}',\t)\d^3r'+\frac{1}{6c^2r}\int r'\,^2\pder[2]{\rho}{t}(\vec{r}',\t)\d^3r'\]
+\subsection{Campi}
+Partiamo calcolando tutte le derivate dei potenziali. Si ha
+\begin{align*}
+	\pder{\vec{A}}{t}&=\frac{\ddot{\vec{m}}\times\vec{r}}{cr^2}+\frac{\dddot{Q}\vec{r}}{6c^2r^2}+\frac{\vec{r}}{6c^2r^2}\int r'\,^2\pder[3]{\rho}{t}(\vec{r}',\t)\d^3r'\\
+	\pder{A_k}{x_j}&=-\frac{\varepsilon_{klm}\ddot{m}_lx_mx_j}{c^2r^3}+\frac{\varepsilon_{klm}\dot{m}_l\delta_{jm}}{cr^2}-\frac{2\varepsilon_{klm}\dot{m}_lx_mx_j}{cr^4}+\frac{\delta_{mj}\ddot{Q}_{km}}{6c^2r^2}-\frac{x_mx_j\dddot{Q}_{km}}{6c^3r^3}-\frac{x_mx_j\ddot{Q}_{km}}{3c^2r^4}+\\&+\frac{\delta_{kj}}{6c^2r^2}\int r'\,^2\pder[2]{\rho}{t}(\vec{r}',\t)\d^3r'
+	-\frac{x_kx_j}{3c^2r^4}\int r'\,^2\pder[2]{\rho}{t}(\vec{r}',\t)\d^3r'-\frac{x_kx_j}{6c^3r^3}\int r'\,^2\pder[3]{\rho}{t}(\vec{r}',\t)\d^3r'\\
+	\pder{\varphi}{x_i}&=\frac{(\ddot{Q}_{ij}+\ddot{Q}_{ji})x_j}{6c^2r^3}-\frac{x_ix_jx_k\dddot{Q}_{jk}}{6c^3r^4}-\frac{x_ix_jx_k\ddot{Q}_{jk}}{2c^2r^5}+\frac{(\dot{Q}_{ij}+\dot{Q}_{ji})x_j}{3cr^4}-\frac{x_ix_jx_k\ddot{Q}_{jk}}{3c^2r^5}-\frac{4x_ix_jx_k\dot{Q}_{jk}}{3cr^6}+\\&-\frac{x_i}{3cr^4}\int r'\,^2\pder{\rho}{t}(\vec{r}',\t)\d^3r'-\frac{x_i}{6c^2r^3}\int r'\,^2\pder[2]{\rho}{t}(\vec{r}',\t)\d^3r'+\\&-\frac{x_i}{3c^2r^3}\int r'\,^2\pder[2]{\rho}{t}(\vec{r}',\t)\d^3r'-\frac{x_i}{6c^3r^2}\int r'\,^2\pder[3]{\rho}{t}(\vec{r}',\t)\d^3r'
+\end{align*}
+In definitiva, otteniamo per i campi
+\begin{align*}
+	\vec{B}&=\nabla\times\vec{A}=\\&=\hat{x}_i\varepsilon_{ijk}\pder{A_k}{x_j}=\\&=\frac{(\ddot{\vec{m}}(\t)\times\hat{r})\times\hat{r}}{c^2r}+\frac{2(\dot{\vec{m}}(\t)\cdot\hat{r})\hat{r}}{cr^2}+\frac{\dddot{Q}(\t)\hat{r}\times\hat{r}}{6c^3r}+\frac{\ddot{Q}(\t)\hat{r}\times\hat{r}}{3c^2r^2}\\\vec{E}&=-\nabla\varphi-\frac{1}{c}\pder{\vec{A}}{t}=\\&=-\frac{\ddot{Q}(\t)\hat{r}}{3c^2r^2}+\frac{\hat{r}\cdot\dddot{Q}(\t)\hat{r}}{6c^3r}\hat{r}+\frac{5\hat{r}\cdot\ddot{Q}(\t)\hat{r}}{6c^2r^2}\hat{r}-\frac{2\dot{Q}(\t)\hat{r}}{3cr^3}+\frac{4\hat{r}\cdot\dot{Q}(\t)\hat{r}}{3cr^3}\hat{r}+\\&+\frac{\vec{r}}{3cr^3}\int\left[\frac{r'\,^2}{r}\pder{\rho}{t}(\vec{r}',\t)+\frac{3r'\,^2}{2c}\pder[2]{\rho}{t}(\vec{r}',\t)\right]\d^3r'-\frac{\ddot{\vec{m}}(\t)\times\hat{r}}{c^2r}-\frac{\dddot{Q}(\t)\hat{r}}{6c^3r}
+\end{align*}
+\subsection{Radiazione}
+Consideriamo separatamente i termini di dipolo magnetico e di quadrupolo elettrico e trascuriamo i termini dei campi che non contribuiscono alla radiazione. Per il primo, il vettore di Poynting è
+\begin{align*}
+	\vec{S}&=\frac{c}{4\pi}\vec{E}\times\vec{B}=\\&=\frac{\left|\ddot{\vec{m}}(\t)\times\hat{r}\right|^2}{4\pi c^3r^2}\hat{r}
+\end{align*}
+Se $\theta$ e $\phi$ sono gli usuali angoli in coordinate sferiche, la distribuzione angolare di potenza è
+\begin{align*}\der{P}{\Omega}&=r^2\hat{r}\cdot\vec{S}=\\&=\frac{1}{4\pi c^3}\left[\ddot{m}_x^2\left(\cos^2\theta+\sin^2\theta\sin^2\phi\right)+\ddot{m}_y^2\left(\cos^2\theta+\sin^2\theta\cos^2\phi\right)+\ddot{m}_z^2\sin^2\theta+\right.\\&\left.-2\ddot{m}_x\ddot{m}_y\sin^2\theta\sin\phi\cos\phi-2\ddot{m}_x\ddot{m}_z\sin\theta\cos\theta\cos\phi-2\ddot{m}_y\ddot{m}_z\sin\theta\cos\theta\sin\phi\right]_{\t}\end{align*}
+Integrando su tutto l'angolo solido, si ricava la potenza irraggiata
+\begin{align*}
+	P&=\int_{0}^{2\pi}\d\phi\int_{0}^{\pi}\der{P}{\Omega}\sin\theta\d\theta=\\&=\frac{2\left|\ddot{\vec{m}}\right|^2}{3c^3}
+\end{align*}
+Passiamo ora al quadrupolo elettrico. Il vettore di Poynting è
+\begin{align*}
+\vec{S}&=\frac{c}{4\pi}\vec{E}\times\vec{B}=\\&=\frac{\hat{r}\left|\dddot{Q}(\t)\hat{r}\right|^2-\left(\dddot Q(\t)\hat{r}\cdot\hat{r}\right)\dddot Q(\t)\hat{r}}{144\pi c^5r^2}+\frac{\left(\hat{r}\cdot\dddot{Q}(\t)\hat{r}\right)\left[\dddot{Q}(\t)\hat{r}-(\hat{r}\cdot\dddot{Q}(\t)\hat{r})\hat{r}\right]}{144\pi c^5r^2}
+\end{align*}
+dove sono stati evidenziati due termini: il primo è radiativo, il secondo no (perchè ortogonale a $\hat{r}$). La distribuzione angolare di potenza è allora
+\begin{align*}
+	\der{P}{\Omega}&=r^2\hat{r}\cdot\vec{S}=\\&=\frac{\left|\dddot{Q}(\t)\hat{r}\right|^2-\left(\dddot Q(\t)\hat{r}\cdot\hat{r}\right)^2}{144\pi c^5}
+\end{align*}
+Il suo calcolo esplicito è oltremodo lungo e noioso, quindi limitiamoci a calcolare la potenza totale irraggiata. Posto $\hat{r}=(u_1,u_2,u_3)$, si ha
+\begin{align*}
+	P&=\int\der{P}{\Omega}\d\Omega=\\&=\frac{1}{144\pi c^5}\int\left(\dddot Q_{ij}\dddot Q_{il}u_ju_l-\dddot Q_{ij}\dddot Q_{lk}u_iu_ju_lu_k\right)\d\Omega=\\&=\frac{1}{144\pi c^5}\left(\dddot Q_{ij}\dddot Q_{il}\int u_ju_l\d\Omega-\dddot Q_{ij}\dddot Q_{lk}\int u_iu_ju_lu_k\d\Omega\right)
+\end{align*}
+Consideriamo il primo integrale: se $j\neq l$, si prova banalmente che l'integrale è nullo (ad esempio, se si passa in sferiche l'integranda è proporzionale a $\sin\phi$, $\cos\phi$ oppure $\sin\phi\cos\phi$, che integrati su $[0,2\pi]$ danno tutti 0). Se $j=l$, si ottiene per ovvi motivi di simmetria $4\pi/3$. Passiamo ora al secondo integrale. Se c'è almeno un indice con molteplicità esattamente 1, allora l'integrale è nullo Se tutti gli indici sono uguali, allora per simmetria si ottiene $4\pi/5$. Se ci sono due coppie uguali di indici, allora il risultato è $4\pi/15$. In definitiva abbiamo quindi
+\begin{align*}\int u_ju_l\d\Omega&=\frac{4\pi}{3}\delta_{jl}
+\\\int u_iu_ju_lu_k\d\Omega&=\frac{4\pi}{15}(\delta_{ij}\delta_{lk}+\delta_{il}\delta_{jk}+\delta_{ik}\delta_{jl})\end{align*}
+e infine
+\begin{align*}
+	P&=\frac{1}{144\pi c^5}\left(\frac{4\pi}{3}\dddot Q_{ij}\dddot Q_{il}\delta_{jl}-\frac{4\pi}{15}\dddot Q_{ij}\dddot Q_{lk}(\delta_{ij}\delta_{lk}+\delta_{il}\delta_{jk}+\delta_{ik}\delta_{jl})\right)=\\&=\frac{\dddot Q_{ij}\dddot Q_{ij}}{108c^5}-\frac{\dddot Q_{ii}Q_{kk}+\dddot Q_{ij}\dddot Q_{ij}+\dddot Q_{kj}\dddot Q_{jk}}{540c^5}=\\&=\frac{\Vert\dddot Q(\t)\Vert^2}{180c^5}
+\end{align*}
+dove $\Vert\cdot\Vert$ è la norma di Frobenius. 
+\end{document}

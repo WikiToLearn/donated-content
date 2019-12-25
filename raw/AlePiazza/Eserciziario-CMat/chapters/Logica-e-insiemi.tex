@@ -1,0 +1,53 @@
+\begin{es}
+  Dimostrare le seguenti identità insiemistiche dove gli insiemi che compaioni sono tutti sottoinsiemi di $ X $
+  \begin{enumerate}
+  \item $ (A^c)^c = A $
+  \item $ (A \cup B)^c = A^c \cap B^c $ e $ (A \cap B)^c = A^c \cup B^c $
+  \item $ (A_1 \cup A_2) \cap B = (A_1 \cap B) \cup (A_2 \cap B) $ e $ (A_1 \cap A_2) \cup B = (A_1 \cup B) \cap (A_2 \cup B) $
+  \item $ \bigcup_{i \in I} A_i ^c = \left (\bigcap_{i \in I} A_i \right )^c $ e $ \bigcap_{i \in I} A_i ^c = \left (\bigcup_{i \in I} A_i \right )^c $
+  \item $ \left (\bigcup_{i \in I} A_i \right ) \cap B = \bigcup_{i \in I} (A_i \cap B) $ e $ \left (\bigcap_{i \in I} A_i \right ) \cup B = \bigcap_{i \in I} (A_i \cup B) $
+  \item Qual è una possibile espressione per $ \left (\bigcap_{i \in I} A_i \right ) \cup \left (\bigcap_{j \in J} B_j \right ) $?
+  \end{enumerate}
+\end{es}
+Per ognuno dei punti risolviamo solo  la prima parte. In quasi tutti i punti useremo in modo implicito l'Assioma di estensionalità per mostrare uguaglianze tra insiemi
+\begin{enumerate}
+\item $ x \in (A^c)^c \iff x \notin A^c \iff \neg (x \in A^c) \iff \neg (x \notin A) \iff \neg(\neg(x \in A)) \iff x \in A $.
+\item $ x \in (A \cup B)^c \iff x \notin A \cup B \iff \neg (x \in A \cup B) \iff \neg(x \in A \vel x \in B) \iff x \notin A \wedge x \notin B \iff x \in A^c \wedge x \in B^c \iff x \in A^c \cap B^c $.
+\item $ x \in (A_1 \cup A_2) \cap B \iff x \in (A_1 \cup A_2) \wedge x \in B \iff (x \in A_1 \vel x \in A_2) \wedge x \in~B \iff (x \in A_1 \wedge x \in B) \vel (x \in A_2 \wedge x \in B) \iff (x \in A_1 \cap B) \vel (x \in A_2 \cap B) \iff x \in (A_1 \cap B) \cup (A_2 \cap B) $.
+\item $ x \in \bigcup_{i \in I} A_i ^c \iff \exists i \in I : x \in A_i^c \iff \exists i \in I : \neg (x \in A_i) \iff \neg (\forall i \in I : x \in A_i) \iff \neg \left(x \in \bigcap_{i \in I} A_i \right) \iff x \notin \bigcap_{i \in I} A_i \iff x \in \left(\bigcap_{i \in I} A_i \right)^c $.
+\item $ x \in \left (\bigcup_{i \in I} A_i \right ) \cap B \iff x \in \bigcup_{i \in I} A_i \wedge x \in B \iff (\exists i \in I : x \in A_i) \wedge x \in B \iff \exists i \in I : (x \in A_i \wedge  x \in B) \iff x \in \bigcup_{i \in I} (A_i \cap B) $
+\item $ x \in \left (\bigcap_{i \in I} A_i \right ) \cup \left (\bigcap_{j \in J} B_j \right ) \iff x \in \bigcap_{i \in I} A_i \vel x \in \bigcap_{j \in J} B_j \iff (\forall x \in I : x \in A_i) \vel (\forall j \in J : x \in B_j) \iff \forall i \in I, \forall j \in J : x \in A_i \vel x \in B_j \iff \forall i \in I, \forall j \in J : x \in A_i \cup B_j \iff x \in \bigcap_{\substack{i \in I \\ j \in J}} A_i \cup B_j $. \\
+  Concludiamo pertanto che $ \left (\bigcap_{i \in I} A_i \right ) \cup \left (\bigcap_{j \in J} B_j \right ) = \bigcap_{\substack{i \in I \\ j \in J}} (A_i \cup B_j) $.
+\end{enumerate}
+
+\begin{es}
+  Ricordiamo che $ A \Delta B = (A \cup B) \setminus (A \cap B) $. Mostrare che
+  \begin{enumerate}
+  \item $ A \Delta B = (A \setminus B) \cup (B \setminus A) $
+  \item $ (A \Delta B) \Delta C = A \Delta (B \Delta C) $
+  \end{enumerate}
+  È sempre vero che $ A \Delta B \Delta C = (A \Delta B) \cap (B \Delta C) \cap (C \Delta A) $?
+\end{es}
+
+\begin{es}
+  Mostrare che $ A \times B \subseteq \P(\P(A \cup B)) $. Dedurne che se $ n \in \N $ allora $ 2^{2^n} \leq n^2 $.
+\end{es}
+Per definizione $ A \times B $ è l'insieme delle coppie ordinate $ (a, b) $ al variare di $ a \in A $ e di $ b \in B $. Formalmente la coppia ordinata viene definita come un insieme nel modo seguente \[(a,b) = \{\{a\}, \{a, b\}\}.\] \textsf{Intuitivamente $ \P(A \cup B) $ contiene i sottoinsiemi di $ A \cup B $ tra cui quindi anche $ \{a\} $ e $ \{a,b\} $; allora $ \P(\P(A \cup B)) $ conterrà anche l'insieme $ \{\{a\}, \{a, b\}\} $. Poiché quindi ogni elemento di $ A \times B $ è anche in $ \P(\P(A \cup B)) $ deduciamo che $ A \times B \subseteq \P(\P(A \cup B)) $.}\\
+Tale relazione si traspone alle cardinalità nella disuguaglianza $ |A \times B| \leq |\P(\P(A \cup B))| $. Allora se prendiamo $ A = B $ tale che $ |A| = n $, con $ n \in \N $, segue banalmente che $ n^2 \leq 2^{2^n} $.
+
+
+\begin{es}
+  \textsf{ATTENZIONE : non l'ho capito bene, molto probabilmente $ x $ e $ y $ sono scambiati.} \\
+  L'Assioma di buona fondazione afferma che ogni insieme $ x $ non vuoto contiene un elemento disgiunto da $ x $ stesso. In simboli \[\forall x, \ \exists y : (y \in x) \wedge (y \cap x = \emptyset).\] Dimostrare che
+  \begin{enumerate}
+  \item non può esistere un insieme $ x $ tale che $ x \in x $;
+  \item non possono esistere $ x_1, \dots, x_n $ insiemi tali che $ x_1 \in x_2 \in \dots \in x_n \in x_1 $;
+  \item non possono esistere $ x_n $ insiemi con $ n \in \N $ tali che $ x_{n+1} \in x_{n} $.
+  \end{enumerate}
+\end{es}
+Procediamo per assurdo: per ognuono dei punti supporremo vera la richiesta e mostreremo che ciò conduce ad una negazione dell'assioma ovvero \[\neg (\forall x, \ \exists y : (y \in x) \wedge (y \cap x = \emptyset)) \iff \exists x, \ \forall y : (y \notin x) \vel (y \cap x \neq \emptyset). \]
+\begin{enumerate}
+\item Sia $ x \neq \emptyset $ tale che $ x \in x $ e definiamo $ y = \{x\} $ che esiste per l'\textsc{Assioma della coppia}. Tale insieme soddisfa la negazione dell'assioma in quanto $ x \in \{x\} $ e, per ipotesi, $ x \in x $ dunque $ y \cap x = x \neq \emptyset $. Ciò è dunque assurdo e concludiamo quindi che $ \nexists x \neq \emptyset : x \in x $.
+\item Siano $ x_1, \dots, x_n $ insiemi non vuoti tali che $ x_1 \in x_2 \in \dots \in x_n \in x_1 $ e consideriamo  $ y = \{x_n, \dots, x_2, x_1\} $. Allora $ y \neq \emptyset $ e per ogni $ 1 \leq k \leq n $ si ha $ x_k \cap y = \{x_n, \dots, x_1\} \neq \emptyset $, che contraddice l'assioma. D'altro canto gli $ x_1, \dots, x_n $ sono tali che per ogni $ k $, $ x_k \in x_k $, che è assurdo per quanto dimostrato al punto precendente.
+\item Supponiamo che esiste una sequenza $ x_n $ di insiemi non vuoti, con $ n \in \N $ tale che $ x_{n+1} \in x_n $ e definiamo per ogni $ n $ $ y_n = \{x_n\} $ che esiste per l'\textsc{Assioma della coppia}. Allora $ y_n $ è un insieme non vuoto e $ y_n \cap x_n \neq \emptyset $ in quanto $ x_{n+1} \in x_n $, per ipotesi, e $ x_{n+1} \in y $. Ciò è assurdo in quanto contraddice l'assioma; concludiamo quindi che non possono esistere una successione infinita discendente di insiemi.
+\end{enumerate}

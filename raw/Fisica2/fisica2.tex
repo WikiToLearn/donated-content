@@ -1,0 +1,1080 @@
+\documentclass[a4paper,11pt]{book}
+	 \usepackage[a4paper, left=2.5cm, bottom=2.5cm]{geometry}
+     \usepackage[italian]{babel}
+     \usepackage[utf8]{inputenc}
+     \usepackage{siunitx}
+     \usepackage{graphicx}
+     \usepackage{amsfonts}
+     \usepackage{amsmath}
+     \usepackage{amsthm}
+     \usepackage{circuitikz}
+     \usepackage{pgfplots}
+     \title{Fisica 2}
+     \author{Appunti aggiornati al:}
+	 \date{\today}
+	 
+	 \let\oldnabla\nabla
+	 \renewcommand{\nabla}{\vec{\oldnabla}}
+	 \newcommand{\C}{\mathbb{C}}
+	 \newcommand{\R}{\mathbb{R}}
+	 \newcommand{\N}{\mathbb{N}}
+	 \newcommand{\Z}{\mathbb{Z}}
+	 \newcommand{\der}[3][]{\frac{\partial ^{#1}#2}{\partial #3^{#1}}}
+	 \newcommand{\dif}{\mathrm{d}}
+	 \newcommand{\lap}{\oldnabla^2}
+	 \let\oldepsilon\epsilon
+	 \let\oldvarepsilon\varepsilon
+	 \renewcommand{\epsilon}{\oldvarepsilon}
+	 \renewcommand{\varepsilon}{\oldepsilon}
+	 \newcommand{\V}{\mathcal{V}}
+	 
+	  \theoremstyle{definition}
+	  \newtheorem{osservazione}{Osservazione}[section]
+	  \newtheorem{definizione}{Definizione}[section]
+	  \newtheorem{esempio}{Esempio}[section]
+	  
+	  \theoremstyle{theorem}
+	  \newtheorem{teorema}{Teorema}[section]
+	  \newtheorem{proposizione}{Proposizione}[section]
+	  \newtheorem{corollario}{Corollario}[teorema]
+	  \newtheorem{lemma}[teorema]{Lemma}
+	 
+\begin{document}
+	\maketitle
+	\tableofcontents
+	\newpage
+\chapter{Teoria - Moruzzi}
+\section{18 settembre 2017}
+	\subsection{Informazioni utili}
+	\begin{itemize}
+		\item Libri: Feynman Lectures (Pegoraro), Mencuccini-Silvestrini (Cavasinni)
+		\item giovanni.moruzzi@unipi.it, www.df.unipi.it/$\sim$moruzzi
+		\item Usiamo l'MKS, probabilmente La Rocca utilizzerà il CGS.
+		\item Ci saranno tre compitini, di cui uno nel primo semestre.
+	\end{itemize}
+	\subsection{Introduzione}
+	Il tizio ha parlato un po' a caso di elettromagnetismo, ha parlato di isolanti, conduttori di prima (gli elettroni periferici possono spostarsi nel reticolo) e seconda specie (ci sono portatori di carica positiva e negativa, e.g. l'acqua del mare).
+	\subsection{Legge di Coulomb}
+		Due cariche puntiformi $q_1$ e $q_2$ a distanza $r_{12}$ interagiscono con una forza data da:
+		\[f_2=k\frac{q_1q_2}{r_{12}^2}\]
+		\[\vec{f}_2=k\frac{q_1q_2}{r_{12}^3}\vec{r}_{12}\]
+		Le due forze, oltre a essere opposte, sono anche collineari (per ovvi motivi di momento angolare).
+		In CGS, $k=1$ e quindi l'unità di carica (il franklin) è la carica tale che alla distanza di 1 cm esercita una forza di 1 dyn. In MKS, $k=\frac{1}{4\pi\epsilon_0}$, con $\epsilon_0=8.854\cdot10^{-12} $C$^2/($N$\cdot $m$^2)$. A questo punto $1$ C è tautologicamente la carica che posta a $1$ m di distanza produce una forza di $9\cdot10^{7}$ N.
+		
+		Se ho un sistema di cariche puntiformi uso la relazione precedente sommando le varie forze:
+		\[\vec{f}=\frac{Q}{4\pi\epsilon_0}\sum_{i}\frac{q_i}{r_{iQ}^2}\hat{r}_{iQ}\]
+		Definisco il campo elettrico come
+		\[\vec{E}=\frac{\vec{f}}{Q}\]
+		Che definisce una proprietà del punto, indipendente da $Q$.
+		
+		Per un corpo esteso si definiscono alcune proprietà
+		\begin{itemize}
+			\item la densità di carica volumica $\rho$,
+			\item la densità di carica superficiale $\sigma$,
+			\item la densità di carica lineare $\lambda$.
+		\end{itemize}
+		\subsection{Esercizi preliminari}
+		Supponiamo di avere un anello di raggio $r$, spessore trascurabile e uniformemente carico con una densità lineare di carica $\lambda$. Vogliamo calcolare il campo elettrico sull'asse dell'anello a una distanza $z$ dal centro. Una porzione infinitesima dell'anello di lungheza $\mathrm{d}l$ ha una carica $\mathrm{d}q=\lambda\mathrm{d}l$, quindi il campo generato è
+		\[\mathrm{d}E=\frac{1}{4\pi\epsilon_0}\frac{\lambda\mathrm{d}l}{r^2+z^2}\]
+		La porzione diametralmente opposta annulla la componente radiale di $E$ e rimane solo la componente assiale, quindi
+		\[\mathrm{d}E_z=\frac{\lambda\mathrm{d}l}{4\pi\epsilon_0}\frac{z}{\left(r^2+z^2\right)^{3/2}}\]
+		Di conseguenza
+		\[E_z(z)=\frac{\lambda rz}{2\epsilon_0\left(r^2+z^2\right)^{3/2}}=\frac{Qz}{4\pi\epsilon_0\left(r^2+z^2\right)^{3/2}}\]
+		Supponiamo ora di avere un disco di raggio $R$ e densità superficiale $\sigma$ e di voler calcolare il campo elettrico lungo l'asse del disco. Posso dividere quest'ultimo in anelli di carica $\mathrm{d}Q=2\pi r\sigma\mathrm{d}r$.
+		Allora
+		\[E_z(z)=\int_{0}^{R}\frac{2\pi \sigma rz\mathrm{d}r}{4\pi\epsilon_0\left(r^2+z^2\right)^{3/2}}=\frac{\sigma}{2\epsilon_0}\int_{0}^{\beta}\sin\alpha\mathrm{d}\alpha=\sigma\frac{1-\cos\beta}{2\epsilon_0}\]
+		Dove si è posto $r=z\tan\alpha$, $\tan\beta=R/z$. Inoltre, se $R\to\infty$ si ha $\beta\to\pi/2$, quindi il campo generato da un piano con carica $\sigma$ è
+		\[E=\frac{\sigma}{2\epsilon_0}\]
+	\section{19 settembre 2017}
+		Moruzzi ha dato la definizione di campo vettoriale e di flusso, che sono banali.
+		\subsection{Angolo solido}
+		Consideriamo un punto $P$ nello spazio e una curva chiusa $\gamma$, possibilmente non contenuta in un piano. Se $Q$ è un punto del sostegno di $\gamma$, consideriamo la porzione di spazio tra tutte le semirette di estremi $P$ e $Q$, al variare di $Q$ sul sostegno di $\gamma$. Tale regione di spazio è detta angolo solido, e si misura tramite una superficie sferica di raggio $r$ e centrata in $P$. Se $A$ è l'area della superficie della porzione di sfera tra le semirette uscenti da $P$, si pone
+		\[\Omega=\frac{A}{r^2}\]
+		Tale definizione non dipende da $r$, inoltre tutto lo spazio individua un angolo solido di $4\pi$. Inoltre, se $\mathrm{d}\vec{S}$ è una superficie infinitesima si ha
+		\[\mathrm{d}\Omega=\frac{\hat{r}\cdot\mathrm{d}\vec{S}}{r^2}\]
+		Dove $\vec{r}$ è il vettore con coda in $P$ e punta nel centro di $\mathrm{d}\vec{S}$.
+		\subsection{Teorema di Gauss}
+		Consideriamo una carica puntiforme $q$ e una qualunque superficie chiusa $\Sigma$ tale che $q$ sia al suo interno. Si ha
+		\[\phi(\vec{E})=\oint_{\Sigma}\vec{E}\cdot\mathrm{d}\vec{S}=\frac{q}{4\pi\epsilon_0}\oint_{\Sigma}\frac{\hat{r}\cdot\mathrm{d}\vec{S}}{r^2}=\frac{q}{4\pi\epsilon_0}\oint_{\Sigma}\mathrm{d}\Omega=\frac{q}{\epsilon_0}\]
+		Se invece $q$ è all'esterno di $\Sigma$, il flusso è nullo per ovvi motivi. Se ho una collezione di cariche o un corpo esteso, si ha
+		\[\epsilon_0\oint_{\Sigma}\vec{E}\cdot\mathrm{d}\vec{S}=Q_{\textrm{int}}\]
+		\subsection{Eserciziucci su Gauss}
+		\begin{enumerate}
+			\item\textit{Consideriamo una sfera di raggio $R$ carica uniformemente con densità volumica $\rho$. Calcolare $\vec{E}$ in tutti i punti dello spazio.}
+			
+			Fissiamo l'origine nel centro della sfera, e sia $Q=\frac{4}{3}\pi\rho R^3$ la carica totale della sfera. Per ovvi motivi di simmetria si deve avere $\vec{E}(\vec{r})=E(r)\hat{r}$. Usando Gauss si ha allora
+			\[\vec{E}(\vec{r})=\left\{\begin{array}{l l}
+			\frac{Q}{4\pi\epsilon_0r^2}&\textrm{ se $r\geq R$}\\
+			\frac{\rho\vec{r}}{3\epsilon_0}&\textrm{ se $r<R$}
+			\end{array}\right.\]
+			\item\textit{Ripetere nel caso di una sfera carica solo sulla superficie.}
+			
+			Il campo all'esterno è lo stesso del caso precedente, all'interno è nullo.
+			
+			\item\textit{Ripetere nel caso di un piano uniformemente carico.}
+			
+			Per simmetria il campo deve essere ortogonale al piano e indipendente dalla quota. Usando Gauss (e fissando un cilindro ortogonale al piano) si ottiene
+			\[E=\frac{\sigma}{2\epsilon_0}\]
+			che per fortuna è il risultato della lezione precedente.
+			
+			\item\textit{Ripetere nel caso di un filo rettilineo infinito uniformemente carico.}
+			
+			Il campo deve essere radiale e indipendente dalla quota. Fissando un cilindro coassiale con il filo si ottiene
+			\[\vec{E}(\vec{r})=\frac{\lambda}{2\pi\epsilon_0r}\hat{r}\]
+		\end{enumerate}
+	\section{22 settembre 2017}
+	\begin{teorema}[della divergenza]
+	Consideriamo un campo vettoriale $\vec{v}$ su $\mathbb{R}^3$ di classe $C^1$, allora se $S$ è una superficie chiusa e orientabile che delimita un volume $V$ si ha
+	\[\oint_S\vec{v}\cdot\mathrm{d}\vec{S}=\int_V\nabla\cdot\vec{v}\mathrm{d}^3x\]
+	\end{teorema}
+	\begin{proof}
+		Faremo una dimostrazione \textit{à la} Gigi. Consideriamo un cubetto di centro $(x,y,z)$ e lati $\mathrm{d}x,\mathrm{d}y,\mathrm{d}z$. Allora il flusso attraverso la superficie di tale cubetto è, al primo ordine:
+		\[\nabla\cdot\vec{v}(x,y,z)\mathrm{d}x\mathrm{d}y\mathrm{d}z\]
+		Se integro su $V$, i contributi delle facce interne si elidono e rimangono solo i contributi delle facce su $S$, da cui si ha la tesi.
+	\end{proof}
+	\subsection{Forma locale della legge di Gauss}
+	Riprendiamo la legge di Gauss
+	\[\oint_S\vec{E}\cdot\mathrm{d}\vec{S}=\frac{q_{\textrm{int}}}{\epsilon_0}\]
+	e sia $V$ il volume il cui bordo è $S$. Allora si ha
+	\[q_{\textrm{int}}=\int_V\rho(x)\mathrm{d}^3x\]
+	Usando il teorema della divergenza, si ha
+	\[\nabla\cdot\vec{E}=\frac{\rho}{\epsilon_0}\]
+	Ossia la prima equazione di Maxwell (anche se a quanto pare Pegoraro odia una qualunque enumerazione delle equazioni di Maxwell).
+	\subsection{Potenziale}
+	Consideriamo una carica puntiforme $q$ nell'origine e una carica $Q$. Allora il lavoro necessario per spostare $Q$ dalla posizione $\vec{r}_A$ alla posizione $\vec{r}_B$ è
+	\[L=\int_{\vec{r}_A}^{\vec{r}_B}Q\vec{E}\cdot\mathrm{d}\vec{l}=\frac{Qq}{4\pi\epsilon_0}\int_{\vec{r}_A}^{\vec{r}_B}\frac{\hat{r}\cdot\mathrm{d}\vec{l}}{r^2}=\frac{Qq}{4\pi\epsilon_0}\left(\frac{1}{r_A}-\frac{1}{r_B}\right)\]
+	Ne segue che la forza elettrostatica è conservativa, e in particolare esiste un'energia potenziale $U$ tale che
+	\[\vec{F}=-\nabla U\]
+	Definiamo il potenziale $V$ come $U/Q$. Chiaramente vale
+	\[\vec{E}=-\nabla V\]
+	Inoltre, per una carica puntiforme $q$ nell'origine si ha
+	\[V(\vec{r})=\frac{q}{4\pi\epsilon_0|\vec{r}|}\]
+	Se invece abbiamo una collezione di cariche puntiformi, il potenziale è
+	\[V(\vec{r})=\frac{1}{4\pi\epsilon_0}\sum_{i=1}^{n}\frac{q_i}{|\vec{r}-\vec{r}_i|}\]
+	Ovviamente l'espressione precedente è definita ovunque, tranne nei punti in cui si trovano le cariche. Per una distribuzione continua di carica si ha invece
+	\[V(\vec{x})=\frac{1}{4\pi\epsilon_0}\int\frac{\rho(x')\mathrm{d}^3x'}{|\vec{x}-\vec{x}'|}\]
+	Per cariche puntiformi, può essere utile definire la delta di Dirac, che non è una funzione (a rigore è un funzionale lineare continuo sullo spazio delle funzioni di test), e che ha le seguenti proprietà:
+	\begin{itemize}
+		\item $\delta(x)=0$ per ogni $x\neq0$
+		\item $\int_{a}^{b}\delta(x)\mathrm{d}x=1$ per ogni $a<0<b$
+	\end{itemize}
+	Definiamo la delta di Dirac in tre dimensioni come $\delta(\vec{r})=\delta(x)\delta(y)\delta(z)$ (con $\vec{r}=x\hat{x}+y\hat{y}+z\hat{z}$). Allora per una carica puntiforme in $\vec{r}_0$ il potenziale può essere scritto come
+	\[V(\vec{r})=\frac{1}{4\pi\epsilon_0}\int\frac{\delta(\vec{r}'-\vec{r}_0)}{|\vec{r}-\vec{r}'|}\mathrm{d}x'\mathrm{d}y'\mathrm{d}z'\]
+	La generalizzazione a più cariche puntiformi è ovvia.
+	\section{25 settembre 2017}
+	\subsection{Potenziale di un filo carico}
+	Consideriamo un filo uniformemente carico posto sull'asse $z$, e sia $\lambda$ la densità lineare di carica. Allora, in punto sul piano $xy$ a distanza $r$ dal filo, il contributo al potenziale dovuto al tratto di filo compreso tra $z$ e $z+\dif z$ è
+	\[\dif V=\frac{\lambda}{4\pi\epsilon_0}\frac{\dif z}{\sqrt{z^2+r^2}}\]
+	Di conseguenza, si avrà
+	\[V(r)=\frac{\lambda}{4\pi\epsilon_0}\int_{-\infty}^{+\infty}\frac{\dif z}{\sqrt{r^2+z^2}}=\frac{\lambda}{2\pi\epsilon_0}\int_{0}^{\infty}\frac{\dif z}{\sqrt{r^2+z^2}}\]
+	L'ultimo integrale diverge, dato che la funzione integranda è asintotica a $z^{-1}$ quando $z\to\infty$. Per ovviare a questo problema, ci possiamo limitare a considerare solamente le differenze di potenziale (oppure risolviamo $\vec{E}=-\nabla V$ come Dio comanda e evitiamo queste porcate). Preso $r_0$ come potenziale di riferimento si ha
+	\[V(r)=-\frac{\lambda}{2\pi\epsilon_0}\ln r+\frac{\lambda}{2\pi\epsilon_0}\ln r_0\]
+	\subsection{Gradiente in altre coordinate}
+	Consideriamo una funzione scalare $V$. Allora il suo gradiente in $\vec{x}$ è tale che
+	\[\left(\nabla V(\vec{x})\right)\cdot\dif\vec{x}=\dif V\]
+	In particolare, se fissiamo delle coordinate cartesiane otteniamo l'espressione usuale del gradiente. In coordinate cilindriche e sferiche si ha rispettivamente
+	\[\nabla V=\der{V}{r}\hat{r}+\frac{1}{r}\der{V}{\theta}\hat{\theta}+\der{V}{z}\hat{z}\]
+	\[\nabla V=\der{V}{r}\hat{r}+\frac{1}{r}\der{V}{\theta}\hat{\theta}+\frac{1}{r\sin\theta}\der{V}{\phi}\hat{\phi}\]
+	\subsection{Dipolo elettrico}
+	Consideriamo due cariche $q$ e $-q$ mantenute a distanza $h$ l'una dall'altra. Fissiamo l'origine del sistema di riferimento nel punto medio del segmento congiungente le due cariche, con l'asse $z$ contenente $q$ e $-q$, e sia $\vec{h}$ il vettore con coda in $-q$ e punta in $q$. Vogliamo calcolare il potenziale in un punto $P$ di posizione $\vec{r}$, nell'ipotesi che $r\gg h$. Se $r_+$ e $r_-$ sono rispettivamente le distanze di $q$ e $-q$ da $P$, si ha
+	\[V(r)=\frac{q}{4\pi\epsilon_0}\left(\frac{1}{r_+}-\frac{1}{r_-}\right)=\frac{q}{4\pi\epsilon_0}\frac{r_--r_+}{r_-r_+}\]
+	Grazie all'ipotesi su $r$ e $h$ si ha
+	\[r_+r_-\approx r^2\]
+	\[r_--r_+\approx h\cos\theta\]
+	dove $\theta$ è l'angolo tra $\vec{r}$ e $\vec{h}$. Allora, definendo il momento di dipolo $\vec{p}=q\vec{h}$, si ottiene
+	\[V(r)\approx\frac{\vec{p}\cdot\hat{r}}{4\pi\epsilon_0r^2}\]
+	
+	D'ora in poi, se non è specificato altrimenti, assumeremo che $h$ sia sempre molto più piccola delle altre lunghezze considerate e tratteremo la relazione precedente come  esatta.
+	
+	Il campo elettrico $\vec{E}$ generato dal dipolo si ottiene facendo il gradiente dell'espressione precedente. Ad esempio, in cartesiane si ha
+	\[E_x=\frac{3pxz}{4\pi\epsilon_0\left(x^2+y^2+z^2\right)^{5/2}}\]
+	\[E_y=\frac{3pyz}{4\pi\epsilon_0\left(x^2+y^2+z^2\right)^{5/2}}\]
+	\[E_z=\frac{p}{4\pi\epsilon_0}\frac{2z^2-(x^2+y^2)}{\left(x^2+y^2+z^2\right)^{5/2}}\]
+	Mentre in sferiche
+	\[E_r=\frac{p\cos\theta}{2\pi\epsilon_0r^3}\]
+	\[E_{\theta}=\frac{p\sin\theta}{4\pi\epsilon_0r^3}\]
+	\[E_{\phi}=0\]
+	In forma vettoriale, si ha
+	\[\vec{E}=\frac{1}{4\pi\epsilon_0}\left[\frac{3\left(\vec p\cdot\vec{r}\right)\vec{r}}{r^5}-\frac{\vec{p}}{r^3}\right]=\frac{3\left(\vec p\cdot\vec{r}\right)\vec{r}-r^2\vec{p}}{4\pi\epsilon_0r^5}\]
+	
+	Consideriamo ora un dipolo elettrico immerso in un campo elettrico esterno $\vec{E}$, e supponiamo che questo sia uniforme. Allora la forza agente sul dipolo è nulla. Il momento torcente calcolato rispetto a $-q$ è invece
+	\[\tau=qEh\sin\theta=|\vec p\times\vec{E}|\]
+	dove $\theta$ è l'angolo tra $\vec{E}$ e $\vec{p}$, preso ruotando in verso orario a partire da $\vec{E}$ (che convenzione del cazzo). In forma vettoriale si ha quindi
+	\[\vec{\tau}=-\vec{p}\times\vec{E}\]
+	Sia $V$ il potenziale tale che $\vec{E}=-\nabla V$. Se $-q$ si trova in $\vec{r}$, l'energia del dipolo è
+	\[U=-qV(\vec{r})+qV(\vec{r}+\vec{h})=q\nabla V(\vec{r})\cdot\vec{h}=-\vec{p}\cdot\vec{E}\]
+	Di conseguenza, la forza agente sul dipolo è
+	\[\vec{F}=-\nabla U=\left(\nabla\cdot\vec{E}\right)\vec{p}+\left(\nabla\cdot\vec{p}\right)\vec{E}\]
+	Dato che si mostra banalmente che la regola di Leibniz vale anche per i prodotti scalari. Come notato prima, se $\vec E$ è uniforme (e il dipolo è fermo), tale forza è nulla.
+	\section{29 settembre 2017}
+	\subsection{Operatori differenziali}
+	Siano $\vec{E},V$ due campi, rispettivamente vettoriale e scalare. In coordinate cartesiane, possiamo definire i tre operatori
+	\[\nabla\cdot\vec{E}=\der{E_x}{x}+\der{E_y}{y}+\der{E_z}{z}\]
+	\[\nabla V=\left(\der{V}{x},\der{V}{y},\der{V}{z}\right)\]
+	\[\nabla\times\vec{E}=\left(\der{E_z}{y}-\der{E_y}{z},\der{E_x}{z}-\der{E_z}{x},\der{E_y}{x}-\der{E_x}{y}\right)\]
+	\begin{teorema}[di Stokes]
+		Consideriamo un campo vettoriale $\vec{A}$ onesto, una superficie $\Sigma$ con bordo $\gamma$. Allora si ha
+		\[\oint_{\gamma}\vec{A}\cdot\dif\vec{l}=\int_{\Sigma}\nabla\times\vec{A}\cdot\dif\vec{S}\]
+	\end{teorema}
+	\begin{proof}
+		Supponiamo di suddividere $S$ in quadratini sufficientemente piccoli da poter essere considerati piani. Consideriamo ad esempio un quadratino sul piano $xy$. Allora la circuitazione lungo questo quadratino è
+		\[A_x(x,y)\dif x+A_y(x+\dif x,y)\dif y-A_x(x,y+\dif y)\dif x-A_y(x,y)\dif y=\]\[=\left(A_x(x,y)-A_x(x,y+\dif y)\right)\dif x+\left(A_y(x+\dif x,y)-A_y(x,y)\right)\dif y=\]\[=\left(\der{A_x}{y}-\der{A_x}{y}\right)\dif x\dif y=\left(\nabla\times\vec{A}\right)_z\cdot\dif x\dif y\]
+		Chiaramente il flusso di $\nabla\times\vec{A}$ è la somma di tutti i contributi dell'ultimo membro. Se invece due quadratini hanno un lato in comune, i due contributi alla circuitazione sono uguali e opposti, mentre quelli lungo $\gamma$ vengono sommati, da cui la tesi.
+	\end{proof}
+	\subsection{Terza equazione di Maxwell}
+	Dato che $\vec{E}=-\nabla V$, si ha
+	\[\nabla\times\vec{E}=\epsilon_{ijk}\der{E_k}{x_j}\hat{x}_i=\epsilon_{ijk}\frac{\partial^2V}{\partial x_j\partial x_k}\hat{x}_i\]
+	Se siamo nelle solite ipotesi del teorema di Schwarz, allora si ottiene
+	\[\nabla\times\vec{E}=0\]
+	\subsection{Conduttori all'equilibrio elettrostatico}
+	La condizione di equilibrio impone che il campo elettrico all'interno sia nullo. Allora per la legge di Gauss l'eventuale carica del conduttore deve essere necessariamente distribuita sulla superficie. In particolare, se si pone il conduttore in un campo elettrico esterno, questo farà migrare le cariche sulla superficie in modo che queste generino un campo all'interno uguale e opposto. Consideriamo ora due punti $A$ e $B$ all'interno del conduttore e sia $\gamma$ una curva con sostegno interno al conduttore che li congiunge. Si ha
+	\[\Delta V_{BA}=\int_{A}^{B}\vec{E}\cdot\dif\vec{l}=0\]
+	Ovvero tutti i punti interni si trovano allo stesso potenziale. Si ha la stessa tesi se $A$ è interno, $B$ è sulla superficie e $\gamma$ è contenuta, tranne al più per un estremo, nel conduttore. Questo implica che la superficie esterna del conduttore è equipotenziale, e quindi per un ben noto teorema di analisi il campo $\vec{E}$ deve essere ortogonale in ogni punto alla superficie esterna. Appare quindi evidente che non è possibile realizzare una distribuzione statica di carica che produca un campo elettrico tangente alla superficie.
+	Supponiamo ora che in punto esterno al conduttore, in prossimità della superficie, il campo elettrico sia $E_0$. fissiamo un cilindretto perpendicolare alla superficie. Applicando il teorema di Gauss si trova che la densità di carica sul conduttore nel punto considerato è
+	\[\sigma=E_0\epsilon_0\]
+	
+	In generale, se un conduttore ha una carica $Q$ ci aspettiamo che il potenziale $V$ (o meglio, la differenza di potenziale tra un qualunque punto della superficie e il punto all'infinito) sia proporzionale alla carica stessa. Definiamo quindi la capacità $C$ di un conduttore in modo che si abbia
+	\[V=\frac{Q}{C}\]
+	Ad esempio, per una sfera di raggio $R$ si ha $C=4\pi\epsilon_0 R$. In MKS la capacità si misura in F (Farad). In presenza di più conduttori con cariche $Q_1,\dots,Q_n$, il potenziale $V_i$ sulla superficie dell'$i$-esimo conduttore sarà della forma
+	\[V_i=p_{ij}Q_j\]
+	con $p_{ii}>p_{ij}>0$ per ogni $i\neq j$ e $p_{ij}=p_{ji}$ per ogni $i$ e $j$. Tale matrice è detta matrice dei coefficienti di potenziale ed è invertibile, quindi detta $C$ la sua inversa si ha
+	\[Q_i=C_{ij}V_j\]
+	con $C_{ij}<0<C_{ii}$ per ogni $i\neq j$ e $C_{ij}=C_{ji}$ per ogni $i$ e $j$. I coefficienti $C_{ii}$ sono detti coefficienti di capacità, i coefficienti $C_{ij}$ per $i\neq j$ sono detti coefficienti di induzione elettrostatica.
+	
+	Per un condensatore, si dà la stessa definizione di capacità, intendendo con $V$ la differenza di potenziale tra i due conduttori. Si parla inoltre di induzione totale tra due conduttori di carica opposta se tutte le linee di campo uscenti dal conduttore carico positivamente si chiudono nel conduttore carico negativamente (tranne al più la linea che si chiude all'infinito).
+	\section{2 ottobre 2017}
+	\subsection{Condensatori comuni}
+	\subsubsection{Condensatore sferico}
+	Consideriamo due gusci sferici concentrici di raggi $r_1$ e $r_2$ (con $r_1<r_2$). Sia $Q$ la carica sulla sfera più piccola e $-Q$ la carica sulla sfera più grande. Il campo elettrico, per la legge di Gauss, deve essere radiale. Inoltre, è non nullo solo per $r_1\leq r\leq r_2$. In tale regione si ha
+	\[E(r)=\frac{Q}{4\pi\epsilon_0r^2}\]
+	Di conseguenza la differenza di potenziale tra le due piastre è
+	\[\Delta V=\frac{Q}{4\pi\epsilon_0}\left(\frac{1}{r_1}-\frac{1}{r_2}\right)\]
+	Da cui la capacità
+	\[C=4\pi\epsilon_0\frac{r_1r_2}{r_2-r_1}\]
+	Se si ha $d=r_2-r_1\ll r_1$ (ossia il caso di sfere molto vicine) si ottiene
+	\[C\approx4\pi\epsilon_0\frac{r^2}{d}=\epsilon_0\frac{S}{d}\]
+	dove $S=4\pi r^2$ è la superficie delle piastre.
+	\subsubsection{Condensatore piano a facce parallele}
+	Consideriamo due piastre di area $S$ piane e parallele, su cui sono distribuite uniformemente le cariche $Q$ e $-Q$, a distanza $d\ll\sqrt{S}$. Per Gauss, il campo elettrico è non nullo solo nello spazio tra le due piastre. Inoltre, data l'ipotesi su $d$, possiamo assumere che il campo all'interno sia la sovrapposizione dei campi generati da due piani paralleli infiniti, ovvero
+	\[E=\frac{Q}{S\epsilon_0}\]
+	Di conseguenza
+	\[\Delta V=\frac{Qd}{S\epsilon_0}\]
+	\[C=\epsilon_0\frac{S}{d}\]
+	Ritroviamo dunque l'approssimazione delle sfere.
+	\subsubsection{Condensatore cilindrico}
+	Consideriamo due cilindri coassiali di lunghezza $l$ e raggi $r_1$ e $r_2$ (con $r_1<r_2$) su cui sono poste le cariche $Q$ e $-Q$. Dal teorema di Gauss, il campo elettrico è radiale e per $r_1\leq r\leq r_2$ si ha
+	\[E(r)=\frac{Q}{2\pi\epsilon_0rl}\]
+	Mentre è nullo altrove. Allora si ottiene
+	\[\Delta V=\frac{Q}{2\pi\epsilon_0l}\ln \frac{r_2}{r_1}\]
+	\[C=\frac{2\pi\epsilon_0l}{\ln r_2/r_1}\]
+	\subsection{Energia elettrostatica e densità di energia}
+	Consideriamo una carica $q_1$ nello spazio. L'energia spesa per portare una carica $q_2$ dall'infinito a distanza $r_{12}\neq0$ da $q_1$ è
+	\[U=\frac{q_1q_2}{4\pi\epsilon_0r_{12}}\]
+	Se ora portiamo una terza carica $q_3$, l'energia spesa è
+	\[U=\frac{q_1q_3}{4\pi\epsilon_0r_{13}}+\frac{q_2q_3}{4\pi\epsilon_0r_{23}}\]
+	Generalizzando a $q_1,\dots, q_n$ cariche puntiformi poste in $\vec{r}_1,\dots,\vec{r}_n$, e posto $r_{ij}=|\vec{r}_i-\vec{r}_j|$, si trova facilmente
+	\[U=\frac{1}{4\pi\epsilon_0}\sum_{i<j}\frac{q_iq_j}{r_{ij}}\]
+	Che può essere riscritta nelle forme più simmetriche e eleganti
+	\[U=\frac{1}{2}\frac{1}{4\pi\epsilon_0}\sum_{i\neq j}\frac{q_iq_j}{r_{ij}}=\frac{1}{2}\sum_{i\neq j}q_iV_{ij}=\frac{1}{2}\sum_{i}q_iV_i\]
+	dove $V_{ij}$ è il potenziale generato dalla carica $q_j$ nella posizione $\vec{r}_{i}$ e $V_i$ è il potenziale generato da tutte le cariche, tranne l'$i$-esima, nella posizione $\vec{r}_i$. Per distribuzioni volumiche $\rho$ e superficiali $\sigma$ si ha
+	\[U=\frac{1}{2}\int\rho V\dif^3x\]
+	\[U=\frac{1}{2}\int\sigma V\dif S\]
+	Dalla prima equazione di Maxwell sappiamo che $\rho=\epsilon_0\nabla\cdot\vec{E}$, dunque
+	\[U=\frac{1}{2}\epsilon_0\int V\nabla\cdot E\dif^3x=\frac{1}{2}\epsilon_0\int \left(\nabla\cdot(V\vec{E})-\nabla V\cdot\vec{E}\right)\dif^3x=\]\[=\frac{1}{2}\epsilon_0\left(\oint_S V\vec{E}\cdot\dif\vec{S}+\int|\vec{E}|^2\dif^3x\right)\]
+	Se supponiamo che la carica sia localizzata e che $S$ sia una sfera di raggio $r$, allora l'integrale di superficie all'ultimo membro decresce come $r^{-1}$, e in particolare si annulla se $r\to\infty$, dunque si ottiene
+	\[U=\frac{1}{2}\epsilon_0\int|\vec{E}|^2\dif^3x\]
+	La quantità
+	\[u_e=\frac{1}{2}\epsilon_0|\vec{E}|^2\]
+	può essere allora interpretata come densità di energia del campo elettrostatico. Le formule
+	\[U=\frac{1}{2}\int\rho V\dif^3x\]
+	\[U=\frac{1}{2}\epsilon_0\int|\vec{E}|^2\dif^3x\]
+	non sono equivalenti. La seconda è sempre positiva, e tiene conto anche dei termini dell'autoenergia (cioè l'energia usata per creare anche, ad esempio, una carica puntiforme). Sono equivalenti se il campo elettrico non diverge, e sono equivalenti quando siamo interessati solo a differenze di energia.
+	\subsubsection{Digressione sui coefficienti di capacità e di induzione elettrostatica}
+	Questa parte non è stata neppure menzionata a lezione, però è bella. Nella sezione precedente abbiamo dato per scontato che si abbia $C_{ij}=C_{ji}$ e $C_{ij}<0<C_{ii}$ per $i\neq j$. Consideriamo l'energia di un sistema di conduttori
+	\[U=\frac{1}{2}\epsilon_0\int|\vec{E}|^2\dif^3x\]
+	dove l'integrale è esteso a tutto lo spazio esterno ai conduttori. Chiaramente si ha $U\geq0$. Si ha dunque
+	\[U=-\frac{1}{2}\epsilon_0\int\vec{E}\cdot\nabla V\dif^3x=-\frac{1}{2}\epsilon_0\int\nabla\cdot\left(V\vec{E}\right)\dif^3x+\frac{1}{2}\epsilon_0\int V\nabla\cdot\vec{E}\dif^3x\]
+	Il secondo integrale dell'ultimo membro è nullo per la prima equazione di Maxwell. Il primo può invece essere trasformato con il teorema della divergenza in
+	\[U=\frac{1}{2}\epsilon_0\int_SV\vec{E}\cdot\dif\vec{S}\]
+	e tale integrale è esteso alle superfici di tutti i conduttori. In particolare, indicizzando i conduttori e tenendo conto che le loro superfici sono equipotenziali, si ha
+	\[U=\frac{1}{2}\epsilon_0V_i\oint_{S_i}\vec{E}\cdot\dif\vec{S}\]
+	Detta $E_n$ la componente di $\vec{E}$ ortogonale alla superficie, sappiamo che la densità superficiale di carica è $\sigma=\epsilon_0E_n$, quindi se $q_i$ è la carica dell'$i$-esimo conduttore si ha
+	\[q_i=\epsilon_0\oint_{S_i}E_n\dif S\]
+	\[U=\frac{1}{2}q_iV_i\]
+	Le cariche e i potenziali non sono indipendenti. Per la linearità e l'omogeneità delle equazioni del campo nel vuoto, la relazione tra carica e potenziale dovrà essere anch'essa lineare, ossia si deve avere
+	\[q_i=C_{ij}V_j\]
+	\[V_i=p_{ij}q_j\]
+	con $C_{ij}p_{jk}=\delta_{ik}$. Se immaginiamo ora di variare le cariche o i potenziali, la differenza di energia sarà
+	\[\delta U=\epsilon_0\int\vec{E}\cdot\delta\vec{E}\dif^3x\]
+	Trasformiamo questa relazione in due modi diversi. Usando $\vec{E}=-\nabla V$ si ottiene
+	\[\delta U=-\epsilon_0\int\nabla V\cdot\delta\vec{E}\dif^3x=-\epsilon_0\int\nabla\cdot\left(V\delta\vec{E}\right)\dif^3x=\epsilon_0\int_SV\delta\vec{E}\cdot\dif\vec{S}\]
+	Indicizzando nuovamente si ottiene
+	\[\delta U=\epsilon_0V_i\int_{S_i}\delta\vec{E}\cdot\dif\vec{S}=V_i\delta q_i\]
+	In maniera del tutto analoga, usando $\delta\vec{E}=-\nabla\delta V$ si ottiene
+	\[\delta U=q_i\delta V_i\]
+	In particolare, risulta
+	\[q_i=\der{U}{V_i}\]
+	\[V_i=\der{U}{q_i}\]
+	Dunque usando il teorema di Schwartz
+	\[C_{ij}=\der{q_i}{V_j}=\frac{\partial^2U}{\partial V_j\partial V_i}=\frac{\partial^2U}{\partial V_i\partial V_j}=\der{q_j}{V_i}=C_{ji}\]
+	L'energia è allora la forma quadratica
+	\[U=\frac{1}{2}C_{ij}V_iV_j\]
+	Abbiamo già notato $U\geq0$, dunque deve essere
+	\[C_{ii}>0\]
+	Viceversa, per mostrare che $C_{ij}<0$ per $i\neq j$ procediamo in questo modo: supponiamo di avere tutti i conduttori messi a terra, tranne l'$i$-esimo. Allora questo induce una carica sul $j$-esimo conduttore pari a
+	\[q_j=C_{ji}V_i\]
+	Supponiamo ad esempio $V_i>0$. Dato che il potenziale assume massimo e minimo solo sulle superfici dei conduttori (vedi più avanti per questa dimostrazione), il potenziale è positivo in tutto lo spazio esterno ai conduttori, ed è nullo solo sui conduttori messi a terra. Allora la derivata in direzione normale del potenziale è positiva su tutta la superficie di un conduttore a terra, di conseguenza $E_n<0$, e quindi $q_j<0$. Segue $C_{ji}<0$, da cui si ha la tesi per l'arbitrarietà di $i$ e $j$. 
+	\subsubsection{Energia elettrostatica di una sfera piena}
+	Consideriamo una sfera piena di densità di carica $\rho$ uniforme e raggio $R$. Calcoliamo l'energia in tre modi diversi:
+	\begin{enumerate}
+		\item Consideriamo una sfera di raggio $r<R$ e un guscio sferico che viene portato dall'infinito fino sulla superficie della sfera. L'energia spesa è 
+		\[\delta U=\frac{4\pi\rho^2r^4}{6\epsilon_0}\dif r\]
+		dove $\dif r$ è lo spessore del guscio. Allora si ha
+		\[U=\int\delta U=\int_{0}^{R}\frac{4\pi\rho^2r^4}{6\epsilon_0}\dif r=\frac{4\pi\rho^2 R^5}{15\epsilon_0}=\frac{3Q^2}{20\pi\epsilon_0 R}\]
+		dove $Q=\frac{4}{3}\pi\rho R^3$ è la carica totale presente nella sfera.
+		\item Si ha
+		\[U=\frac{1}{2}\int\rho V\dif^3x=\frac{3Q^2}{20\pi\epsilon_0 R}\]
+		\item Il campo elettrico è radiale e di intensità
+		\[E(r)=\frac{Q}{4\pi\epsilon_0}\left\{\begin{array}{l l}
+		r/R^3&\textrm{ se }r<R\\1/r^2&\textrm{ se }r\geq R
+		\end{array}\right.\]
+		Dunque
+		\[U=\frac{Q^2}{32\pi^2\epsilon_0}\left(\int_{r<R}\frac{r^2}{R^6}\dif^3x+\int_{r\geq R}\frac{1}{r^4}\dif^3x\right)=\frac{3Q^2}{20\pi\epsilon_0 R}\]
+	\end{enumerate}
+	Usando $E=mc^2$ possiamo fare una maialata e dire che il "raggio classico" di un elettrone è
+	\[r_e=\frac{3e^2}{20\pi\epsilon_0m_ec^2}\approx\frac{e^2}{4\pi\epsilon_0m_ec^2}=2.8\cdot10^{-15}\textrm{ m}\]
+	E se siamo ancora più maiali possiamo pure dire che tale raggio è talmente piccolo da non poter essere misurato, e quindi non si può neppure dire che sia sbagliato parlare di raggio dell'elettrone.
+	\subsection{Equazione di Poisson}
+	Utilizzando la prima equazione di Maxwell e la conservatività del campo elettrostatico si ottiene facilmente l'equazione di Poisson
+	\[\lap V=-\frac{\rho}{\epsilon_0}\]
+	Consideriamo, in generale, un volume $\mathcal{V}$ e l'equazione $\lap f=g$ all'interno di $\mathcal{V}$, con la condizione al bordo $f_{|\partial \mathcal{V}}=h$, dove $g$ e $h$ sono funzioni assegnate. Vogliamo mostrare che una tale $f$, se esiste, è anche unica. Per fare ciò diamo un poco di definizioni e lemmi:
+	\begin{definizione}
+		Sia $f\colon\overline{\mathcal{V}}\to\R$ una funzione di classe almeno $C^2$. Diciamo che $f$ è armonica su $\mathcal{V}$ se $\lap f=0$ per ogni punto di $\mathcal{V}$.
+	\end{definizione}
+	\begin{lemma}[Principio del massimo per funzioni armoniche.] Sia $f$ una funzione armonica su $\V$ non costante. Allora $f$ può solo ammettere massimi e minimi su $\partial\mathcal{V}$.
+	\end{lemma}
+	\begin{proof}
+		Supponiamo per assurdo che esista un punto $\overline{x}$ di massimo interno a $\V$ (il caso del minimo è analogo, basta considerare $-f$). Sia $\epsilon>0$ e definiamo la funzione $f_\epsilon\colon\overline{\V}\to\R$ ponendo
+		\[f_\epsilon(x)=f(x)+\epsilon|x-\overline{x}|^2\]
+		dove $|\cdot|$ denota la norma euclidea. Si può mostrare che è possibile scegliere $\epsilon$ sufficientemente piccolo in modo che $f_\epsilon$ ammetta un massimo $\overline{x}_\epsilon$ ancora interno a $\V$. Inoltre, si ha
+		\[\lap f_\epsilon(x)=2\epsilon>0\]
+		E questo è assurdo, perchè si ha
+		\[\lap f_\epsilon(\overline{x}_\epsilon)\leq0\]
+		Dato che il laplaciano è la traccia dell'hessiana.
+	\end{proof}
+	\begin{corollario}
+		Sia $f$ una funzione armonica su $\mathcal{V}$ tale che $f_{|\partial\mathcal{V}}\equiv0$. Allora $f\equiv0$ su tutto $\mathcal{V}$.
+	\end{corollario}
+	\begin{proof}
+		Si ha infatti, per ogni $x\in\mathcal{V}$:
+		\[0=\min_{\partial\mathcal{V}}f\leq f(x)\leq\max_{\partial\mathcal{V}}f=0\]
+	\end{proof}
+	A questo punto possiamo mostrare
+	\begin{teorema}[Unicità della soluzione per il problema di Poisson]
+		Sia dato il problema $\lap f=g$ su $\mathcal{V}$, con la condizione al bordo $f_{|\partial\mathcal{V}}=h$, dove $g$ e $h$ sono funzioni assegnate sufficientemente regolari. Supponiamo che esista una soluzione $f_1$ del problema. Allora tale soluzione è unica
+	\end{teorema}
+	\begin{proof}
+		Sia $f_2$ un'altra soluzione. Poniamo $f=f_1-f_2$. Allora $f$ è armonica su $\mathcal{V}$ e identicamente nulla su $\partial\mathcal{V}$, dunque è nulla su $\mathcal{V}$. Allora $f_1=f_2$.
+	\end{proof}
+	\begin{proof}[Dimostrazione data da Moruzzi senza usare il principio del massimo] Siano $f_2,f$ come prima. Allora si ha
+		\[0=\oint_{\partial \mathcal{V}}f\nabla f\cdot\dif\vec{S}=\int_{\mathcal{V}}\nabla\cdot\left(f\nabla f\right)\dif^3x=\int_{\V}\left(f\lap f+|\nabla f|^2\right)\dif^3x=\int_{\V}|\nabla f|^2\dif^3x\]
+		Da cui si deduce $\nabla f\equiv 0$ su $\V$. Allora $f$ è costante, dunque nulla perchè nulla al bordo.
+		
+	\end{proof}
+\subsection{Cariche immagine per un piano conduttore}
+Consideriamo un piano conduttore e una carica $q$ posta a distanza $d$ dal piano. Dato che la superficie del piano deve essere equipotenziale, $q$ indurrà una certa densità di carica sul piano. Inoltre, dato che all'infinito il potenziale deve annullarsi, il piano ha potenziale nullo. Fissiamo un sistema di riferimento in cui la carica è posta in $\vec{d}=(0,0,d)$. Il problema da risolvere è quindi
+\[\lap V=-\frac{q}{\epsilon_0}\delta(\vec{d})\]
+\[V(x,y,0)=0\]
+La soluzione è equivalente a porre una carica $-q$ in $-\vec{d}=(0,0,-d)$. Se $\vec{r}=x\hat{x}+y\hat{y}+z\hat{z}$, si ha
+\[V(\vec{r})=\frac{q}{4\pi\epsilon_0}\left(\frac{1}{|\vec{r}-\vec{d}|}-\frac{1}{|\vec{r}+\vec{d}|}\right)\]
+Il campo elettrico in un punto $(x,y,0)$ del piano conduttore è
+\[\vec{E}(x,y,0)=-\frac{qd}{2\pi\epsilon_0}\frac{\hat{z}}{\left(d^2+x^2+y^2\right)^{3/2}}\]
+Che è chiaramente a simmetria cilindrica. Posto $\rho^2=x^2+y^2$, la densità di carica è
+\[\sigma(\rho)=\epsilon_0\vec{E}(\rho)\cdot\hat{z}=-\frac{qd}{2\pi}\frac{1}{\left(d^2+\rho^2\right)^{3/2}}\]
+Allora la carica indotta $Q$ è
+\[Q=2\pi\int_{0}^{\infty}\sigma(\rho)\rho\dif\rho=-q\]
+Come ci si poteva aspettare intuitivamente.
+\section{9 ottobre 2017}
+\subsection{Pressione elettrostatica}
+Consideriamo un conduttore all'equilibrio elettrostatico e consideriamo una porzione di superficie $\Delta S$. Preso un cilindretto di base $\Delta S$ e altezza $\Delta x$, esterno al conduttore, l'energia contenuta nel cilindro è
+\[\Delta U=u_e\Delta S\Delta x=\frac{1}{2}\epsilon_0|\vec{E}|^2\Delta S\Delta x=\frac{\sigma^2}{2\epsilon_0}\Delta S\Delta x\]
+Di conseguenza la pressione è
+\[p=\frac{\sigma^2}{2\epsilon_0}\]
+\subsection{Cariche immagini per la sfera}
+Consideriamo una sfera conduttrice di raggio $a$ messa a terra e una carica $q$ puntiforme a distanza $R>a$ dal centro della sfera. Il problema da risolvere è quindi
+\[\lap V=-\frac{q}{\epsilon_0}\delta(\vec{r}-\vec{R})\]
+Nello spazio esterno alla sfera, con la condizione $V=0$ sulla sfera. Se troviamo una soluzione, allora abbiamo risolto il problema per unicità della soluzione dell'equazione di Poisson. Immaginiamo di porre una carica puntiforme $q'$ sulla congiungente tra la carica e il centro della sfera, a distanza $r'<a$ (ciò è possibile perchè siamo interessati alla soluzione nel volume esterno alla sfera) da quest'ultimo. Allora, preso un punto $P$ sulla sfera e detto $\theta$ l'angolo tra il raggio per $P$ e la congiungente tra $q$ e centro della sfera, si ha
+\[V(\theta)=\frac{1}{4\pi\epsilon_0}\left(\frac{q}{\sqrt{a^2+R^2-2Ra\cos\theta}}+\frac{q'}{\sqrt{a^2+r'^2-2r'a\cos\theta}}\right)\]
+Dovendo essere $V(\theta)=0$ per ogni $\theta$, e prendendo ad esempio $\theta=0,\pi$ si ottiene
+\[\frac{q}{R+a}+\frac{q'}{r'+a}=0\]
+\[\frac{q}{R-a}+\frac{q'}{a-r'}=0\]
+E dopo facili calcoli
+\[q'=-q\frac{a}{R}\]
+\[r'=\frac{a^2}{R}\]
+Se invece la sfera è messa a terra, possiamo mettere una carica $-q'$ al centro, in modo tale da mantenere l'equipotenzialità. In questo caso non conosciamo il potenziale sulla sfera, ma sappiamo che è costante. Anche in questo caso si ha l'unicità della soluzione:
+\begin{teorema}[Unicità della soluzione per il problema di Poisson]
+	Sia dato il problema $\lap f=g$ su $\mathcal{V}$, dove $g$ è una funzione assegnata sufficientemente regolare, con la condizione al bordo
+	\[\oint_{\partial V}\nabla f\cdot\dif\vec{S}=A\]
+	Supponiamo che esista una soluzione $f_1$ del problema. Allora tale soluzione è unica.
+\end{teorema}
+\begin{proof}
+	Osserviamo che la condizione al bordo richiede che la carica sul conduttore sia costante. Detta $f_2$ un'altra soluzione, e posto $f=f_2-f_1$, si ha
+	\[\lap f=0\]
+	\[\oint_{\partial \V}\nabla f\cdot\dif\vec{S}=0\]
+	Ma allora si ha
+	\[\int_{\V}|\nabla f|^2\dif^3x=\int_{\V}\left(f\lap f+|\nabla f|^2\right)\dif^3x=\int_{\V}\nabla\cdot\left(f\nabla f\right)\dif^3x=\oint_{\partial V}f\nabla f\cdot\dif\vec{S}=0\]
+	L'ultimo integrale è nullo perchè $f$ è costante su $\partial V$, quindi può essere estratta dal segno di integrale.
+\end{proof}
+
+Consideriamo ora una regione di spazio in cui è presente un campo elettrico $\vec{E}$ uniforme, e introduciamo in tale regione una sfera conduttrice scarica e isolata di raggio $a$. Possiamo considerare il campo $\vec{E}$ come una carica $q$ molto grande e molto distante dalla sfera. Allora, passando al limite $q,R\to+\infty$ in modo tale che rimanga costante il rapporto
+\[E=\frac{1}{4\pi\epsilon_0}\frac{q}{R^2}\]
+Allora $|q'|\to+\infty,r'\to0$ e la carica indotta sulla sfera si comporta come un dipolo posto nel centro della sfera e con momento di dipolo
+\[p=-4\pi a^3\epsilon_0E=-3\epsilon_0VE\]
+dove $V$ è il volume della sfera.
+\subsection{Sviluppo in multipoli}
+Consideriamo un volume $\V$ in cui è presente una densità di carica $\rho$. Allora, se $P$ è un punto posto in $\vec{r}$ si ha
+\[V(\vec{r})=\frac{1}{4\pi\epsilon_0}\int_{\V}\frac{\rho(\vec{r}')}{|\vec{r}-\vec{r}'|}\dif^3x=\frac{1}{4\pi\epsilon_0}\int_{\V}\rho(\vec{r}')f(\vec{r},\vec{r}')\dif^3x\]
+Se $|\vec{r}|$ è molto maggiore delle lunghezze tipiche del corpo $\V$, possiamo espandere $f(\vec{r},\vec{r}')$ in serie
+\[f(\vec{r},\vec{r}')=\sum_{n=0}^{\infty}f_n(\vec{r},\vec{r}')\]
+Per opportune funzioni $f_n(\vec{r},\vec{r}')$. I primi termini sono
+\[V(\vec{r})=\frac{1}{4\pi\epsilon_0}\left(\frac{Q}{|\vec{r}|}+\frac{\vec{p}\cdot\hat{r}}{|\vec{r}|^2}+\frac{\hat{r}^tQ\hat{r}}{2|\vec{r}|^3}+o\left(\frac{1}{|\vec{r}|^3}\right)\right)\]
+Quindi all'ordine zero la distribuzione si comporta come una carica puntiforme, uguale alla carica totale contenuta in $\V$ (eventualmente nulla). Il termine successivo è analogo a un dipolo, in cui
+\[\vec{p}=\int_{\V}\vec{r}'\rho(\vec{r}')d^3x\]
+Il secondo ordine è infine quello di quadrupolo, e si è introdotto il tensore di quadrupolo
+\[Q_{ij}=\int_{\V}\rho(\vec{r}')\left(3r'_ir'_j-|\vec{r'}|^2\delta_{ij}\right)\dif^3x\]
+Notiamo che tale tensore è simmetrico e a traccia nulla. In generale, $\vec{p}$ e $Q$ dipendono dall'origine scelta del sistema di riferimento. Un'eccezione è un dipolo composto da due cariche opposte, in cui in ogni sistema di riferimento si ha
+\[\vec{p}=q\vec{d}\]
+Dove $\vec{d}$ ha coda in $-q$ e punta in $+q$ (assumendo $q>0$).
+\section{13 ottobre 2017}
+\begin{teorema}[della media]
+	Siano $V$ una funzione armonica su un certo volume $\V$, $x\in \V$, $a>0$ tale che la sfera $S_a$ di raggio $a$ centrata in $x$ sia interamente contenuta in $\V$. Allora si ha
+	\[
+	V(x)=\frac{1}{4\pi a^2}\oint_{S_a}V\dif A
+	\]
+\end{teorema} 
+\begin{proof}
+	A meno di traslazioni, supponiamo $x=0$. Allora si ha
+	\[
+	\langle V\rangle(a)=\frac{1}{4\pi a^2}\oint_{S_a}V\dif A=\int\frac{\dif\Omega}{4\pi}V(a,\theta,\phi)
+	\]
+	Poichè $V$ è almeno $C^1$, si può applicare il teorema di derivazione sotto il segno di integrale, ottenendo
+	\[\der{\langle V\rangle}{a}=\int\frac{\dif\Omega}{4\pi}\der{V}{a}=\frac{1}{4\pi a^2}\oint_{S_a}\nabla V\cdot\dif\vec{A}=\frac{1}{4\pi a^2}\int\lap V\dif^3r=0\]
+	Da cui si conclude.
+\end{proof}
+Usiamo il teorema precedente per mostrare che la forza tra due sfere uniformemente cariche è la stessa che si ha tra due cariche puntiformi poste nei centri delle sfere uguali alla carica totale su una sfera. Siano $S_1,S_2$ le due sfere e $\rho_1,\rho_2$ le due densità di carica. Ovviamente, se $U$ è l'energia della seconda sfera dovuta al potenziale $V_1$ della prima sfera, la forza agente sulla seconda sfera è
+\[\vec{F}=-\nabla U\]
+Consideriamo ora un guscio sferico di raggio $r$ della seconda sfera. Il contributo all'energia è
+\[\dif U=\int\rho_2V_1\dif^3r=4\pi r^2\rho_2\overline{V}_1\dif r\]
+Dove $\overline{V}_1$ è il potenziale al centro della sfera. Allora si ha banalmente
+\[U=q_2\overline{V}_1\]
+E tale energia coincide con quella del sistema con cariche puntiformi.
+\subsection{Energia di un condensatore, dielettrici}
+Consideriamo un condensatore a facce piane e parallele con una carica $Q$ sulle armature. Il lavoro per portare una carica infinitesima $\dif q$ sulle piastre è
+\[\dif L=V\dif q=\frac{q}{C}\dif q\]
+Dove $q$ è la carica già presente sulle piastre e $C$ è la capacità. Allora si trova banalmente
+\[U=\frac{Q^2}{2C}\]
+Consideriamo ora un condensatore a facce piane e parallele di area $A$ a distanza $h\ll\sqrt{A}$. Se tra le armature c'è il vuoto, la capacità è
+\[C_0=\epsilon_0\frac{A}{h}\]
+Sperimentalmente, si osserva che se lo spazio tra le piastre viene riempito di isolante, la capacità diventa
+\[C_1=\epsilon_rC_0\]
+Si osserva che la costante $\epsilon_r$, detta costante dielettrica relativa, è in genere maggiore di 1 e dipende unicamente dal materiale isolante, e non dalla geometria del sistema. Se le piastre sono isolate, il potenziale si abbassa di un fattore $\epsilon_r^{-1}$. Possiamo interpretare tale risultato come un condensatore con il vuoto tra le piastre, ma con una carica minore su queste ultime. Questa interpretazione può essere motivata dal seguente fatto: da un punto di vista microscopico, gli elettroni di un dielettrico sono legati a un particolare atomo. In generale, l'atomo è neutro in assenza di campi elettrici esterni. Se invece l'atomo è immerso in un campo esterno (come ad esempio tra le piastre di un condensatore), esso tenderà a deformarsi nella direzione del campo, assumendo un momento di dipolo. Chiaramente le cariche positive saranno deviate verso la piastra caricata negativamente e viceversa. Un qualunque volume interno alle piastre sarà complessivamente neutro. Invece, se consideriamo un volume che ha una faccia in comune con una piastra (per semplicità quella negativa), ci sarà un eccesso di carica positiva su tale faccia. Di fatto, dall'esterno è come se vedessi una carica effettiva minore sulle piastre.
+
+La proprietà delle particelle di acquisire un momento di dipolo in presenza di un campo esterno è detta polarizzazione. Vi sono due tipi fondamentali di polarizzazione:
+\begin{itemize}
+	\item Polarizzazione per deformazione: il campo esterno deforma la particella (ad esempio, la nuvola elettronica di un atomo) e così viene acquisito un momento di dipolo.
+	\item Polarizzazione per orientamento: le particelle possiedono già un momento di dipolo (è il caso ad esempio dell'acqua), che a causa dell'agitazione termica è orientato casualmente (in assenza di campo esterno). Il campo esterno tende semplicemente ad allineare questi dipoli, generando un effetto globale.	
+\end{itemize}
+\section{16 ottobre 2017}
+\subsection{Polarizzazione di un atomo e di una molecola}
+Schematizziamo un atomo con il modello di Thomson (l'effetto è analogo per atomi reali), ossia consideriamo una sfera di raggio $R$ e carica $e$ uniformemente distribuita, con una carica puntiforme $-e$ all'interno. Se la particella si trova nella posizione $\vec{r}$, dove $\vec{r}=0$ corrisponde al centro della sfera, la forza di cui risente la carica puntiforme è
+\[\vec{F}=-\frac{\rho e\vec{r}}{3\epsilon_0}\]
+Dove $\rho=\frac{3e}{4\pi R^3}$ è la densità di carica dell'atomo. In assenza di campi esterni ovviamente l'elettrone sarà in equilibrio al centro, mentre in presenza di un campo esterno $\vec{E}=E\hat{x}$, l'elettrone si troverà a distanza
+\[r=\frac{3\epsilon_0 E}{\rho }\]
+Il momento di dipolo acquisito per deformazione è allora
+\[\vec{p}=\alpha_D\vec{E}\]
+Dove si è introdotta la polarizzabilità elettronica per deformazione
+\[\alpha_D=\frac{3e\epsilon_0}{\rho}=4\pi R^3\epsilon_0\]
+
+Consideriamo ora un materiale le cui molecole sono dipoli permanenti, e sia $\vec{p}_0$ il dipolo della singola molecola. In assenza di campo esterno, a causa dell'agitazione termica (o, se si vuole, anche a causa dell'isotropia dello spazio) il materiale non avrà globalmente un momento di dipolo. Se invece è presente un campo esterno $\vec{E}=E\hat{z}$, i dipoli permanenti tenderanno ad allinearsi. Più precisamente, detto $\hat{p}_0$ il versore del momento di dipolo di una molecola, la probabilità che esso abbia coordinate sferiche $(\theta,\phi)$ è
+\[\dif p(\theta,\phi)=Ae^{-\frac{U(\theta,\phi)}{k_BT}}\sin\theta\dif\theta\dif \phi\]
+Dove si è usata la distribuzione di Boltzmann e dove $\sin\theta\dif\theta\dif\phi=\dif\Omega$ è l'angolo solido infinitesimo sulla sfera. $A$ è una semplice costante di normalizzazione. L'energia del dipolo è 
+\[U(\theta,\phi)=-\vec{p}_0\cdot\vec{E}=-p_0E\cos\theta\]
+Per ovvi motivi di simmetria, è indipendente dalla coordinata $\phi$. Imponendo la condizione di normalizzazione
+\[\int_{0}^{2\pi}\int_{0}^{\pi}Ae^{\frac{p_0E\cos\theta}{k_BT}}\sin\theta\dif\theta\dif \phi=1\]
+E supponendo di essere nel regime di alta temperatura, si ottiene
+\[A=\frac{1}{4\pi}\]
+Di conseguenza, in tale approssimazione la densità di probabilità è
+\[\rho(\theta,\phi)=\frac{1}{4\pi}\left(1+\frac{p_0E\cos\theta}{k_BT}\right)\sin\theta\]
+In coordinate cartesiane, il valor medio del momento di dipolo è, per simmetria, $\langle\vec{p}\rangle=\left(0,0,\langle p_z\rangle\right)$. $\langle p_z\rangle$ è chiaramente
+\[\langle p_z\rangle=\int_{0}^{2\pi}\int_{0}^{\pi}p_0\cos\theta\rho(\theta,\phi)\dif\theta\dif\phi=\frac{p_0^2E}{3k_BT}=\alpha_oE\]
+Dove si è introdotta la polarizzabilità elettronica per orientamento
+\[\alpha_o=\frac{p_0^2}{3k_BT}\]
+Notiamo che, a differenza del caso precedente, la polarizzabilità per orientamento dipende dalla temperatura, e in particolare si abbassa quando quest'ultima si alza. Questo andamento ha una chiara intepretazione fisica, dato che per alte temperature l'agitazione termica, che tende a riordinare i dipoli casualmente, aumenta. Prima di mettere una parte non vista a lezione, notiamo che in realtà $E$ non coincide con il campo esterno. In realtà è il campo elettrico locale, ossia la somma vettoriale del campo esterno e dei campi prodotti dalle molecole, tranne quella nel punto considerato.
+
+Vediamo ora come trattare il regime di temperature non alte (questa parte non si è vista a lezione). In tal caso, la costante di normalizzazione e la densità di probabilità sono
+\[A=\frac{p_0E}{2\pi k_BT}\frac{e^{\frac{p_0E}{k_BT}}}{e^{\frac{2p_0E}{k_BT}}-1}\]
+\[\rho(\theta,\phi)=\frac{p_0E}{2\pi k_BT}\frac{e^{\frac{p_0E(1+\cos\theta)}{k_BT}}}{e^{\frac{2p_0E}{k_BT}}-1}\sin\theta\]
+Anche qui la media del momento di dipolo è della forma $\langle\vec{p}\rangle=\left(0,0,\langle p_z\rangle\right)$, ma $\langle p_z\rangle$ è un poco più brutto:
+\[\langle p_z\rangle=\frac{k_BT}{E}\frac{e^{\frac{2p_0E}{k_BT}}\left(\frac{p_0E}{k_BT}-1\right)+\frac{p_0E}{k_BT}+1}{e^{\frac{2p_0E}{k_BT}}-1}\]
+E non ci pensa nemmeno a essere lineare con $E$. (A occhio non torna neppure il limite per $\frac{p_0E}{k_BT}\ll1$, ma non riesco a trovare l'errore, quindi se qualcuno ha sbatta di rifare questo conto e trova un altro risultato me lo dica e correggo).
+\subsection{Polarizzazione macroscopica}
+Definiamo la polarizzazione $\vec{P}$ come
+\[\vec{P}=\lim_{V\to0}\frac{1}{V}\sum_{i}\vec{p}_i\]
+$\vec{P}$ è una grandezza mesoscopica, ossia il volume $V$ deve essere infinitesimo, in modo da definire una grandezza locale, ma deve comunque contenere un numero sufficientemente elevato di dipoli microscopici (è la stessa approssimazione che si fa in fluidodinamica). La somma nel limite è estesa a tutti i dipoli microscopici contenuti in $V$. Consideriamo un corpo polarizzato e sia $\vec{P}$ la sua polarizzazione. Il potenziale $\varphi$ in $\vec{r}$ sarà
+\[\varphi(\vec{r})=\frac{1}{4\pi\epsilon_0}\int\frac{\vec{P}(\vec{r}')\cdot\left(\vec{r}-\vec{r}'\right)}{|\vec{r}-\vec{r}'|^3}\dif^3x'=\frac{1}{4\pi\epsilon_0}\int\vec{P}(\vec{r}')\cdot\nabla'\left(\frac{1}{|\vec{r}-\vec{r}'|}\right)\dif^3x'=\]\[=\frac{1}{4\pi\epsilon_0}\left[\oint\frac{\vec{P}(\vec{r}')\cdot\hat{n}}{|\vec{r}-\vec{r}'|}\dif S-\int\frac{\nabla'\cdot\vec{P}(\vec{r'})}{|\vec{r}-\vec{r}'|}\dif^3x'\right]\]
+Dove si è usato il teorema della divergenza. Appare evidente che la polarizzabilità $\vec{P}$ può essere intepretata (ossia genera lo stesso campo) come una carica volumica $\rho_P(\vec{r})=-\nabla\cdot\vec{P}(\vec{r})$ all'interno del corpo e una carica superficiale $\sigma_P(\vec{r})=\vec{P}(\vec{r})\cdot\hat{n}(\vec{r})$ sulla superficie del corpo. In natura esistono anche corpi con polarizzazione permanente, che per analogia con i magneti sono detti materiali ferroelettrici.
+\section{20 ottobre 2017}
+\subsection{Sfera uniformemente polarizzata}
+Consideriamo una sfera di raggio $R$ con una polarizzazione uniforme $\vec{P}$. Sappiamo che il campo elettrico prodotto dalla sfera è quello di un dipolo all'esterno ed è uniforme all'interno. In particolare, all'interno si ha
+\[\vec{E}_{in}=-\frac{\vec{P}}{3\epsilon_0}\]
+\subsection{Suscettività dielettrica}
+Nel caso precedente, se la polarizzazione $\vec{P}$ è dovuta a un campo esterno $\vec{E}$, allora il campo locale $\vec{E}_{l}$ è
+\[\vec{E}_{l}=\vec{E}-\vec{E}_{in}=\vec{E}+\frac{\vec{P}}{3\epsilon_0}\] 
+L'ultima equazione è detta relazione di Lorentz o relazione di Lorentz e Lorenz (no, non è un troll). Se $n$ è la densità di dipoli microscopici (ossia la densità di molecole del dielettrico) e $\alpha=\alpha_D+\alpha_o$ è la polarizzabilità molecolare, si ha
+\[\vec{P}=n\alpha\vec{E}_l\]
+Di conseguenza 
+\[\vec{P}=\frac{n\alpha}{1-\frac{n\alpha}{3\epsilon_0}}\vec{E}\]
+Introduciamo ora la suscettività dielettrica $\chi$, ossia il numero puro definito da
+\[\chi=\frac{3n\alpha}{3\epsilon_0-n\alpha}\]
+In tal modo si ha
+\[\vec{P}=\epsilon_0\chi\vec{E}\]
+
+Consideriamo ora un condensatore a facce piane e parallele con una densità di carica $\sigma_0$ uniforme sulle piastre. Se lo spazio tra le piastre è vuoto, sappiamo che il campo elettrico è $E_0=\sigma_0/\epsilon_0$. Se invece riempiamo lo spazio con un dielettrico di costante dielettrica relativa $\epsilon_r$, il campo elettrico è $E_1=E_0/\epsilon_r$. La polarizzazione allora è uniforme, ortogonale alle piastre e diretta verso la piastra negativa. Il suo modulo è
+\[P=\epsilon_0\chi E'\]
+La densità di carica superficiale polarizzata su una piastra è allora
+\[\sigma_P=P\]
+Ed ha segno opposto al segno della carica sulla piastra considerata. Allora possiamo considerare il campo $E'$ come generato da una densità di carica $\sigma_0-\sigma_P$, dunque si ha
+\[E'=\frac{\sigma_0-\sigma_P}{\epsilon_0}=\frac{\sigma_0-\epsilon_0\chi E'}{\epsilon_0}\]
+Segue banalmente $\epsilon_r=\chi+1$. Nel vuoto si ottiene $\chi=0$, come ci si aspetta intuitivamente. Inoltre, possiamo ricavare $n\alpha$ in funzione di $\epsilon_r$, ottenendo
+\[n\alpha=3\epsilon_0\frac{\epsilon_r-1}{\epsilon_r+2}\]
+Tale relazione è detta relazione di Clausius-Mossotti. 
+\subsection{Leggi dell'elettrostatica in un dielettrico}
+Supponiamo di avere una densità di carica libera $\rho_0$ in un dielettrico. Allora le equazioni di Maxwell all'equilibrio elettrostatico sono
+\[\nabla\cdot\vec{E}=\frac{\rho_0+\rho_P}{\epsilon_0}\]
+\[\nabla\times\vec{E}=0\]
+Dove $\rho_P$ è la densità di carica polarizzata. Ricordando $\rho_P=-\nabla\cdot\vec{P}$, e introducendo il vettore di spostamento elettrico $\vec{D}=\epsilon_0\vec{E}+\vec{P}$, la prima equazione diventa
+\[\nabla\cdot\vec{D}=\rho_0\]
+In generale, il vettore di spostamento è comodo a livello di conti (possiamo ignorare la polarizzazione e considerare solo le cariche libere), ma non ha un preciso significato fisico (e pare che Pegoraro lo odii). Utilizzando $\vec{P}=\epsilon_0(\epsilon_r-1)\vec{E}$, si ottiene
+\[\vec{D}=\epsilon_0\epsilon_r\vec{E}\]
+In generale, può accadere che la polarizzabilità cambi a seconda della direzione, del verso o dell'intensità del campo esterno (accade ad esempio in un cristallo), quindi a rigore dovremmo introdurre il tensore di suscettività $\chi{ij}$, tale che
+\[P_i=\epsilon_0\chi_{ij}E_j\]
+Ma noi non considereremo mai tali casi. Se in un dielettrico $\chi$ è indipendente da direzione e intensità del campo esterno $\vec{E}$, si parla di dielettrico perfetto o lineare. Chiaramente in natura non esistono dielettrici perfetti, dato che se il campo esterno è sufficientemente grande allora le molecole si ionizzano.
+\subsection{Superfici di separazione tra dielettrici}
+Consideriamo due dielettrici a contatto, di costanti dielettriche $\epsilon_{r,1}$ e $\epsilon_{r,2}$, in assenza di cariche libere. Fissiamo un piccolo cilindretto ortogonale alla superficie. In tale cilindro $\vec{D}$ è indivergente, quindi il suo flusso è nullo. Se facciamo tendere l'altezza del cilindro a 0, allora il flusso è
+\[(D_{1,\perp}-D_{2,\perp})S=0\]
+Quindi la componente ortogonale alla superficie del vettore di spostamento elettrico non varia attraversando la superficie. Riscrivendo tale relazione in termini del campo elettrico, si ha \[\epsilon_{r,1}E_{1,\perp}=\epsilon_{r,2}=E_{2,\perp}\] Inoltre, dato che il campo elettrico è irrotazionale, se si fissa un circuitino rettangolare con lati paralleli (o ortogonali) alla superficie di separazione, si ottiene \[E_{1,\parallel}=E_{2,\parallel}\]
+Ciò significa che, detti $\theta_1$ e $\theta_2$ rispettivamente gli angoli formati da $\vec{E}_1$ e $\vec{E}_2$ con la normale alla superficie, vale una "legge di rifrazione" per il campo elettrico
+\[\frac{\tan\theta_1}{\tan\theta_2}=\frac{\epsilon_{r,1}}{\epsilon_{r,2}}\]
+\subsection{Energia di un dielettrico}
+L'energia di un dielettrico può essere calcolata come
+\[U=\frac{1}{2}\int\rho\phi\dif^3x\]
+Con la seguente avvertenza: $\rho$ è la sola densità di carica libera, dato che effettivamente spostiamo dall'infinito solo le cariche libere. $\phi$ invece tiene conto sia delle cariche libere che delle cariche di polarizzazione. In particolare, si ottiene 
+\[U=\frac{1}{2}\oint\phi\vec{D}\cdot\dif\vec{S}+\frac{1}{2}\int\vec{D}\cdot\vec{E}\dif^3x\]
+Ciò significa che la densità di energia è
+\[u_e=\frac{1}{2}\vec{E}\cdot\vec{D}=\frac{1}{2}\epsilon_0\epsilon_r|\vec{E}|^2=\frac{1}{2}\frac{|\vec{D}|^2}{\epsilon_0\epsilon_r}\]
+\subsection{Sfera immersa in un dielettrico}
+Consideriamo una sfera di raggio $R$ e carica $Q$ uniformemente distribuita immersa in un dielettrico di costante dielettrica relativa $\epsilon_r$. Vogliamo trovare il campo all'esterno della sfera. Questa può essere considerata come un condensatore sferico, con una faccia all'infinito. Ci aspettiamo quindi che per $r\geq R$ il campo elettrico sia
+\[\vec{E}(r)=\frac{Q}{4\pi\epsilon_0\epsilon_rr^2}\hat{r}\]
+In tal caso la polarizzazione è
+\[\vec{P}(r)=\epsilon_0(\epsilon_r-1)\vec{E}(r)=\frac{\epsilon_r-1}{4\pi\epsilon_r}\frac{Q}{r^2}\hat{r}\]
+Ovviamente nella regione che ci interessa $\vec{P}$ è indivergente, quindi la densità volumica di carica polarizzata è assente. Sulla superficie della sfera si ha invece una densità di carica polarizzata
+\[\sigma_P=-\vec{P}(R)\cdot\hat{r}=-\frac{\epsilon_r-1}{4\pi\epsilon_r}\frac{Q}{R^2}\]
+Che corrisponde a una carica polarizzata totale
+\[Q_P=-\frac{\epsilon_r-1}{\epsilon_r}Q\]
+Effettivamente, il campo generato nel dielettrico è lo stesso che si avrebbe nel vuoto con la carica $Q$ nella sfera e la carica $Q_P$ sulla superficie.
+\subsection{Cariche immagine per un semispazio dielettrico}
+	Consideriamo due semispazi dielettrici di costanti dielettriche $\epsilon_{r,1}$ e $\epsilon_{r,2}$ separati da un piano (per semplicità il piano $z=0$) e piazziamo una carica puntiforme $q$ nel dielettrico di costante $\epsilon_{r,1}$, a una distanza $d$ dal piano di separazione dei dielettrici. A meno di riscalare opportunamente $\epsilon_0$, possiamo supporre che nel semispazio contenente $q$ sia $\epsilon_{r,1}=1$, quindi possiamo indicare senza ambiguità della costante dielettrica del secondo semispazio con $\epsilon_r$. Cerchiamo di costruire la soluzione in questo modo: nel semispazio contenente $q$ il campo elettrico sarà quello generato da $q$ e da una certa carica immagine $q'$, posta a distanza $d$ dal piano $z=0$ nel semispazio contenente il secondo dielettrico. Nel semispazio senza carica, il campo sarà invece quello generato da una certa carica $q''$ posta dove si trova $q$. In generale può accadere (e anzi ci aspettiamo) $q''\neq q$, dato che $q''$ deve simulare anche l'effetto della carica di polarizzazione superficiale. Allo stesso modo può darsi che si abbia $q'\neq q$. Il campo elettrico gode di simmetria cilindrica per ovvi motivi, in particolare il campo nel semispazio contenente $q$ in un punto sul piano $z=0$ di coordinate $(d\tan\theta,0,0)$ è
+	\[\vec{E}_1=\frac{1}{4\pi\epsilon_0 r^2}\left(\sin\theta(q+q')\hat{x}+\cos\theta(q-q')\hat{z}\right)\]
+	Dove si è posto $r=d/\cos\theta$. Nello stesso punto nel secondo dielettrico si ha
+	\[\vec{E}_2=\frac{q''}{4\pi\epsilon_0\epsilon_rr^2}\left(\sin\theta\hat{x}+\cos\theta\hat{z}\right)\]
+	Le condizioni da imporre sono allora
+	\[q+q'=\frac{q''}{\epsilon_r}\]
+	\[q-q'=q''\]
+	Che portano infine a
+	\[q'=-\frac{\epsilon_r-1}{\epsilon_r+1}q\]
+	\[q''=\frac{2\epsilon_r}{\epsilon_r+1}q\]
+	Controlliamo due casi limite:
+	\begin{itemize}
+		\item Per $\epsilon_r=1$, ossia se il secondo dielettrico è assente, si ha $q'=0$ e $q''=q$. Ciò è sensato, dato che in tal caso stiamo banalmente studiando il campo elettrico di una carica puntiforme.
+		\item Per $\epsilon_r\to\infty$, si ha $q'=-q$ e $q''=2q$. Notiamo che per $\epsilon_r\to\infty$ il dielettrico diventa in realtà un conduttore, quindi il primo risultato è sensato, dato che è l'usuale carica immagine per il piano. Il secondo può inizialmente sorprendere (sappiamo che in quella regione si deve avere campo nullo), ma in effetti il campo elettrico nel secondo semispazio scala con $q''/\epsilon_r$, dunque si annulla come deve.
+	\end{itemize}
+\section{23 ottobre 2017}
+	\subsection{Dielettrico in un condensatore}
+	Consideriamo un condensatore a facce rettangolari e parallele lunghe $a$ e $b$ e poste a distanza $h\ll a,b$. Inseriamo un dielettrico di costante dielettrica $\epsilon_r$ per un tratto $x$ nello spazio tra le piastre e mettiamo una carica $Q$ su di esse. Il campo elettrico non varia passando dalla zona senza dielettrico alla zona con dielettrico, di conseguenza ci aspettiamo una densità superficiale di carica diversa nei due tratti. In ogni caso, possiamo schematizzare il sistema come due condensatori in parallelo, di conseguenza la capacità sarà
+	\[C_{eq}=\frac{\epsilon_0a}{h}(b+(\epsilon_r-1)x)\]
+	Supponiamo ora che il condensatore sia isolato. Allora l'energia è
+	\[U_e=\frac{Q^2h}{2\epsilon_0a(b+(\epsilon_r-1)x)}\]
+	La forza agente sul dielettrico è semplicemente
+	\[F=-\der{U_e}{x}=\frac{Q^2h(\epsilon_r-1)}{2\epsilon_0a(b+(\epsilon_r-1)x)^2}\]
+	Tale forza tende a far entrare il dielettrico nelle piastre. Se supponiamo invece che le piastre siano mantenute a un potenziale costante $V$ da un generatore, allora l'energia è
+	\[U_e=\frac{\epsilon_0aV^2(b+(\epsilon_r-1)x)}{2h}\]
+	Siamo quindi portati a pensare che la forza sia
+	\[F=-\frac{\epsilon_0aV^2(\epsilon_r-1)}{2h}\]
+	Tale risultato è sbagliato, dato che la forza è il gradiente di tutta l'energia del sistema. In tal caso, anche il generatore compie lavoro (e lo fa per mantenere $V$ costante). Se il dielettrico si sposta di $\dif x$, allora la capacità aumenta di $\dif C$. Allora il generatore deve spostare sulle piastre una carica $\dif Q=V\dif C$, compiendo un lavoro $L=V^2\dif C$. Tale lavoro è uguale e opposto alla variazione di energia del generatore, e tra l'altro è il doppio (in valore assoluto) della variazione di energia del solo condensatore. Ritroviamo così il risultato precedente.
+\subsection{Conduzione elettrica, modello di Drude}
+	Definiamo l'intensità di corrente
+	\[i=\frac{\dif Q}{\dif t}\]
+	In MKS, l'intensità di corrente si misura in A. Vogliamo ora studiare il modello di Drude per la conduzione degli elettroni in un metallo. Faremo l'ipotesi che gli elettroni possano essere considerato un gas perfetto. Questa ipotesi è verosimile, dato che l'interazione elettrone-elettrone è schermata dalla presenza del reticolo del metallo. Osserviamo che, a temperatura ambiente ($T\sim 300$ K) la velocità media degli elettroni per agitazione termica è dell'ordine
+	\[\langle v_T\rangle=\sqrt{\frac{3k_BT}{m_e}}\sim 10^5\textrm{ m/s}\]
+	Immergiamo ora il metallo in un campo esterno $\vec{E}$. Allora gli elettroni risentono di una forza $-e\vec{E}$. Se ipotizziamo che, dopo un urto con uno ione del reticolo, la velocità di un elettrone sia $\vec{v}_0$ rivolta casualmente, allora la velocità di un elettrone subito prima di un urto è
+	\[\vec{v}=\vec{v}_0-\frac{e\vec{E}\tau}{m_e}\]
+	Dove $\tau$ indica il tempo medio tra due urti consecutivi. Se mediamo su tutti gli elettroni, si ottiene
+	\[\langle\vec{v}\rangle=-\frac{e\vec{E}\tau}{m_e}\]
+	Dato che $\vec{v}_0$ è orientata casualmente. Introduciamo ora la velocità di deriva $\vec{v}_d$, che indica in qualche modo la velocità media di un elettrone. Dato che il moto è uniformemente accelerato, definiamo
+	\[\vec{v}_d=\frac{1}{2}\langle\vec{v}\rangle=-\frac{e\vec{E}\tau}{2m_e}\]
+	Sperimentalmente si osserva $v_d\ll \langle v_T\rangle$, quindi se $\lambda$ è la distanza percorsa in media da un elettrone tra due urti consecutivi si ha
+	\[\tau\approx\frac{\lambda}{\langle v_T\rangle}\]
+	
+	Alternativamente, si può anche costruire un modello in cui gli elettroni risentono di attrito viscoso, ossia l'equazione del modo è
+	\[m_e\frac{\dif\langle\vec{v}\rangle}{\dif t}=-e\vec{E}-\eta\langle\vec{v}\rangle\]
+	In tal caso la velocità di deriva è quella limite, ossia
+	\[\vec{v}_d=-\frac{e\vec{E}}{\eta}\]
+\subsection{Equazione di continuità}
+Consideriamo un conduttore in cui i portatori di carica abbiano una carica $q$. Siano $n$ il numero di portatori di carica per unità di volume e $\vec{v}$ la velocità di deriva. Definiamo la densità di corrente
+\[\vec{j}=nq\vec{v}\]
+Osserviamo che la corrente che attraversa una superficie $S$ è 
+\[I=\int_S\vec{j}\cdot\dif\vec{S}\]
+Consideriamo ora una superficie chiusa $S$ che delimita un volume $V$. Allora la carica che attraversa la superficie è
+\[\dot{Q}=-\int_{V}\der{\rho}{t}\dif^3x=\oint_S\vec{j}\cdot\dif\vec{S}=\int_V\nabla\cdot\vec{j}\dif^3x\]
+Di conseguenza, per l'arbitrarietà di $S$ e $V$ si ottiene l'equazione di continuità
+\[\der{\rho}{t}+\nabla\cdot\vec{j}=0\]
+\subsection{Leggi di Kirkhoff (o come diavolo si scrive)}
+La legge dei nodi segue banalmente dalla conservazione della carica. La legge delle maglie segue dall'irrotazionalità del campo elettrico.
+\subsection{Legge di Ohm}
+Consideriamo un conduttore cilindrico di area di base $S$ e lunghezza $h$, in cui c'è un campo elettrico $\vec{E}$ parallelo all'asse del cilindro. Per una classe di materiali, detti ohmici, si ha
+\[\vec{j}=\sigma\vec{E}\]
+Dove la costante $\sigma$, detta conduttività, dipende dal materiale. La differenza di potenziale tra le due facce del cilindro è chiaramente $V=Eh$, dunque la corrente che attraversa il conduttore è
+\[I=jS=\frac{\sigma VS}{h}=\frac{V}{R}\]
+Dove si è introdotta la resistenza elettrica
+\[R=\frac{h}{\sigma S}\]
+Spesso al posto della conduttività $\sigma$ si usa la resistività $\rho=\sigma^{-1}$. La grandezza $G=R^{-1}$ è detta conduttanza.
+\subsection{Effetto Joule}
+Consideriamo un conduttore in cui scorre una certa corrente. Il portatore di carica perde energia, dato che si sta muovendo verso zone a energia potenziale più bassa. Inoltre, se ha già raggiunto la velocità di deriva, tale energia persa non diventa energia cinetica. Deve quindi essere dissipata in calore. La potenza dissipata è
+\[P=\frac{\dif U}{\dif t}=VI=R^2I=\frac{V^2}{R}\]
+Dove $V$ è la differenza di potenziale tra i due capi del conduttore e $R$ la sua resistenza.
+\subsection{Carica e scarica di un condensatore}
+Vabbè sono note dal liceo, per la carica con un generatore di d.d.p. $\mathcal{E}$ si ha
+
+\begin{center}\begin{circuitikz}\draw
+	(0,0) to[battery=$\mathcal{E}$] (0,2) to[resistor=$R$] (2,2) to[capacitor=$C$] (2,0)--(0,0);
+\end{circuitikz}\end{center}
+
+\[Q(t)=C\mathcal{E}(1-e{-t/\tau})\]
+Mentre per la scarica
+
+\begin{center}\begin{circuitikz}\draw
+		(0,0) -- (0,2) to[resistor=$R$] (2,2) to[capacitor=$C$] (2,0)--(0,0);
+\end{circuitikz}\end{center}
+
+\[Q(t)=Q_0e^{-t/\tau}\]
+Con $\tau=RC$. Ah, $\mathcal{E}$ è detta forza elettromotrice perchè è causata da processi chimici sconosciuti a noi fisici (e guarda un po', non è una forza, non è elettrica e non è motrice).
+\section{27 ottobre 2017}
+\subsection{Forza di Lorentz e moto di una carica in campo magnetico}
+Consideriamo una carica in movimento in un campo magnetico $\vec{B}$. La carica risente di una forza, detta forza di Lorentz, pari a
+\[\vec{F}=q\vec{v}\times\vec{B}\]
+Ovviamente $\vec{B}$ deve essere uno pseudovettore. $\vec{B}$ si misura in Tesla (1 T=1 kg s$^{-1}$ C$^{-1}$) nel sistema MKS, in Gauss (G) nel sistema CGS. Si ha inoltre 1 T=10$^4$ G. In alcuni testi, con forza di Lorentz si intende la forza totale sulla carica, ossia
+\[\vec{F}=q\vec{v}\times\vec{B}+q\vec{E}\]
+In CGS si deve dividere per $c$:
+\[\vec{F}=q\frac{\vec{v}}{c}\times \vec{B}+q\vec{E}\]
+E di fatto il campo elettrico e il campo magnetico hanno la stessa unità di misura. Chiaramente in assenza di campo elettrico si ha $\vec{F}\cdot\vec{v}=0$, ossia la forza di Lorentz non fa lavoro e, se il campo è uniforme, l'orbita della carica è circolare. Il raggio dell'orbita è
+\[r=\frac{mv}{qB}\]
+La velocità angolare e il periodo sono rispettivamente
+\[\omega=\frac{qB}{m}\]
+\[T=\frac{2\pi m}{qB}\]
+In particolare, non dipendono dalla velocità della particella. $\omega$ viene anche chiamata frequenza di ciclotrone.
+\subsection{Selettore di velocità, spettrografo di massa}
+Consideriamo una regione di spazio in cui sono presenti un campo elettrico $\vec{E}$ e $\vec{B}$ uniformi e perpendicolari tra di loro, per semplicità $\vec{E}=E\hat{x}$ e $\vec{B}=B\hat{z}$. La forza agente su una particella con velocità $\vec{v}=v_x\hat{x}+v_y\hat{y}+v_z\hat{z}$ è
+\[\vec{F}=q\left[\left(E+v_yB\right)\hat{x}-v_xB\hat{y}\right]\]
+Possiamo quindi costruire un selettore di velocità (ad esempio, una piastra con un buco) che lascia passare solo le particelle che si muovono di moto rettilineo, ossia tali che $v_x=0,v_y=-E/B$.
+
+Se invece abbiamo un fascio di isotopi di carica nota, possiamo defletterli con un campo magnetico e dal raggio delle traiettorie possiamo risalire alla massa dell'isotopo.
+\subsection{Filo percorso da corrente immerso in campo magnetico}
+Consideriamo un filo percorso da una corrente $i$. La forza agente su un tratto $d\vec{l}$ è
+\[\dif\vec{F}=i\dif\vec{l}\times\vec{B}=nAq\vec{v}_D\times\vec{B}\dif l\]
+Dove $n$ è la densità di portatori di carica, $A$ la sezione del filo, $\vec{v}_D$ la velocità di deriva e $q$ la carica del singolo portatore. Si è usato il fatto che $\dif\vec{l}$ e $\vec{v}_D$ sono paralleli. La forza totale agente sul filo è
+\[\vec{F}=i\oint\dif\vec{l}\times\vec{B}\]
+In particolare, si annulla se il campo magnetico è uniforme. In generale, sul circuito agirà anche un momento torcente $\vec{\Gamma}$:
+\[\vec{\Gamma}=i\oint\vec{r}\times\left(\dif\vec{l}\times\vec{B}\right)\]
+A seconda del verso della corrente, $\dif\vec{F}$ tenderà a restringere il filo o a farlo espandere. Nel secondo caso, supponendo il filo inestensibile, esso diventerà una circonferenza di raggio $R$ in cui la tensione è
+\[\tau=\frac{iBl}{2\pi}\]
+Dove si è indicata con $l$ la lunghezza del filo.
+
+Consideriamo ora una spira rettangolare di lati $a$ e $b$ immersa in un campo magnetico uniforme $\vec{B}$. Se $\theta$ è l'angolo tra la normale $\hat{n}$ alla superficie della spira (con verso scelto dalla regola della mano destra in base al verso della corrente), il momento torcente è
+\[\Gamma=abiB\sin\theta\]
+Introducendo il vettore momento magnetico $\vec{m}=abi\hat{n}$, si ha
+\[\vec{\Gamma}=\vec{m}\times\vec{B}\]
+A titolo d'esempio, si hanno i seguenti momenti magnetici:
+\begin{itemize}
+	\item Per un disco uniformemente carico con una carica $Q$ e raggio $R$ che ruota a una velocità angolare $\omega$ si ha
+	\[m=\frac{\omega QR^2}{4}\]
+	\item Per un guscio sferico uniformemente carico con una carica $Q$ e raggio $R$ che ruota a una velocità angolare $\omega$ si ha
+	\[m=\frac{\omega QR^2}{3}\]
+\end{itemize}
+\section{30 ottobre 2017}
+\subsection{Legge di Biot-Savart, potenziale vettore e terza equazione di Maxwell}
+Sperimentalmente, si osserva che un tratto infinitesimo $\dif\vec{l}'$ di filo percorso da una corrente $I$ posto nel punto $\vec{r}'$, genera un campo magnetico $\dif\vec{B}$ nel punto $\vec{r}$ pari a
+\[\dif\vec{B}=\frac{\mu_0I}{4\pi}\frac{\dif\vec{l}'\times(\vec{r}-\vec{r}')}{|\vec{r}-\vec{r}'|^3}\]
+Dove si è introdotta la permeabilità magnetica del vuoto $\mu_0=4\pi\cdot10^{-7}$ N/A$^2$ (pare che Pegoraro odii tale costante e che usi sempre $\mu_0=1/(\epsilon_0c^2)$). Per una spira percorsa da corrente si ha chiaramente
+\[\vec{B}=\frac{\mu_0I}{4\pi}\oint\frac{\dif\vec{l}'\times(\vec{r}-\vec{r}')}{|\vec{r}-\vec{r}'|^3}\]
+Osserviamo ora che si ha
+\[-\nabla\left(\frac{1}{|\vec{r}-\vec{r}'|}\right)=\frac{\vec{r}-\vec{r}'}{|\vec{r}-\vec{r}'|^3}\]
+Inoltre, presi $\psi$ e $\vec{v}$ campi scalare e vettoriale si ha
+\[\nabla\times(\psi\vec{v})=\nabla\psi\times\vec{v}+\psi\nabla\times\vec{v}\]
+Di conseguenza la legge di Biot-Savart si può scrivere nella forma
+\[\vec{B}=-\frac{\mu_0I}{4\pi}\oint\dif\vec{l}'\times\nabla\left(\frac{1}{|\vec{r}-\vec{r}'|}\right)=\frac{\mu_0I}{4\pi}\oint\nabla\times\frac{\dif\vec{l}'}{|\vec{r}-\vec{r}'|}\]
+Dato che $\dif\vec{l}'$ non dipende dalle coordinate non primate. Si ha allora
+\[\vec{B}=\nabla\times\frac{\mu_0I}{4\pi}\oint\frac{\dif\vec{l}'}{|\vec{r}-\vec{r}'|}=\nabla\times\vec{A}\]
+Dove $\vec{A}$ è detto potenziale vettore
+\[\vec{A}=\frac{\mu_0I}{4\pi}\oint\frac{\dif\vec{l}'}{|\vec{r}-\vec{r}'|}\]
+Segue subito la terza equazione di Maxwell:
+\[\nabla\cdot\vec{B}=0\]
+Alcuni campi magnetici notevoli sono
+\begin{itemize}
+	\item Campo magnetico di un filo sull'asse $z$ percorso da una corrente $I$: detta $r$ la distanza dal filo, si ha
+	\[\vec{B}(\vec{r})=\frac{\mu_0I\hat{\theta}}{2\pi r}\]
+	Il potenziale vettore è invece
+	\[\vec{A}=\frac{\mu_0I\hat{z}}{2\pi}\ln\frac{r}{r_0}\]
+	$r_0$ è una costante arbitraria necessaria per evitare divergenze (sostanzialmente il calcolo è analogo al potenziale elettrico del filo carico). In particolare, la circuitazione di $\vec{B}$ lungo una qualunque circonferenza che giace su un piano ortogonale al filo e con centro su quest'ultima è
+	\[\oint_{\gamma}\vec{B}\cdot\dif\vec{l}=\mu_0I\]
+	Quindi il campo magnetico non è conservativo.
+	\item Campo magnetico prodotto da una spira circolare sul suo asse: detto $R$ il raggio della spira e $z$ la distanza dal centro della spira, si ha
+	\[\vec{B}(z)=\frac{\mu_0IR^2\hat{z}}{2(R^2+z^2)^{3/2}}\]
+\end{itemize}
+\subsection{Energia meccanica di una spira}
+Per spostare una spira percorsa da corrente immersa in un campo magnetico bisogna compiere lavoro contro la forza di Lorentz. Ignoriamo per il momento il fatto che $\vec{B}$ interagisce con la corrente, e supponiamo che $I$ sia costante (per questo motivo parliamo solo di energia meccanica). La forza su un tratto infinitesimo è
+\[\dif\vec{F}=I\dif\vec{l}\times\vec{B}\]
+Dunque il lavoro fatto sulla spira affinchè ogni tratto infinitesimo si sposti di un certo $\delta\vec{r}$ è
+\[\delta L=\oint\dif\vec{l}\times\vec{B}\cdot\delta\vec{r}=-I\oint\dif\vec{l}\times\delta\vec{r}\cdot\vec{B}\]
+$\dif\vec{l}\times\delta\vec{r}$ rappresenta l'area infinitesima spazzata dalla spira. Di conseguenza si ha
+\[\delta L=-I\int_S\vec{B}\cdot\dif\vec{S}=-I\dif\Phi\]
+Consideriamo ora la superficie chiusa formata dalla superficie della spira nella posizione iniziale, dalla superficie della spira nella posizione finale e dal nastro che le unisce. Il flusso di $\vec{B}$ attraverso tale superficie è nullo. Di conseguenza $\dif\Phi'$ sul nastro è uguale al flusso $\dif\Phi$ di $\vec{B}$ sulla superficie della spira nella posizione iniziale. Ma allora, a meno di costanti, si ha
+\[U_m=-I\Phi\]
+Ad esempio, per una spira infinitesima si ha
+\[U_m=-I\vec{S}\cdot\vec{B}=-\vec{m}\cdot\vec{B}\]
+Di conseguenza l'energia di una spira in campo magnetico è analoga all'energia di un dipolo in campo elettrico.
+\section{3 novembre 2017}
+\subsection{Campo magnetico di un solenoide}
+Consideriamo un solenoide con $n$ spire per unità di lunghezza percorso da una corrente $I$. Vogliamo calcolare il campo magnetico in un punto $P$ sull'asse del solenoide. Siano $a$ il raggio del solenoide e $\theta_1,\theta_2$ gli angoli sotto cui gli estremi del solenoide sono visti da $P$. Il campo magnetico è allora
+\[\vec{B}(P)=\frac{\mu_0Ia^2\hat{z}}{2}\int_{z_1}^{z_2}\frac{n\dif z}{(a^2+z^2)^{3/2}}=\frac{\mu_0nI}{2}\left(\cos\theta_1-\cos\theta_2\right)\hat{z}\]
+In particolare, se il solenoide è infinito $\theta_1\to0$, $\theta_2\to\pi$ e quindi il campo magnetico è semplicemente $\vec B=\mu_0In\hat{z}$.
+\subsection{Potenziale magnetico, teorema di Ampère e quarta equazione di Maxwell}
+In un dominio semplicemente connesso in cui non sono presenti correnti, è possibile scrivere un potenziale per il campo magnetico (se si assume la quarta equazione di Maxwell è banale, ma noi vogliamo usare questo fatto per ottenere tale equazione). Consideriamo dunque una spira percorsa da una corrente $I$ e una sfera che la contiene. Lo spazio all'esterno di tale sfera è semplicemente connesso. Preso un punto $P$ posto in $\vec{r}$, il campo magnetico in tale punto è
+\[\vec{B}(\vec{r})=\frac{\mu_0I}{4\pi}\oint\frac{\dif\vec{l}'\times(\vec{r}-\vec{r}')}{|\vec{r}-\vec{r}'|^3}\]
+In $\vec{r}+\delta\vec{r}$ invece si ha
+\[\vec{B}(\vec{r}+\delta\vec{r})=\frac{\mu_0I}{4\pi}\oint\frac{\dif\vec{l}'\times(\vec{r}+\delta\vec{r}-\vec{r}')}{|\vec{r}+\delta\vec{r}-\vec{r}'|^3}\]
+Possiamo interpretare $\vec{B}(\vec{r}+\delta\vec{r})$ come il campo magnetico che avremmo in $\vec{r}$ se traslassimo ogni punto della spira di $-\delta\vec{r}$. Se $\varphi$ è un potenziale per $\vec{B}$ si ha
+\[\delta\varphi=-\vec{B}\cdot\delta\vec{r}=-\frac{\mu_0I}{4\pi}\oint\frac{\delta\vec{r}\cdot\dif\vec{l}'\times(\vec{r}-\vec{r}')}{|\vec{r}-\vec{r}'|^3}\]
+Usando le proprietà del prodotto triplo, si ha $-\delta\vec{r}\cdot\dif\vec{l}'\times(\vec{r}-\vec{r}')=(\vec{r}-\vec{r}')\cdot(-\delta\vec{r})\times\dif\vec{l}'$.
+Il prodotto $-\delta\vec{r}\times\dif\vec{l}'$ è l'area infinitesima del nastro che collega le spire nella posizione iniziale e finale, di conseguenza si ha
+\[\delta\varphi=-\frac{\mu_0I}{4\pi}\dif\Omega_\Sigma\]
+Dove $\dif\Omega_\Sigma$ è l'angolo solido sotto cui viene visto il nastro. Ovviamente, se consideriamo la superficie formata dalla spira in posizione iniziale, dalla spira in posizione finale e dal nastro si ha
+\[\Omega_f+\dif\Omega_\Sigma-\Omega_i=0\]
+Di conseguenza si ha
+\[\varphi=-\frac{\mu_0I}{4\pi}\Omega+c\]
+Dove $\Omega$ è l'angolo solido sotto cui viene vista la spira da $P$. Orientando il vettore superficie con la regola della mano estra, si ha $\Omega>0$ quando si vede la corrente circolare in verso orario, negativo altrimenti.
+In generale, la costante $c$ può assumere valori diversi nel dominio. Consideriamo ad esempio una spira circolare di raggio $R$ e prendiamo come dominio un cilindro coassiale con la spira di raggio $r<R$. Se la costante $c$ fosse la stessa ovunuque, avremmo una discontinuità in $\varphi$ (che si traduce in una divergenza di $B$) quando attraversiamo il piano della spira. Si può porre ad esempio $c=0$ nella regione in cui $\Omega>0$ e $c=-\mu_0I$ nell'altra regione, e in tal caso $\varphi$ è continuo.
+
+Consideriamo ora una spira qualunque e un toro concatenato ad essa. Priviamo il toro di una "fetta" che interseca la superficie delimitata dalla spira, in modo che sia semplicemente connesso e che la costante $c$ sia la stessa ovunque. Presi $P_1$ e $P_2$ sulle due superfici della fetta, l'integrale di linea di $\vec{B}$ lungo una curva all'interno del nostro dominio è semplicemente
+\[\int_{P_1}^{P_2}\vec{B}\cdot\dif\vec{l}=\varphi(P_2)-\varphi(P_1)=\frac{\mu_0I}{4\pi}(\Omega_{P_1}-\Omega_{P_2})\]
+Se restringiamo la fetta (ossia prendiamo il limite in cui $P_1$ tende a $P_2$) allora il valore precedente tende alla circuitazione di $\vec{B}$, mentre $\Omega_{P_1}-\Omega_{P_2}\to4\pi$. Abbiamo così il teorema di Ampère
+\[\oint\vec{B}\cdot\dif\vec{l}=\mu_0I\]
+Dal teorema segue banalmente la quarta equazione di Maxwell
+\[\nabla\times\vec{B}=\mu_0\vec{J}\]
+\section{6 novembre 2017}
+\subsection{Potenziale e campo di una spira}
+Per quanto visto in precedenza, se consideriamo una spira di area $S$ in cui scorre una corrente $I$, il potenziale scalare è
+\[\varphi=\frac{\mu_0I\vec{S}\cdot\hat{r}}{4\pi r^2}+c\]
+Dato che $\Omega=-\vec{S}\cdot\hat{r}/r^2$. Detto $\vec{m}=I\vec{S}$ il momento magnetico della spira, il potenziale è analogo a quello di un dipolo elettrico
+\[\varphi=\frac{mu_0\vec{m}\cdot\hat{r}}{4\pi r^2}\]
+Di conseguenza il campo magnetico sarà
+\[\vec{B}=\frac{\mu_0}{4\pi}\frac{3(\vec{m}\cdot\hat{r})\hat{r}-\vec{m}}{r^3}\]
+L'espressione precedente prende il nome di teorema di equivalenza di Ampère: non è possibile distinguere un dipolo magnetico da una spira percorsa da corrente misurando il campo da essi generato.
+
+Il potenziale vettore è invece
+\[\vec{A}(\vec{r})=\frac{\mu_0I}{4\pi}\oint\frac{\dif\vec{l}'}{|\vec{r}-\vec{r}'|^3}\]
+A grandi distanze si ha
+\[\frac{1}{|\vec{r}-\vec{r}'|}\simeq\frac{1}{r}+\frac{\vec{r}\cdot\vec{r}'}{r^3}\]
+Di conseguenza
+\[\vec{A}(\vec{r})=\frac{\mu_0I}{4\pi}\oint\left(\frac{1}{r}+\frac{\vec{r}\cdot\vec{r}'}{r^3}\right)\dif\vec{l}'\]
+L'integrale del primo termine è nullo. Per calcolare il secondo in maniera furba, notiamo che se $\psi$ è una funzione scalare e $\vec{v}$ un vettore costante si ha
+\[\vec{v}\cdot\oint\psi\dif\vec{l}=\int\nabla\times(\vec{v}\psi)\cdot\dif\vec{S}=\int\nabla\psi\times\vec{v}\cdot\dif\vec{S}=-\vec{v}\cdot\int\nabla\psi\times\dif\vec{S}\]
+Per l'arbitrarietà di $\vec{v}$ si ha allora
+\[\oint\psi\dif\vec{l}=-\int\nabla\psi\times\dif\vec{S}\]
+Nel nostro caso, posto $\psi=\vec{r}\cdot\vec{r}'$ ottieniamo
+\[\vec{A}(\vec{r})=-\frac{\mu_0I}{4\pi r^3}\oint\vec{r}\times\dif\vec{S}=\frac{\mu_0\vec{m}\times\hat{r}}{4\pi r^2}\]
+\subsection{Trasformazioni di gauge}
+Sappiamo che è possibile definire un potenziale vettore $\vec{A}$ per il campo magnetico $\vec{B}$ tale che $\vec{B}=\nabla\times\vec{A}$. Dato che $\vec{A}$ è definito a meno del gradiente di una funzione scalare, possiamo scegliere il potenziale vettore in modo che sia indivergente. Infatti, se $\nabla\cdot\vec{A}=f$, è sufficiente porre $\vec{A}'=A+\nabla g$, dove $g$ è una funzione tale che $\lap g=-f$. Tale scelta viene detta trasformazione di gauge, in particolare gauge di Coulomb. In presenza di campi variabili nel tempo, si sceglie in genere il gauge di Lorenz:
+\[\nabla\cdot\vec{A}+\frac{1}{c^2}\der[2]{\varphi}{t}=0\]
+Dove $\varphi$ è il potenziale elettrostatico. Se quindi scegliamo il gauge di Coulomb, la quarta equazione di Maxwell si riscrive come
+\[\nabla\times(\nabla\times\vec{A})=\nabla(\nabla\cdot\vec{A})-\lap\vec{A}=-\lap\vec{A}=\mu_0\vec{J}\]
+Quindi anche il potenziale vettore soddisfa un'equazione di Poisson, però in forma vettoriale
+\[\lap\vec{A}=-\mu_0\vec{J}\]
+La soluzione è la solita
+\[\vec{A}(\vec{r})=\frac{\mu_0}{4\pi}\int\frac{\vec{J}(\vec{r}')}{|\vec{r}-\vec{r}'|}\dif^3r'\]
+A questo punto Moruzzi ha detto una banalità, ossia se si fissa una curva $\gamma$ nello spazio, allora il flusso di $\vec{B}$ attraverso una qualunque superficie $S$ che abbia $\gamma$ come bordo è indipendente dalla particolare superficie scelta (dipende invece ovviamente da $\gamma$).
+\subsection{Interazione tra circuiti}
+Consideriamo due circuiti percorsi dalle correnti $I_1$ e $I_2$. In generale, la forza di cui risente il circuito percorso dalla corrente $I_1$ è
+\[\vec{F}_1=I_1\oint\dif\vec{l}_1\times\vec{B}_2=\frac{\mu_0I_1I_2}{4\pi}\oint\oint\frac{\dif\vec{l}_1\times\left(\dif\vec{l}_2\times(\vec{r}_1-\vec{r}_2)\right)}{|\vec{r}_1-\vec{r}_2|^3}\]
+In generale chiunque sano di mente si rifiuterebbe di fare il calcolo, però può essere interessante nel caso di fili infiniti posti a distanza $d$. In tal caso, la forza per unità di lunghezza è
+\[F=\frac{\mu_0I_1I_2}{2\pi d}\]
+In particolare, è attrattiva se le correnti sono concordi.
+\subsection{Effetto Hall}
+Consideriamo un parallelepipedo di spessore $a$ e larghezza $b$. La lunghezza è molto maggiore di $a$ e $b$ e in tale direzione scorre una corrente $I$. Inoltre, è presente un campo magnetico $\vec{B}$ uniforme e parallelo al lato $b$. I portatori di carica sono deflessi all'interno del parallelepipedo (e sempre nella stessa direzione, a prescindere dal segno della carica). Pertanto, si genera un'accumulazione di carica all'interno del corpo, e quindi un campo elettrico $\vec E$. All'equilibrio, detta $v_d$ la velocità di deriva del portatore di carica deve essere
+\[E=v_dB\]
+Di conseguenza tra le facce del parallelepipedo si genera una differenza di potenziale
+\[V=v_daB\]
+D'altro canto, se $n$ è la densità di portatori di carica e $q$ la carica del singolo portatore, si ha $I=nqv_dab$, e in definitiva
+\[V=\frac{1}{nq}\frac{IB}{b}=\frac{1}{R_H}\frac{IB}{b}\]
+La costante $R_H=(nq)^{-1}$ è detta costante di Hall e dipende solo dal materiale. Questo effetto (e in particolare il segno di $V$) permettono anche di determinare il segno dei portatori di carica.
+\section{10 novembre 2017}
+\subsection{Magnetismo nella materia}
+Si osserva che, in presenza di un campo magnetico esterno, la materia risponde in tre differenti modi:
+\begin{itemize}
+	\item Materiali paramagnetici: fanno aumentare il campo esterno
+	\item Materiali diamagnetici: fanno diminuire il campo esterno
+	\item Materiali ferromagnetici: fanno aumentare tanto il campo esterno
+\end{itemize}
+In maniera analoga allo studio dei dielettrici, introduciamo il vettore di magnetizzazione $\vec{M}$, pari al momento di dipolo per unità di volume acquisito dal materiale. Ricordando che il potenziale vettore di un momento magnetico $\vec{m}$ è
+\[\vec{A}(\vec{r})=\frac{\mu_0}{4\pi}\frac{\vec{m}\times\hat{r}}{r^2}\]
+Otteniamo subito il potenziale vettore generato dal corpo:
+\[\vec{A}(\vec{r})=\frac{\mu_0}{4\pi}\int\frac{\vec{M}(\vec{r}')\times(\vec{r}-\vec{r}')}{|\vec{r}-\vec{r}'|^3}\dif^3r'\]
+Dimostriamo ora un'utile identità vettoriale che utilizzeremo in seguito. Siano $\vec{v},\vec{w}$ due campi vettoriali, con $\vec{w}$ uniforme. Allora si ha
+\[\nabla\cdot(\vec{w}\times\vec{v})=\vec{v}\cdot\nabla\times\vec{w}-\vec{w}\cdot\nabla\times\vec{v}=-\vec{w}\cdot\nabla\times\vec{v}\]
+Integrando su un volume generico si ottiene
+\[-\vec{w}\cdot\int\nabla\times\vec{v}\dif^3x=\oint\vec{w}\times\vec{v}\cdot\dif\vec{S}=\vec{w}\cdot\oint\vec{v}\times\dif\vec{S}\]
+Di conseguenza, per l'arbitrarietà di $\vec{w}$ si ottiene
+\[\int\nabla\times\vec{v}\dif^3x=-\oint\vec{v}\times\dif\vec{S}\]
+Torniamo ora al nostro potenziale vettore
+\[\vec{A}(\vec{r})=\frac{\mu_0}{4\pi}\int\vec{M}(\vec{r}')\times\nabla'\left(\frac{1}{|\vec{r}-\vec{r}'|}\right)\dif^3r'=\frac{\mu_0}{4\pi}\left[\int\frac{\nabla'\times\vec{M}(\vec{r}')}{|\vec{r}-\vec{r}'|}\dif^3r'+\oint\frac{\vec{M}(\vec{r}')\times\dif\vec{S}}{|\vec{r}-\vec{r}'|}\right]\]
+Di conseguenza, possiamo interpretare la magnetizzazione $\vec{M}$ con la comparsa di una densità volumica di corrente di magnetizzazione $\vec{J}_m$ e di una densità superficiale di corrente di magnetizzazione $\vec{K}_m$, pari rispettivamente a
+\[\vec{J}_m=\nabla\times\vec{M}\]
+\[\vec{K}_m=\vec{M}\times\hat{n}\]
+\subsection{Equazioni di Maxwell per il magnetismo nella materia}
+Le equazioni di Maxwell vanno ovviamente modificate nella forma seguente
+\[\nabla\cdot\vec{B}=0\]
+\[\nabla\times\vec{B}=\mu_0(\vec{J}_C+\vec{J}_m)\]
+Dove $\vec{J}_C$ è la densità di corrente di conduzione, e ha un ruolo analogo alla carica libera nei dielettrici. Introduciamo il vettore ausiliario $\vec{H}$:
+\[\vec{H}=\frac{\vec{B}}{\mu_0}-\vec{M}\]
+In tal modo, la quarta equazione di Maxwell si riscrive come
+\[\nabla\times\vec{H}=\vec{J}_C\]
+Se il mezzo è omogeneo e isotropo e il campo $\vec{B}$ non è eccessivamente elevato, si ha con buona approssimazione
+\[\vec{B}=\mu_0\mu_r\vec{H}\]
+Dove la costante $\mu_r$, tipica del mezzo, è detta permeabilità magnetica relativa. In tal caso si ha \[\vec{M}=\frac{\vec{B}}{\mu_0}\left(1-\frac{1}{\mu_r}\right)\]
+Se definiamo la suscettitività magnetica $\chi_m=\mu_r-1$, si ottiene
+\[\vec{M}=\frac{\chi_m}{\mu}\vec{B}=\chi_m\vec{H}\]
+La grande differenza con lo studio dei dielettrici è il fatto che, in generale, si può avere $\mu_r<1$. Ah, stando a Moruzzi $\vec H$ si misura in A$\cdot$spire/m.
+\subsection{Condizioni di raccordo}
+In maniera analoga al campo nei dielettrici, si trovano le condizioni di raccordo
+\[B_{1,\perp}=B_{2,\perp}\]
+\[\mu_{r,1}^{-1}B_{1,\parallel}=H_{1,\parallel}=H_{2,\parallel}=\mu_{r,2}^{-1}B_{2,\parallel}\]
+E la "legge di rifrazione"
+\[\frac{\tan\theta_1}{\tan\theta_2}=\frac{\mu_{r,1}}{\mu_{r,2}}\]
+\section{13 novembre 2017}
+\subsection{Interpretazione microscopica della magnetizzazione}
+Consideriamo un atomo alla Rutherford, ossia schematizziamo l'atomo come un nucleo di carica $e$ al centro e un elettrone puntiforme di carica $-e$ in orbita circolare intorno al nucleo. L'equazione del moto è semplicemente
+\[m_e\omega_0^2r=\frac{e^2}{4\pi\epsilon_0r^2}\]
+Inoltre, il moto dell'elettrone può essere assimilato a una spira circolare di raggio $r$ in cui scorre una corrente $I=\omega_0e/2\pi$. Di conseguenza, il momento magnetico dell'atomo sarà
+\[m=\frac{\omega_0er^2}{2}\]
+Aggiungiamo ora un campo magnetico esterno, con la stessa direzione di $\vec{m}$. Facciamo inoltre la buffa assunzione che il raggio dell'orbita $r$ non varii in presenza del campo esterno. Allora l'equazione del moto diventa
+\[m_e\omega^2r=\frac{e^2}{4\pi\epsilon_0r^2}+e\omega rB\]
+Data l'ipotesi su $r$, necessariamente la frequenza angolare deve cambiare. Sottraendo membro a membro, e ricordando che in condizioni standard si ha $\omega\simeq\omega_0$, si ottiene la variazione di frequenza angolare $\Delta\omega$
+\[\Delta\omega\simeq\frac{eB}{2m_e}\]
+Di conseguenza, se $\vec{m}$ e $\vec{B}$ hanno anche lo stesso verso allora il momento magnetico aumenta. Inoltre, osserviamo che, detto $\vec{L}$ il momento angolare, si ha
+\[\vec{m}=-\frac{e}{2m_e}\vec{L}\]
+Possiamo a questo punto introdurre il fattore giromagnetico $\gamma$
+\[\gamma=\frac{e}{2m_e}\]
+Per inciso, la variazione $\Delta\omega$ spiega l'effetto Zeeman: in presenza di un campo magnetico esterno, la frequenza della radiazione elettromagnetica emessa da un atomo si divide in tre valori diversi, che corrispondono a elettroni con momento magnetico parallelo, antiparallelo e ortogonale al campo esterno. Il momento meccanico agente sull'elettrone è
+\[\vec{\Gamma}=\vec{m}\times\vec{B}\]
+Di conseguenza, la seconda equazione cardinale si scrive come
+\[\frac{\dif\vec{L}}{\dif t}=\gamma\vec{B}\times\vec{L}\]
+Ossia $\vec{L}$ precede intorno a $\vec{B}$ con una velocità angolare $\vec\omega_L$ pari a
+\[\vec{\omega}_L=\gamma \vec{B}\]
+La frequenza con cui $\vec{L}$ precede è detta frequenza di Larmor.
+
+Se consideriamo un atomo con un numero pari di elettroni, in assenza di un campo magnetico esterno non avrà un momento magnetico, dato che il momento degli elettroni con spin opposto si elide. Al contrario, in presenza di un campo esterno il momento acquisito dagli elettroni è antiparallelo al campo stesso. Ricordando che
+\[\vec{M}=\chi_m\vec{H}\]
+Si ottiene che per tali materiali $\chi_m<0$, e dunque $\mu_r<1$. Questo modello permette quindi di spiegare il diamagnetismo da un punto di vista microscopico. In genere per un diamagnetico si ha $10^{-9}<|\chi_m|<10^{-6}$, quindi gli effetti della magnetizzazione rimangono comunque piccoli. Tale tipo di magnetizzazione si chiama anche magnetizzazione per deformazione.
+
+Se consideriamo invece un atomo con un numero dispari di elettroni, questo presenterà un momento di dipolo permanente $\vec{m}$ anche in assenza di campo esterno. Ovviamente per agitazione termica (o, se si vuole, per l'isotropia dello spazio) in assenza di campo il momento dei vari atomi sarà orientato casualmente, quindi non si osserva una magnetizzazione macroscopica. In presenza di campo esterno i dipoli tendono ad allinearsi con il campo (magnetizzazione per orientamento). Introduciamo la solita distribuzione di Boltzmann
+\[p(\theta)=Ae^{\frac{mB_{l}\cos\theta}{k_BT}}\sin\theta\]
+Dove $B_l$ è il campo magnetico locale. Allora il momento magnetico medio lungo $z$ sarà
+\[\langle m_z\rangle=\frac{\int_{0}^{\pi}m\cos\theta p(\theta)\dif\theta}{\int_{0}^{\pi}p(\theta)\dif\theta}=m\left(\coth\alpha-\frac{1}{\alpha}\right)=mL(\alpha)\]
+Nell'espressione precedente sono stati introdotti il parametro $\alpha$ e la funzione di Langevin $L$:
+\[\alpha=\frac{mB_l}{k_BT}\]
+\[L(x)=\coth x-\frac{1}{x}\]
+Lo sviluppo della funzione di Langevin in un intorno di 0 è
+\[L(x)=\frac{x}{3}-\frac{x^3}{45}+\frac{2x^5}{945}+\dots\]
+Di conseguenza, nel regime di alte temperature la magnetizzazione è
+\[\vec{M}(\alpha)=nmL(\alpha)\hat{z}\simeq \frac{nB_lm^2}{3k_BT}\hat{z}\]
+E quindi
+\[\chi_m\simeq\frac{n\mu_0m^2}{3k_BT}>0\]
+Questo modello spiega il paramagnetismo dal punto di vista microscopico. Inoltre, notiamo che se non approssimiamo si ottiene
+\[\lim\limits_{\alpha\to+\infty}\vec{M}(\alpha)=nm\hat{z}\]
+Cioè il sistema raggiunge una magnetizzazione di saturazione. Ciò è dovuto al fatto che la magnetizzazione raggiunge il suo valore massimo quando tutti i momenti microscopici sono allineati con il campo esterno.
+In maniera analoga a quanto visto per i dielettrici, si ha
+\[\vec{H}_l=\vec{H}+\frac{\vec{M}}{3}\]
+Supponiamo, più in generale, di poter scrivere 
+\[\vec{H}_l=\vec{H}+\gamma\vec{M}\]
+Dove $\gamma$ è un'opportuna costante, detta costante di Weiss. Allora otteniamo
+\[\left\{\begin{array}{l}
+M(\alpha)=nmL(\alpha)\\
+M(\alpha)=\frac{k_BT\alpha}{\gamma m\mu_0}-\frac{H}{\gamma}
+\end{array}\right.\]
+Questo sistema è brutto, quindi si risolve numericamente. Tenendo fissa la temperatura, la magnetizzazione aumenta all'aumentare di $H$. Inoltre, per valori bassi di $T$ si possono avere fino a tre valori possibili per la magnetizzazione. Per $H=0$ si può anche avere $M\neq0$, e in tal caso si parla di magnetizzazione residua (ossia abbiamo una calamita). Inoltre, la curva di magnetizzazione non è univoca, ma dipende dalla storia del campione preso in considerazione: se si grafica $\vec{M}$ in funzione di $\vec{H}$, si ottiene la classica curva di isteresi. Al contrario, per temperature sufficientemente alte, la soluzione del sistema è unica. La temperatura minima per cui ciò accade è detta temperatura di Curie e al di sopra di tale soglia il materiale si comporta come un paramagnetico. 
+\subsection{Introduzione all'elettrodinamica}
+Finora ci siamo interessati solamente di campi statici, arrivando a scrivere le equazioni di Maxwell
+\[\begin{array}{l}\nabla\cdot\vec{E}=\frac{\rho}{\epsilon_0}\\
+\nabla\times\vec{E}=0\\
+\nabla\cdot\vec{B}=0\\
+\nabla\times\vec{B}=\mu_0\vec{J}\end{array}\]
+Ovviamente, dato che stiamo utilizzando i campi $\vec{E}$ e $\vec{B}$, si deve tener conto delle cariche di polarizzazione in $\rho$ e delle correnti di magnetizzazione in $\vec{J}$. Se ora consideriamo una spira immersa in un campo magnetico $\vec{B}$ variabile nel tempo, si osserva una forza elettromotrice
+\[\mathcal{E}=-\frac{\dif\Phi_B}{\dif t}\]
+Dove $\Phi_B$ è il flusso del campo magnetico attraverso la superficie della spira. In tal caso, si ha $\nabla\times\vec{E}\neq0$. Dobbiamo quindi rivedere la seconda equazione di Maxwell (e anzi, anche la quarta) per adattarle al caso in cui $\vec{E}$ e $\vec{B}$ non sono costanti. Nel caso della spira, la forza elettromotrice può essere associata a un campo elettromotore indotto $\vec{E}_i$ tale che
+\[\mathcal{E}=\oint\vec{E}_i\cdot\dif\vec{l}\]
+Tale campo è
+\[\vec{E}_i=\vec{E}+\vec{v}\times\vec{B}\]
+Dove $\vec{v}$ è la velocità del portatore di carica. Se scriviamo $\vec{v}=\vec{v}_t+\vec{v}_d$, dove $\vec{v}_t$ è la velocità di trascinamento dovuta al movimento della spira e $\vec{v}_d$ è la velocità di deriva, si osserva facilmente che
+\[\oint\vec{v}_d\times\vec{B}\cdot\dif\vec{l}=\oint\dif\vec{l}\times\vec{v}_d\cdot\vec{B}=0\]
+Dato che l'elemento di lunghezza e la velocità di deriva sono paralleli. Allora si può porre anche
+\[\vec{E}_i=\vec{E}+\vec{v}_t\times\vec{B}\]
+\section{17 novembre 2017}
+\subsection{Legge di Faraday e equazioni di Maxwell}
+Abbiamo già visto la legge di Faraday (o legge di Faraday-Neumann, o legge di Faraday-Neumann-Lenz)
+\[\mathcal{E}=-\frac{\dif}{\dif t}\int_S\vec{B}\cdot\dif\vec{S}\]
+Tale legge è ottenuta sperimentalmente, anche se è comunque possibile ricavarla dalle equazioni di Maxwell. Lo facciamo in tre casi
+\begin{itemize}
+	\item Campo magnetico costante, spira in movimento: in tal caso, se consideriamo il nastro $\Sigma$ che congiunge la posizione iniziale e finale della spira, si ha
+	\[\Phi_f-\Phi_i+\dif\Phi_\Sigma=0\]
+	D'altro canto, possiamo scrivere
+	\[\Phi_\Sigma=\int_{\Sigma}\vec{B}\cdot\dif\vec{S}=\int_{\Sigma}\vec{B}\cdot\dif\vec{l}\times\vec{v}_t\dif t=\dif t\oint\vec{v}_t\times\vec{B}\cdot\dif\vec{l}\]
+	Allora si ottiene
+	\[\frac{\dif \Phi}{\dif t}=-\frac{\dif\Phi_\Sigma}{\dif t}=-\oint\vec{v}_t\times\vec{B}\cdot\dif\vec{l}\]
+	In accordo con quanto ottenuto in precedenza
+	\item Campo magnetico variabile, spira ferma: in tal caso si ottiene
+	\[\oint\vec{E}_i\cdot\dif\vec{l}=-\frac{\dif}{\dif t}\int_S\vec{B}\cdot\dif\vec{S}=-\int\der{\vec{B}}{t}\cdot\dif\vec{S}\]
+	Allora, usando il teorema di Stokes, si ottiene
+	\[\nabla\times\vec{E}_i=-\der{\vec{B}}{t}\]
+	\item Campo magnetico variabile, spira in movimento: in tal caso la derivata del flusso del campo magnetico è
+	\[\frac{\dif\Phi}{\dif t}=\frac{1}{\dif t}\left(\int_{S(t+\dif t)}\vec{B}(t+\dif t)\cdot\dif\vec{S}-\int_{S(t)}\vec{B}(t)\cdot\dif\vec{S}\right)=\]\[=\frac{1}{\dif t}\left(\int_{S(t+\dif t)}\vec{B}(t)\cdot\dif\vec{S}-\int_{S(t)}\vec{B}(t)\cdot\dif\vec{S}\right)+\int_{S(t+\dif t)}\der{\vec{B}}{t}\dif\vec{S}\]
+	Il primo termine è analogo a quello di una spira in movimento in un campo costante, il secondo è analogo a quello di una spira ferma in un campo variabile. Di conseguenza si ha
+	\[\frac{\dif\Phi}{\dif t}=\oint \vec{v}_t\times\vec{B}\cdot\dif\vec{l}+\int\der{\vec{B}}{t}\cdot\dif\vec{S}\]
+	Utilizzando la legge di Faraday, il teorema di Stokes e la definizione di $\vec{E}_i$ si ottiene infine
+	\[\nabla\times\vec{E}=-\der{\vec{B}}{t}\]
+\end{itemize}
+Vediamo ora come modificare la quarta equazione di Maxwell, che nel caso stazionario è
+\[\nabla\times\vec{B}=\mu_0\vec{J}\]
+Il problema con questa equazione è che il primo membro è sempre indivergente, mentre il secondo lo è solo nel caso stazionario. Se consideriamo dalla prima equazione di Maxwell e dall'equazione di continuità, otteniamo
+\[\nabla\cdot\left(\vec{J}+\epsilon_0\der{\vec{E}}{t}\right)=0\]
+Il secondo termine, detto densità di corrente di spostamento, permette di adattare la quarta equazione di Maxwell al caso non stazionario
+\[\nabla\times\vec{B}=\mu_0\vec{J}+\frac{1}{c^2}\der{\vec{E}}{t}\]
+In definitiva, le equazioni di Maxwell nel vuoto sono
+\[\nabla\cdot\vec{E}=\frac{\rho}{\epsilon_0}\]\[
+\nabla\times\vec{E}=-\der{\vec{B}}{t}\]\[
+\nabla\cdot\vec{B}=0\]\[
+\nabla\times\vec{B}=\mu_0\vec{J}+\frac{1}{c^2}\der{\vec{E}}{t}\]
+Nella materia diventano invece
+\[\nabla\cdot\vec{D}=\rho\]\[
+\nabla\times\vec{E}=-\der{\vec{B}}{t}\]\[
+\nabla\cdot\vec{B}=0\]\[
+\nabla\times\vec{H}=\vec{J}+\der{\vec{D}}{t}\]
+\section{4 dicembre 2017}
+\subsection{Induttanza}
+Consideriamo una spira di forma qualunque percorsa da una corrente $I$ e sia $\Phi$ il flusso del campo magnetico attraverso la spira. Definiamo l'induttanza $L$ come
+\[\Phi=LI\]
+Tale grandezza dipende unicamente dalla geometria del sistema e, in MKS, si misura in Henry (1 H=1 Wb/A). Ad esempio, per un solenoide di raggio $a$, lunghezza $l$ e $n$ spire per unità di lunghezza, si ha
+\[L=\mu_0\mu_r\pi a^2n^2l\]
+\subsection{Circuito RL}
+Consideriamo il seguente circuito
+\begin{center}\begin{circuitikz}\draw
+		(0,0) to[battery=$\mathcal{E}$] (0,2) to[resistor=$R$] (2,2) to[inductor=$L$] (2,0)--(0,0);
+\end{circuitikz}\end{center}
+La legge delle maglie ci dà
+\[RI=\mathcal{E}+\mathcal{E}_{\mathrm{ind}}=\mathcal{E}-L\dot{I}\]
+Di conseguenza, se $I(0)=0$
+\[I(t)=\frac{\mathcal{E}}{R}(1-e^{-t/\tau})\]
+Dove si è posto $\tau=L/R$. Consideriamo ora un intervallo di tempo $\dif t$ in cui il generatore eroga una corrente $\dif Q=I\dif t$. Moltiplicando l'equazione del circuito per $\dif Q$ a destra e a sinistra otteniamo 
+\[V\dif Q=RI^2\dif t+LI\dif I\]
+Dato che $V\dif Q$ è l'energia erogata dal generatore nel tempo $\dif t$ e $RI^2\dif t$ è l'energia dissipata dalla resistenza nello stesso intervallo, per la conservazione dell'energia l'aumento dell'energia nell'induttore è $LI\dif I$. Di conseguenza, in un induttore in cui scorre una corrente $I$ è immagazzinata un'energia pari a
+\[U=\frac{1}{2}LI^2\]
+Alternativamente, consideriamo il seguente circuito
+\begin{center}\begin{circuitikz}\draw
+		(0,0) --(0,2) to[resistor=$R$] (2,2) to[inductor=$L$] (2,0)--(0,0);
+\end{circuitikz}\end{center}
+In cui $I(0)=I_0$. L'equazione di maglia ci dà
+\[I(t)=I_0e^{-t/\tau}\]
+Con $\tau=L/R$. Di conseguenza, l'energia dissipata dalla resistenza durante la scarica è
+\[U=\int_{0}^{\infty}RI_0^2e^{-2t/\tau}\dif t=\frac{1}{2}LI_0^2\]
+Tale energia deve essere quella immagazzinata per $t=0$ nel circuito, e in particolare nell'induttore.
+\subsection{Circuito RLC}
+Consideriamo il seguente circuito
+\begin{center}\begin{circuitikz}\draw
+		(0,0)-- (0,2) to[resistor=$R$] (2,2) to[inductor=$L$] (2,0) to[capacitor=$C$](0,0);
+\end{circuitikz}\end{center}
+Se $Q$ è la carica sulle piastre del condensatore, la legge delle maglie ci dà
+\[L\ddot{Q}+R\dot{Q}+\frac{Q}{C}=0\]
+L'equazione è quindi analoga a quella di un oscillatore armonico smorzato di frequenza naturale $\omega=1/\sqrt{LC}$. L'aggiunta di un eventuale generatore di tensione è del tutto analoga all'aggiunta di una forzante.
+\subsection{Mutua induzione}
+Consideriamo ora due spire, percorse dalle correnti $I_1$ e $I_2$, e sia $\vec{B}_1$ il campo magnetico generato dalla prima spira. Il flusso di $\vec{B}_1$ attraverso la seconda spira è
+\[\Phi_2(\vec{B}_1)=\int_{S_2}\vec{B}_1\cdot\dif\vec{S}_2=\oint\vec{A}_1\cdot\dif\vec{l}_2\]
+Dove il potenziale vettore è
+\[\vec{A}_1=\frac{\mu_0\mu_rI_1}{4\pi}\oint\frac{\dif\vec{l}_1}{|\vec{r}-\vec{r}_1|}\]
+Allora si ha
+\[\Phi_2(\vec{B}_1)=\frac{\mu_0\mu_rI_1}{4\pi}\oint\oint\frac{\dif\vec{l}_1\cdot\dif\vec{l}_2}{|\vec{r}_2-\vec{r}_1|}=M_{21}I_1\]
+Il coefficiente $M_{21}$ è detto coefficiente di mutua induzione. Si osserva banalmente che $M_{21}=M_{12}$.
+\section{15 dicembre 2017}
+\subsection{Energia del campo magnetico}
+Consideriamo il circuito
+\begin{center}\begin{circuitikz}\draw
+		(0,0)-- (0,2) to[resistor=$R$] (2,2) to[inductor=$L$] (2,0) to[battery=$\mathcal{E}$](0,0);
+\end{circuitikz}\end{center}
+Sappiamo che l'equazione del circuito è
+\[\mathcal{E}=L\dot{I}+RI\]
+Se il solenoide ha sezione $S$ e $N$ spire, in un tempo $\dif t$ il bilancio energetico è
+\[\mathcal{E}\dif Q=NS\dot{B}I\dif t+RI^2\dif t\]
+\[\mathcal{E}\dif Q=V\frac{B\dif B}{\mu}+RI^2\dif T\]
+Dove $V$ è il volume del solenoide. Di conseguenza, l'energia e la densità di energia del campo magnetico sono
+\[U=\frac{B^2V}{2\mu}\]
+\[u=\frac{B^2}{2\mu}\]
+Nel caso generale, consideriamo $n$ circuiti rigidi costituiti da fili ideali (ossia di spessore nullo), ciascuno con una resistenza $R_i$ e un generatore di tensione $\mathcal{E}_i$. Sia $M_{ij}$ il coefficiente di mutua induzione tra il circuito $i$-esimo e il circuito $j$-esimo e sia $L_i$ l'induttanza del circuito $i$-esimo. Allora abbiamo per ogni $i$
+\[\mathcal{E}_i=L_i\dot{I}_i+R_iI_i+\sum_{\substack{j=1\\j\neq i}}^{n}M_{ij}\dot{I}_j\]
+Se per semplicità poniamo $M_{ii}=L_i$, otteniamo
+\[\mathcal{E}_i=R_iI_i+\sum_{j=1}^{n}M_{ij}\dot{I}_j\]
+Di conseguenza, il bilancio energetico totale è
+\[\sum_{i=1}^{n}\mathcal{E}_iI_i\dif t=\sum_{i=1}^{n}R_iI_i^2\dif t+\sum_{i,j=1}^{n}M_{ij}I_j\dif I_i\]
+Dato che $M$ è una matrice simmetrica, l'energia magnetica del sistema è
+\[U_m=\frac{1}{2}\sum_{i,j=1}^{n}M_{ij}I_iI_j=\frac{1}{2}\sum_{j=1}^{n}\Phi_jI_j\]
+D'altro canto, abbiamo visto in una precedente lezione che l'energia meccanica di una spira è
+\[U=-I\Phi\]
+Mostriamo che questa relazione è un caso particolare di quella che abbiamo ottenuto ora. Se il circuito $k$-esimo si sposta (rigidamente!) di un tratto $\dif x_k$, allora il bilancio energetico è
+\[\sum_{j=1}^{n}\mathcal{E}_jI_j\dif t=\sum_{j=1}^{n}R_jI_j^2\dif t+\frac{1}{2}\sum_{j=1}^{n}I_j\dif\Phi_j+f^{(k)}_m\dif x_k\]
+Dove $f_m^{(k)}$ è la forza agente sul circuito che si muove. Usando l'equazione del circuito, otteniamo
+\[f_m^{(k)}\dif x_k=\frac{1}{2}\sum_{j=1}^{n}I_j\dif\Phi_j\]
+\[f_m^{(k)}=\der{U_m}{x_k}\]
+L'assenza del segno meno è dovuta al fatto che le batterie erogano il doppio della variazione di energia magnetica, in maniera analoga a quanto accade per i condensatori mantenuti a potenziale costante. Abbiamo ora
+\[\der{U_m}{x_k}=\frac{1}{2}\der{}{x_k}\sum_{i,j=1}^{n}M_{ij}I_iI_j\]
+Dato che gli $M_{ij}$ dipendono unicamente dalla geometria del sistema, se $i$ e $j$ sono diversi da $k$ il valore di $M_{ij}$ non dipende da $x_k$. D'altro canto, avendo supposto il circuito $k$-esimo rigido, neppure $M_{kk}$ dipende da $x_k$. Allora otteniamo
+\[\der{U_m}{x_k}=\frac{1}{2}\sum_{i,j=1}^{n}I_iI_k\der{M_{ik}}{x_k}+\frac{1}{2}\sum_{i,j=1}^{n}I_iI_k\der{M_{ki}}{x_k}=\sum_{i,j=1}^{n}I_iI_k\der{M_{ik}}{x_k}=\sum_{i=1}^{n}I_i\der{\Phi_i}{x_k}\]
+Da cui la relazione per l'energia meccanica.
+
+Se ora supponiamo che i fili non abbiano sezione trascurabile, possiamo comunque riutilizzare le relazioni precedenti (basta immaginare di dividere ciascun filo in sezioni sufficientemente piccole) nel caso statico. Indicando $\vec{J}_i$ e $\vec{A}_i$ la densità di corrente e il potenziale vettore dell'$i$-esimo circuito, dal teorema di Stokes otteniamo
+\[U_m=\frac{1}{2}\sum_{i=1}^{n}\int_{S_i}\vec{J}_i\cdot\dif\vec{\sigma}\oint_{\gamma_i}\vec{A}_i\cdot\dif\vec{l}=\frac{1}{2}\sum_{i=1}^{n}\int_{V_i}\vec{J}_i\cdot\vec{A}_i\dif^3r=\frac{1}{2}\int\vec{J}\cdot\vec{A}\dif^3r\]
+L'ultimo integrale è esteso a tutto lo spazio. Nel caso dinamico, abbiamo invece
+\[U_m=\frac{1}{2}\int\left(\vec{J}+\epsilon_0\der{\vec{E}}{t}\right)\cdot\vec{A}\dif^3r\]
+In entrambi i casi, notando che
+\[\nabla\cdot(\vec{B}\times\vec{A})=(\nabla\times\vec{B})\cdot\vec{A}-\vec{B}\cdot(\nabla\times\vec{A})=\mu_0\left(\vec{J}+\epsilon_0\der{\vec{E}}{t}\right)\cdot\vec{A}-|\vec{B}|^2\]
+Otteniamo infine
+\[U_m=\frac{1}{2\mu_0}\int\nabla\cdot(\vec{B}\times\vec{A})\dif^3r+\frac{1}{2\mu_0}\int|\vec{B}|^2\dif^3r=\frac{1}{2\mu_0}\int|\vec{B}|^2\dif^3r\]
+Al solito, l'ultima uguaglianza vale sotto opportune ipotesi di localizzazione delle sorgenti. Nella materia, si ottiene in maniera simile
+\[U_m=\frac{1}{2}\int\frac{|\vec{B}|^2}{\mu}\dif^3r=\frac{1}{2}\int\vec{H}\cdot\vec{B}\dif^3r\]
+\subsection{Cilindro paramagnetico in un solenoide}
+Consideriamo un cilindro paramagnetico di permeabilità $\mu$ inserito per un tratto $x$ in un solenoide di lunghezza $l$, sezione $S$ e con $n$ spire per unità di lunghezza, in cui è mantenuta la corrente costante $I$. L'induttanza e l'energia del sistema sono
+\[L=n^2S(\mu x+\mu_0(l-x))\]
+\[U_m=\frac{1}{2}LI^2=\frac{1}{2}n^2S(\mu x+\mu_0(l-x))I^2\]
+Il cilindro viene risucchiato, dato che dobbiamo massimizzare $U_m$ e $\mu>\mu_0$. Il fatto che $U_m$ vada massimizzata proviene dal ragionamento precedente sull'energia erogata dal generatore che mantiene $I$ costante. Infatti, se il cilindro si sposta di un tratto $\dif x$, la variazione di flusso è
+\[\dif\Phi=n^2SI(\mu-\mu_0)\dif x=I\dif L\]
+L'energia erogata dal generatore è allora
+\[\dif U=-I\dif\Phi=-n^2SI^2(\mu-\mu_0)\dif x=-2\dif U_m\]
+
+\end{document}
+
+

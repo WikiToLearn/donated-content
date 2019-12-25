@@ -1,0 +1,632 @@
+% SUPERFICI, TEOREMA DI GAUSS-GREEN E TEOREMA DI STOKES
+
+\subsection{Superfici in $ \R^3 $}
+ 
+\begin{definition}[superficie]
+	Una superficie è una funzione $ \Phi \colon \Omega \to \R^3 $ dove $ \Omega \subseteq \R^2 $ è un sottoinsieme non vuoto. \\
+	\emph{Notazione}: indichiamo con $ (u, v) $ le coordinate in $ \Omega $ e con $ \Phi(u, v) \coloneqq (X(u, v), Y(u, v), Z(u, v)) $ le componenti di $ \Phi $.\\
+	\emph{Nota}: solitamente si assume $ \Omega $ connesso, compatto, chiusura di un aperto con $ \fron{\Omega} $ abbastanza regolare e $ \Phi $ con componenti di classe $ C^1 $, iniettive in $ \ouv{\Omega} $ con $ \Phi_u $ e $ \Phi_v $ linearmente indipendenti. 
+\end{definition}
+
+\begin{definition}[piano tangente]
+	Il piano tangente alla superficie $ \Phi $ nel punto $ \Phi(u_0, v_0) \in \R^3 $ è quello di equazione parametrica 
+	\begin{equation}
+		(t, s) \mapsto \Phi(u_0, v_0) + t \Phi_u(u_0, v_0) + s \Phi_v(u_0, v_0)
+	\end{equation}
+\end{definition}
+
+\begin{definition}[vettore normale]
+	Il vettore normale alla superficie $ \Phi $ nel punto $ \Phi(u_0, v_0) \in \R^3 $ è il vettore $ (M_1, M_2, M_3) \in \R^3 $ che si ottiene sviluppando formalmente il "determinate" della "matrice"
+	\begin{equation*}
+		\begin{pmatrix}
+		e_1 & e_2 & e_3 \\
+		X_u(u_0, v_0) & Y_u(u_0, v_0) & Z_u(u_0, v_0) \\
+		X_v(u_0, v_0) & Y_v(u_0, v_0) & Z_v(u_0, v_0) \\
+		\end{pmatrix}
+		\quad \rightarrow \quad
+		(M_1, M_2, M_3) \coloneqq (Y_uZ_v - Z_uY_v, Z_uX_v - X_uZ_v, X_uY_v - Y_uX_v)
+	\end{equation*}
+	Usando la notazione del prodotto esterno $ \wedge $ possiamo scrivere più brevemente
+	\begin{equation}
+		(M_1, M_2, M_3) \coloneqq \Phi_u(u_0, v_0) \wedge \Phi_v(u_0, v_0)
+	\end{equation}
+	Osserviamo che se $ \jac{\Phi} $ è Jacobiano della superficie vale 
+	\begin{equation}
+		\sqrt{M_1^2 + M_2^2 + M_3^2} = \norm{\Phi_u(u_0, v_0) \wedge \Phi_v(u_0, v_0)} = \sqrt{\abs{\det{((\jac{\Phi}(u_0, v_0))^t \, (\jac{\Phi}(u_0, v_0))}}}
+	\end{equation}
+\end{definition}
+
+\begin{definition}[area di una superficie]
+	Sia $ \Omega \subseteq \R^2 $ un inseme misurabile e $ \Phi \colon \Omega \to \R^3 $ una superficie di classe $ C^1 $. Consideriamo una famiglia di rettangoli $ \{R_i\}_{i \in I} $ con $ I $ finito tale che $ \Omega \subseteq \bigcup_{i \in I} R_i $ e per ogni $ i \in I $ scegliamo un punto $ (u_i, v_i) \in \Omega \cap R_i $ (\emph{tag} del rettangolo). \\
+	Consideriamo ora l'immagine di $ R_i $ attraverso il differenziale di $ \Phi $ in $ (u_i, v_i) $ (pezzo del piano tangente nel punto $ \Phi(u_i, v_i) $ che è un parallelogrammo) e consideriamo quindi la somma delle aree dei parallelogrammi data da $ \sum_{i \in I} \mathrm{area}(R_i) \cdot \norm{\Phi_u(u_i, v_i) \wedge \Phi_v(u_i, v_i)} $. \\
+	Diciamo allora che $ \mathrm{area}(\Phi) = S $ se $ \forall \epsilon > 0 $, $ \forall \delta > 0 : $ $ \forall $ rettangolazione con rettangoli di diametro $ \leq \delta $, $ \forall $ \emph{tagging} dei rettangoli si ha $ \abs{\sum{\text{aree parall}} - S} \leq \epsilon $. Al limite risulta 
+	\begin{equation}
+		\mathrm{area}(\Phi) = \iint_{\Omega} \norm{\Phi_u(u, v) \wedge \Phi_v(u, v)} \dif{u} \dif{v} = \iint_{\Omega} \sqrt{M_1^2 + M_2^2 + M_3^2} \dif{u} \dif{v}
+	\end{equation}
+	Osserviamo che allora l'area di una superficie non dipende dalla parametrizzazione, cioè se $ \Phi_1 \colon \Omega_1 \to \R^3 $ è una superficie, $ \psi \colon \Omega_2 \to \Omega_1 $ è una funzione di classe $ C^1 $ monotona con inversa di classe $ C^1 $ e $ \Phi_2 \colon \Omega_2 \to \R^3 $ data da $ \Phi_2(t) \coloneqq \Phi_1(\psi(t)) $ per ogni $ t \in \Omega_2 $ allora $ \mathrm{area}(\Phi_1) = \mathrm{area}(\Phi_2) $.
+\end{definition}
+%
+\begin{proof}
+	(comportamento per riparametrizzazione).
+	Calcoliamo le matrici Jacobiane: essendo $ \Phi_2 $ funzione composta $ \jac{\Phi_2}(u, v) = \jac{\Phi_1}(\psi(u, v)) \, \jac{\psi}(u, v) $ così
+	\[
+		(\jac{\Phi_2})^t \, (\jac{\Phi_2}) = (\jac{\psi})^t \, (\jac{\Phi_1})^t \, \jac{\Phi_1} \, \jac{\psi} \quad \Rightarrow \quad \det{((\jac{\Phi_2})^t \, (\jac{\Phi_2}))} = \left[\det{(\jac{\psi})}\right]^2 \det{((\jac{\Phi_1})^t \, \jac{\Phi_1})}
+	\]
+	Pertanto posto $ \psi(u, v) = (t, s) $
+	\begin{align*}
+		\mathrm{area}(\Phi_2) & = \iint_{\Omega_2} \sqrt{\abs{\det{\left[(\jac{\Phi_2}(u, v))^t \, (\jac{\Phi_2}(u, v))\right]}}} \dif{u} \dif{v} \\
+		& = \iint_{\Omega_2} \sqrt{\abs{\det{\left[(\jac{\Phi_2}(\psi(u, v)))^t \, (\jac{\Phi_2}(\psi(u, v)))\right]}}} \, \abs{\det{\left[\jac{\psi}(u, v)\right]}} \dif{u} \dif{v} \\
+		& = \iint_{\Omega_1} \sqrt{\abs{\det{\left[(\jac{\Phi_2}(t, s))^t \, (\jac{\Phi_2}(t, s))\right]}}} \dif{t} \dif{s} \\
+		& = \mathrm{area}(\Phi_1). \qedhere
+	\end{align*}
+\end{proof}
+
+\begin{thm}[area di una superficie di rotazione e Guldino 2]
+	Sia $ \gamma \colon [a, b] \to \R^2 $ una curva (che pensiamo contenuta nel piano $ yz $) di componenti $ \gamma(t) \coloneqq (y(t), z(t)) $. Consideriamo allora la superficie di rotazione ottenuta ruotando il sostegno di $ \gamma $ attorno all'asse $ z $, cioè $ \Phi \colon \Omega \to \R^3 $ data da 
+	\begin{equation}
+		\Phi(\theta, t) \coloneqq (y(t) \cos{\theta}, y(t) \sin{\theta}, z(t)) \quad (t, \theta) \in \Omega \coloneqq [a, b] \times [0, 2\pi] \subseteq \R^2
+	\end{equation}
+	Allora 
+	\begin{equation}
+		\mathrm{area}(\Phi) = 2\pi \int_{a}^{b} y(t) \sqrt{\dot{y}(t) + \dot{z}(t)} \dif{t} = \mathrm{lung}(\gamma) \cdot 2\pi y_G
+	\end{equation}
+\end{thm}
+%
+\begin{proof}
+	Il vettore normale alla superficie è
+	\begin{gather*}
+		(\jac{\Phi})^t = 
+		\begin{pmatrix}
+			X_t & Y_t & Z_t \\
+			X_\theta & Y_\theta & Z_\theta
+		\end{pmatrix}
+		=
+		\begin{pmatrix}
+			\dot{y} \cos{\theta} & \dot{y} \sin{\theta} & \dot{z} \\
+			- y \sin{\theta} & y \cos{\theta} & 0
+		\end{pmatrix}
+		\\
+		\quad \Rightarrow \quad 
+		M_1 = - \dot{z} y \cos{\theta}, \ M_2 = \dot{z} y \sin{\theta}, \ M_3 = \dot{y} y
+	\end{gather*}
+	così (se $ y \geq 0 $) si ha $ \sqrt{M_1^2 + M_2^2 + M_3^2} = y \sqrt{\dot{y}^2 + \dot{z}^2} $. L'insieme $ \Omega $ nelle variabili polari $ (\theta, \rho) $ è un rettangolo, così
+	\[
+		\mathrm{area}(\Phi) = \iint_\Omega \sqrt{M_1^2 + M_2^2 + M_3^2} \dif{t} \dif{\theta} = \int_{0}^{2\pi} \dif{\theta} \int_{a}^{b} \dif{t} \; y(t) \sqrt{\dot{y}^2(t) + \dot{z}^2(t)} = 2\pi \int_{a}^{b} y(t) \sqrt{\dot{y}^2(t) + \dot{z}^2(t)} \dif{t}.
+	\]
+	Il Teorema di Guldino 2 si ottiene ponendo $ y_G \coloneqq \frac{1}{\mathrm{lung}(\gamma)} \int_{\gamma} y \dif{s} $
+	\[
+		\mathrm{area}(\Phi) = \mathrm{lung}(F) \cdot 2\pi \frac{\int_{a}^{b} y \sqrt{\dot{y}^2 + \dot{z}^2} \dif{t}}{\mathrm{lung}(F)} = \mathrm{lung}(F) \cdot 2\pi \frac{\int_{a}^{b} y(t) \norm{\dot{\gamma}(t)} \dif{t}}{\mathrm{lung}(F)} = \mathrm{lung}(F) \cdot 2\pi \frac{\int_\gamma y \dif{s}}{\mathrm{lung}(F)}. \qedhere
+	\]
+\end{proof}
+
+\begin{definition}[integrale superficiale]
+	Sia $ \Omega \subseteq \R^2 $ misurabile, $ S $ una superficie di parametrizzazione $ \Phi \colon \Omega \to \R^3 $ continua, $ A \subseteq \R^3 $ contenente almeno il sostegno di $ \Phi $ e $ f \colon A \to \R $ una finzione limitata. \\
+	Sia $ \mathcal{R} \coloneqq \{R_i\}_{i \in I} $ con $ I $ finito una famiglia di rettangoli tale che $ \Omega \subseteq \bigcup_{i \in I} R_i $ (rettangolazione finita di $ \Omega $), poniamo 
+	\begin{gather*}
+		I^+_{S}(f, \mathcal{R}) \coloneqq \sum_{i \in I} \mathrm{area}\left(\Phi \lvert_{\Omega \cap R_i}\right) \cdot \sup{\{f(\Phi(u, v)) : (u, v) \in \Omega \cap R_i\}} \\
+		I^+_{S}(f, \mathcal{R}) \coloneqq \sum_{i \in I} \mathrm{area}\left(\Phi \lvert_{\Omega \cap R_i}\right) \cdot \inf{\{f(\Phi(u, v)) : (u, v) \in \Omega \cap R_i\}} 
+	\end{gather*}
+	Definiamo ora l'integrale superiore e inferiore di $ f $ su $ \Phi $ come
+	\begin{gather*}
+		I^+_{S}(f) \coloneqq \inf{\{I^+_{\Phi}(f, \mathcal{R}) : \text{$ \mathcal{R} $ è una rettangolazione finita di $ \Omega $}\}} \\
+		I^-_{S}(f) \coloneqq \sup{\{I^-_{\Phi}(f, \mathcal{R}) : \text{$ \mathcal{R} $ è una rettangolazione finita di $ \Omega $}\}}
+	\end{gather*}
+	Se $ I^+_{S}(f) = I^-_{S}(f) = I_{S}(f) $ diciamo che $ f $ è integrabile su $ S $ e poniamo
+	\begin{equation}
+	\int_{S} f(x, y, z) \dif{\sigma} \coloneqq I_{S}(f)
+	\end{equation}
+\end{definition}
+
+\begin{thm}
+	Sia $ S $ una superficie di parametrizzazione $ \Phi \colon \Omega \to \R^3 $ di classe $ C^1 $, $ A \subseteq \R^n $ contenente almeno il sostegno di $ \Phi $ e $ f \colon A \to \R $ una funzione limitata, continua e integrabile su $ S $. Allora
+	\begin{equation}
+		\int_{S} f(x, y, z) \dif{\sigma} = \iint_{\Omega} f(X(u, v), Y(u, v), Z(u, v)) \norm{\Phi_u(u, v) \wedge \Phi_v(u, v)} \dif{u} \dif{v}
+	\end{equation}
+	Vale una condizione analoga a quella sugli integrali curvilinei e l'area di una superficie sul comportamento dell'integrale superficiale per riparametrizzazione.
+\end{thm}
+
+\subsection{Operatori differenziali}
+
+\begin{definition}[gradiente]
+	Sia $ \Omega \subseteq \R^n $ e $ f \colon \Omega \to \R $ una funzione. Si dice gradiente di $ f $ il vettore che ha come componenti le derivate parziali di $ f $
+	\begin{equation}
+		\grad{f}(x) \coloneqq \left(f_{x_1}(x), \ldots , f_{x_n}(x)\right)
+	\end{equation}
+\end{definition}
+
+\begin{definition}[laplaciano]
+	Sia $ \Omega \subseteq \R^n $ e $ f \colon \Omega \to \R $ una funzione. Si dice laplaciano di $ f $ la funzione somma delle derivate seconde pure di $ f $
+	\begin{equation}
+		\lap{f}(x) \coloneqq \sum_{i = 1}^{n} \pd[2]{f}{x_i}(x)
+	\end{equation}
+\end{definition}
+
+\begin{definition}[laplaciano]
+	Sia $ \Omega \subseteq \R^n $ e $ \vec{E} \colon \Omega \to \R^n $ un campo di vettori di componenti $ \vec{E}(x) \coloneqq (A_1(x), \ldots, A_n(x)) $. Si dice divergenza di $ \vec{E} $ la funzione 
+	\begin{equation}
+		\div{\vec{E}}(x) \coloneqq \sum_{i = 1}^{n} \pd{A_i}{x_i}(x)
+	\end{equation}
+\end{definition}
+
+\begin{definition}[rotore]
+	Sia $ \Omega \subseteq \R^3 $ e $ \vec{E} \colon \Omega \to \R^3 $ un campo di vettori di componenti $ \vec{E}(x, y, z) \coloneqq (A(x, y, z), B(x, y, z), C(x, y, z)) $. Si dice rotore di $ \vec{E} $ il campo di vettori che si ottiene sviluppando formalmente il "determinate" della "matrice"
+	\begin{equation}
+		\begin{pmatrix}
+			e_1 & e_2 & e_3 \\
+			\partial_x & \partial_y & \partial_z \\
+			A(x, y, z) & B(x, y, z) & C(x, y, z)
+		\end{pmatrix}
+		\quad \longrightarrow \quad 
+		\rot{\vec{E}} \coloneqq (C_y - B_z, A_z - C_x, B_x - A_y)
+	\end{equation}
+	Per un campo di vettori in dimensione 2 definiamo il rotore pensando a $ \vec{E}(x, y) \coloneqq (A(x, y), B(x, y)) $ come $ \vec{E}(x, y, z) = (A(x, y), B(x, y), 0) $, così $ \rot{\vec{E}} = (0, 0, B_x - A_y) $. 
+\end{definition}
+
+\begin{prop}
+	Se $ f $ ed $ \vec{E} $ è una funzione abbastanza regolare (valgono i teoremi di scambio) allora si hanno le seguenti relazioni
+	\begin{equation}
+		\div{(\grad{f})} = \lap{f} \qquad \rot{(\grad{f})} = 0 \qquad \div{(\rot{\vec{E}})} = 0
+	\end{equation}
+\end{prop}	
+
+\begin{prop}[gradiente nullo/uguale]
+	Sia $ \Omega \subseteq \R^n $ e $ f \colon \Omega \to \R $. Supponiamo che
+	\begin{enumerate}[label = (\roman*)]
+		\item $ f $ sia differenziabile 
+		\item $ \grad{f} = 0 $ in $ \Omega $
+		\item $ \Omega $ è connesso e aperto (oppure convesso)
+	\end{enumerate} 
+	allora $ f $ è costante in $ \Omega $, cioè 
+	\begin{equation}
+		\exists c \in \R : \forall x \in \Omega, \ f(x) = c
+	\end{equation}
+	Se $ \grad{f_1} = \grad{f_2} $ in $ \Omega $ e $ \Omega $ è connesso allora $ \exists c \in \R : \forall x \in \Omega, \ f_1(x) = f_2(x) + c $
+\end{prop}
+%
+\begin{proof}
+	Essendo $ \Omega \subseteq \R^n $ aperto e connesso, abbiamo che $ \Omega $ è connesso per archi. Dato $ x_0 \in \Omega $, poniamo $ c = f(x_0) $. Per ogni $ x \in \Omega $, sia $ \gamma \colon [a, b] \to \Omega $ una curva congiungente $ x_0 $ a $ x $. Allora applicando il Teorema di Lagrange alla funzione $ \varphi(t) \coloneqq f(\gamma(t)) $ si ha
+	\begin{align*}
+		f(x) - f(x_0) = f(\gamma(b)) - f(\gamma(a)) = \varphi(b) - \varphi(a) = \varphi'(\xi) \, (b - a) = 0
+	\end{align*}
+	in quanto per il differenziale della funzione composta $ \varphi'(t) = \sp{\grad{f}(\gamma(t))}{\dot{\gamma{(t)}}} $ ed essendo $ \xi \in (a, b) $ si ha $ \gamma(c) \in \Omega $ e $ \grad{f}(\gamma(c)) = 0 $. Dunque $ \forall x \in \Omega, \ f(x) = c $. \\
+	\ \\
+	In realtà è sufficiente l'esistenza delle derivate parziali. In tale caso fissato $ x_0 \in \Omega $ e posto $ A \coloneqq \{x \in \Omega : f(x) = f(x_0) = c\} $ si ha che: $ A \neq \emptyset $; $ A $ è chiuso in $ \Omega $ in quanto controimmagine continua di un singoletto che è chiuso; $ A $ è aperto perché se $ a \in A $ essendo $ \Omega $ aperto $ \exists \delta > 0 : B_\delta(a) \subseteq \Omega $ ma allora essendo la palla convessa concludo per Lagrange direzionale che $ B_\delta(a) \subseteq A $. Dunque per connessione $ A = \Omega $. 
+\end{proof}
+
+\begin{prop}[rotore nulla/uguale]
+	Sia $ \Omega \subseteq \R^3 $ e $ \vec{E} \colon \Omega \to \R^3 $. Supponiamo che
+	\begin{enumerate}[label = (\roman*)]
+		\item $ \vec{E} $ sia di classe $ C^1 $
+		\item $ \rot{\vec{E}} = 0 $ in $ \Omega $
+		\item $ \Omega $ è semplicemente connesso
+	\end{enumerate} 
+	allora $ \vec{E} $ è un gradiente in $ \Omega $, cioè 
+	\begin{equation}
+		\exists f \colon \Omega \to \R : \forall x \in \Omega, \ \vec{E}(x) = \grad{f}(x)
+	\end{equation}
+\end{prop}
+%
+\begin{proof}
+	Sia $ \vec{E}(x, y, z) \coloneqq (A(x, y, z), B(x, y, z), C(x, y, z)) $ e consideriamo la forma $ \omega \coloneqq A \dif{x} + B \dif{y} + C \dif{z} $. Allora essendo $ \rot{\vec{E}} = 0 $, la forma $ \omega $ è chiusa su un insieme semplicemente connesso e quindi per il Teorema \ref{thm:chiusaesatta}, $ \omega $ è esatta in $ \Omega $. Quindi esiste $ f \colon \Omega \to \R $ tale che $ A(x, y, z) = f_x(x, y, z) $, $ B(x, y, z) = f_y(x, y, z) $ e $ C(x, y, z) = f_z(x, y, z) $, ovvero $ \vec{E} = \grad{f} $.
+\end{proof}
+
+\begin{prop}[divergenza nulla/uguale]
+	Sia $ \Omega \subseteq \R^3 $ e $ \vec{E} \colon \Omega \to \R^3 $. Supponiamo che
+	\begin{enumerate}[label = (\roman*)]
+		\item $ \vec{E} $ sia di classe $ C^1 $
+		\item $ \div{\vec{E}} = 0 $ in $ \Omega $
+		\item $ \Omega $ è 2-connesso (per esempio stellato)
+	\end{enumerate} 
+	allora $ \vec{E} $ è un rotore in $ \Omega $, cioè 
+	\begin{equation}
+	\exists \vec{F} \colon \Omega \to \R^3 : \forall x \in \Omega, \ \vec{E}(x) = \rot{\vec{F}}(x)
+	\end{equation}
+	Se $ \div{\vec{E}_1} = \div{\vec{E}_2} $ in $ \Omega $ e $ \Omega $ è 2-connesso allora $ \exists \vec{F} \colon \Omega \to \R^3 : \forall x \in \Omega, \ \vec{E}_1(x) = \vec{E}_2(x) + \rot{\vec{F}}(x) $
+\end{prop}
+%
+\begin{proof}
+	($ \Omega $ è un parallelepipedo).
+	Sia $ \vec{E} \coloneqq (A, B, C) $ e $ \vec{F} \coloneqq (a, b, c) $. Esplicitiamo la condizione $ \rot{\vec{E}} = \vec{E} $ 
+	\[
+		\begin{cases}
+			c_y - b_z = A \\
+			a_z - c_x = B \\
+			b_x - a_y = C
+		\end{cases}
+	\]
+	Poniamo $ c \equiv 0 $ così $ b_z = - A $ e $ a_z = B $. Allora
+	\[
+		b(x, y, z) = - \overline{A}(x, y, z) + \varphi(x, y) \qquad a(x, y, z) = \overline{B}(x, y, z) + \psi(x, y)
+	\]
+	dove $ \overline{A}(x, y, z) \coloneqq - \int_{0}^{z} A(x, y, t) \dif{t} $ e $ \overline{B}(x, y, z) \coloneqq \int_{0}^{z} B(t, y, z) \dif{t} $ sono primitive di $ A $ e $ B $ e sono ben definite essendo $ \Omega $ un parallelepipedo. Poniamo $ \psi \equiv 0 $ e usiamo l'equazione restante per ricavare $ \varphi $:
+	\[
+		b_x - a_y = - \overline{A}_x + \varphi_x - \overline{B}_y = C \quad \Rightarrow \quad \varphi_x = \overline{A}_x + \overline{B}_y + C.
+	\]
+	Tale equazione è risolvibile solo se il RHS non dipende da $ z $, e infatti 
+	\[
+		(\overline{A}_x + \overline{B}_y + C)_z = (\overline{A}_z)_x + (\overline{B}_x)_y + C_z = A_x + B_y + C_z = \div{\vec{E}} = 0
+	\]
+	Così il campo voluto è $ \vec{F}(x, y, z) = (\overline{B}(x, y, z),  - \overline{A}(x, y, z) + \varphi(x, y), 0) $.
+\end{proof}
+
+\subsection{Teorema di Gauss-Green e Teorema della divergenza}
+
+\begin{definition}[curva orientata]
+	Sia $ \gamma \colon [a, b] \to \R^2 $ una curva semplice di classe $ C^1 $. Assegnare un'orientazione di $ \gamma $ vuol dire scegliere in ogni punto e in modo continuo la direzione del versore normale alla superficie $ \vec{n} $ tra 
+	\[
+		\vec{n} \coloneqq \left(\frac{\dot{y}}{+\sqrt{\dot{x}^2 + \dot{y}^2}}, -\frac{\dot{x}}{\sqrt{\dot{x}^2 + \dot{y}^2}} \right) 
+		\qquad \text{ e } \qquad
+		\vec{n} \coloneqq \left(-\frac{\dot{y}}{\sqrt{\dot{x}^2 + \dot{y}^2}}, +\frac{\dot{x}}{\sqrt{\dot{x}^2 + \dot{y}^2}} \right).
+	\]
+\end{definition}
+
+\begin{definition}[flusso di un campo attraverso una curva]
+	Sia data una curva orientata $ \gamma $ con versore normale $ \vec{n} $ e un campo di vettori $ \vec{E} $ definito almeno sul supporto $ \Gamma $ della curva. Si definisce flusso di $ \vec{E} $ attraverso la curva come l'integrale di linea del prodotto scalare tra il campo e il versore normale lungo la curva: 
+	\[
+		\int_{\Gamma} \langle {\vec{E}, \vec{n}} \rangle \dif{s}.
+	\]
+\end{definition}
+
+\begin{thm}[della divergenza in $ \R^2 $] \label{thm:teodiv}
+	Sia $ \Omega \subseteq \R^2 $ e $ \vec{E} $ un campo di vettori definito in un intorno di $ \Omega $ a valori in $ \R^2 $. Supponiamo che 
+	\begin{enumerate}[label = (\roman*)]
+		\item $ \Omega $ sia compatto e per ogni $ (x_0, y_0) \in \partial \Omega $ esista un rettangolo $ R $ centrato in $ (x_0, y_0) $ tale che $ \Omega \cap R $ sia un insieme normale sopra/sotto e destro/sinistro e la funzione che descrive il lato sia di classe $ C^1 $
+		\item Esista un aperto $ \Omega' \supseteq \Omega $ in cui le componenti di $ \vec{E} $ siano di classe $ C^1 $
+	\end{enumerate}
+	Allora vale
+	\begin{equation}
+		\iint_{\Omega} \div{\vec{E}} \dif{x} \dif{y} = \int_{\partial \Omega} \langle {\vec{E}, \vec{n}} \rangle \dif{s}
+	\end{equation}
+	dove $ \vec{n} $ è il vettore normale esterno a $ \Omega $. Il Teorema della divergenza in $ \R^2 $ si enuncia dicendo che \emph{l'integrale divergenza di $ \vec{E} $ all'interno di $ \Omega $ è uguale al flusso di $ \vec{E} $ uscente da $ \Omega $}. \\
+	Valgono le seguenti formulazioni equivalenti
+	\begin{itemize}
+		\item Se $ \vec{E}(x, y) \coloneqq (A(x, y), B(x, y)) $ allora 
+		\begin{equation} \label{eq:div_forma}
+			\iint_{\Omega} (A_x + B_y) \dif{x} \dif{y} = \int_{\partial \Omega^{+}} (-B \dif{x} + A \dif{y})
+		\end{equation}
+		\item Se $ \omega \coloneqq C \dif{x} + D \dif{y} $ è una forma differenziale su $ \Omega $ allora
+		\begin{equation}
+			\int_{\partial \Omega^+} \omega = \iint_{\Omega} (-C_y + D_x) \dif{x} \dif{y}
+		\end{equation}
+	\end{itemize}
+	Con $ \partial \Omega^+ $ si intende il bordo orientato di $ \Omega $ ovvero un insieme di curve che hanno come sostegno $ \partial \Omega $ e che lo percorrono lasciano "a sinistra" l'insieme $ \Omega $. 
+\end{thm}
+%
+\begin{proof}
+	Procediamo per passi successivi.
+	\begin{enumerate}[label = \arabic*.]
+		\item \textbf{$ \Omega $ è un insieme normale.} \\
+		Supponiamo \emph{wlog} $ \Omega $ normale rispetto all'asse $ x $, ovvero $ \Omega \coloneqq \{(x, y) \in \R^2 : x \in [a, b], \ \psi(x) \leq y \leq \varphi(x)\} $ con $ \psi, \varphi \colon [a, b] \to \R $ di classe $ C^1 $. Sia $ \vec{E}(x, y) \coloneqq (A(x, y), B(x, y)) $. \\
+		Dimostriamo la formula come nella prima formulazione equivalente, e in particolare che vale
+		\[
+			\iint_{\Omega} A_x \dif{x} \dif{y} = \int_{\partial \Omega^+} A \dif{y}, \qquad \iint_{\Omega} B_y \dif{x} \dif{y} = \int_{\partial \Omega^+} - B \dif{x}.
+		\]
+		Osserviamo che $ \partial \Omega $ è composto dal supporto di 4 curve
+		\begin{align*}
+			\gamma_1(t) = (t, \psi(t)) \quad t \in [a, b] & \qquad \qquad \gamma_2(t) = (b, t) \quad t \in [\psi(b), \varphi(b)] \\
+			\gamma_3(t) = (t, \varphi(t)) \quad t \in [a, b] &  \qquad \qquad \gamma_4(t) = (a, t) \quad t \in [\psi(a), \varphi(a)]
+		\end{align*}
+		Tenendo conto del verso di percorrenza delle curve si ha 
+		\[
+			\int_{\partial \Omega^+} \ = \int_{\gamma_1} \ + \int_{\gamma_2} \ - \int_{\gamma_3} \ + \int_{\gamma_4} \ .
+		\]
+		\begin{enumerate}
+			\item[$ A $: ] Consideriamo la funzione $ G(x) \coloneqq \displaystyle{\int_{\psi(x)}^{\varphi(x)}} A(x, y) \dif{y} $. Per il Teorema fondamentale del calcolo vale
+			\[
+				G(b) - G(a) = \int_{a}^{b} G'(x) \dif{x}.
+			\] 
+			Essendo $ G $ un integrale dipendente da parametro si ha
+			\[
+				G'(x) = A(x, \varphi(x)) \varphi'(x) - A(x, \psi(x)) \psi'(x) + \int_{\psi(x)}^{\varphi(x)} A_x(x, y) \dif{y}.
+			\]
+			Così
+			\[
+				\int_{a}^{b} G'(x) \dif{x} = \int_{a}^{b} A(x, \varphi(x)) \varphi'(x) \dif{x} - \int_{a}^{b}  A(x, \psi(x)) \psi'(x) \dif{x} + \int_{a}^{b} \dif{x} \int_{\psi(x)}^{\varphi(x)} A_x(x, y) \dif{y}. 
+			\]
+			Osservando ora che $ G(b) = \displaystyle{\int_{\psi(b)}^{\varphi(b)}} A(b, y) \dif{y} = \int_{\gamma_2} A \dif{y} $ e che $ G(a) = \displaystyle{\int_{\psi(a)}^{\varphi(a)}} A(a, y) \dif{y} = \int_{\gamma_4} A \dif{y} $ si ha 
+			\[
+				\int_{\gamma_2} A \dif{y} - \int_{\gamma_4} A \dif{y} = \int_{\gamma_3} A \dif{y} - \int_{\gamma_1} A \dif{y} + \iint_{\Omega} A_x(x, y) \dif{x} \dif{y}
+			\]
+			da cui riorganizzando i termini otteniamo la tesi per $ A $. 
+			
+			\item[$ B $:] Da un lato abbiamo 
+			\begin{align*}
+				\iint_{\Omega} B_y(x, y) \dif{x} \dif{y} & = \int_{a}^{b} \dif{x} \int_{\psi(x)}^{\varphi(x)} B_y(x, y) \dif{y} = \int_{a}^{b} \dif{x} \left[B(x, y)\right]_{y = \psi(x)}^{y = \varphi(x)} \\
+				& = \int_{a}^{b} B(x, \varphi(x)) \dif{x} - \int_{a}^{b} B(x, \psi(x)) \dif{x}.
+			\end{align*}
+			D'altra parte 
+			\begin{align*}
+				\int_{\gamma_1} -B \dif{x} = - \int_{a}^{b} B(t, \psi(t)) \cdot 1 \dif{t} & \qquad \qquad \int_{\gamma_2} -B \dif{x} = - \int_{a}^{b} B(b, t) \cdot 0 \dif{t} = 0 \\
+				\int_{\gamma_3} -B \dif{x} = - \int_{a}^{b} B(t, \varphi(t)) \cdot 1 \dif{t} & \qquad \qquad \int_{\gamma_4} -B \dif{x} = - \int_{a}^{b} B(a, t) \cdot 0 \dif{t} = 0
+			\end{align*}
+			così
+			\begin{align*}
+				\int_{\partial \Omega^+} - B \dif{x} & = \int_{\gamma_1} -B \dif{x} + \int_{\gamma_2} -B \dif{x} - \int_{\gamma_3} -B \dif{x} + \int_{\gamma_4} -B \dif{x} \\
+				& = - \int_{a}^{b} B(t, \psi(t)) \dif{t} + \int_{a}^{b} B(t, \varphi(t)) \dif{t}. \\
+			\end{align*}
+		\end{enumerate}
+		
+		\item \textbf{Il supporto di $ \vec{E} $ è contenuto in un rettangolo $ R $ aperto con $ \clo{R} \subseteq \ouv{\Omega} $.} \\
+		Essendo le componenti di $ \vec{E} $ nulle al di fuori di $ R $ ed essendo $ R $ normale abbiamo 
+		\[
+			\iint_{\Omega} \div{\vec{E}} \dif{x} \dif{y} = \iint_{R} \div{\vec{E}} \dif{x} \dif{y} \overset{\text{1.}}{=} \int_{\partial R} \langle {\vec{E}, \vec{n}} \rangle \dif{s} = 0 = \int_{\partial \Omega} \langle {\vec{E}, \vec{n}} \rangle \dif{s}
+		\]
+		in quanto $ \vec{E} \equiv 0 $ sia su $ \partial R $ che su $ \partial \Omega $. \\
+		
+		\item \textbf{Il supporto di $ \vec{E} $ è contenuto in un rettangolo $ R $ aperto tale che $ \Omega \cap R $ sia un insieme normale sopra/sotto o destra/sinistra.} \\
+		Essendo le componenti di $ \vec{E} $ nulle al di fuori di $ \Omega \cap R $ ed essendo $ \Omega \cap R $ normale abbiamo 
+		\[
+			\iint_{\Omega} \div{\vec{E}} \dif{x} \dif{y} = \iint_{\Omega \cap R} \div{\vec{E}} \dif{x} \dif{y} \overset{\text{1.}}{=} \int_{\partial(\Omega \cap R)} \langle {\vec{E}, \vec{n}} \rangle \dif{s} = \int_{\partial\Omega \cap R} \langle {\vec{E}, \vec{n}} \rangle \dif{s} = \int_{\partial \Omega} \langle {\vec{E}, \vec{n}} \rangle \dif{s}
+		\]
+		in quanto $ \vec{E} \neq 0 $ su $ \partial(\Omega \cap R) $  solo su $ \partial\Omega \cap R $ e $ \vec{E} \equiv 0 $ sul resto di $ \partial \Omega $. \\
+		
+		\item \textbf{Caso generale.}
+		\begin{enumerate}[label = \emph{(\roman*)}]
+			\item \emph{Costruzione di un ricoprimento.} \\
+			Per ogni $ (x, y) \in \Omega $ consideriamo un rettangolo $ R(x, y) $ centrato in $ (x, y) $ tale che 
+			\begin{itemize}
+				\item se $ (x, y) \in \ouv{\Omega} $, $ \clo{R(x, y)} \subseteq \ouv{\Omega} $;
+				\item se $ (x, y) \in \partial \Omega $, $ R(x, y) \cap \Omega $ sia un insieme normale sopra/sotto o destra/sinistra. \\
+			\end{itemize}
+			
+			\item \emph{Sottoricoprimento finito.} \\
+			Per costruzione 
+			\[
+				\Omega \subseteq \bigcup_{(x, y) \in \Omega} \ouv{(R(x, y))}.
+			\]
+			Essendo $ \Omega $ compatto, posso estrarre un sottoricoprimento finito 
+			\[
+				\Omega \subseteq \bigcup_{i = 1}^{n} \ouv{(R_i)}. \\
+			\]
+			
+			\item \emph{Partizione dell'unità.} \\
+			Per $ i = \{1, \ldots, n\} $ sia $ \varphi_i \colon \R^2 \to \R $ una funzione di classe $ C^{\infty} $ tale che 
+			\footnote{%
+			 Detta $ e_{(a, b)} \colon \R \to \R $ la funzione
+			 \[
+			 	e(x) \coloneqq 
+			 	\begin{cases}
+			 	\exp{\left(\frac{1}{(x - a)(x - b)}\right)} & \text{se $ x \in (a, b) $} \\
+			 	0 & \text{se $ x \notin (a, b) $}
+			 	\end{cases}
+			 \]
+			 è strettamente positiva in $ (a, b) $ e nulla al di fuori. Posto allora $ R_i \coloneqq [a_i, b_i] \times [c_i, d_i] $ la funzione $ \varphi_i \colon \R^2 \to \R $ data da $ \varphi_i(x, y) \coloneqq e_{(a_i, b_i)} \cdot e_{(c_i, d_i)} $ soddisfa le proprietà richieste. 
+			}
+			\[
+				\varphi_i(x, y) \coloneqq 
+				\begin{cases}
+				 > 0 & \text{ se $ (x, y) \in \ouv{(R_i)} $} \\
+				 0 & \text{ se $ (x, y) \notin \ouv{(R_i)} $}
+				\end{cases}
+			\]
+			Ora sia $ \psi_i \colon \R^2 \to \R $ data da
+			\[
+				\psi_i(x, y) \coloneqq \frac{\varphi_i(x, y)}{\sum_{i = 1}^{n}\varphi_i(x, y)}.
+			\]	
+			Osserviamo che il denominatore è $ > 0 $ per ogni $ (x, y) \in \Omega $, anzi, $ \forall (x, y) \in \bigcup_{i = 1}^{n} \ouv{(R_i)} $ e quindi $ \psi_i $ è ben definita in un intorno aperto contenente $ \Omega $. Inoltre risulta 
+			\[
+				\sum_{i = 1}^{n} \psi_i(x, y) = 1 \quad \forall (x, y) \in \Omega.
+			\]		
+			Infine ogni $ \psi_i $ è di classe $ C^\infty $, positiva in $ \ouv{(R_i)} $ e nulla altrove. Questa è una \emph{partizione dell'unità} subordinata alla scelta degli insiemi $ R_i $. \\ 
+			
+			\item \emph{Gran finale.} \\
+			Osserviamo che il campo $ \psi_i \vec{E} $ è nullo fuori da $ R_i $ e ricade nei casi dei punti 2. e 3. Pertanto
+			\begin{align*}
+				\iint_{\Omega} \div{\vec{E}} \dif{x} \dif{y} & = \iint_{\Omega} \div{\left[\left(\textstyle{\sum_{i = 1}^{n}} \psi_i\right)\vec{E}\right]} \dif{x} \dif{y} = \iint_{\Omega} \div{\left(\textstyle{\sum_{i = 1}^{n}} \psi_i \vec{E}\right)} \dif{x} \dif{y} \\
+				& = \sum_{i = 1}^{n}\left(\iint_{\Omega} \div{(\psi_i \vec{E})} \dif{x} \dif{y}\right) \overset{\text{2./3.}}{=} \sum_{i = 1}^{n}\left(\iint_{\partial \Omega} \langle {\psi_i \vec{E}, \vec{n}} \rangle \dif{s}\right) \\
+				& = \iint_{\partial \Omega} \langle {\left(\textstyle{\sum_{i = 1}^{n}}\psi_i\right) \vec{E}, \vec{n}} \rangle \dif{s} \\
+				& = \iint_{\partial \Omega} \langle {\vec{E}, \vec{n}} \rangle \dif{s}. \\
+			\end{align*}
+		\end{enumerate}
+	\end{enumerate}
+	Per quanto riguarda le formulazioni equivalenti dimostriamo solo la prima, la seconda si deduce rinominando le variabili. \\
+	Sia $ \gamma(t) \coloneqq (x(t), y(t)) $ una curva (più in generale una famiglia di curve) che percorra il bordo di $ \Omega $. Il versore tangente alla curva è 
+	\[
+		\vec{\tau} \coloneqq \left(\frac{\dot{x}}{\sqrt{\dot{x}^2 + \dot{y}^2}}, \frac{\dot{y}}{\sqrt{\dot{x}^2 + \dot{y}^2}} \right).
+	\]
+	Se il verso di percorrenza di $ \gamma $ è tale da lasciare "a sinistra" $ \Omega $ allora il versore normale è
+	\[
+		\vec{n} \coloneqq \left(\frac{\dot{y}}{\sqrt{\dot{x}^2 + \dot{y}^2}}, -\frac{\dot{x}}{\sqrt{\dot{x}^2 + \dot{y}^2}} \right).
+	\]
+	Così l'integrale di flusso è 
+	\begin{align*}
+		\int_{\partial \Omega} \langle {\vec{E}, \vec{n}} \rangle \dif{s} & = \int_{\gamma} \langle {\vec{E}, \vec{n}} \rangle \dif{s} = \int_{a}^{b}\left[ A(x(t), y(t)) \, \frac{\dot{y}}{\sqrt{\dot{x}^2 + \dot{y}^2}} - B(x(t), y(t)) \, \frac{\dot{x}}{\sqrt{\dot{x}^2 + \dot{y}^2}}\right] \, \sqrt{\dot{x}^2 + \dot{y}^2} \, \dif{t} \\
+		& = \int_{a}^{b}\left[ A(x(t), y(t)) \, \dot{y} - B(x(t), y(t)) \, \dot{x}\right] \, \dif{t} \\
+		& = \int_{\gamma} A \dif{y} - B \dif{x} = \int_{\partial \Omega^+} A \dif{y} - B \dif{x} \qedhere
+	\end{align*}
+\end{proof}
+
+\begin{thm}[Gauss-Green in $ \R^2 $]
+	Nelle stesse ipotesi del Teorema \ref{thm:teodiv} vale
+	\begin{equation}
+		\iint_{\Omega} f \; \div{\vec{E}} \dif{x} \dif{y} = \int_{\partial \Omega} f \langle {\vec{E}, \vec{n}} \rangle \dif{s} - \iint_{\Omega} \langle {\grad{f}, \vec{E}} \rangle \dif{x} \dif{y}.
+	\end{equation}
+	Il Teorema di Gauss-Green è la formula di \emph{integrazione per parti} in $ \R^2 $.
+\end{thm}
+
+\begin{prop}[equivalenza G-G e teorema della divergenza] 
+	Nelle ipotesi del Teorema \ref{thm:teodiv}, il Teorema di Gauss-Green e il Teorema della divergenza sono equivalenti.
+\end{prop}
+%
+\begin{proof}
+	\begin{enumerate}
+		\item[$ \Rightarrow $] Supponendo valido il Teorema di Gauss-Green e prendendo $ f \equiv 1 $ otteniamo il Teorema della divergenza.
+		\item[$ \Leftarrow $] Osserviamo che 
+		\[
+			\div{(f \, \vec{E})} = \div{(f A, f B)} = (f A)_x + (f B)_y = f_x A + f A_x + f_y B + f B_y = \langle {\grad{f}, \vec{E}} \rangle + f \, \div{\vec{E}}.
+		\]
+		Quindi applicando il Teorema della divergenza al campo $ f \, \vec{E} $
+		\begin{gather*}
+			\iint_{\Omega} \div{f \, \vec{E}} \dif{x} \dif{y} = \int_{\partial \Omega} \langle {f \, \vec{E}, \vec{n}} \rangle \dif{s} \\
+				\iint_{\Omega} f \; \div{\vec{E}} \dif{x} \dif{y} + \iint_{\Omega} \langle {\grad{f}, \vec{E}} \rangle \dif{x} \dif{y} = \int_{\partial \Omega} f \langle {\vec{E}, \vec{n}} \rangle \dif{s}
+		\end{gather*}
+		da cui riarrangiando i termini otteniamo il Teorema di Gauss-Green. \qedhere
+	\end{enumerate}
+\end{proof}
+
+\begin{definition}[superficie orientata]
+	Sia S una superficie e $ \Phi \colon \Omega \to \R^3 $ con $ \Omega \subseteq \R^2 $ una sua parametrizzazione di classe $ C^1 $, iniettiva almeno in $ \ouv{\Omega} $ e con $ \rg{(\jac{\Phi}(u, v))} = 2 $ per ogni $ (u, v) \in \Omega $. Assegnare un'orientazione di $ S $ vuol dire scegliere la direzione del vettore normale alla superficie $ (M_1, M_2, M_3) = \Phi_u \wedge \Phi_v $ tra $ \vec{n} = + (M_1, M_2, M_3) $ e $ \vec{n} = - (M_1, M_2, M_3) $.
+\end{definition}
+
+\begin{definition}[flusso di un campo attraverso una superficie]
+	Sia data una superficie orientata $ \Phi $ con versore normale $ \vec{n} $ e un campo di vettori $ \vec{E} $ definito almeno sul supporto $ S $ della curva. Si definisce flusso di $ \vec{E} $ attraverso la superficie come l'integrale di superficie del prodotto scalare tra il campo e il versore normale lungo la curva: 
+	\[
+		\int_{S} \langle {\vec{E}, \vec{n}} \rangle \dif{\sigma}.
+	\]
+\end{definition}
+
+\begin{thm}[della divergenza in $ \R^3 $]
+	In ipotesi simili a quelle del Teorema \ref{thm:teodiv} vale
+	\begin{equation}
+		\iiint_{\Omega} \div{\vec{E}} \dif{x} \dif{y} \dif{z} = \int_{\partial \Omega} \langle {\vec{E}, \vec{n}} \rangle \dif{\sigma}
+	\end{equation}
+	Il Teorema della divergenza in $ \R^3 $ si enuncia dicendo che \emph{l'integrale divergenza di $ \vec{E} $ all'interno di $ \Omega $ è uguale al flusso di $ \vec{E} $ uscente da $ \Omega $}. 
+\end{thm}
+\begin{proof}
+	Dimostriamo il teorema per insiemi normali, ad esempio, rispetto al piano $ xy $. Sia quindi $ D \subset \R^2 $ tale da soddisfare le ipotesi del teorema \ref{thm:teodiv} e
+	\[ \Omega = \left\{ (x,y,z) \in \R^3 \colon (x,y) \in D, \psi_-(x,y) \leq z \leq \psi_+(x,y) \right\} \]
+	con $ \psi_- $ e $ \psi_+ $ di classe $ C^1 $. Sia inoltre $ \vec{E}(x,y,z) = \left( A(x,y,z), B(x,y,z), C(x,y,z) \right) $.
+	
+	Sia $ \gamma(t) = (\gamma_x(t),\gamma_y(t))$ con $ t \in [a,b] $ una parametrizzazione di $ \partial D $ orientata nel verso canonico. Scomponiamo $ \partial\Omega $ in tre superfici così parametrizzate:
+	\begin{align*}
+		\Phi_+(u,v) &= \left( u,v,\psi_+(u,v) \right) & (u,v) \in D \\
+		\Phi_-(u,v) &= \left( u,v,\psi_-(u,v) \right) & (u,v) \in D \\
+		\Phi_0(u,v) &= \left( \gamma_x(u), \gamma_y(u), v \right) &  (u,v) \in H
+	\end{align*}
+	con $ H = \left\{ (x,y) \in \R^2 \colon x \in [a,b], \psi_-(\gamma(x)) \leq y \leq \psi_+(\gamma(x)) \right\} $, normale rispetto all'asse $ x $.
+	Posto $ (M_1,M_2,M_3) $ il vettore normale al sostegno di $ \partial\Omega $, dobbiamo dimostrare che vale:
+	\[ \iiint_\Omega (A_x + B_y + C_z) \dif{x}\dif{y}\dif{z} = \int_{\partial\Omega} (AM_1 + BM_2 + CM_3) \dif{\sigma} \]
+	Mostriamo innanzi tutto che $ \iiint_\Omega C_z \dif{x}\dif{y}\dif{z} = \int_{\partial\Omega} CM_3 \dif\sigma $:
+	\begin{align*}
+		\iiint_\Omega C_z \dif{x}\dif{y}\dif{z} &= \iint_D \dif{x} \dif{y} \int_{\psi_-(x,y)}^{\psi_+(x,y)} C_z \dif{z} \\
+		&= \iint_D C(x,y,\psi_+(x,y)) \dif{x}\dif{y} - \iint_D C(x,y,\psi_-(x,y)) \dif{x}\dif{y}
+	\end{align*}
+	Per $ \Phi_+ $ e $ \Phi_- $ si ha $ M_3 = 1 $, mentre per $ \Phi_0 $ si ha $ M_3 = 0 $:
+	\begin{align*}
+		\int_{\partial\Omega} CM_3 \dif{\sigma} &= \int_{\Phi_+} CM_3 \dif{\sigma} - \int_{\Phi_-} CM_3 \dif{\sigma} + \int_{\Phi_0} CM_3 \dif{\sigma} \\
+		&= \iint_D C(u,v,\psi_+(u,v)) \dif{u}\dif{v} - \iint_D C(u,v,\psi_-(u,v)) \dif{u}\dif{v}
+	\end{align*}
+	Rimane da dimostrare che $ \iiint_\Omega A_x \dif{x}\dif{y}\dif{z} = \int_{\partial\Omega} AM_1 \dif\sigma $ e $ \iiint_\Omega B_y \dif{x}\dif{y}\dif{z} = \int_{\partial\Omega} BM_2 \dif\sigma $; consideriamo ad esempio il primo (il secondo è del tutto analogo). Per $ \Phi_+ $ e $ \Phi_- $ si ha $ M_1 = -\psi_{\pm,u} (u,v) $, mentre per $ \Phi_0 $ si ha $ M_1 = -\gamma_y'(u) $:
+	\begin{align*}
+		\int_{\partial\Omega} AM_1 \dif\sigma &= \int_{\Phi_+} AM_1 \dif{\sigma} - \int_{\Phi_-} AM_1 \dif{\sigma} + \int_{\Phi_0} AM_1 \dif{\sigma} \\
+		&= \iint_D -A(u,v,\psi_+(u,v)) \psi_{+,u}(u,v) \dif{u}\dif{v} - \iint_D -A(u,v,\psi_-(u,v)) \psi_{-,u}(u,v) \dif{u}\dif{v} \\
+		&\quad + \iint_H A(\gamma_x(u),\gamma_y(u),v)\gamma_y'(u) \dif{u}\dif{v}
+	\end{align*}
+	Consideriamo ora il seguente integrale dipendente dai parametri $ (x,y) $ e calcoliamone la derivata parziale rispetto a $ x $:
+	\[ G(x,y) = \int_{\psi_-(x,y)}^{\psi_+(x,y)} A(x,y,z) \dif{z} \]
+	\[ G_x(x,y) = A(x,y,\psi_+(x,y))\psi_{+,x}(x,y) - A(x,y,\psi_-(x,y))\psi_{-,x}(x,y) + \int_{\psi_-(x,y)}^{\psi_+(x,y)} A_x(x,y,z) \dif{z} \]
+	Per il teorema della divergenza nella forma \eqref{eq:div_forma} applicato al campo $ (G(x,y),0) $ abbiamo:
+	\begin{align*}
+		\iint_D G_x(x,y) \dif{x}\dif{y} &= \int_{\gamma} G(x,y)\dif{y} = \int_a^b G(\gamma_x(u), \gamma_y(u)) \gamma_y'(u) \dif{u} \\
+		&= \int_a^b \dif{u} \int_{\psi_-(\gamma_x(u),\gamma_y(u))}^{\psi_+(\gamma_x(u),\gamma_y(u))} A(\gamma_x(u),\gamma_y(u),v) \gamma_y'(u) \dif{v}\\
+		&= \iint_H A(\gamma_x(u),\gamma_y(u),v)\gamma_y'(u) \dif{u}\dif{v}
+	\end{align*}
+	Mettendo tutto assieme otteniamo:
+	\begin{align*}
+		\iiint_\Omega A_x \dif{x}\dif{y}\dif{z} &= \iint_D \dif{x}\dif{y} \int_{\psi_-(x,y)}^{\psi_+(x,y)} A_x(x,y,z) \dif{z} \\
+		&= \iint_D \left[G_x(x,y) - A(x,y,\psi_+(x,y))\psi_{+,x}(x,y) + A(x,y,\psi_-(x,y))\psi_{-,x}(x,y) \right] \dif{x}\dif{y} \\
+		&= \iint_H A(\gamma_x(u),\gamma_y(u),v)\gamma_y'(u) \dif{u}\dif{v} -
+		\iint_D A(u,v,\psi_+(u,v)) \psi_{+,u}(u,v) \dif{u}\dif{v} \\
+		&\quad+ \iint_D A(u,v,\psi_-(u,v)) \psi_{-,u}(u,v) \dif{u}\dif{v} = \int_{\partial\Omega} AM_1 \dif{\sigma}\qedhere
+	\end{align*}
+\end{proof}
+
+
+\subsection{Teorema di Stokes}
+
+\begin{definition}[circuitazione di un campo attraverso una curva]
+	Sia data una curva $ \gamma $ con versore tangente $ \vec{\tau} $ e un campo di vettori $ \vec{E} $ definito almeno sul supporto $ \Gamma $ della curva. Si definisce circuitazione di $ \vec{E} $ lungo la curva come l'integrale di linea del prodotto scalare tra il campo e il versore tangente la curva: 
+	\[
+	\int_{\Gamma} \langle {\vec{E}, \vec{\tau}} \rangle \dif{s}.
+	\]
+\end{definition}
+
+\begin{definition}[orientazione del bordo di una superficie]
+	\emph{Brutale}. Sia S una superficie orientata e $ \Phi \colon \Omega \to \R^3 $ come sopra. L'orientazione canonica del bordo di una superficie, cioè di $ \Phi(\partial \Omega) $, è il verso di percorrenza di un omino in piedi secondo la direzione del vettore normale alla superficie $ \vec{n} $ che percorre il bordo avendo la superficie a sinistra.
+\end{definition}
+
+\begin{thm}[Stokes]
+	Sia $ S $ una superficie orientata e $ \vec{E} $ un campo di vettori definito almeno in un intorno di $ S $. Supponiamo che 
+	\begin{enumerate}[label = (\roman*)]
+		\item $ \Omega \subseteq \R^2 $ si un sottoinsieme come nel Teorema \ref{thm:teodiv}
+		\item $ \Omega' \supseteq \Omega $ aperto e $ \Phi \colon \Omega' \to \R^3 $ sia una parametrizzazione di $ S $ di classe $ C^1 $ in $ \Omega' $ con $ \jac{\Phi} $ di rango 2 in ogni punto
+		\item il versore normale sia quello indotto dalla parametrizzazione, cioè si abbia $ \vec{n} \coloneqq \frac{\Phi_u \wedge \Phi_v}{\norm{\Phi_u \wedge \Phi_v}} $
+		\item il bordo di $ \Omega $ sia percorso nel verso giusto da una curva (o più curve) $ \gamma\colon [a, b] \to \partial \Omega $ di componenti $ \gamma(t) \coloneqq (u(t), v(t)) $ di classe $ C^1 $ (almeno a tratti). Per un tatto noto sotto queste ipotesi la curva $ \Phi \circ \gamma \colon [a, b] \to \R^3 $ percorre $ \partial S $ nel verso giusto.
+		\item il campo $ \vec{E} $ abbia componenti $ \vec{E}(x, y, z) \coloneqq (A(x, y, z), B(x, y, z), C(x, y, z)) $ di classe $ C^1 $ almeno in un intorno del supporto di $ \Phi $
+	\end{enumerate}
+	Allora vale
+	\begin{equation}
+		\int_{S} \langle {\rot{\vec{E}}, \vec{n}} \rangle \dif{\sigma} = \int_{\partial S} \langle {\vec{E}, \vec{\tau}} \rangle \dif{s}.
+	\end{equation}
+	Il Teorema di Stokes si enuncia dicendo che \emph{il flusso del rotore campo $ \vec{E} $ attraverso una superficie è uguale alla circuitazione di $ \vec{E} $ attraverso il bordo della superficie}. \\
+	Si ha inoltre la seguente formulazione equivalente: se $ \omega \coloneqq A \dif{x} + B \dif{y} + C \dif{z} $ è una forma differenziale  
+	\begin{equation}
+		\int_{\partial S^+} \omega = \int_{S} \langle {\rot{(A, B, C)}, \vec{n}} \rangle \dif{\sigma}
+	\end{equation}
+\end{thm}
+%
+\begin{proof}
+	Dimostriamo la formulazione in termini di forme differenziali
+	\begin{enumerate}[label = \emph{(\roman*)}]
+		\item \emph{Riscrivo il RHS come integrale doppio su $ \Omega $.} \\
+		Sia $ \rot{\vec{E}} = (C_y - B_z, A_z - C_x, B_x - A_y) $. Detta $ \Phi(u, v) \coloneqq (X(u, v), Y(u, v), Z(u, v)) $ la parametrizzazione di $ S $, le componenti del vettore normale indotte dalla parametrizzazione sono
+		\begin{align*}
+			M_1 & = Y_uZ_v - Z_uY_v \\
+			M_2 & = Z_uX_v - X_uZ_v \\
+			M_3 & = X_uY_v - Y_uX_v
+		\end{align*}
+		Così 
+		\[
+			RHS = \iint_{\Omega} (C_y - B_z)(Y_uZ_v - Z_uY_v) + (A_z - C_x)(Z_uX_v - X_uZ_v) + (B_x - A_y)(X_uY_v - Y_uX_v).
+		\]
+		Calcoliamo solo i termini con $ B $
+		\[
+			\ldots - B_zY_uZ_v + B_zZ_uY_v + B_xX_uY_v - B_xY_uX_v + \ldots \\
+		\]
+		
+		\item \emph{Riscrivo il LHS come integrale lungo $ \partial \Omega^+ $.} \\
+		Il bordo orientato $ \partial S^+ $ è dato dalla parametrizzazione indotta dalla curva che percorre $ \partial \Omega^+ $: $ (x(t), y(t), z(t)) = (X(u(t), v(t)), Y(u(t), v(t)), Z(u(t), v(t))) $. Così
+		\begin{align*}
+			LHS & = \int_{a}^{b}(A \dot{x} + B \dot{y} + C \dot{z}) \dif{t} \\
+			& = \int_{a}^{b} \left[A (X_u \dot{u} + X_v \dot{v}) + B (Y_u \dot{u} + Y_v \dot{v}) + C (Z_u \dot{u} + Z_v \dot{v})\right] \dif{t} \\
+			& = \int_{a}^{b} \left[(A X_u + B Y_u + C Z_u) \dot{u} + (A X_v + B Y_v + C Z_v) \dot{v}\right] \dif{t} \\
+			& = \int_{\partial \Omega^+} (A X_u + B Y_u + C Z_u) \dif{u} + (A X_v + B Y_v + C Z_v) \dif{v} \\
+		\end{align*}
+		
+		\item \emph{Mostro che sono uguali per il teorema della divergenza/Gauss-Green.} \\
+		Posti $ D \coloneqq A X_u + B Y_u + C Z_u $ e $ E \coloneqq A X_v + B Y_v + C Z_v $ usiamo il teorema della divergenza nella forma 
+		\[
+			\int_{\partial \Omega^+} (D \dif{u} + E \dif{v}) = \iint_{\Omega} (E_u - D_v) \dif{u} \dif{v}
+		\] 
+		Calcoliamo $ E_u - D_v $ limitandoci ai termini con $ B $
+		\begin{align*}
+			E_u - D_v & = \ldots + \dpd{B}{u} Y_v + B Y_{vu} - \dpd{B}{v} Y_u - B Y_{uv} + \ldots \\
+			& = \ldots + (B_x X_u + B_y Y_u + B_z Z_u) Y_v - (B_x X_v + B_y Y_v + B_z Z_v) Y_u + \ldots \\
+			& = \ldots + B_x X_u Y_v + B_y Y_u Y_v + B_z Z_u Y_v - B_x X_v Y_u - B_y Y_v Y_u - B_z Z_v Y_u + \ldots \\
+			& = \ldots - B_zY_uZ_v + B_zZ_uY_v + B_xX_uY_v - B_xY_uX_v  + \ldots
+		\end{align*}
+		che coincide con il termine trovato nel punto \emph{(i)}. \\		
+	\end{enumerate}
+	Mostramo la formulazione equivalente. Sia $ \gamma \coloneqq (x(t), y(t), z(t)) $ con $ t \in [a, b] $ la parametrizzazione di $ \partial S^+ $. Allora 
+	\[
+		\vec{\tau} \coloneqq \frac{1}{\sqrt{\dot{x}^2 + \dot{y}^2 + \dot{z}^2}} \, (\dot{x}, \dot{y}, \dot{z})
+	\]
+	Così
+	\begin{align*}
+		\int_{\partial S} \langle {\vec{E}, \vec{\tau}} \rangle \dif{s} & = \int_{a}^{b} \left(A \frac{\dot{x}}{\sqrt{\dot{x}^2 + \dot{y}^2 + \dot{z}^2}} + B \frac{\dot{y}}{\sqrt{\dot{x}^2 + \dot{y}^2 + \dot{z}^2}} + C \frac{\dot{z}}{\sqrt{\dot{x}^2 + \dot{y}^2 + \dot{z}^2}}\right) \sqrt{\dot{x}^2 + \dot{y}^2 + \dot{z}^2} \dif{t}  \\
+		& = \int_{a}^{b} \left(A \dot{x} + B \dot{y} + C \dot{z}\right) \dif{t} \\
+		& = \int_{\gamma} A \dif{x} + B \dif{y} + C \dif{z} \\
+		& = \int_{\partial S^+} A \dif{x} + B \dif{y} + C \dif{z}. \qedhere
+	\end{align*}
+\end{proof}
+
+\begin{corollary}
+	Il flusso di un rotore attraverso una superficie chiusa è nullo.
+\end{corollary}
+%
+\begin{proof}
+	Divido $ S $ nell'unione di due superfici $ S_1 $ e $ S_2 $. Osservando che $ \partial S_1^+ $ e $ \partial S_2^+ $ sono lo stesso bordo ma con orientazione opposta e applicando Stokes
+	\[
+		\int_{S} \langle {\rot{\vec{E}}, \vec{n}} \rangle \dif{\sigma} = \int_{S_1} \langle {\rot{\vec{E}}, \vec{n}} \rangle \dif{\sigma} + \int_{S_2} \langle {\rot{\vec{E}}, \vec{n}} \rangle \dif{\sigma} = \int_{\partial S_1} \langle {\vec{E}, \vec{\tau}} \rangle \dif{s} + \int_{\partial S_2} \langle {\vec{E}, \vec{\tau}} \rangle \dif{s} = 0. \qedhere
+	\]
+\end{proof}

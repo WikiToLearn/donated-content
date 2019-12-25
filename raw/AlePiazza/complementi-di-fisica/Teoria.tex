@@ -1,0 +1,182 @@
+\subsection{Vettori}
+Dati due vettori $ \vec a $ e $ \vec b $ definiamo 
+\begin{itemize}
+	\item \emph{prodotto per scalare}: $ k \vec a $ un vettore di modulo $ ka $ e parallelo ad $ \vec a $ se $ k > 0 $ e antiparallelo se $ k < 0 $;
+	\item \emph{somma vettoriale}: $ \vec a + \vec b $ definita dalla regola del parallelogramma;
+	\item \emph{prodotto scalare}: $ \vec a \cdot \vec b $ uno scalare dato da $ ab \cos \theta $ dove $ \theta $ è l'angolo tra $ \vec a $ e $ \vec b $; tale prodotto è commutativo; si ricava facilmente che vale $ \vec a \cdot \vec a = a^2 $; 
+	\item \emph{prodotto vettoriale}: $ \vec a \times \vec b $ un vettore perpendicolare al piano individualo ta $ \vec a $ e $ \vec b $, di modulo $ ab \sin \theta $ (dove $ \theta $ è l'angolo tra i vettori) e il cui verso è determinato dalla regola della mano destra; il prodotto vettoriale è anticommutativo, ovvero vale $ \vec a \times \vec b = - \vec b \times \vec a $.
+\end{itemize}
+
+Definiamo \emph{terna cartesiana} la terna di vettori unitari $ (\vers x_1, \vers x_2, \vers x_3) $ ortogonali due a due e tali da costituire una terna destrorsa
+\[\begin{cases*}
+\vers x_1 \cdot \vers x_1 = 1 \\
+\vers x_2 \cdot \vers x_2 = 1 \\
+\vers x_3 \cdot \vers x_3 = 1 \\
+\end{cases*}
+\qquad 
+\begin{cases*}
+\vers x_1 \cdot \vers x_2 = 0 \\
+\vers x_2 \cdot \vers x_3 = 0 \\
+\vers x_3 \cdot \vers x_1 = 0
+\end{cases*}
+\qquad
+\begin{cases*}
+\vers x_1 \times \vers x_2 = \vers x_3 \\
+\vers x_2 \times \vers x_3 = \vers x_1 \\
+\vers x_3 \times \vers x_1 = \vers x_2 
+\end{cases*}\]
+In modo più conciso possiamo scrivere 
+\begin{equation} \label{terna_cartesiana}
+\vers x_i \cdot \vers x_i = \delta_{ij} \qquad \vers x_i \times \vers x_j = \epsilon_{ijk} \vers x_k
+\end{equation}
+dove $ i $, $ j $ e $ k $ possono assumere i valori $ \{1, 2, 3\} $, $ \delta_{ij} $ è il \emph{delta di Kroneker} (matrice identià $ 3 \times 3 $) e $ \epsilon_{ijk} $ è il \emph{tensore di Ricci} o \emph{simbolo di Levi-Civita} definiti nel seguente modo
+\[\delta_{ij} = 
+\begin{cases*}
+1 & \text{se $ i = j $} \\
+0 & \text{se $ i \neq j $} \\
+\end{cases*}
+\qquad 
+\epsilon_{ijk} = 
+\begin{cases*}
+0 & \text{se $ i = j \vee j = k \vee k = i $} \\
+1 & \text{se $ i, j, k $ è una permutazione ciclica} \\
+-1 & \text{se $ i, j, k $ è una permutazione anticiclica} \\
+\end{cases*}\]
+e sottintendiamo la sommatoria sugli indici ripetuti. Per quanto riguarda il delta di Kronecker e il tensore di Ricci vale l'utile relazione
+\begin{equation} \label{epsilon_delta}
+\epsilon_{ijk}\epsilon_{ilm} = \delta_{jl}\delta_{km} - \delta_{jm}\delta_{kl}.
+\end{equation}
+Un vettore nello spazio puà essere quindi scritto come somma delle proiezioni del vettore sui versori della terna cartesiana 
+\begin{align*}
+\vec a & = (\vec a \cdot \vers x_1) \vers x_1 + (\vec a \cdot \vers x_2) \vers x_2 + (\vec a \cdot \vers x_3) \vers x_3 = \\
+& = a_1 \vers x_1 + a_2 \vers x_2 + a_3 \vers x_3 = \\
+& = a_i \vers x_i
+\end{align*}
+In tal modo possiamo riscrivere il prodotto scalare e il prodotto vettore usando la notazione con i versori
+\begin{align}\label{dot_product}
+\vec a \cdot \vec b & = a_i b_j (\vers x_i \cdot \vers x_j) = a_i b_j \delta_{ij} = a_i b_i \\
+\label{cross product}
+\vec a \times \vec b & = a_i b_j (\vers x_i \times \vers x_j) = a_i b_j \epsilon_{ijk} \vers x_k
+\end{align}
+Possono risultare utili le seguenti identità vettoriali
+\[\vec a \cdot (\vec b \times \vec a) = \vec b \cdot (\vec a \times \vec b) = 0\] 
+\[\vec a \cdot (\vec b \times \vec c) = \vec b \cdot (\vec c \times \vec a) = \vec c \cdot (\vec a \times \vec b) = a_i b_j c_k \epsilon_{kij}\]
+\[\vec a \times (\vec b \times \vec c) = (\vec a \cdot \vec c) \vec b - (\vec a \cdot \vec b) \vec c\] \\
+
+Dato un vettore $ \vec a $ nello spazio e un vettore unitario (\emph{versore}) $ \vers n $ possiamo definire la rotazione di $ \vec a $ rispetto a $ \vers n $ di un angolo $ \theta $. Il versore individua l'asse di rotazione e definisce un piano ad esso perpendicolare: $ \vec a $ può essere scomposto come somma di due vettori, uno parallelo a $ \vers n $ e uno appartenente al piano definito da $ \vers n $ come \[\vec a = (\vec a \cdot \vers n) \vers n + (\vec a - (\vec a \cdot \vers n) \vers n).\]
+Il vettore ruotato è dunque un vettore $ \vec a' $ che ha la stessa componente di $ \vec a $ lungo $ \vers n $ e componente lungo il piano data di modulo uguale a quella di $ \vec a $ ma ruotata di un angolo $ \theta $. In formule \[\vec a' = (\vec a \cdot \vers n) \vers n + (\vec a - (\vec a \cdot \vers n) \vers n)\cos \theta + (\vers n \times \vec a) \sin \theta.\] 
+
+\subsection{Sistemi di riferimento}
+Un \emph{sistema di riferimento} è definito da un'origine $ O $ e una terna cartesiana $ (\vers x_1, \vers x_2, \vers x_3) $. Possiamo rappresentare un vettore in questo sistema tramite le sue componenti lungo gli assi cartesiani . Definiti due sistemi di riferimento ci possiamo chiedere che varia la descrizione di tale vettore nel nuovo sistema. \\
+
+Indichiamo con $ O $ l'origine del sistema di riferimento $ S $ e con $ (\vers{x}_1, \vers{x}_2, \vers{x}_3) $ la rispettiva terna cartesiana e con $ O' $ e $ (\vers{x}'_1, \vers{x}'_2, \vers{x}'_3) $ l'origine e la terna di $ S' $. Un vettore $ \vec a $ si scrive in termini delle sue componenti come \[\vec a = a_i \vers{x}_i = a'_j \vers{x}'_j.\] In generale posso rappresentare gli $ \vers{x}'_j $ attraverso gli $ \vers{x}'_i $ come \[\vers{x}'_j = (\vers{x}_i \cdot \vers{x}'_j) \vers{x}_i\] e quindi detta $ A_{ij} = \vers{x}_i \cdot \vers{x}'_j $ la matrice $ 3 \times 3 $ che definisce il prodotto scalare risulta
+\begin{equation}
+a_i \vers{x}_i = a_j A_{ij} \vers{x}_i \qquad \Rightarrow \qquad a_i = A_{ij} a'_j
+\end{equation}
+
+\subsubsection{Traslazione}
+Detto $ \vec R $ il vettore che collega $ O $ a $ O' $ si ha 
+\begin{equation}
+\vec a = \vec a' + \vec R.
+\end{equation}
+
+\subsubsection{Rotazione}
+In questo caso $ O \equiv O' $. La matrice $ A $ è una \emph{matriche di rotazione} $ R_\theta $ che soddisfa la relazione \[\vec a' = R_\theta \vec a \qquad a'_i = R_{ij} a_j.\] La componente $ i $-esima del vettore $ \vec a' $ ruotato di $ \vec a $ rispetto a $ \vers n $ di un angolo $ \theta $ è 
+\begin{align*}
+a'_i & = (a_j n_j) n_i + (a_i - (a_j n_j)n_i) \cos(\theta) + n_k a_j \epsilon_{ijk} \sin(\theta) = \\
+& = (a_j n_j) n_i + \delta_{ij} a_j \cos(\theta) - (a_j n_j)n_i \cos(\theta) + n_k a_j \epsilon_{ijk} \sin(\theta) = \\
+& = [n_i n_j + \delta_{ij}\cos(\theta) - n_j n_i \cos(\theta) + n_k \epsilon_{ijk} \sin(\theta)] a_j
+\end{align*}
+da cui deduciamo che $ R_{ij} = n_i n_j + \delta_{ij}\cos(\theta) - n_j n_i \cos(\theta) + n_k \epsilon_{ijk} \sin(\theta) $ ovvero
+\begin{equation}
+R_\theta = 
+\begin{bmatrix}
+n_1^2 (1 - \cos \theta) + \cos \theta & n_1 n_2 (1 - \cos \theta) - n_3 \sin \theta & n_1 n_3 (1 - \cos \theta) + n_2 \sin \theta \\
+n_2 n_1 (1 - \cos \theta) + n_3 \sin \theta & n_2^2 (1 - \cos \theta) + \cos \theta & n_2 n_3 (1 - \cos \theta) - n_1 \sin \theta \\
+n_3 n_1 (1 - \cos \theta) - n_2 \sin \theta & n_3 n_2 (1 - \cos \theta) + n_1 \sin \theta & n_3^2 (1 - \cos \theta) + \cos \theta \\
+\end{bmatrix}
+\end{equation}
+Nel caso in cui $ \vers{n} = \vers{x}_3 = (0, 0, 1) $ la matrice descrive una rotazione nel piano e diventa
+\[R_\theta = 
+\begin{bmatrix}
+\cos \theta & - \sin \theta & 0 \\
+\sin \theta & \cos \theta & 0 \\
+0 & 0 & 1 \\
+\end{bmatrix}\]
+
+\subsubsection{Asse istantaneo di rotazione}
+Dato un sistema di riferimento con origine fissa, esiste un vettore $ \vec \Omega $ che definisce l'asse istantaneo di rotazione: la retta di punti che istantaneamente ha velocità nulla. Il modulo di $ \vec \Omega = \omega \vers n $ coincide con la velocità angolare della rotazione istantanea.
+
+\subsubsection{Derivata di un vettore}
+Per un generico vettore $ \vec A $ vale
+\begin{equation}
+\frac{\dif\vec A}{\dif{t}} = \frac{\dif A_i}{\dif{t}} \vers{x}_i + \vec \Omega \times \vec A
+\end{equation}
+dove $ \vec \Omega = \omega \vers{n} $ è il vettore velocità angolare che identifica l'asse di rotazione. Per un versore vale $ \dot{\vers{\tau}} = \vec \Omega \times \vers{\tau} $, in quanto un versore può solo riuotare e non variare di modulo
+
+\subsubsection{Trasformazioni di quantità cinematiche}
+\begin{equation}
+\vec{r} = r_i \vers{x}_i 
+\end{equation}
+\begin{equation}
+\dot{\vec{r}} = \vec{v}_r + \vec{\Omega} \times \vec{r}
+\end{equation}
+\begin{equation}
+\ddot{\vec{r}} = \vec{a}_r + 2 \vec{\Omega} \times \vec{v}_r + \dot{\vec{\Omega}} \times \vec{r} + \vec{\Omega} \times (\vec{\Omega} \times \vec{r})
+\end{equation}
+
+\subsection{Sistemi di coordinate}
+In un dato sistema di riferimento, il moto di un punto materiale può essere descritto in diversi sistemi di coordinate.
+
+\subsubsection{Coordinate cartesiane}
+Il vettore posizione $ \vec r $ è dato da 
+\begin{equation}
+\vec r = r_1 \vers x_1 + r_2 \vers x_2 + r_3 \vers x_3
+\end{equation}
+Derivando l'equazione, tenendo presente che i versori sono fissi e di modulo costante, 
+\begin{equation}
+\vec v = \dot{\vec r} = \dot{r}_1 \vers x_1 + \dot{r}_2 \vers x_2 + \dot{r}_3 \vers x_3
+\end{equation}
+Derivando una seconda volta otteniamo
+\begin{equation}
+\vec a = \ddot{\vec r} = \ddot{r}_1 \vers x_1 + \ddot{r}_2 \vers x_2 + \ddot{r}_3 \vers x_3.
+\end{equation}
+
+\subsubsection{Coodrinare cilindriche e polari}
+Un vettore in coordinate cilindriche si scrive in termini dalla terna destrorsa $ (\vers r, \vers \theta, \vers z) $, dove $ \vers r $ è il versore che identifica la componente radiale nel piano $ xy $ e $ \vers \theta $ la componente angolare. Il vettore posizione si scrive come
+\begin{equation}
+\vec r = r \vers r + z \vers z
+\end{equation}
+Quando deriviamo quest'espressione dobbiamo tenere conto che, mentre $ \vers z $ è un versore fisso, $ \vers r $ e $ \vers \theta $ ruotano e pertanto non sono costanti. Il vettore di rotazione è $ \vec \Omega = \dot{\theta} \vers z $ e quindi le derivate dei versori sono $ \dot{\vers r} = \vec \Omega \times \vers r = \dot{\theta} (\vers z \times \vers r) = \dot \theta \vers \theta $ e $ \dot{\vers \theta} = \vec \Omega \times \vers \theta = \dot \theta (\vers z \times \vers \theta) = - \dot \theta \vers r $. Otteniamo quindi
+\begin{equation}
+\vec v = \dot{\vec r} = \dot r \vers r + r \dot \theta \vers \theta + \dot z \vers z
+\end{equation}
+Derivando ancora con gli stessi accorgimenti otteniamo
+\begin{equation}
+\vec a = \ddot{\vec r} = (\ddot r - r \dot \theta^2) \vers r + (2 \dot r \dot \theta + r \ddot \theta) \vers \theta + \ddot z \vers z.
+\end{equation}
+
+\subsubsection{Coodrinate sferiche}
+Un vettore in coordinate sferiche si scrive in termini della terna destrorsa $ (\vers r, \vers \theta, \vers \varphi) $: $ r $ è la componente radiale, $ \theta $ è l'angolo polare o colatitudine misurato dal semiasse positivo $ z $ e $ \varphi $ è l'angolo azimutale nel piano $ xy $ misurato a partire dal semiasse positivo $ x $. In questpo sistema di coordinate tutti i versori ruotano: il vettore di rotazione è $ \vec \Omega = \dot \varphi \vers z + \dot \theta \vers \varphi $. Le derivate dei versori sono quindi
+\begin{align*}
+& \dot{\vers r} = \vec \Omega \times \vers r = \dot \theta \vers \theta + \sin(\theta) \dot \varphi \vers \varphi \\
+& \dot{\vers \theta} = \vec \Omega \times \vers \theta = - \dot \theta \vers r + \cos(\theta) \dot \varphi \vers \varphi\\
+& \dot{\vers \varphi} = \vec \Omega \times \vers \varphi = - \sin(\theta) \dot \varphi \vers r - \cos(\theta) \dot \varphi \vers \theta \\
+\end{align*}
+Il vettore posizione è
+\begin{equation}
+\vec r = r \vers r
+\end{equation}
+Derivando una volta otteniamo
+\begin{equation}
+\vec v = \dot{\vec r} = \dot r \vers r + r \sin(\theta) \dot \varphi \vers \varphi + r \dot \theta \vers \theta 
+\end{equation}
+Derivando una seconda volta
+\begin{align}
+\vec a = \ddot{\vec r} = & \, (\ddot r - r \dot \theta^2 - r \sin^2(\theta) \dot \varphi^2) \vers r \\
+& + (2 r \dot \theta + r \ddot \theta - r \sin(\theta) \cos(\theta) \dot \varphi^2) \vers \theta \\
+& + (2 \sin(\theta) \dot \varphi \dot r + 2 r \cos(\theta) \dot \theta \dot \varphi + r \sin(\theta) \ddot \varphi) \vers \varphi.
+\end{align}
+
+
+

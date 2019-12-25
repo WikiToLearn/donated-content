@@ -1,0 +1,58 @@
+\begin{es}[modulo di continuità]
+  Sia $ f \colon X_1 \to X_2 $ con $ (X_1, d_1) $ e $ (X_2, d_2) $ spazi metrici. Una funzione $ \omega \colon [0, +\infty) \to [0, +\infty) $ monotona crescente, con $ \omega(0) = 0 $ e $ \lim_{t \to 0^{+}} \omega(t) = 0 $ tale che \[\forall x, y \in X_1, d_2(f(x), f(y)) \leq \omega(d_1(x, y))\] è detta modulo di continuità di $ f $ (osserviamo che $ f $ può avere più moduli di continuità). Mostrare che
+  \begin{enumerate}
+  \item se $ f $ è uniformemente continua allora la funzione \[\omega(t) = \sup_{x, y, \in X_1} \{d_2(f(x), f(y)) : d_1(x, y) \leq t\}\] è il più piccolo modulo di continuità;
+  \item se $ f $ è uniformemente continua si può trovare un modulo di continuità che è continuo dove è finito;
+  \item se $ f $ ha modulo di continuità allora è uniformemente continua.
+  \end{enumerate}
+\end{es}
+%
+
+
+\begin{es}[lemma del Dini]
+  Sia $ I \subset \R $ un compatto e $ f_n \colon I \to \R $ una successione di funzioni continue decrescente e infinitesima puntualmente cioè tale che $ \forall x \in I, \forall n \in \N, 0 \geq f_{n + 1}(x) \leq f_n(x) $ e $ \forall x \in I, \lim_{n \to +\infty} f_n(x) = 0 $. Allora $ (f_n) $ converge uniformemente a zero $ f_n \touf 0 $. \\
+  Si osservi che se $ f_n $ è una successione di funzioni continue decrescente tale che $ f_n \to f $ puntualmente e $ f $ è una funzione continua allora $ g_n = f_n - f $ è continua e soddisfa le ipotesi del lemma del Dini e quindi $ f_n \touf f $.
+\end{es}
+%
+Sia $ x_n \in I $ il massimo di $ f_n $ e consideriamo la successione $ f_n(x_n) = \max_{x \in I} f_n(x) $. Per compattezza di $ I $ esiste una sottosuccessione $ n_k $ e un punto $ x_0 \in I $ tale che $ x_{n_k} \to x_0 $. Se $ m \geq n_k $ per ipotesi $ f_{n_k}(x_{n_k}) \leq f_m(x_{n_k}) $ così passando al $ \limsup $ otteniamo
+\begin{equation*}
+  0 \leq \limsup_{k \to +\infty} f_{n_k}(x_{n_k}) \leq \limsup_{k \to +\infty} f_{m}(x_{n_k}) = \lim_{k \to +\infty} f_m(x_{n_k}) = f_m(x_0)
+\end{equation*}
+Allora se $ m \to +\infty $ e $ n_k \geq m $ anche $ k \to +\infty $ così \[\lim_{k \to +\infty} f_{n_k}(x_{n_k}) = 0.\] Ma allora
+\begin{equation*}
+  \norm{f_m - 0}_{\infty} = f_m(x_m) \leq f_{n_k}(x_m) \leq f_{n_k}(x_{n_k}) \to 0
+\end{equation*}
+ovvero $ f_m \touf 0 $.
+
+\begin{es}
+  Dire quali delle seguenti classi $ \mathcal{F} $ di funzioni $ f \colon I \to \R $ sono chiuse per convergenza uniforme e/o per convergenza puntuale.
+  \begin{enumerate}[label = (\roman*)]
+  \item
+  \end{enumerate}
+\end{es}
+
+\begin{es}
+  Ci chiediamo se le classi dell'esercizio precedente godono della \emph{proprietà di rigidità}, cioè se da una convergenza più debole nella classe segue una convergenza più forte. Dimostrare le seguenti proposizioni.
+  \begin{enumerate}[label = (\roman*)]
+  \item Siano $ f_n, f \colon I = [a, b] \to \R $ funzioni continue e monotone. Se esiste un insieme denso $ J $ in $ I $ con $ a, b \in J $ per cui $ \forall x \in J, f_n(x) \to f(x) $, allora $ f_n \touf f $.
+  \item Sia $ A \subseteq \R $ intervallo aperto. Siano $ f_n, f \colon A \to \R $ funzioni convesse. Se esiste un insieme $ J $ denso in $ A $ tale che per cui $ \forall x \in J, f_n(x) \to f(x) $, allora $ f_n \touf f $ sui compatti di $ A $ (ovvero $ \forall [a, b] \subseteq A $, $ f_n $ converge uniformemente a $ f $ su $ [a, b] $).
+  \item Siano $ f_n \colon I = [a, b] \to \R $ funzioni equicontinue e sia $ \omega $ il loro modulo di continuità. Se esiste un insieme denso $ J $ in $ I $ per cui $ \forall x \in J, f_n(x) \to f(x) $, allora $ f $ si estende da $ J $ a $ I $ in modo da essere continua (con modulo $ \omega $) e $ f_n \touf f $ su $ I $.
+  \item Siano $ p_n, p \colon I = [a, b] \to \R $ polinomi con $ \deg{p_n}, \deg{p} \leq N $. Se esistono $ N + 1 $ punti $ a = x_0, x_1, \ldots, x_{N - 1}, x_N = b \in I $ tali che $ \forall x_i, p_n(x_i) \to p(x_i) $ allora $ p_n \touf p $ e $ \forall k \in \N, D^{k}(p_n) \touf D^{k}(p) $ (dove $ D^{k} $ è l'operatore $ k $-esima derivata).
+  \end{enumerate}
+\end{es}
+%
+
+
+\begin{es}
+  Se $ f_n, f \colon I \to \R $ sono funzioni uniformemente continue su $ I \subset \R $ e $ f_n \touf f $, allora anche $ f $ è uniformemente continua e la successione $ (f_n) $ è equicontinua.
+\end{es}
+%
+
+\begin{es}
+  Sia $ I \subset \R $ un intervallo compatto e $ f_n, f \colon I \to \R $ funzioni continue. Mostre che le seguenti proposizioni sono equivalenti.
+  \begin{enumerate}[label = (\roman*)]
+  \item $ \forall x \in \R $ e $ \forall (x_n) \subseteq I : x_n \to x $ si ha $ f_n(x_n) \to f(x) $;
+  \item $ f_n \touf f $ su tutto I.
+  \end{enumerate}
+  Trovare un esempio dove $ I = [0, 1) $ per cui vale il primo punto ma $ f_n $ non converge uniformemente a $ f $.
+\end{es}

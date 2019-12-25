@@ -1,0 +1,116 @@
+\begin{es}
+  Siano date $ f \colon A \to B $ e $ g \colon B \to C $. Dimostare che
+  \begin{enumerate}
+  \item se $ g \circ f $ è iniettiva allora $ f $ è iniettiva;
+  \item se $ g \circ f $ è suriettiva allora $ g $ è suriettiva.
+  \end{enumerate}
+  Se ne deduca che se $ h \colon A \to A $ è tale che $ h \circ h \circ h \circ h $ è biettiva allora anche $ h $ lo è.
+\end{es}
+\begin{enumerate}
+\item Supponiamo per assurdo che $ f $ non sia iniettiva, ossia $ \exists a_1, a_2 \in A : a_1 \neq a_2 \wedge f(a_1) = f(a_2) $. Ma allora applicando $ g $ a entrambi i membri otteniamo $ g(f(a_1)) = g(f(a_2)) $, ovvero $ (g \circ f)(a_1) = (g \circ f)(a_2) $ che per l'iniettività di $ g \circ f $ implica $ a_1 = a_2 $. Ciò è assurdo e concludiamo quindi che $ f $ deve essere iniettiva.
+\item Per ipotesi $ \forall c \in C, \exists a \in A : c = (g \circ f)(a) $, ovvero $ c = g(f(a)) $. Ma allora posto $ f(a) = b \in B $ si ha che $ c = g(b) $ ovvero $ g $ è suriettiva.
+\end{enumerate}
+Definita $ f = h \circ h \circ h $ si ha: $ h \circ f $ è biettiva e in particolare suriettiva, allora $ h $ è suriettiva; $ f \circ h $ è biettiva e in particolare iniettiva, allora $ h $ è iniettiva. Concludiamo quindi che $ h $ è biettiva.
+
+\begin{es}[Teroema di K\"onig]
+  Dati $ \{A_i\}_{i \in I} $ inismei disgiunti e $ \{B_i\}_{i \in I} $ tali che non esiste $ f \colon A_i \to \nolinebreak B_i $ suriettiva dimostare che non esiste \[g \colon \bigcup_{i \in I} A_i \to \prod_{i \in I} B_i\] suriettiva. Se ne deduca che $ |A| < |\P(A)| $.
+\end{es}
+Supponiamo per assurdo che esista $ g \colon \bigcup_{i \in I} A_i \to \prod_{i \in I} B_i $ suriettiva. Consideriamo la funzione di proiezione
+\begin{align*}
+  \pi_j \colon \prod_{i \in I}B_i & \to B_j \\
+  (b_k, \dots, b_j, \dots) & \mapsto b_j
+\end{align*}
+e la composizione di $ g $ con tale funzione $ g_j = \pi_j \circ g $ che va dall' $ \bigcup_{i \in I} A_i $ a $ B_j $. Per ipotesi non esistono funzioni suriettive da $ A_j $ a $ B_j $, ovvero la funzione $ f_j = g_j |_{A_j} = \pi_j \circ g|_{A_j} $ non è suriettiva vale a dire che $ \forall j \in I: \exists \tilde{b}_j \in B_j : \forall a \in A_j, f_j(a) \neq \tilde{b}_j $. Consideriamo quindi $ \bar{b} = (\tilde{b}_1, \dots, \tilde{b}_j, \dots) \in \prod_{i \in I}B_i $ la upla formata da un elemento dei $ B_j $ che non viene preso dalla $ f_j $ (qua si sta facendo uso dell'\textsc{Assioma della scelta}: stiamo scegliendo da infiniti insiemi un elemento da ognuno di questi in modo arbitrario). Poiché $ g $ è suriettiva vuol dire che $ \exists x \in \bigcup_{i \in I} A_i : g(x) = \bar{b} $, ovvero che $ \exists! j \in I : x \in A_j : g(x) = \bar{b} $ (l'unicità di $ j $ è garantita dal fatto che gli $ A_i $ sono disgiunti). Ma allora applicando $ \pi_j $ a $ g(x) $ otteniamo che $ \pi_j(g(x)) = \pi_j(\bar{b}) = b_j $, che è assurdo perché per ipotesi $ b_j \notin f_j = \pi_j \circ g |_{A_j} $. Concludiamo quindi che non può esistere $ g \colon \bigcup_{i \in I} A_i \to \prod_{i \in I} B_i $ suriettiva ovvero che $ (\forall i \in I : |A_i| < |B_i|) \Rightarrow \left|\bigcup_{i \in I} A_i\right| < \left|\prod_{i \in I} B_i\right| $. \\
+Si ha chiaramente $ |\{0\}| < |\{0, 1\}| $. Allora $ |A| = \left|\bigcup_{a \in A} \{0\}\right| < \left|\prod_{a \in A} \{0, 1\}\right| = |\{0, 1\}^A| = |\P(A)| $.
+
+\begin{es}[facoltativo]
+  Dato un cardinale $ \kappa $ si definisce cofinalità di $ \kappa $, e si indica con $ \operatorname{co}(\kappa) $, la minima cardinalità che deve avere un insieme di indici $ I $ per avere che esiste un insieme $ B $ con $ |B| = \kappa $ e dei sottoinsiemi $ B_i \subset B $ con $ |B_i| < \kappa $ tali che $ \bigcup_{i \in I} B_i = B $. Si dimostri che $ \operatorname{co}(\kappa) \leq \kappa $ e, usando l'esercizio precedente, che $ \kappa^{\operatorname{co}(\kappa)} > \kappa $. In particolare se ne deduca che $ |\R| \geq \operatorname{co}(|\R|) > |\N| $.
+\end{es}
+
+\begin{es}
+  Dimostrare che
+  \begin{enumerate}
+  \item se $ |A| \leq |B| $ allora $ |\P(A)| \leq |\P(B)| $;
+  \item se $ |A| \leq |B| $ allora $ |A^C| \leq |B^C| $;
+  \item se $ |A| \leq |B| $ allora $ |C^A| \leq |C^B| $.
+  \end{enumerate}
+  Dedurre, usando anche l'Esercizio 11, che $ |\R| = |2^\N| \leq |\N^\N| \leq |\R^\N| \leq |2^{\N \times \N}| = |2^\N| = |\R| $.
+\end{es}
+\begin{enumerate}
+\item Per ipotesi esiste un funzione $ f \colon A \to B $ iniettiva. Allora la funzione $ \phi \colon \P(A) \to \P(B) $ che ad ogni $ A' \subseteq A \in \P(A) $ associa $ f(A') \subseteq B \in \P(B) $ è iniettiva per l'iniettività di $ f $. Pertanto  $ |\P(A)| \leq |\P(B)| $.
+\item Per ipotesi esiste un funzione $ f \colon A \to B $ iniettiva. Ricordiamo inoltre che $ A^C = \{f_a \colon C \to A\} $ e similmente $ B^C = \{f_b \colon C \to A\} $. Allora la funzione
+  \begin{align*}
+    \phi \colon A^C \to & B^C \\
+    f_a \mapsto & f \circ f_a
+  \end{align*}
+  è ben definita in quanto $ f \circ f_a $ è una funzione da $ C $ in $ B $ ed è iniettiva per l'iniettività di $ f $. Pertanto $ |A^C| \leq |B^C| $.
+\item Per ipotesi esiste un funzione $ f \colon A \to B $ iniettiva. Ricordiamo inoltre che $ C^A = \{f_a \colon A \to \} $ e similmente $ C^B = \{f_b \colon B \to \} $. Allora la funzione
+  \begin{align*}
+    \phi \colon C^A \to & B^C \\
+    f_a \mapsto & f_a \circ f
+  \end{align*}
+  è ben definita in quanto $ f_a \circ f $ è una funzione da $ B $ in $ C $ ed è iniettiva per l'iniettività di $ f $. Pertanto $ |C^A| \leq |C^B| $.
+\end{enumerate}
+Poiché si ha $ |\{0, 1\}| \leq |\N| \leq |\R| $ e che $ |\N| = |\N \times \N| $ deduciamo che
+\[|\R| \underset{\text{Es 15}}{=} |2^\N| \underset{\text{2.}}{\leq} |\N^\N| \underset{\text{2.}}{\leq} |\R^\N| \underset{\text{2.}}{=} |(2^\N)^\N| \underset{\text{Es 11}}{=} |2^{\N \times \N}| \underset{\text{3.}}{=} |2^{\N}| = |\R|.\]
+
+\begin{es}
+  Sia $ \P_\N(\R) $ l'inseme delle parti numerabili di $ \R $, cioè $ \P_\N(\R) = \{A \in \P(\R) : |A| \leq |\N|\} $. Si mostri che $ |\P_\N(\R)| = |\R| $.
+\end{es}
+??
+
+\begin{es}
+  Calcolare la cardinalità dei seguenti insiemi.
+  \begin{enumerate}
+  \item L'inseme delle funzioni $ f \colon \N \to \N $ strettamente crescenti, cioè tali che $ n > m \Rightarrow f(n) > f(m) $.
+  \item L'inseme delle funzioni $ f \colon \N \to \N $ debolmente decrescenti, cioè tali che $ n \leq m \Rightarrow f(n) \leq f(m) $.
+  \item L'insieme delle funzioni $ f \colon [0, 1] \to \R $ continue.
+  \end{enumerate}
+\end{es}
+\begin{enumerate}
+\item Sia $ \N^\N = \{f \colon \N \to \N\} $ l'insieme delle funzioni da $ \N $ in $ \N $ e sia $ C_s = \{g \colon \N \to \N \; \text{strettamente crescenti}\} $. Da un alto abbiamo che $ C_s \subseteq \N^\N $ che implica $ |C_s| \leq |\N^\N| $. Definiamo ora
+  \begin{align*}
+    \Phi \colon \N^\N \to & C_s \\
+    f \mapsto & g(n) = \sum_{k = 0}^{n} (f(k) + 1)
+  \end{align*}
+  Prima di tutto verifichiamo che tale funzione è ben definita: poiché $ f \in \N^\N $ si ha che per ogni $ n \in \N $, $ f(n) \geq 0 $ da cui $ g(0) = f(0) + 1 > 0 $; riscrivendo $ g $ in modo ricorsivo come $ g(n + 1) = g(n) + f(n + 1) + 1 \geq g(n) + 1 $ da cui deduciamo banalmente che $ g \in C_s $. Mostriamo ora che $ \Phi $ è iniettiva: infatti $ \Phi(f) = \Phi(f') \Rightarrow \forall n \in \N :  \sum_{k = 0}^{n} (f(k) + 1) = \sum_{k = 0}^{n} (f'(k) + 1) \Rightarrow \forall n \in \N : \sum_{k = 0}^{n} f(k) = \sum_{k = 0}^{n} f(k) \Rightarrow \forall n \in \N : f(n) = f'(n) \Rightarrow f = f' $. Deduciamo quindi che $ |\N^\N| \leq |C_s| $ e quindi che le funzioni strettamente crescenti hanno la stessa cardinalità di $ |\N^\N| = |\R| $.
+\item Sia $ D = \{f \colon \N \to \N \; \text{debolmente decrescenti}\} $ e sia $ D_{n, m} = \{f \in D : f(0) = n, \min f = m\} \subseteq D $. Definiamo $ g_i = \min\{k : f(k) > i\} - \min\{k : f(k) > i + 1\} $ una quantità che ci dice \emph{quanto sono lunghi gli scalini della funzione} per andare da $ n $ (massimo della funzione) al minimo $ m $. Detta quindi
+  \begin{align*}
+    g \colon D \to & \N^{n - m + 2} \\
+    f \mapsto & (n, g_{n + 1}, \dots, g_{m}, m)
+  \end{align*}
+  essa risulta essere una biezione tra l'insieme delle funzioni debolmente crescenti e $ \N^{n - m + 2} $. \textsf{Da $ (n, g_{n + 1}, \dots, g_{m}, m) $ so da dove parto, quanto devo aspettare prima di scendere di 1 e il minimo che devo raggiungere (forse m è superfluo). Riesco a riscustruire in bodo biunivoco la funzione.} Poiché risulta $ |\N^{n - m + 2}| = |\N| $ ne segue che $ |D| = |\N| $.
+\item Poiché abbiamo mostrato che $ |[0, 1]| = |\R| $ consideriamo le funzioni continue da $ \R $ is sé $ C(\R, \R) $. Le funzioni costanti da $ \R $ in sé hanno la cardinalità di $ \R $ concludiamo che $ |\R| \leq |C(\R, \R)| $. Inoltre $ \Q $ è denso in $ \R $, una funzione continua è univocamente determinata dai suoi valori sui razionali: in altre parole
+  \begin{align*}
+    \Phi \colon C(\R, \R) \to & C(\Q, \R) \\
+    f \mapsto f |_{\Q}
+  \end{align*}
+  è una funzione iniettiva. Se infatti $ f(x)|_{\Q} = g(x)|_{\Q} $ per ogni $ x \in \Q $ basterà prendere una successione di Cauchy $ x_n \to c $ con $ c \in \R $ e dalla continuità si avrà che $ f(c) = g(c) $ per ogni $ c $ reale, ovvero le funzioni coincidono anche su $ \R $. Ma allora $ |C(\R, \R)|\leq |C(\Q, \R)| \leq |\R^\Q| = |\R^\N| = |\R| $. Per Cantor-Bernstein concludiamo quindi che $ |C([0, 1], \R)| = |C(\R, \R)| = |\R| $.
+\end{enumerate}
+
+\begin{es}
+  Dato un insieme $ A $ dimostrare che (senza l'uso dell'\textsc{Assioma della scelta}) l'equivalenza delle seguenti affermazioni
+  \begin{enumerate}[label=(\roman*)]
+  \item per ogni $ a \in A $ si ha $ |A \setminus \{a\}| = |A| $;
+  \item esiste un sottoinsieme proprio $ B \subset A $ tale che $ |B| = |A| $;
+  \item esiste una funzione $ f \colon \N \to A $ iniettiva.
+  \end{enumerate}
+\end{es}
+\begin{itemize}[label = (i) $ \Rightarrow $ (ii)]
+\item Supposta vera la (i) basterà prendere $ B = A \setminus \{a\} $ con $ a \in A $ e si avrà $ |B| = |A \setminus \{a\}| = |A| $.
+\end{itemize}
+\begin{itemize}[label = (ii) $ \Rightarrow $ (i)]
+\item Se $ B \subset A $ vuol dire che $ \exists a \in A : a \notin B $. Ma allora $ B \subseteq A \setminus \{a\} $ che trasposto alle cardinalità vuol dire $ |B| \leq |A \setminus \{a\}| \leq |A| = |B| $. Inoltre preso $ \forall a' \in A $ vale che $ |A \setminus \{a'\}| = |A \setminus \{a\}| $ dunque per ogni $ a \in A $ vale $ |A \setminus \{a\}| = |A| $.
+\end{itemize}
+\begin{itemize}[label = (i) $ \Rightarrow $ (iii)]
+\item Sia $ g \colon A \to A \setminus \{a\} $ biettiva. Definiamo $ f \colon \N \to A $ come
+  \[f(n) =
+    \begin{cases*}
+      a & \text{se $ n = 0 $} \\
+      g^{(n)}(a) & \text{se $ n > 0 $}
+    \end{cases*}.\]
+  Tale funzione risulta esser biettiva: se $ f(n) = f(m) $, cioè \emph{wlog} $ f(n) = f(n + k) \Rightarrow \linebreak g^{(n)}(a) = g^{(n)}(g^{(k)}(a)) $ che applicando $ \left(g^{(n)}\right)^{-1} $ (che esiste per la biettività di $ g $) diventa $ a = g^{(k)}(a) $. Poiché $ a \notin \mathrm{Im}g $ deduciamo che $ k = 0 $, ovvero $ n = m $, da cui segue l'iniettività di $ f $.
+\end{itemize}
+\begin{itemize}[label = (iii) $ \Rightarrow $ (i)]
+\item ??
+\end{itemize}

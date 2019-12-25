@@ -1,0 +1,17 @@
+# Esercizi
+
+03 - Non so come formalizzarlo
+
+05 - Le definizioni di liminf e limsup sono quelle o sono scambiate?
+   - Non sono riuscito a costruire un esempio in cui limsup \neq liminf (ne ho in mente alcuni banali con le successioni [(-1)^n o (-1)^n *(1 + 1/n)] ma non sono riuscito a trasferirlo al linguaggio insiemistico
+   - Le definizioni a "parole" le ho scritte sempre pensando alle successioni e cercando di riarrangiarle agli insiemi, vanno bene? (in generale non sono riuscito a cogliere il collegamento tra quello che sapevo di analisi su liminf e limsup e la definizione con gli insiemi)
+
+06 - Non ho capito bene il senso della prima richiesta, ho iniziato a scrivere qualcosa ma non credo di essere sulla buona strada
+
+10 - Non so come formalizzare la costruzione di g (l'avevamo fatto a esercitazione ma molto di fretta e in modo molto confusionario...)
+
+11 - 1) è abbastanza evidente che f è biettiva o devo giustificarlo di più?
+   - 2) 3) hai qualche hint da darmi su questi? non saprei proprio da dove partire
+
+13 - 3) Per la prima parte devo anche mostrare che è una relazione d'ordine e che è totale (credo si posssa fare in modo induttivo...) o basta esibire la definizione?
+	 3) Credo di aver scritto abbastanza male la parte sui polinomi più che altro per che non so come formalizzarla bene. L'idea di fondo era che se voglio confrontare due polinomi per pirma cosa guardo il grado (da qui la necessità di corstruire la (n+1)-upla): se il grado del primo è maggiore allora il primo polinomio è maggiore del secondo, se sono uguali passo a guardare i coefficienti "in modo lessicografico". Il problema è che per come ho definito f quando confornto polinomi di grado diverso avrei due tuple di lunghezza diversa...

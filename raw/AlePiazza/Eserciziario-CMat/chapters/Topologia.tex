@@ -1,0 +1,321 @@
+\begin{es}
+  Mostrare che se $ (X, \tau) $ è di Hausdorff allora il singoletto $ \{x\} $ è chiuso.
+\end{es}
+%
+Poiché $ (X, \tau) $ è $ T_2 $, $ \forall y \in X : y \neq x $ esistono $ U_x, V_y \in \tau $ con $ x \in U_x, y \in V_y $ tali che $ U_x, \cap V_y = \emptyset $. Allora $ \bigcup_{y \in X} V_y $ è un unione di aperti e quindi è aperta: $ \forall y \in X, y \in V_y $ ma $ \forall y \in X, x \notin V_y $ e quindi $ x \notin \bigcup_{y \in X} V_y $. Dunque $ \bigcup_{y \in X} V_y = X \setminus \{x\} $ che è aperto e quindi $ \{x\} = (X \setminus \{x\})^c $ è chiuso.
+
+\begin{es}
+  Sia $ (X, \tau) $ uno spazio topologico e $ A \subseteq X $, allora $ (\ouv{A})^c = (\clo{A^c}) $
+\end{es}
+%
+Si ha che $ \ouv{A} = \bigcup \{E \in \tau : E \subseteq A\} $ e che $ \clo{(A^c)} = \bigcap \{C^c \in \tau : A^c \subseteq C\} $ ma allora, usando le formule di De Morgan, otteniamo
+\[(\ouv{A})^c = \left(\bigcup \{E \in \tau : E \subseteq A\}\right)^c = \bigcap \{E \in \tau : A^c \subseteq E^c\} \underset{C \equiv E^c}{=} \bigcap \{C^c \in \tau : A^c \subseteq C\} = \clo{(A^c)}\]
+Preso $ B = A^c $ otteniamo anche la relazione inversa $ \ouv{(B^c)} = (\clo{B})^c $.
+
+\begin{es}
+  Mostrare che se $ A \subseteq B $ allora $ \ouv{A} \subseteq \ouv{B} $ e che $ \clo{A} \subseteq \clo{B} $.
+\end{es}
+%
+Se $ E_A \in \tau $ è un aperto tale che $ E_A \subseteq A $ vale $ E_A \subseteq B $, ovvero $ E_A $ è un aperto contenuto in $ B $ e dunque $ E_A \subseteq \bigcup \{E_B \in \tau : E_B \subseteq B\} $; passando quindi all'unione otteniamo  $ \ouv{A} = \bigcup \{E_A \in \tau : E_A \subseteq A\} \subseteq  \bigcup \{E_B \in \tau : E_B \subseteq B\} = \ouv{B} $ che è la tesi. \\
+Usando quanto mostrato nell'esercizio precedente si ha $ A \subseteq B \iff A^c \supseteq B^c \Rightarrow \ouv{(A^c)} \supseteq \ouv{(B^c)} \iff (\ouv{(A^c)})^c \subseteq (\ouv{(B^c)})^c \Rightarrow \clo{((A^c)^c)} \subseteq \clo{((B^c)^c)} \iff \clo{A} \subseteq \clo{B} $.
+
+\begin{es}
+  Sia $ (X, \tau) $ uno spazio topologico e $ A, B \subseteq X $. Dalla definizione notiamo che vale $ \ouv{A} \subseteq A $ e $ B \subseteq \clo{B} $. Mostrare che $ A $ è aperto se e solo $ A = \ouv{A} $ e dedurre che $ B $ è chiuso se e solo se $ B = \clo{B} $.
+\end{es}
+Dimostriamo la prima proposizione.
+\begin{itemize}[label = $ \Rightarrow $]
+\item Mostriamo le due inclusioni. Consideriamo l'insieme degli $ E \in \tau $ tali che $ E \subseteq A $, passando all'unione su tutti questi $ E $ l'inclusione si mantiene e quindi $ \ouv{A} = \left(\bigcup \{E \in \tau : E \subseteq A\}\right) \subseteq A $. D'altro canto per ipotesi $ A \in \tau $ e chiaramente $ A \subseteq A $, dunque $ A \subseteq \left(\bigcup \{E \in \tau : E \subseteq A\}\right) = \ouv{A}$.
+\end{itemize}
+\begin{itemize}[label = $ \Leftarrow $]
+\item  $ \ouv{A} $ è un unione di aperti (elementi di $ \tau $) e quindi, per definizione di topologia, $ A = \ouv{A} \in \tau $, ovvero $ A $ è aperto.
+\end{itemize}
+Allora $ B^c $ è aperto, ovvero $ B $ è chiuso, se e solo se $ B^c = \ouv{(B^c)} $. Passando al complementare abbiamo $ B = (B^c)^c = (\ouv{(B^c)})^c = \clo{((B^c)^c)} = \clo{B} $ che è la tesi.
+
+\begin{es}
+  Dato $ (X, \tau) $ spazio topologico e $ A \subseteq X $, mostrare che $ \ouv{A} = \ouv{(\ouv{A})} $ e che $ \clo{A} = \clo{(\clo{A})} $.
+\end{es}
+%
+Poiché $ \ouv{A} \subseteq A $ per quanto mostrato in precedenza precedente abbiamo che $ \ouv{(\ouv{A})} \subseteq \ouv{A} $; d'altra parte $ \ouv{A} $ è un aperto, ovvero $ \ouv{A} \in \tau $ e quindi $ \ouv{A} \subseteq \bigcup \{E \in \tau : E \subseteq \ouv{A}\} = \ouv{(\ouv{A})} $. Dunque $ \ouv{A} = \ouv{(\ouv{A})} $. \\
+Passando al complementare l'ultima relazione per un $ B \subseteq X $ abbiamo che $ (\ouv{B})^c = (\ouv{(\ouv{B})})^c \Rightarrow \clo{B^c} = \clo{(\ouv{B})^c} = \clo{(\clo{B^c})} $; posto allora $ A = B^c $ otteniamo esattamente $ \clo{A} = \clo{(\clo{A})} $.
+
+\begin{es}
+  Sia dato $ (X, \tau) $ spazio topologico e $ A \subseteq X $ aperto.
+  \begin{enumerate}[label = (\roman*)]
+  \item Mostrare che $ A \subseteq \ouv{(\clo{A})} $.
+  \item Trovare un esempio di un insieme $ A \subset \R $ aperto per cui $ A \neq \ouv{(\clo{A})} $.
+  \item Formulare una simile relazione per $ A $ chiuso, passando ai complementari.
+  \end{enumerate}
+\end{es}
+%
+\begin{enumerate}[label = (\roman*)]
+\item Per definizione $ \ouv{(\clo{A})} = \bigcup \{E \in \tau : E \subseteq \clo{A}\} $. Poiché $ A $ è un aperto ovvero $ A \in \tau $ e $ A \subseteq \clo{A} $ si ha che $ A \subseteq \ouv{(\clo{A})} $.
+\item L'insieme $ (0, 1) \cup (1, 2) $ è un aperto di $ \R $ e risulta $ \clo{A} = [0, 2] $ da cui $ \ouv{(\clo{A})} = (0, 2) = A \cup \{1\} \neq A $.
+\item Passando ai complementari abbiamo che $ A^c $ è ora un chiuso e la relazione diventa $ A^c \supseteq (\ouv{(\clo{A})})^c = \clo{(\clo{A})^c} = \clo{(\ouv{(A^c)})} $. Dunque se $ B = A^c $ è un chiuso vale $ \clo{(\ouv{B})} \subseteq B $.
+\end{enumerate}
+
+\begin{es}
+  Dati $ A, B \subseteq \R $ si determinino le relazioni tra le seguenti coppie di insiemi
+  \begin{gather*}
+    \clo{A \cup B} \quad e \quad \clo{A} \cup \clo{B}   \\
+    \clo{A \cap B} \quad e \quad \clo{A} \cap \clo{B}   \\
+    \ouv{(A \cup B)} \quad e \quad \ouv{A} \cup \ouv{B} \\
+    \ouv{(A \cap B)} \quad e \quad \ouv{A} \cap \ouv{B}
+  \end{gather*}
+\end{es}
+%
+$ \clo{A \cup B} = \clo{A} \cup \clo{B} $. Da un lato abbiamo che $ (A \subseteq A \cup B) \wedge (B \subseteq A \cup B) \Rightarrow (\clo{A} \subseteq \clo{A \cup B}) \wedge (\clo{B} \subseteq \clo{A \cup B}) \Rightarrow \clo{A} \cup \clo{B} \subseteq \clo{A \cup B} $; d'altro canto $ A \subseteq \clo{A} $ e $ B \subseteq \clo{B} $ e quindi $ A \cup B \subseteq \clo{A} \cup \clo{B} $ ma $ \clo{A \cup B} $ è il più piccolo chiuso che contiene e $ A \cup B $ e quindi ogni chiuso che contiene $ A \cup B $ deve contenere anche $ \clo{A \cup B} $, pertanto $ \clo{A \cup B} \subseteq \clo{A} \cup \clo{B} $. \\
+
+$ \clo{A \cap B} \subseteq \clo{A} \cap \clo{B} $. Come in precedenza $ A \subseteq \clo{A} $ e $ B \subseteq \clo{B} $ e quindi $ A \cap B \subseteq \clo{A} \cap \clo{B} $ ma $ \clo{A \cap B} $ è il più piccolo chiuso che contiene e $ A \cap B $ e quindi ogni chiuso che contiene $ A \cap B $ deve contenere anche $ \clo{A \cap B} $, pertanto $ \clo{A \cap B} \subseteq \clo{A} \cap \clo{B} $. Tuttavia non è più vera l'altra inclusione: per esempio se $ A = (0, 1) $ e $ B = (1, 2) $ allora $ \clo{A \cap B} = \clo{\emptyset} = \emptyset $ ma $ \clo{A} \cap \clo{B} = [0, 1] \cap [1, 2] = \{1\} $ e chiaramente è falso che $ \{1\} \subseteq \emptyset $. \\
+
+$ \ouv{(A \cup B)} \supseteq \ouv{A} \cup \ouv{B} $. Passando ai complementari la seconda relazione abbiamo $ \clo{A \cap B} \subseteq \clo{A} \cap \clo{B} \Rightarrow (\clo{A \cap B})^c \supseteq (\clo{A} \cap \clo{B})^c \Rightarrow \ouv{((A \cap B)^c)} \supseteq (\clo{A})^c \cup (\clo{B})^c \Rightarrow \ouv{(A^c \cup B^c)} \supseteq \ouv{(A^c)} \cup \ouv{(B^c)} $ che è la tesi. \\
+
+$ \ouv{(A \cap B)} = \ouv{A} \cap \ouv{B} $. Passando ai complementari la prima relazione abbiamo $ \clo{A \cup B} = \clo{A} \cup \clo{B} \Rightarrow (\clo{A \cup B})^c = (\clo{A} \cup \clo{B})^c \Rightarrow \ouv{((A \cup B)^c)} = (\clo{A})^c \cap (\clo{B})^c \Rightarrow \ouv{(A^c \cap B^c)} = \ouv{(A^c)} \cap \ouv{(B^c)} $ che è la tesi.
+
+\begin{es}
+  Verificare che l'insieme dei punti aderenti ad $ A $ coincide con la chiusura di $ A $.
+\end{es}
+%
+Mostriamo la tesi opposta: $ x_0 \in X $ non è aderente ad $ A \subseteq X $ se e solo se $ x_0 \notin \clo{A} $. Infatti $ x_0 $ non è aderente ad $ A $ se $ \exists U \text{ intorno di } x_0 : U \cap A = \emptyset \iff A \subseteq U^c \iff \clo{A} \subseteq U^c \iff U \subseteq (\clo{A})^c \iff \clo{A} \cap U = \emptyset $, ovvero $ x_0 \notin \clo{A} $.
+
+\begin{es}
+  Verificare che $ \clo{A} = A \cup \der{A} $.
+\end{es}
+%
+Mostriamo la doppia inclusione. Ricordiamo che $ \der{A} = \{x \in X : \forall U \text{ intorno di } x, U \cap A \setminus \{x\} \neq \emptyset\} $. Se $ x \in A $ allora chiaramente $ x \in \clo{A} $ in quanto $ A \subseteq \clo{A} $; se $ x \in \der{A} $, ovvero $ x $ è di accumulazione, a maggior ragione sarà anche aderente ad $ A $ e quindi per quanto mostrato nell'esercizio precedente $ x \in \clo{A} $. Dunque $ A \cup \der{A} \subseteq \clo{A} $. \\
+Supponiamo ora $ x \in \clo{A} $, l'unico caso da verificare è quando $ x \notin A $. In tale caso, però, la definizione di punto aderente e di punto di accumulazione coincidono : se $ x \notin A $ ma $ x $ è aderente allora $ x \in \der{A} $ e quindi $ \clo{A} \subseteq A \cup \der{A} $.
+
+\begin{es}
+  Un $ x \in X $ è di accumulazione per $ X $ se e solo se il singoletto $ \{x\} $ non è aperto.
+\end{es}
+%
+Dimostriamo la tesi opposta: $ x \in X $ non è di accumulazione per $ X $ se e solo se $ \{x\} $ è aperto. \\
+Se $ \{x\} $ è aperto, allora possiamo prendere come intorno di $ x $ il singoletto stesso in quanto $ U = \{x\} $ è un soprainsieme di un aperto contenente $ x $. Ma allora poiché $ \{x\} \subseteq X $ abbiamo che $ \{x\} \cap X = \{x\} $ e quindi che $ \{x\} \cap X \setminus \{x\} = \emptyset $. Dunque $ \exists U \text{ intorno di } x $ tale che $ U \cap X \setminus \{x\} = \emptyset $, ovvero $ x $ non è di accumulazione per $ X $. Viceversa se $ x $ non è di accumulazione per $ X $, $ \exists U \text{ intorno di } x $ tale che $ U \cap X \setminus \{x\} = \emptyset \Rightarrow U \setminus \{x\} = \emptyset \Rightarrow U = \{x\} $: dunque $ \{x\} $ è soprainsieme di un aperto contenente $ x $ cioè $ \{x\} $ è aperto.
+
+\begin{es}
+  Sia $ A \subset X $ e $ \fron{A} = \clo{A} \setminus \ouv{A} $ la frontiera di $ A $. Si noti che $ \fron{A} $ è chiuso: infatti si verifica facilmente che $ \fron{A} = \clo{A} \setminus \ouv{A} = \clo{A} \cap (\ouv{A})^c = \clo{A} \cap \clo{A^c} $ e in particolare $ \fron{A} = \fron{A^c} $. \\
+  Mostrare che i tre insiemi $ \fron{A} $, $ \ouv{A} $ e $ \ouv{(A^c)} $ sono disgiunti e che la loro unione è $ X $; in particolare mostrare che i tre insiemi sono caratterizzati dalle seguenti tre proprietà:
+  \begin{itemize}
+  \item $ x \in \fron{A} $ se ogni intorno di $ x $ interseca sia $ A $ che $ A^c $;
+  \item $ x \in \ouv{A} $ se esiste un intorno di $ x $ contenuto in $ A $;
+  \item $ x \in \ouv{(A^c)} $ se esiste un intorno di $ x $ contenuto in $ A^c $.
+  \end{itemize}
+\end{es}
+%
+Se $ x \in \ouv{A} $ sicuramente $ x \notin \clo{A} \setminus \ouv{A} = \fron{A} $ e se $ x \in \ouv{(A^c)} $ sicuramente $ x \notin \clo{A^c} \setminus \ouv{(A^c)} = \fron{A^c} $: dunque $ \ouv{A} \cap \fron{A} = \emptyset $ e, poiché $ \fron{A} = \fron{A^c} $ , $ \ouv{(A^c)} \cap \fron{A} = \emptyset $. Inoltre si ha per definizione $ A \cap A^c  = \emptyset$ e quindi $ \fron{A} $, $ \ouv{A} $ e $ \ouv{(A^c)} $ sono disgiunti. Poiché si ha $ \ouv{A} \cup \fron{A} = \ouv{A} \cup (\clo{A} \cap \clo{A^c}) = (\ouv{A} \cup \clo{A}) \cap (\ouv{A} \cup \clo{A^c}) = \clo{A} \cap (\ouv{A} \cup (\ouv{A})^c) = \clo{A} \cap X = \clo{A} $ segue che
+\[\ouv{A} \cup \ouv{(A^c)} \cup \fron{A} = \clo{A} \cup \ouv{(A^c)} = \clo{A} \cup (\clo{A})^c = X\]
+ovvero $ X $ si può partizionare nella parte interna di $ A \subset X $, nella parte interna del complementare di $ A $ e nella frontiera di $ A $. Per quanto riguarda le caratterizzazioni
+\begin{itemize}
+\item Se $ x \in \fron{A} = \clo{A} \cap \clo{A^c} $ allora $ x $ è aderente ad $ A $, ovvero $ \forall U \in \tau : x \in U $ si ha $ U \cap A \neq \emptyset $, e $ x $ è aderente ad $ A^c $, ovvero $ \forall U \in \tau : x \in U $ si ha $ U \cap A^c \neq \emptyset $. Dunque $ \forall U \in \tau : x \in U $ si ha $ U $ interseca sia $ A $ che $ A^c $.
+\item Se $ x \in \ouv{A} = \bigcup \{E \in \tau : E \subseteq A\} $ allora esiste un aperto e quindi un intorno tale che $ x \in E \subseteq A $.
+\item Se $ x \in \ouv{(A^c)} $ è analogo al caso precedente.
+\end{itemize}
+
+\begin{es}
+  Dato $ (X, \tau) $ spazio topologico e $ A \subseteq X $ dimostrare che
+  \begin{enumerate}[label = (\roman*)]
+  \item se $ A $ è aperto (o chiuso), allora la frontiera di $ A $ non ha parte interna, i.e. $ \ouv{(\fron{A})} = \emptyset $;
+  \item si ha $ \fron{\fron{A}} \subseteq \fron{A} $ con l'uguaglianza se $ \fron{A} $ non ha parte interna;
+  \item $ \fron{\fron{\fron{A}}} = \fron{\fron{A}} $.
+  \end{enumerate}
+\end{es}
+%
+\begin{enumerate}[label = (\roman*)]
+\item Supponiamo $ A $ chiuso, ovvero $ A = \clo{A} $; allora $ \fron{A} = \clo{A} \setminus \ouv{A} = A \setminus \ouv{A} $ e in particolare $ \fron{A} \subseteq A $. Per assurdo che $ x \in \ouv{(\fron{A})} \subseteq \fron{A} $ cioè $ \exists V \text{ intorno di } x : x \in V \subseteq \fron{A} \subseteq A $. Ma allora $ x \in \ouv{A} $ e quindi $ x \notin \fron{A} $. Ciò è assurdo e dobbiamo concludere che $ \ouv{(\fron{A})} = \emptyset $. \\
+  Se $ A $ è aperto, $ A^c $ è chiuso e quindi vale $ \ouv{(\fron{A^c})} = \emptyset $. Ma poiché $ \fron{A} = \fron{A^c} $ vale anche $ \ouv{(\fron{A})} = \emptyset $.
+\item Poiché la frontiera è un chiuso ($ \fron{A} = \clo{A} \cap \clo{A^c} $ e intersezione di chiusi è un chiuso) si ha che $ \fron{\fron{A}} = \clo{\fron{A}} \setminus \ouv{(\fron{A})} = \fron{A} \setminus \ouv{(\fron{A})} \subseteq \fron{A} $ e se $ \ouv{(\fron{A})} = \emptyset $ si ha l'uguaglianza.
+\item Poiché $ \fron{A} $ è un chiuso, applicando qunto mostrato al punto (i) si ha $ \fron{\fron{\fron{A}}} = \clo{\fron{\fron{A}}} \setminus \ouv{(\fron{\fron{A}})} = \fron{\fron{A}} \setminus \emptyset = \fron{\fron{A}} $.
+\end{enumerate}
+
+\begin{es}
+  Se $ (X, \tau) $ è uno spazio topologico e $ A \subset X $ non ha punti isolati allora anche $ \clo{A} $ non ha punti isolati.
+\end{es}
+%
+Supponiamo che $ x \in X $ sia punto isolato in $ \clo{A} $ cioè $ \exists U \text{ intorno di } x : \clo{A} \cap U \setminus \{x\} = \emptyset $, allora, poiché $ A \subseteq \clo{A} $ vale anche $ A \cap U \setminus \{x\} \subseteq \clo{A} \cap U \setminus \{x\} = \emptyset $ ovvero $ A \cap U \setminus \{x\} = \emptyset $. Dunque $ x $ è isolato in $ A $ che è assurdo. Concludiamo quindi che se $ A $ non ha punti isolati anche la sua chiusura non ha punti isolati.
+
+\begin{es}
+  Sia $ A $ sottoinsieme aperto di $ X $. Si dimostri che per ogni sottoinsieme $ B $ di $ X $ vale l'inclusione $ A \cap \clo{B} \subseteq \clo{A \cap B} $. Si dimostri con un esempio che la conclusione non vale se si rimuove l'ipotesi che $ A $ sia aperto.
+\end{es}
+%
+Sia $ x \in A \cap \clo{B} $: poiché $ x \in A $ e $ A $ è un aperto, $ \exists U \in \tau : x \in U \subseteq A $ e quindi $ A \cap U \neq \emptyset $; d'altra parte se $ x \in \clo{B} $, $ x $ è aderente a $ B $ e quindi $ \forall V \in \tau : x \in V, V \cap B \neq \emptyset $. Concludiamo quindi che $ \exists U \in \tau : x \in U \text{ e } U \cap A \cap B = U \cap (A \cap B) \neq \emptyset $. \\
+$ x \in \ouv{(A \cap B)} \iff \exists V \in \tau : x \in V, x \in V \subseteq A \cap B $
+??
+
+\begin{es}
+  Dato $ E \subseteq X $ con $ (X, \tau) $ spazio topologico, distinguiamo i punti $ x \in X $ in tre insiemi disgiunti che sono una partizione di $ X $:
+  \begin{itemize}
+  \item $ \forall U \text{ intorno di } x $ si ha $ U \cap E \setminus \{x\} \neq \emptyset $. Questi sono i punti di accumulazione.
+  \item $ x \in E $ ed $ \exists U \text{ intorno di } x : U \cap E = \{x\} $. Questi sono i punti isolati.
+  \item Descrivere ora il terzo insieme di punti.
+  \end{itemize}
+\end{es}
+%
+Siano $ \der{E} $ e $ I(E) $ l'insieme dei punti di accumulazione e dei punti isolati. Negando l'affermazione $ x \in \der{E} $ ottengo che dato $ x \in X $, $ \exists U \text{ intorno di } x, U \cap E \setminus \{x\} =\emptyset $: allora se $ x \in E $ deve essere $ U \cap E = \{x\} $, ovvero $ x \in I(E) $; altrimenti se $ x \notin E $ ho che $ \exists U \text{ intorno di } x, U \cap E =\emptyset \Rightarrow x \in U \subseteq E^c \Rightarrow x \in \ouv{(E^c)} = \clo{E}^c $. Concludiamo quindi che $ X = \der{E} \cup I(E) \cup \clo{E}^c $.
+
+\begin{es} \label{es:tau_+}
+  Consideriamo in $ \R $ la topologia $ \tau_+ = \{(a, +\infty) : a \in \R\} \cup \{\emptyset, \R\} $. Verificare che $ \tau_+ $ è effettivamente una topologia e dire se è $ T_2 $. Calcolare parte interna, chiusura, frontiera, insieme dei punti isolati e derivato dei seguenti insiemi secondo la topologia $ \tau_+ $: \[\{0\} \quad [0, 1] \quad (0, 1) \quad [0, +\infty) \quad (-\infty, 0] \quad (0, +\infty) \quad (-\infty, 0) \quad \{1, 2, 3\}\]
+\end{es}
+%
+Per verificare se $ \tau_+ $ è effettivamente una topologia su $ \R $ dobbiamo verificare i tre assiomi
+\begin{enumerate}[label = (\roman*)]
+\item $ \emptyset, \R \in \tau_+ $.
+\item Gli elementi di $ \tau_+ $ sono l'insieme vuoto, $ \R $ e le semirette destre $ (a, +\infty) $ con $ a \in \R $. Poiché $ \R \in \tau_+ $ e $ \forall a \in \R : (a, +\infty) \subseteq \R $, se prendiamo un unione di aperti tra cui anche $ \R $ tale unione coincide con $ \R $ stesso ed è quindi in $ \tau_+ $. Supponiamo quindi di prendere un unione di sole semirette destre $ A = \bigcup_{i \in I} (a_i, +\infty) $ con $ a_i \in \R $: se $ \{a_i\}_{i \in I} $ non è inferiormente limitato allora $ A = \R $; se invece $ \{a_i\}_{i \in I} $ è inferiormente limitato e sia quindi $ \tilde{a} = \inf_{i \in I} a_i $ (che esiste per completezza di $ \R $). Ma allora $ x \in A \Rightarrow \exists i \in I : x \in (a_i, +\infty) \Rightarrow x > a_i > \tilde{a} \Rightarrow x \in (\tilde{a}, +\infty) $ e quindi $ A \subseteq (\tilde{a}, +\infty) $; d'altro canto se $ x \in (\tilde{a}, +\infty) \Rightarrow x > \tilde{a} $ che per le proprietà dell'$ \inf $ implica che $ \exists i \in I : \tilde{a} \leq a_i < x \Rightarrow x \in (a_i, +\infty) \subseteq A $ e quindi $ (\tilde{a}, +\infty) \subseteq A $. Concludiamo che $ \bigcup_{i \in I} (a_i, +\infty) = (\tilde{a}, +\infty) \in \tau_+ $.
+\item Poiché se dati $ a, b \in \R $ con \emph{wlog} $ a \leq b $ risulta $ (a, +\infty) \cap (b, +\infty) = (a, +\infty) \in \tau_+ $, deduciamo induttivamente che l'intersezione di un numero finito di aperti di $ \tau_+ $ è un aperto.
+\end{enumerate}
+Tale topologia non è di Hausdorff. Siano infatti $ x, y \in \R $ con \emph{wlog} $ x < y $: gli aperti che contengono $ x $ sono della forma $ (a, +\infty) $ con $ a \in \R : a < x $ ed eventualmente $ \R $ stesso e analogamente gli aperti che contengono $ y $ sono della forma $ (b, +\infty) $ con $ b \in \R : b < x $ ed eventualmente $ \R $ stesso; ma allora $ (a, +\infty) \cap (b, +\infty) = (\min\{a, b\}, +\infty) \neq \emptyset $ (se uno dei due intorni è $ \R $, l'inersezione di $ \R $ con una semiretta è la semiretta stessa che è quindi non vuota; se entrambi sono $ \R $, l'intersezione è $ \R \neq \emptyset $). \\
+\\
+Gli aperti sono della forma $ (a, +\infty) $ con $ a \in \R $ più $ \emptyset $ e $ \R $; i chiusi sono della forma $ (-\infty, b] $ con $ b \in \R $ più $ \emptyset $ e $ \R $. Useremo inoltre il fatto che $ \fron{A} = \clo{A} \setminus \ouv{A} $ e che $ \der{A} = \clo{A} \setminus \{x \in A : x \text{ è isolato in } A\} $. Ricordiamo inoltre che la parte interna di un insieme $ A $ è l'unione di tutti gli aperti contenuti in $ A $ e che la chiusura di $ A $ è l'intersezione di tutti i chiusi che contengono $ A $.\\
+Se $ A = \{0\} $, l'unico aperto contenuto in $ A $ è $ \emptyset $; i chiusi che contengono $ A $ sono della forma $ (-\inf, b] $ con $ b \geq 0 $ ed $ \R $ e quindi la loro unione è (per la proprietà di semiretta sinistra) $ (-\infty, 0] $; gli intorni aperti di 0 (unico elemento di $ A $) sono gli aperti della forma $ (a, +\infty) $ con $ a < 0 $ più $ \R $: pertanto $ (a, +\infty) \cap \{0\} = \{0\} $ e quindi $ 0 $ è un punto isolato (analogo se si fa $ \R \cap \{0\} $). \\
+Se $ A = [0, 1] $, l'unico aperto contenuto in $ A $ è $ \emptyset $; i chiusi che contengono $ A $ sono le semirette $ (-\infty, b] $ con $ b \geq 1 $ e $ \R $ la cui intersezione è $ (-\infty, 1] $; se $ x \in A $ gli intorni aperti di $ A $ non della forma $ (a, +\infty) $ con $ a < 0 $ più $ \R $: poiché sono tutti soprainsiemi di $ A $ l'intersezione con $ A $ è $ A $ stesso e chiaramente $ [0, 1] \setminus \{x\} \neq \emptyset $ e quindi non ci sono punti isolati.\\
+Se $ A = (0, 1) $, l'unico aperto contenuto in $ A $ è $ \emptyset $; i chiusi contenenti $ A $ sono $ (-\infty, b] $ con $ b \geq 1 $ e $ \R $ dunque la loro intersezione è $ (-\infty, 1] $; si $ x \in (0, 1) $ i sui intorni aperti sono $ (a, +\infty) $ con $ a \leq 0 $ e $ \R $: la loro intersezione con $ (0, 1) $ è $ (0, 1) $ stesso e quindi $ (0, 1) \setminus x \neq \emptyset $ e non ci sono punti isolati. \\
+Se $ A = [0, +\infty) $ gli aperti contenuti in $ A $ sono le semirette $ (a, +\infty) $ con $ a \geq 0 $ e quindi la loro unione (per la proprietà delle semirette destre) è $ (0, +\infty) $; l'unico chiuso che contiene $ A $ è $ \R $; se $ x \in [0, +\infty) $ i suoi intorni aperti sono $ (a, +\infty) $ con $ a < x $ e $ \R $: se $ a \geq 0 $, $ (a, +\infty) \cap [0, +\infty) \setminus \{x\} = (a, +\infty) \setminus \{x\} \neq \emptyset $ e anche se $ a < 0 $, $ (a, +\infty) \cap [0, +\infty) \setminus \{x\} = [0, +\infty) \setminus \{x\} \neq \emptyset $. \\
+Se $ A = (-\infty, 0] $ l'unico aperto contenuto in $ A $ è $ \emptyset $; $ A $ è un chiuso e quindi $ A = \clo{A} $; se $ x \in (-\infty, 0] $ gli intorni aperti di $ x $ sono $ (a, +\infty) $ con $ a < x $ e $ \R $: nel primo caso $ (a, +\infty) \cap (-\infty, 0] \setminus \{x\} = (a, 0] \setminus \{x\} \neq \emptyset $ e nel secondo caso $ \R \cap (-\infty, 0] \setminus \{x\} = (-\infty, 0] \setminus \{x\} \neq \emptyset $. \\
+Se $ A = (0, +\infty) $, $ A $ è un aperto e dunque $ \ouv{A} = A $; l'unico chiuso che contiene $ A $ è $ \R $; se $ x \in (0, +\infty) $ gli intorni di $ x $ sono le semirette $ (a, +\infty) $ con $ a < x $ e $ \R $: se $ a \geq 0 $, $ (a, +\infty) \cap (0, +\infty) \setminus \{x\} = (a, +\infty) \setminus \{x\} \neq \emptyset $ e se $ a < 0 $, $ (a, +\infty) \cap (0, +\infty) \setminus \{x\} = (0, +\infty) \setminus \{x\} \neq \emptyset $. \\
+Se $ A = (-\infty, 0) $ l'unico aperto contenuto in $ A $ è $ \emptyset $; i chiusi che contengono $ A $ sono le semirette $ (-\infty, b) $ con $ b \geq 0 $ ed $ \R $ e dunque la loro intersezione è $ (-\infty, 0] $; se $ x \in (-\infty, 0) $ gli intorni aperti di $ x $ sono $ (a, +\infty) $ con $ a < x $ e $ \R $: nel primo caso $ (a, +\infty) \cap (-\infty, 0) \setminus \{x\} = (a, 0) \setminus \{x\} \neq \emptyset $ e nel secondo caso $ \R \cap (-\infty, 0) \setminus \{x\} = (-\infty, 0) \setminus \{x\} \neq \emptyset $. \\
+se $ A = \{1, 2, 3\} $ l'unico aperto contenuto in $ A $ è $ \emptyset $; i chiusi che contengono $ A $ sono le semirette $ (-\infty, b] $ con $ b \geq 3 $ ed $ \R $ e quindi la loro intersezione è $ (-\infty, 3] $; se $ x = 1 $ gli intorni aperti di $ x $ sono $ (a, +\infty) $ con $ a < 1 $ ed $ \R $ e quindi $ (a, +\infty) \cap \{1, 2, 3\} \setminus \{1\} = \{2, 3\} \neq \emptyset $, se $ x = 2 $ gli intorni aperti di $ x $ sono $ (a, +\infty) $ con $ a < 2 $ ed $ \R $ e quindi $ (a, +\infty) \cap \{1, 2, 3\} \setminus \{2\} = \{3\} \neq \emptyset $, se $ x = 3 $ gli intorni aperti di $ x $ sono $ (a, +\infty) $ con $ a < 3 $ ed $ \R $ e quindi $ (a, +\infty) \cap \{1, 2, 3\} \setminus \{3\} = \emptyset $.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{c|ccccc}
+    $ A $       &   $ \ouv{A} $    &   $ \clo{A} $    &   $ \fron{A} $   & punti isolati &   $ \der{A} $    \\ \hline\hline
+    $ \{0\} $     &  $ \emptyset $   & $ (-\infty, 0] $ & $ (-\infty, 0) $ &   $ \{0\} $   & $ (-\infty, 0) $ \\
+    $ [0, 1] $    &  $ \emptyset $   & $ (-\infty, 1] $ & $ (-\infty, 1] $ & $ \emptyset $ & $ (-\infty, 1] $ \\
+    $ (0, 1) $    &  $ \emptyset $   & $ (-\infty, 1] $ & $ (-\infty, 1] $ & $ \emptyset $ & $ (-\infty, 1] $ \\
+    $ [0, +\infty) $ & $ (0, +\infty) $ &      $ \R $      & $ (-\infty, 0] $ & $ \emptyset $ &      $ \R $      \\
+    $ (-\infty, 0] $ &  $ \emptyset $   & $ (-\infty, 0] $ & $ (-\infty, 0] $ & $ \emptyset $ & $ (-\infty, 0] $ \\
+    $ (0, +\infty) $ & $ (0, +\infty) $ &      $ \R $      & $ (-\infty, 0] $ & $ \emptyset $ &      $ \R $      \\
+    $ (-\infty, 0) $ &  $ \emptyset $   & $ (-\infty, 0] $ & $ (-\infty, 0] $ & $ \emptyset $ & $ (-\infty, 0] $ \\
+    $ \{1, 2, 3\} $  &  $ \emptyset $   & $ (-\infty, 3] $ & $ (-\infty, 3] $ &   $ \{3\} $   & $ (-\infty, 3) $ \\ \hline
+  \end{tabular}
+  \caption{Esercizio \ref{es:tau_+}.}
+\end{table}
+
+\begin{es}
+  Sia $ (J, \leq) $ un insieme con un ordinamento diretto (i.e. $ \forall x, y \in J, \exists z \in J : x \leq z \wedge y \leq z $). Decidiamo che un aperto in $ J $ è un insieme $ A $ che contiene una semiretta della forma $ \{k \in J : j \leq k\} $ per un $ j \in J $. Sia dunque $ \tau $ la famiglia di tutti tali aperti a cui aggiungiamo $ \emptyset $ e $ J $ stesso. Mostrare che $ \tau $ è una topologia. Questa topologia è di Hausdorff? Quali sono i punti di accumulazione?
+\end{es}
+%
+Per verificare se $ \tau $ è effettivamente una topologia su $ J $ dobbiamo verificare i tre assiomi
+\begin{enumerate}[label = (\roman*)]
+\item $ \emptyset, J \in \tau $.
+\item Gli elementi di $ \tau $ sono l'insieme vuoto, $ J $ e le semirette $ S_j = \{k \in J : j \leq k\} $ con $ j \in J $. Data $ \{A_i\}_{i \in I} $ una famiglia di aperti dobbiamo mostrare che $ A = \bigcup_{i \in I} A_i \in \tau $. Poiché $ \forall j \in J $ vale $ S_j \subseteq J $, se $ \exists i \in I : A_i = J $ allora $ A = J \in \tau $. Se gli $ A_i $ sono tutti vuoti allora anche al loro unione è l'insieme vuoto che è un aperto. Supponiamo quindi senza perdita di generalità che gli $ A_i $ siano tutti delle semirette e di prendere quindi $ A = \bigcup_{j \in I \subseteq J} \{k \in J : j \leq k\} $ ??
+\item Per l'intersezione finita di aperti basta mostrare che l'intersezione di sue aperti $ A_1 \cap A_2 $ con $ A_1, A_2 \in \tau $ è in $ \tau $. Se \emph{wlog} $ A_1 = J $ o $ A_1 = \emptyset $ allora la tesi è ovvia. Supponami quindi che $ A_1 = S_{j_1} $ e $ A_2 = S_{j_2} $. Ma allora $ S_{j_1} \cap S_{j_2} = \{k \in J : j_1 \leq k\} \cap \{k \in J : j_2 \leq k\} $ ??
+\end{enumerate}
+
+\begin{es}
+  Sia $ X $ un insieme e $ \Theta \subseteq \P(X) $. La topologia $ \tau $ generata da $ \Theta $ è la più piccola topologia $ \tau \supseteq \Theta $. Più formalmente definiamo $ \tau $ come l'intersezione di tutte le topologie che contengono $ \Theta $ ovvero \[\tau = \bigcap \{\sigma \supseteq \Theta : \sigma \text{ è topologia in } X\}.\] Mostrare che $ \tau $ è effettivamente una topologia in $ X $.
+\end{es}
+%
+Osserviamo prima di tutto che $ \tau \neq \emptyset $ in quanto la topologia discreta soddisfa le proprietà richieste. Mostriamo ora che $ \tau $ verifica i tre assiomi.
+\begin{enumerate}[label = (\roman*)]
+\item Per ogni $ \sigma $ topologia in $ X $ si ha necessariamente $ \emptyset, X \in \sigma $. Pertanto l'insieme vuoto e $ X $ stanno nell'intersezione.
+\item Sia $ \{A_i\}_{i \in I} $ una famiglia di aperti ovvero $ \forall i \in I : A_{i} \in \tau $. Allora necessariamente gli $ A_i $ appartengono ad ognuna delle topologie $ \sigma $ e quindi a ognuna di esse appartiene l'unione $ A = \bigcup_{i \in I} A_i $ in quanto ognuna di esse è una topologia. Dunque $ A $ appartiene ad ogni $ \sigma $ e quindi anche all'intersezione $ \tau $.
+\item Analogamente se $ A_1, \ldots, A_n \in \tau $ allora appartengono ad ognuna delle $ \sigma $ a cui appartiene quindi anche $ A' = A_1 \cap \ldots \cap A_n $ perché topologie. Dunque $ A' $ appartiene ad ogni $ \sigma $ e quindi anche a $ \tau $.
+\end{enumerate}
+
+\begin{es}
+  Sia $ (X, \tau) $ uno spazio topologico di Hausdorff e siano $ A_n \subseteq X $ sottoinsiemi compatti non vuoti tali che $ \forall n \in \N : A_{n + 1} \subseteq A_n $. Allora $ \bigcap_{n \in \N} A_n \neq \emptyset $. \\
+  Similmente dati compatti $ A_n \subseteq X $ tali che $ \bigcap_{n \in \N} A_n = \emptyset $, mostrare che esiste $ N \in \N : \bigcap_{n \leq N} A_n = \emptyset $.
+\end{es}
+%
+
+Supponiamo per assurdo che $ \bigcap_{n \in \N} A_n = \emptyset $ e sia $ B_n = A_0 \setminus A_n = A_0 \cap A_n^c $ per $ n \geq 1 $. Allora \[\bigcup_{n \in \N} B_n = \bigcup_{n \in \N} (A_0 \cap A_n^c) = A_0 \cap \left(\bigcap_{n \in \N} A_n\right)^c = A_0 \cap (\emptyset)^c = A_0 \cap X = A_0\] e quindi $ A_0 = \bigcup_{n \in \N} B_n $. Osserviamo che poiché gli $ A_n $ per $ n \neq 0 $ sono sottoinsiemi di un compatto e siamo in uno spazio $ T_2 $ allora sono chiusi e quindi i $ B_n $ sono aperti e costituiscono un ricoprimento di $ A_0 $. Per ipotesi $ A_0 \subseteq X $ è un sottoinsieme compatto e quindi esiste un $ m \in \N : A_0 \subseteq \bigcup_{i = 0}^{m} B_{n_{i}} $. Sappiano inoltre che $ \forall n \in \N $ si ha $ A_{n + 1} \subseteq A_n $ e quindi (passando al complementare) che $ B_{n} \subseteq B_{n + 1} $. Se senza perdita di generalità, ordinando la famiglia $ \{B_{n_i}\}_{i = 0}^{m} $ per inclusione, possiamo supporre che $ B_{n_m} $ sia il più grande insieme e che quindi $ B_{n_m} \supseteq B_{n_{m - 1}} \supseteq \ldots \supseteq B_{n_0} $. Ma allora si ha che $ A_0 \subseteq \bigcup_{i = 0}^{m} B_{n_{i}} \subseteq B_{n_m} $ e quindi che $ A_{n_m} = A_0 \setminus B_{n_m} \subseteq B_{n_m} \setminus B_{n_m} = \emptyset $. Ciò è assurdo e dobbiamo quindi concludere che $ \bigcap_{n \in \N} A_n \neq \emptyset $. \\
+\iffalse
+Sia come prima $ B_n = A_0 \setminus A_n $. Allora si ha che $ A_0 = \bigcup_{n \in \N} B_n $ e che $ \exists m \in \N : A_0 \subseteq \bigcup_{i = 0}^{m} B_{n_{i}} $. Allora, passando all'unione finita si ha che \[\bigcup_{n \leq N} B_n = A_0 \setminus \bigcap_{n \leq N} A_n \quad \Rightarrow \quad \bigcap_{n \leq N} A_n = A_0 \setminus \bigcup_{n \leq N} B_n \subseteq \bigcup_{i = 0}^{m} B_{n_{i}} \setminus \bigcup_{n \leq N} B_n\] e quindi preso $ N \geq m $ si ha che $ \bigcap_{n \leq N} A_n = \emptyset $. \\
+\fi
+\\
+\emph{Soluzione 2 (se $ X $ è spazio metrico} Poiché gli $ A_n $ sono non vuoti esiste una successione $ (x_n)_{n \in \N} $ tale che $ \forall n \in \N : x_n \in A_n $. Poiché inoltre $ \forall n \in \N : A_{n + 1} \subseteq A_{n} $ si ha in particolare che $ \forall n \in \N : x_n \in A_0 $. Allora $ (x_n) $ è una successione in un compatto e quindi ammette una sotto-successione convergente $ (x_{n_k}) $ a $ x \in A_0 $. \texttt{L'idea è che il punto limite della sotto-successione convergente deve stare nell'intersezione di tutti.}
+
+\begin{es}
+  Supponiamo che lo spazio topologico sia $ T_2 $. Si mostri che ogni sottoinsieme compatto è chiuso.
+\end{es}
+%
+Dimostriamo la contronomiale, ovvero che se $ Y \subset X $ non è chiuso allora $ Y $ non è compatto. \\ Sia $ x \in \clo{Y} \setminus Y $ aderente ad $ Y $. Poiché $ X $ è $ T_2 $ per ogni $ y \in Y $ esistono intorni aperti $ U_y $ di $ y $ e $ V_y $ di $ x $ tali che $ U_x \cap V_y = \emptyset $. Allora $ \{U_y\}_{y \in Y} $ è un ricoprimento di $ Y $ e supponiamo per assurdo che esista un sotto-ricoprimento finito $ \{U_{y_1}, \ldots, U_{y_n}\} $ di $ Y $. Sia quindi $ V = V_{y_1} \cap V_{y_n} $ l'intersezione dei rispettivi intorni di $ x $. $ V $ è un intorno aperto di $ x $ e poiché $ \forall i \in {1, \ldots, n}, V_{y_i} \cap U_{y_i} = \emptyset $ e $ Y \subseteq U_{y_1} \cup \ldots \cup U_{y_n} $ si ha che $ V \cap Y = \emptyset $ contro l'ipotesi che $ x $ fosse aderente ad $ Y $.
+
+\begin{es}
+  Siano $ (X, \tau) $ e $ (Y, \sigma) $ spazi topologici con $ X $ compatto e $ Y $ uno spazio $ T_2 $. Sia $ f \colon X \to Y $ continua e iniettiva. Si mostri che $ f $ è un omeomorfismo fra $ X $ e la sua immagine $ f(X) $.
+\end{es}
+%
+Chiaramente dato che $ f $ è suriettiva sulla sua immagine $ f(X) $ ed è iniettiva per ipotesi allora $ f \colon X \to f(X) $ è biettiva ed è continua. Affinché $ f $ sia un omeomorfismo tra $ X $ e $ f(X) $ dobbiamo mostrare che $ f^{-1} \colon f(X) \to X  $ è continua ovvero che se C è un chiuso in $ X $, ovvero $ C^c \in \tau $, allora $ (f^{-1})^{-1}(C) = f(C) $ è chiuso in $ f(X) $, ovvero $ (f(C))^c \in \sigma \cap f(X) $. Infatti $ C \subset X $ è chiuso in un compatto allora anche $ C $ è compatto e pertanto, poiché $ f $ è continua,  anche $ f(C) $ è compatto in $ f(X) $ per i noti teoremi. Ma allora per quanto dimostrato nell'esercizio precedente $ f(C) $ ($ f(C) \subseteq f(X) \subseteq Y $ e $ Y $ è di Hausdorff) è chiuso in $ f(X) $.
+
+\begin{es}
+  Lo spazio $ X $ è sconnesso se e solo se è l'unione disgiunta di due chiusi non vuoti
+\end{es}
+%
+$ (X, \tau) $ è sconnesso se e solo se $ \exists A, B \in \tau: (A, B \neq \emptyset) \wedge (A \cap B = \emptyset) \wedge (X = A \cup B) $. Se ora $ A $ e $ B $ sono due chiusi, passando la definizione al complementare abbiamo che $ (X, \tau) $ è sconnesso se e solo se $ \exists A^c, B^c \in \tau : (A^c, B^c \neq \emptyset) \wedge (A^c \cap B^c = \emptyset) \wedge (X = A^c \cup B^c) \iff (A, B \neq \emptyset) \wedge (A \cup B = \emptyset^c = X) \wedge (A \cap B = X^c = \emptyset) $ ovvero esistono due chiusi non vuoti disgiunti la cui unione è $ X $.
+
+\begin{es}
+  Un sottoinsieme $ E \subseteq X $ non vuoto è sconnesso se $ E $ è coperto dall'unione di due chiusi, ciascuno dei quali interseca $ E $, ma che sono disgiunti in $ E $.
+\end{es}
+%
+Per definizione di sottoinsieme connesso sappiamo che la tesi vale per gli aperti, ovvero $ E \subseteq X $ non vuoto è sconnesso se \[\exists A, B \in \tau : (E \subseteq A \cup B) \wedge (A \cap E \neq \emptyset \wedge B \cap E \neq \emptyset) \wedge (A \cap B \cap E = \emptyset)\] Se ora $ A $ e $ B $ sono dei chiusi si ha, passando al complementare che $ \exists A^c, B^c \in \tau : (E \subseteq A^c \cup B^c) \wedge (A^c \cap E \neq \emptyset \wedge B^c \cap E \neq \emptyset) \wedge (A^c \cap B^c \cap E = \emptyset) $ da cui otteniamo che $ \exists A^c, B^c \in \tau : (E^c \supseteq A \cap B) \wedge (A \setminus E \neq X \wedge B \setminus E \neq X) \wedge (E \setminus A \cup B = \emptyset) $. Ma allora $ A \cap B \subseteq E^c \iff A \cap B \cap E = \emptyset $, $ E \setminus A \cup B = \emptyset \iff E \subseteq A \cup B $
+
+\begin{es}
+  $ X $ è sconnesso se e solo se $ \exists A, B \subset X $ non vuoti la cui unione copre $ X $ ma tali che $ A \cap \clo{B} = \clo{A} \cap B = \emptyset $.
+\end{es}
+%
+
+\begin{es}
+  Supponiamo che $ E \subseteq X $ sia sconnesso. Possiamo supporre che \[\exists A, B \in \tau : (E \cap A \neq \emptyset) \wedge (E \cap B \neq \emptyset) \wedge (E \subseteq A \cup B) \wedge (A \cap B = \emptyset)\] ossia che esistano due aperti disgiunti che intersecano $ E $ e che $ E $ sia coperto dalla loro unione?
+\end{es}
+%
+
+\begin{es}
+  Sia $ I $ una famiglia di indici. Si mostri che se $ E_i $ è una famiglia di sottoinsiemi connessi di $ X $ tali che $ \bigcap_{i \in I} E_i \neq \emptyset $ allora $ E = \bigcup_{i \in I} E_i $ è connesso.
+\end{es}
+%
+Supponiamo per assurdo che $ \bigcup_{i \in I} E_i $ sia sconnessa. Allora esistono $ A, B \in \tau $ tali che $ \bigcup_{i \in I} E_i \subseteq A \cup B $ che intersecano $ E $ ($ A \cap \left(\bigcup_{i \in I} E_i\right) \neq \emptyset $, $ B \cap \left(\bigcup_{i \in I} E_i\right) \neq \emptyset $) disgiunti in $ E $, ossia $ A \cap B \cap \left(\bigcup_{i \in I} E_i\right) = \emptyset $. Poiché $ \bigcap_{i \in I} E_i \neq \emptyset $ si ha che $ \exists x \in \bigcap_{i \in I} E_i $ e senza perdita di generalità $ x \in A $. Poiché $ B $ è non vuoto prendiamo un $ y \in B $; allora $ \exists i \in I : y \in E_i $. Chiaramente anche $ x \in E_i $ (in quanto appartiene all'intersezione) e quindi $ A \cap E_i \neq \emptyset $ e $ B \cap E_i \neq \emptyset $. Ciò è assurdo perché abbiamo trovato due $ A, B \in \tau $ che hanno intersezione non vuota con $ E_i $ disgiunti in $ E_i $ ($ A \cap B \cap \left(\bigcup_{i \in I} E_i\right) = \emptyset  \iff \bigcup_{i \in I} (A \cap B \cap E_i) = \emptyset \iff \forall i \in I : A \cap B \cap E_i = \emptyset$), ovvero abbiamo dedotto che $ E_i $ è sconnesso contro le ipotesi. Concludiamo quindi che $ E = \bigcup_{i \in I} E_i $ è connesso. \\
+Dato $ x \in X $ ricordiamo che la \emph{componente connessa} di $ x $ in $ X $ è l'unione di tutti i connessi che contengono $ x $. Il risultato appena dimostrato mostra che la componente connessa è per l'appunto un connesso.
+
+\begin{es}
+  Si mostri che due componenti connesse o sono disgiunte o coincidono. Dunque lo spazio $ X $ si partiziona in componenti connesse.
+\end{es}
+%
+Fissiamo $ x, y \in X $. Siano $ \{C_i(x)\}_{i \in I} $ e $ \{C_j(y)\}_{j \in J} $ due famiglie di connessi tali che $ \forall i \in I : x \in C_i(x) $ e $ \forall j \in J : y \in C_j(y) $. Siano quindi $ C(x) = \bigcup_{i \in I} C_i(x) $ e $ C(y) = \bigcup_{j \in J} C_j(y) $ due componenti connesse rispettivamente di $ x $ in $ X $ e di $ y $ in $ X $. Vogliamo mostrare che si ha o che $ C(x) = C(y) $ o che $ C(x) \cap C(y) = \emptyset $. Supponiamo che $ \exists z \in C(x) \cap C(y) $. Allora $ z \in C(x) $ e quindi $ C(x) $ è un connesso che contiene $ x $ e pertanto, indicando con $ C(z) $ la componente connessa di $ z $ in $ X $, abbiamo che $ C(x) \subseteq C(z) $; ma allora anche $ x \in C(z) $ che è un connesso quindi $ C(z) \subseteq C(x) $. Dunque $ C(x) = C(z) $ e applicando lo stesso ragionamento deduciamo che $ C(y) = C(z) $. Concludiamo quindi che se $ C(x) $ e $ C(y) $ hanno intersezione non vuota allora $ C(x) = C(y) $.
+
+\begin{es}
+  Sia $ C \subseteq X $ un insieme chiuso e sia $ K $ un componente connessa di $ C $. Si mostri che $ K $ è chiuso.
+\end{es}
+%
+Sia $ c \in C $ e $ K = \bigcup_{i \in I} K_i $ una componente connessa di $ c $ in $ C $, i.e. $ \forall i \in I : c \in K_i $ e $ K_i $ è connesso. Da un lato sappiamo che $ K \subseteq \clo{K} $ e che se $ K $ è connesso anche $ \clo{K} $ è connesso. Poiché $ c \in K $ allora anche $ c \in \clo{K} $ e quindi $ \clo{K} $ è un connesso che contiene $ c $. Per la massimalità di $ K $ deve quindi essere $ \clo{K} \subseteq K $. Concludiamo che $ K = \clo{K} $, ovvero $ K $ è chiuso. \\
+\texttt{Dove si usa che $ C $ è chiuso??}
+
+\begin{es}
+  Sia $ (X, d) $ uno spazio metrico dove le palle aperte $ B(x, r) $ sono ancora chiuse. Si dimostri che le componenti connesse di $ X $ sono tutti e soli i singoletto $ \{x\} $. \\
+  Un tale spazio è detto totalmente disconnesso.
+\end{es}
+%
+??
+
+\begin{es}
+  Sia $ \mathcal{B} $ una base per una topologia $ \tau $ su $ X $. Mostrare che, dato $ x \in X $, $ \{B \in \mathcal{B} : x \in B\} $ è un sistema fondamentale di intorni di $ x $.
+\end{es}
+%
+Sia $ U \in \tau : x \in U $ un intorno di $ x $. Poiché $ \mathcal{B} $ è una base per $ \tau $, $ U = \bigcup B $ con $ B \in \mathcal{B} $ e quindi $ \exists B : x \in B $. Allora la famiglia $ \{B \in \mathcal{B} : x \in B\} $ di intorni di $ x $ è un sistema fondamentale di intorni in quanto ogni intorno $ U $ di $ x $ contiene almeno un elemento di $ \{B \in \mathcal{B} : x \in B\} $.
+
+\begin{es}
+  Sia $ \mathcal{B} $ una base per un topologia $ \tau $ su $ X $. Allora valgono le seguenti proprietà:
+  \begin{enumerate}
+  \item $ X = \bigcup_{B \in \mathcal{B}} B $, cioè $ X $ è l'unione di tutti gli elementi della base;
+  \item dati $ B_1, B_2 \in \mathcal{B} $, per ogni $ x \in B_1 \cap B_2 $ esiste un $ B_3 \in \mathcal{B} $ tale che $ x \in B_3 \subseteq B_1 \cap B_2 $.
+  \end{enumerate}
+  Viceversa sia $ X $ un insieme e $ \mathcal{B} $ una famiglia di sottoinsiemi di $ X $ che verifica le proprietà 1. e 2. Sia $ \tau $ la più piccola topologia che contiene $ \mathcal{B} $, i.e. la topologia generata da $ \mathcal{B} $. Si verifichi che $ \mathcal{B} $ è una base per $ \tau $.
+\end{es}
+%
+Per la prima parte abbiamo che:
+\begin{enumerate}
+\item Poiché $ \mathcal{B} \subseteq \tau \subseteq \P(X) $, gli elementi di $ \mathcal{B} $ sono sottoinsiemi di $ X $. Dunque $ x \in \bigcup_{B \in \mathcal{B}} B \Rightarrow \exists B \in \mathcal{B} : x \in B \subseteq X \Rightarrow x \in X $. D'altra parte se $ x \in X $, poiché $ \{B \in \mathcal{B} : x \in B\} $ è un sistema fondamentale di intorni di $ x $, $ \exists B \in \mathcal{B} : x \in B $ e quindi $ x \in \bigcup_{B \in \mathcal{B}} B $. Dunque $ X = \bigcup_{B \in \mathcal{B}} B $.
+\item $ B_1 \cap B_2 $ è un aperto in $ \tau $ (intersezione finita di aperti), allora $ B_1 \cap B_2 = \bigcup_{B_i \in \mathcal{B}} B_i $. Pertanto se $ x \in B_1 \cap B_2 $, esiste $ B_3 \subseteq B_1 \cap B_2 $ tale che $ x \in B_3 $.
+\end{enumerate}
+Per il viceversa sia $ \sigma = \left\{\bigcup_{i \in I} B_i : \{B_i\}_{i \in I} \subseteq \mathcal{B}\right\} $ l'insieme di tutte le possibili unioni degli elementi di $ \mathcal{B} $, con la convenzione che se $ \bigcup_{i \in \emptyset} B_i = \emptyset $. Osserviamo che $ \sigma \subseteq \tau $ in quanto $ \sigma $ è formato da unione di aperti in $ \tau $ che sono aperte in $ \tau $. Si ha
+\begin{enumerate}[label= (\roman*)]
+\item $ X \in \sigma $ per la 1. e $ \emptyset \in \sigma $ per definizione ($ I = \emptyset $).
+\item Se $ \{A_j\}_{j \in J} \subseteq \sigma $ allora $ A_j = \bigcup_{i \in I_j} B_{i, j} $ da cui $ \bigcup_{j \in J} A_j = \bigcup_{j \in J} \bigcup_{i \in I_j} B_{i, j} $ che è in $ \sigma $.
+\item Se $ A_1, A_2 \in \sigma $ allora $ A_1 = \bigcup_{i \in I} B_{i} $ e $ A_2 = \bigcup_{j \in J} B_{j} $. Osserviamo che $ B_{i} \cap B_{j} \in \sigma $ in quanto per il punto 2. $ \forall x \in B_{i} \cap B_{j}, \exists B_x \in \mathcal{B} : x \in B_x \subseteq B_{i} \cap B_{j} $ e quindi $ B_{i} \cap B_{j} = \bigcup_{x \in B_{i} \cap B_{j}} B_x \in \sigma $. Dunque $ A_1 \cap A_2 = (\bigcup_{i \in I} B_{i}) \cap (\bigcup_{j \in J} B_{j}) = \bigcup_{\substack{i \in I \\ j \in J}} (B_{i} \cap B_{j}) \in \sigma $.
+\end{enumerate}
+Dunque $ \sigma $ è una topologia tale che $ \mathcal{B} $ è una sua base. Inoltre $ \mathcal{B} \subseteq \sigma $ e per la minimalità di $ \tau $ dobbiamo concludere che $ \sigma = \tau $. Dunque $ \mathcal{B} $ è una base per $ \tau $.
+
+\begin{es}
+  Sia $ (X, \tau) $ uno spazio topologico che soddisfa il secondo assioma di numerabilità (i.e. $ X $ ammette una base per $ \tau $ numerabile). Se $ A \subseteq X $ è composto da solo punti isolati allora $ A $ ha cardinalità numerabile o finita.
+\end{es}
+%
+\texttt{Non funziona molto bene, come scelgo i $ B_n $? potrebbe esserci più di un $ B_n $ che contiene $ x $... assioma della scelta numerabile?}\\
+Sia $ \mathcal{B} = \{B_n\}_{n \in \N} $ base numerabile per $ \tau $. Poiché $ A $ è formato da punti isolati $ x \in A \iff \exists n \in \N : x \in B_n : B_n \cap A = \{x\} $. Consideriamo la seguente funzione $ f \colon A \to \N $ che a $ x \in A $ associa $ n \in \N : x \in B_n \wedge B_n \cap A = \{x\} $. Tale funzione è ben definita ed è iniettiva. Infatti se $ x, y \in A $ con $ x \neq y $, posto $ n = f(x) $ e $ m = f(y) $, si ha $ B_n \cap A \neq B_m \cap A \iff B_n \neq B_m \iff n \neq m $ (se $ \card{\mathcal{B}} = \card{\N} $ esiste una corrispondenza biunivoca tra $ n $ e $ B_n $). Concludiamo quindi che $ \card{A} \leq \card{\N} $.

@@ -1,0 +1,316 @@
+\begin{es}
+  Sia $ (T, \leq) $ un insieme totalmente ordinato e $ X $ un insieme. Data una famigli di inisemi $ \{A_t\}_{t \in T} $ con $ A_i \subset X $, si definiscano $ B_t = \bigcap_{s \geq t} A_s $, $ C_t = \bigcup_{s \geq t} A_s $ e successivamente \[\limsup_{t \in T} A_t = \bigcup_{t \in T} B_t \qquad \liminf_{t \in T} A_t = \bigcap_{t \in T} C_t.\]\\
+  Si mostri che
+  \begin{enumerate}
+  \item la funzione $ f \colon (T, \leq) \to (\P(X), \subseteq) $ tale che $ f(t) = B_t $ è crescente e che $ g \colon (T, \leq) \to (\P(X), \subseteq) $ tale che $ g(t) = C_t $ è decrescente;
+  \item $ (\limsup_{t \in T} A_t^1) \cup (\limsup_{t \in T}A_t^2) \subseteq \limsup_{t \in T} (A_t^1 \cup A_t^2) $;
+  \item $ \limsup_{t \in T} (A_t^1 \cap A_t^2) \subseteq (\limsup_{t \in T} A_t^1) \cap (\limsup_{t \in T}A_t^2) $;
+  \item $ \liminf_{t \in T} A_t^c = (\limsup_{t \in T} A_t)^c $;
+  \item $ \limsup_{t \in T} A_t \subseteq \liminf_{t' \in T} A_{t'} $;
+  \item se $ T $ ha massimo allora $ \limsup_{t \in T} A_t = \liminf_{t \in T} A_t $.
+  \end{enumerate}
+  Fornire, se esiste, un esempio dove $ \limsup_{t \in T} A_t \neq \liminf_{t \in T} A_t $. Nel caso in cui $ T = \N $, come si possono definire a parole $ \liminf $ e $ \limsup $ di famiglie di insiemi?
+\end{es}
+
+
+Mostriamo prima i seguenti risultati che ci saranno utili nella risoluzione dell'esercizio
+
+\begin{lemma}
+  Vale $ \bigcap_{i \in I \cup J} A_i = \left (\bigcap_{i \in I} A_i \right ) \cap \left (\bigcap_{i \in J} A_i \right ) $. Formula analoga vale per le'unione.
+\end{lemma}
+\begin{proof}
+  Mostriamo l'uguaglianza insiemistica facendo uso dell'Assioma di estensionalità.
+  \begin{align*}
+    x \in \bigcap_{i \in I \cup J} A_i \iff (\forall i : (i \in I \cup J) \Rightarrow x \in A_i ) \iff (\forall i : (i \in I \vel i \in J) \Rightarrow x \in A_i ) \\
+    x \in \left (\bigcap_{i \in I} A_i \right ) \cap \left (\bigcap_{i \in J} A_i \right ) \iff  (\forall i : (i \in I) \Rightarrow x \in A_i) \wedge (\forall i : (i \in J) \Rightarrow x \in A_i)
+  \end{align*}
+  Le due ultime proposizioni logiche sono in realtà equivalenti, ricordando infatti la definizione di implicazione $ (a \Rightarrow b) \iff (\neg a) \vel b $, si ha
+  \[((p \vel q) \Rightarrow r) \iff (\neg (p \vel q)) \vel r \iff (\neg p \wedge \neg q) \vel r \iff (\neg p \vel r) \wedge (\neg q \vel r) \iff (p \Rightarrow r) \wedge (q \Rightarrow r) \qedhere\]
+\end{proof}
+
+\begin{lemma}
+  Vale $ \forall i \in I : A_i \subseteq B_i \Rightarrow \bigcup_{i \in I} A_i \subseteq \bigcup_{i \in I} B_i $. Regola analoga vale per l'intersezione e dunque anche per l'uguaglianza.
+\end{lemma}
+\begin{proof}
+  Sia $ x \in A_i $. Per ipotesi sappiamo che $ \forall i \in I: (x \in A_i) \Rightarrow (x \in B_i) $. Ma allora se $ y \in \bigcup_{i \in I} A_i $ vuol dire che $ \exists i \in I : y \in A_i $ e quindi per ipotesi $ \exists i \in I : y \in B_i $, ovvero $ (y \in \bigcup_{i \in I} A_i) \Rightarrow (y \in \bigcup_{i \in I} B_i)  $ da cui segue la tesi per definizione di inclusione.
+\end{proof}
+
+\begin{lemma}
+  Vale $ 	(A_1 \subseteq B) \wedge (A_2 \subseteq B) \Rightarrow (A_1 \cup A_2) \subseteq B $.
+\end{lemma}
+\begin{proof}
+  Se $ x \in A_1 $ allora in particolare è anche in $ A_1 \cup A_2 $ e quindi per ipotesi è in $ B $; se $ y \in A_2 $ allora in particolare è anche in $ A_1 \cup A_2 $ e quindi per ipotesi è in $ B $. Dunque ogni elemnto di $ A_1 \cup A_2 $ è in $ B $.
+\end{proof}
+
+Passiamo quindi all'esercizio.
+\begin{enumerate}
+\item Per mostrare che $ f(t) $ è crescente dobbiamo verificare che $ \forall m, n \in T : m \leq n \Rightarrow B_m \subseteq B_n $. Si ha infatti \[B_m = \bigcap_{s \geq m} A_s = \left( \bigcap_{s \geq n} A_s \right ) \cap \left( \bigcap_{n > s \geq m} A_s \right ) = B_n \cap \left( \bigcap_{n > s \geq m} A_s \right ) \] dove il secondo passaggio è giustificato per il \textsc{Lemma 2.1}. Concludiamo quindi che $ B_m \subseteq B_n $ e dunque che $ f $ è crescente. \\
+  Dimostrazione analoga vale per $ g(t) $.
+\item Riscriviamo la tesi passando pe la definizione di $ \limsup $. Vogliamo mostrare quindi che \[\bigcup_{t \in T} B_t^1 \cup \bigcup_{t \in T} B_t^2 \subseteq \bigcup_{t \in T} B_t^{*}\] dove abbiamo definito $ B_t^{*} = \bigcap_{s \geq t} (A_t^1 \cup A_t^2) $. In virtù del \textsc{Lemma 2.2} sarà sufficiente mostrare che $ \forall t \in T $ vale $ B_t^1 \cap B_t^2 \subseteq B_t^{*} $, ovvero passando alla definizione di $ B_t $ equivale a mostrare che $ \forall t \in T $ vale \[\bigcap_{s \geq t} A_s^1 \cup \bigcap_{s \geq t} A_s^2 \subseteq \bigcap_{s \geq t} (A_s^1 \cup A_s^2).\] Sfruttando il \textsc{Lemma 2.3} ci basta mostrare che \[\bigcap_{s \geq t} A_s^1 \subseteq \bigcap_{s \geq t} (A_s^1 \cup A_s^2)\] \[\bigcap_{s \geq t} A_s^2 \subseteq \bigcap_{s \geq t} (A_s^1 \cup A_s^2)\] che sono sempre verificate in quanto $ \forall s \; A_s^1 \subseteq (A_s^1 \cup A_s^2) $ (analogo per $ A_s^2 $) e tale relazione passa all'intersezione per quanto dimostrato nel \textsc{Lemma 2.2}. Ripercorrendo le implicazioni appena mostrare concludiamo dunque che \[(\limsup_{t \in T} A_t^1) \cup (\limsup_{t \in T}A_t^2) \subseteq \limsup_{t \in T} (A_t^1 \cup A_t^2).\]
+\item Per l'intersezione la dimostrazione analoga (\textsf{si sviluppanpo le definizioni e usando lemma 2.2 e lemma 2.3 ci si rionduce ad inclusioni ovvie}).
+\item Passando alla definizione di $ \liminf $ e $ \limsup $ dobbiamo mostrare che \[\bigcap_{t \in T} C_t^{*} = \left (\bigcup_{t \in T} B_t \right )^c = \bigcap_{t \in T} B_t^{c}\] dove $ C_t^{*} = \bigcup_{t \in T} A_t^c $ e nell'ultima uguaglianza abbiamo usato la formula di \textsc{De Morgan}. Per il \textsc{Lemma 2.2} ci basta mostare quindi che $ C_t^{*} = B_t^c $ ovvero, usando la definizione \[\bigcup_{t \in T} A_t^c = \left (\bigcap_{t \in T} A_t \right )^c = \bigcup_{t \in T} A_t^{c}\] dove abbiamo fatto nuovamente uso delle formule di De Morgan. L'ultima relazione è sempre verificata e concludiamo quindi che \[\liminf_{t \in T} A_t^c = (\limsup_{t \in T} A_t)^c.\]
+\item Prima di tutto mostriamo che si ha \[\bigcap_{s \geq t} A_s \subseteq \bigcup_{s \geq t'} A_s.\] Sia infatti $ x \in \bigcap_{s \geq t} A_s $, ovvero $ \forall s \in T : s \geq t \Rightarrow x \in A_s $: se $ t' \geq t $, siccome per $ s \geq t $ si ha $ x \in A_s $ basterà prendere $ s \geq t' \geq t $ e si avrà $ x \in \bigcup_{s \geq t'} A_s  $ (in quanto $ \exists s \in T: s \geq t' \Rightarrow x \in A_s $); se invece $ t \geq t' $ basterà prendere $ s \geq t \geq t' $ e si avrà $ x \in \bigcup_{s \geq t'} A_s  $.\\
+  Ma allora per definizione si ha che $ \forall t \in T , \forall t' \in T $ si ha $ B_t \subseteq C_t' $ da cui deduciamo banalmente che $ \forall t \in T $ \[B_t \subseteq \bigcap_{t' \in T} C_t\] che per il \textsc{Lemma 2.2} implica che \[\bigcup_{t \in T} B_t \subseteq \bigcap_{t' \in T} C_t\] che è equivalente alla tesi \[\limsup_{t \in T} A_t \subseteq \liminf_{t' \in T} A_{t'}.\]
+\item Sia $ t_0 = \max T $. Allora per $ \forall t \in T $ si ha \[B_t = \bigcap_{s \geq t} A_s \subseteq A_{t_0} \quad \mathrm{e} \quad C_t = \bigcup_{s \geq t} A_s \supseteq A_{t_0}.\] Inoltre poiché risulta $ B_{t_0} = \bigcap_{s \geq t_0} A_s = A_{t_0} $ e i $ B_t $ sono una famiglia di insiemi crescenti e ordinati per inclusione (per quanto mostrato nel punto 1) risulta $ \limsup_{t \in T} A_t = \bigcup_{t \in T} B_t = B_{t_0} = A_{t_0} $. D'altro canto risulta $ C_{t_0} = \bigcup_{s \geq t_0} A_s = A_{t_0} $ e i $ C_t $ sono una famiglia di insiemi decrescenti e ordinati per inclusione (per quanto dimostrato al punto 1); pertanto $ \liminf_{t \in T} A_t = \bigcap_{t \in T} C_t = C_{t_0} = A_{t_0} $. Concludiamo quindi che se $ T $ ha massimo $ t_0 $ si ha \[\limsup_{t \in T} A_t = \liminf_{t \in T} A_t = A_{t_0}\]
+\end{enumerate}
+Nel caso di $ T = \N $ possiamo definire a parole
+\begin{align*}
+  \limsup_{n \in \N} A_n & = \{\text{gli $ x $ che sono definitivamente in $ A_n $}\} = \\
+                         & = \{x \in X : \exists n_0 : \forall n \geq n_0 \; x \in A_n\} \\
+                         & \\
+  \liminf_{n \in \N} A_n & = \{\text{gli $ x $ che sono frequentemente in $ A_n $}\} = \\
+                         & = \{x \in X : \forall n_0 : \exists n \geq n_0 \; x \in A_n\}\\
+\end{align*}
+
+\textcolor{red}{Hint Bindini -  Le definizioni sono scambiate rispetto alla consueta definizione per numeri reali, infatti si vede dal risultato del punto 5. Per costruire esempi simili a quelli delle successioni ragiona così: qual è la caratteristica importante della successione $ (-1)^n $? Il fatto che $ -1 < +1 > -1 < +1 > \ldots $ Qui però la relazione d'ordine non è $ < $ dei numeri reali, bensì "contenuto" degli insiemi. Quindi cerca di costruire $ \{A_n\} $ tali che $ A_1 < A_2 > A_3 < A_4 > \ldots $ (dove "$ < $" sta per il contenimento) e poi verificare\ldots}
+
+
+\begin{es}
+  Un medagliere olimpico può essere considerato come una collezione di tre funzioni $ o, a, b \colon S \to \N $, dove $ S $ è l'insieme delle nazioni e $ o(s) $, $ a(s) $ e $ b(s) $ sono rispettivamente gli ori, gli argenti e i bronzi olimpici. Vorremmo ora stabilire un possibile ordine tra le nazioni; per fare ciò immaginiamo di avere due principi che devono essere sicuramente veri:
+  \begin{enumerate}[label=(\roman*)]
+  \item Se una nazione $ s_1 $ ha sia più ori, che più argenti che più bronzi, di una nazione $ s_2 $ allora necessariamente $ s_1 $ dovrà stare più alta in classifica di $ s_2 $.
+  \item Se una nazione $ s_1 $ ha un bronzo in meno di $ s_2 $ ma un argento in più e lo stesso numero di ori allora necessariamente $ s_1 $ dovrà stare più alta in classifica di $ s_2 $ (stesso dicasi per un argento in meno ma un oro in più).
+  \end{enumerate}
+  Stabiliremo quindi che una nazione $ s_1 $ è necessariamente più alta in classifica di $ s_2 $ se posso raggiungere la configurazione di medaglie di $ s_1 $ dalla configurazione di $ s_2 $ compiendo solo operazioni di tipo (i), cioè addizioni di medaglie, o di tipo (ii), cioè miglioramento delle medaglie. Mostrare che questo accade se e solo se $ (o(s_1), a(s_1), b(s_1)) \succeq (o(s_2), a(s_2), b(s_2)) $ dove $ (\N^3, \succeq) $ è la relazione d'ordine definita come
+  \[(a, b, c) \succeq (a', b', c') \liff
+    \begin{cases*}
+      a \geq a' \\
+      a + b \geq a' + b' \\
+      a + b + c \geq a' + b' + c' \\
+    \end{cases*}\]
+  Mostrare che questa è effettivamente una relazione d'ordine e che non è totale. Qual è la relazione d'ordine usata normalmente nel definire la classifica nel medagliere? Essa è totale?
+\end{es}
+Dobbiamo mostrare che si ha $ s_1 \geq s_2 \iff (o(s_1), a(s_1), b(s_1)) \succeq (o(s_2), a(s_2), b(s_2)) $; per fare ciò verifichiamo le due implicazioni
+\begin{itemize}[label=$ \Rightarrow $]
+\item Se la (i) è verificata possiamo scrivere che
+  \[\begin{cases*}
+      o(s_1) \geq o(s_2) \\
+      a(s_1) \geq a(s_2) \\
+      b(s_1) \geq b(s_2) \\
+    \end{cases*}\]
+  Sommando la prima alla seconda e la nuova seconda alla terza otteniamo esattamente il sistema che definisce la relazione $ \succeq $ e concludiamo quindi che $ (o(s_1), a(s_1), b(s_1)) \succeq (o(s_2), a(s_2), b(s_2)) $. Se invece si ha $ o(s_1) = o(s_2) $, $ a(s_1) = a(s_2) + 1 $ e $ b(s_1) = b(s_2) - 1 $ ???
+\end{itemize}
+\begin{itemize}[label=$ \Leftarrow $]
+\item ???
+\end{itemize}
+Verifichiamo ora che la relazione $ \succeq $ è effettivamente un relazione d'ordine
+\begin{itemize}
+\item \emph{Riflessiva}: $ \forall (a, b, c) \in \N^3 $ risulta
+  \[\begin{cases*}
+      a \geq a \\
+      a + b \geq a + b \\
+      a + b + c \geq a + b + c \\
+    \end{cases*}\]
+  e quindi $ (a, b, c) \succeq (a, b, c) $.
+\item \emph{Antisimmetrica}: siano $ (a, b, c), (a', b', c') \in \N^3 $ tali che $ (a, b, c) \succeq (a', b', c') \wedge (a', b', c') \succeq (a, b, c) $ ovvero
+  \[\begin{cases*}
+      a \geq a' \\
+      a + b \geq a' + b' \\
+      a + b + c \geq a' + b' + c' \\
+    \end{cases*}
+    \quad \wedge \quad
+    \begin{cases*}
+      a' \geq a \\
+      a' + b' \geq a + b \\
+      a' + b' + c' \geq a + b + c \\
+    \end{cases*}\]
+  Mettendo insieme le prime due equazioni dei sistemi otteniamo $ a = a' $, dalle seconde $ b = b' $ e dalle terza $ c = c' $. Concludiamo quindi che $ (a, b, c) = (a', b', c') $.
+\item \emph{Transitiva}: siano $ (a, b, c), (a', b', c'), (a'', b'', c'') \in \N^3 $ tali che $ (a, b, c) \succeq (a', b', c') \wedge (a', b', c') \succeq (a'', b'', c'') $ ovvero
+  \[\begin{cases*}
+      a \geq a' \\
+      a + b \geq a' + b' \\
+      a + b + c \geq a' + b' + c' \\
+    \end{cases*}
+    \quad \wedge \quad
+    \begin{cases*}
+      a' \geq a'' \\
+      a' + b' \geq a'' + b'' \\
+      a' + b' + c' \geq a'' + b'' + c'' \\
+    \end{cases*}\]
+  Mettendo insieme la prima, la seconda e la terza equazione di ognuno dei due sistemi otteniamo
+  \[\begin{cases*}
+      a \geq a'' \\
+      a + b \geq a'' + b'' \\
+      a + b + c \geq a'' + b'' + c'' \\
+    \end{cases*}\]
+  ovvero $ (a, b, c) \succeq (a'', b'', c'') $.
+\end{itemize}
+Tale relazione d'ordine non è totale: per esempio se le nazioni $ s_1 $ e $ s_2 $ hanno rispettivamente $ (0, 0, 2) $ e $ (1, 0, 0) $ medaglie d'oro, d'argento e di bronzo esse non risultano confrontabili in quanto risulta $ o(s_1) \geq o(s_2) $ ma $ o(s_1) + a(s_1) + b(s_1) \leq o(s_2) + a(s_2) + b(s_2) $.\\
+
+\textcolor{red}{Hint Bindini - Sei sulla buona strada, e ti manca un epsilon per concludere che anche in quel caso (se la (ii) è verificata) allora il sistema è verificato. A questo punto rimane l'implicazione inversa, ovvero: se il sistema è verificato, posso raggiungere la terna più alta a partire dalla terna più bassa compiendo mosse di tipo (i) o (ii).}
+
+\begin{es}
+  Sia $ \Rel $ una relazione su $ A \times A $ riflessiva e transitiva (ma non necessariamente simmetrica). Si definisca la relazione $ \sim_{\Rel}  $ su $ A \times A $ come \[a \sim_{\Rel} a' \liff a \Rel a' \wedge a' \Rel a.\]
+  \begin{enumerate}
+  \item Si mostri che che $ \sim_{\Rel} $ è una relazione di eqivalenza su $ A $, e si chiami $ A_\Rel = \{A_a : a \in A\} $ l'insieme delle sue classi di equivalenza.
+  \item Si mostri che esiste una relazione d'ordine $ \leq_\Rel $ su $ A_\Rel \times A_\Rel $ che è compatibile con $ \Rel $, cioè tale che $ a \Rel a' $ se e solo se $ A_a \leq_\Rel A_{a'} $.
+  \end{enumerate}
+  Questo si può riassumere dicendo che una relazione $ \Rel $ riflessiva e transitiva è una relazione d'ordine, a patto di considerare indistinguibili gli elementi che risultano equivalenti secondo $ \Rel $.
+\end{es}
+\begin{enumerate}
+\item Mostriamo che $ \sim_{\Rel} $ è una relazione di equivalenza verificando che tre proprietà:
+  \begin{itemize}
+  \item \emph{Riflessiva}: per la riflessività di $ \Rel $ sappiamo che $ \forall a \in A : a \Rel a $ e pertanto concludiamo che $ a \sim_{\Rel} a $.
+  \item \emph{Transitiva}: siano $ a, b, c \in A $ tali che $ a \sim_{\Rel} b \wedge b \sim_{\Rel} c $. Allora
+    \begin{align*}
+      a \sim_{\Rel} b \wedge b \sim_{\Rel} c & \iff (a \Rel b \wedge b \Rel a) \wedge (b \Rel c \wedge c \Rel b) \iff \\
+                                             & \iff (a \Rel b \wedge b \Rel c) \wedge (c \Rel b \wedge b \Rel a) \iff \\
+                                             & \Rightarrow a \Rel c \wedge c \Rel a \iff \\
+                                             & \iff a \sim_{\Rel} c
+    \end{align*}
+    l'implicazione è giustificata grazie alla trasitività di $ \Rel $.
+  \item \emph{Simmetrica}: siano $ a, b \in A $ tali che $ a \sim_{\Rel} b $, allora
+    \begin{align*}
+      a \sim_{\Rel} b & \iff a \Rel b \wedge b \Rel a \iff \\
+                      & \iff b \Rel a \wedge a \Rel b \iff \\
+                      & \iff b \sim_{\Rel} a.
+    \end{align*}
+  \end{itemize}
+  Indichiamo quindi con $ A_a = \{b \in A : b \sim_{\Rel} a\} $ le classi di equivalenza di $ a $ modulo $ \sim_{\Rel} $ e con $ A_\Rel $ l'insieme delle classi di equivalenza.
+\item A partire da $ \Rel $ e $ \sim_{\Rel} $ costruiamo la seguente relazione $ \leq_\Rel $ tra le classi di equivalenza tale che $ A_a \leq_\Rel A_{a'} \iff a \Rel a' $. Mostriamo che essa è effettivamente una relazione d'ordine
+  \begin{itemize}
+  \item \emph{Riflessiva}: $ a \Rel a $ per la riflessività di $ \Rel $ implica che $ A_a \leq_\Rel A_a $.
+  \item \emph{Transitiva}: siano $ a, b, c \in A $ tali che $ A_a \leq_\Rel A_b \wedge A_b \leq_\Rel A_c $; per definizione ciò vuol dire che $ a \Rel b \wedge b \Rel c $ che per la transitività di $ \Rel $ implica $ a \Rel c $. Concludiamo quindi che $ A_a \leq_\Rel A_c $.
+  \item \emph{Antisimmetrica}: siano $ a, b \in A $ tali che $ A_a \leq_\Rel A_b \wedge A_b \leq_\Rel A_a $; per definizione abbiamo che $ a \Rel b \wedge b \Rel a $ che implica $ a \sim_\Rel b $. Ma allora $ A_a $ e $ A_b $ erano in realtà la stessa classe di equivalenza ($ A_a =_\Rel A_b $).
+  \end{itemize}
+\end{enumerate}
+
+\begin{es}
+  Sia $ \Rel $ una relazione d'ordine su $ A \times A $ che non sia totale. Dati due elementi $ a, b \in A $ non confrontabili secondo $ \Rel $ (cioè tali che $ (a, b) \notin \Rel $ e $ (b, a) \notin \Rel $), si dimostri che esiste una relazione d'ordine $ \Rel' $ tale che $ \Rel \subseteq \Rel' $ e $ (a, b) \in \Rel' $.
+\end{es}
+% Consideriamo la relazione $ \Rel \cup \{(a, b)\} $; tale relazione gode della proprietà
+% \begin{itemize}
+% \item \emph{riflessiva}: poiché $ \Rel $ è per ipotesi una relazione d'ordine la coppia $ (x, x) \in \Rel \cup \{(a, b)\} $ per ogni $ x \in A $;
+% \item \emph{antisimmetrica}: siano $ x, y \in A $ tali che $ (x, y) \in \Rel \cup \{(a, b)\} \wedge (y, x) \in \Rel \cup \{(a, b)\} $; si presentano tre casi
+%   \begin{itemize}
+%   \item $ (x, y), (y, x) \in \Rel \Rightarrow x = y $, poiché $ \Rel $ è relazione d'ordine;
+%   \item $ (x, y), (y, x) \in \{(a, b)\} $ che è impossibile in quanto implicherebbe $ (x, y) = (a, b) $ e $ (y, x) = (a, b) $ ovvero $ x = y = a = b $ che è assurdo dal momento che per ipotesi $ a \neq b $;
+%   \item $ (x, y) \in \Rel \wedge (y, x) \in \{(a, b)\} $ (o vicevera) che è di nuovo impossibile in quanto la seconda condizione implicherebbe $ x = b $ e $ y = a $ mentre $ (b, a) \notin \Rel $ per ipotesi.
+%   \end{itemize}
+%   Concludiamo quindi che deve essere $ x = y $.
+% \end{itemize}
+% Tuttavia tale relazione non gode della proprietà transitiva e quindi non costituisce una relazione d'ordine.
+Consideriamo i due insiemi
+\[P_a = \{x \in A : x \leq_\Rel a\}\]
+\[S_b = \{x \in A : b \leq_\Rel x\}\]
+e costruiamo la nuova relazione $ \Rel' = \Rel \cup (P_a \times S_b) $ e facciamo vedere che si tratta di una relazione d'ordine che verifica le proprietà richieste.
+\begin{itemize}
+\item Chiaramente per costruzione $ \Rel \subseteq \Rel' $ e la coppia $ (a, b) \in \Rel' $ in quanto $ (a, b) \in P_a \times S_b $ ($ a \in P_a $ e $ b \in P_b $ per la riflessività di $ \Rel $).
+\item \emph{Riflessiva}: poiché $ \Rel $ è per ipotesi una relazione d'ordine la coppia $ (x, x) \in \Rel' = \Rel \cup (P_a \times S_b) $ per ogni $ x \in A $ ($ (x, x) \notin P_a \times S_b $ altrimenti $ a $ e $ b $ sarebbero confrontabili secondo $ \Rel $).
+\item \emph{Antisimmetrica}: siano $ x, y \in A $ tali che $ (x, y) \in \Rel \cup (P_a \times S_b) \wedge (y, x) \in \Rel \cup (P_a \times S_b) $; si presentano tre casi
+  \begin{itemize}
+  \item $ (x, y), (y, x) \in \Rel \Rightarrow x = y $, poiché $ \Rel $ è relazione d'ordine;
+  \item $ (x, y), (y, x) \in P_a \times S_b $ conduce ad un assurdo in quanto ciò implicherebbe $ x \leq_\Rel a \wedge b \leq_\Rel y $ e $ y \leq_\Rel a \wedge b \leq_\Rel x $ che messe insieme danno $ b \leq_\Rel a $, ovvero $ (a, b) \in \Rel $;
+  \item $ (x, y) \in \Rel \wedge (y, x) \in P_a \times S_b $ (o vicevera) è di nuovo un assurdo in quanto la prima condizione implicherebbe $ x \leq_\Rel y $ e quindi si avrebbe $ b \leq_\Rel x \leq_\Rel y \leq_\Rel a \Rightarrow b \leq_\Rel a $.
+  \end{itemize}
+  Concludiamo quindi che deve essere $ x = y $.
+\item \emph{Transitiva}: siano $ x, y, x \in A $ tali che $ (x, y) \in \Rel \cup (P_a \times S_b) \wedge (y, z) \in \Rel \cup (P_a \times S_b) $; si presentano di nuovo tre casi
+  \begin{itemize}
+  \item $ (x, y), (y, z) \in \Rel \Rightarrow (x, z) \in \Rel \subseteq \Rel' $ per la transitività di $ \Rel $;
+  \item $ (x, y), (y, z) \in P_a \times S_b $ conduce ad un assurdo in quanto si avrebbe $ b \leq_\Rel y \leq_\Rel a $;
+  \item $ (x, y) \in \Rel \wedge (y, z) \in P_a \times S_b $ (o viceversa) vuol dire che $ x \leq_\Rel y \wedge y \leq_\Rel a \wedge b \leq_\Rel z \Rightarrow x \leq_\Rel a $ ovvero $ x \in P_a $; dunque la coppia $ (x, y) \in P_a \times S_b \subseteq \Rel' $.
+  \end{itemize}
+  In ogni caso deduciamo che $ (x, z) \in \Rel' $.
+\end{itemize}
+
+\begin{es}
+  Data $ f \colon X \to Y $ possiamo definire $ f \colon \P(X) \to \P(Y) $ e $ f^{-1} \colon \P(Y) \to \P(X) $ nel seguente modo: dati $ A \subseteq X $ e $ B \subseteq Y $:
+  \[f(A) = \{y \in Y : \exists a \in A : f(a) = y\} \qquad f^{-1}(B) = \{x \in X : f(x) \in B.\}\]
+  Diremo che $ f(A) $ è l'immagine di $ A $ mentre $ f^{-1}(B) $ è la controimmagine di $ B $. Mostrare che
+  \begin{enumerate}
+  \item Dati $ A_i \subseteq X $, si ha $ \bigcup_{i \in I} f(A_i) = f \left (\bigcup_{i \in I} A_i \right ) $. Vale lo stesso per le intersezioni?
+  \item Dai $ B_i \subseteq Y $ si ha \[ \bigcup_{i \in I} f^{-1}(B_i) = f^{-1} \left (\bigcup_{i \in I} B_i \right ) \quad \text{e} \quad \bigcap_{i \in I} f^{-1}(B_i) = f^{-1} \left (\bigcap_{i \in I} B_i \right ).\]
+  \item Si ha $ A \subseteq f^{-1}(f(A)) $. Trovare una condizione su $ f $ per cui valga sempre l'uguaglianza.
+  \item Si ha $ f(f^{-1}(B)) \subseteq B $. Trovare una condizione su $ f $ per cui valga sempre l'uguaglianza.
+  \end{enumerate}
+\end{es}
+%
+Segue la soluzione
+\begin{enumerate}
+\item Mostriamo l'uguaglianza per mezzo dell'\textsc{Assioma di estensionalità}. Dato un $ y \in Y $ si ha
+  \begin{align*}
+    y \in \bigcup_{i \in I} f(A_i) & \iff \exists i \in I : y \in f(A_i) \iff \\
+                                   & \iff \exists i \in I : \exists a \in A_i : f(a) = y \iff \\
+                                   & \iff \exists a \in \bigcup_{i \in I} A_i : f(a) = y \iff \\
+                                   & \iff y \in f \left (\bigcup_{i \in I} A_i \right )
+  \end{align*}
+  da cui segue banalmente la tesi. Per quanto riguarda l'intersezione non è più vero: si consideri $ f \colon \R \to \R $, $ f(x) = x^2 $; allora $ f([-2, 1]) \cap f([-1, 2]) = [0, 4] \cap [0, 4] = [0, 4] $ e $ f([-2, 1] \cap [-1, 2]) = f([-1, 1]) = [0, 1] $. Tuttavia risulta che $ f \left (\bigcap_{i \in I} A_i \right ) \subseteq \bigcap_{i \in I} f(A_i) $.
+\item Mostriamo l'uguaglianza per mezzo dell'\textsc{Assioma di estensionalità}. Dato $ x \in X $ si ha:
+  \begin{align*}
+    x \in \bigcup_{i \in I} f^{-1}(B_i) & \iff \exists i \in I : x \in f^{-1}(B_i) \iff \\
+                                        & \iff \exists i \in I : f(x) \in B_i \iff \\
+                                        & \iff f(x) \in \bigcup_{i \in I} B_i \iff \\
+                                        & \iff x \in f^{-1} \left (\bigcup_{i \in I} B_i \right )
+  \end{align*}
+  da cui segue banalmente la tesi. Lo stesso vale per l'intersezione e la dimostrazione è analoga.
+\item Si ha $ x \in A \Rightarrow f(x) \in f(A) \Rightarrow f^{-1}(f(x)) \in f^{-1}(f(A)) \iff x \in f^{-1}(f(A)) $. Concludiamo quindi che $ A \subseteq f^{-1}(f(A)) $. \\
+  D'altro canto sia $ x \in X $ tale che $ x \in f^{-1}(f(A)) \iff f(x) \in f(A) \iff \exists a \in A : f(a) = f(x) $. Allora chiaramente solo se $ f $ è iniettava si ha $ f(a) = f(x) \Rightarrow a = x $ ovvero $ x \in A $. In tal caso avremmo anche $ f^{-1}(f(A)) \subseteq A $ da cui deduciamo che $ f^{-1}(f(A)) = A $.
+\item Sia $ y \in Y $ tale che $ y \in f(f^{-1}(B)) \iff \exists x \in f^{-1}(B) : f(x) = y \iff \exists x \in X : f(x) \in B \wedge f(x) = y \Rightarrow y \in B $. Concludiamo quindi che $ f(f^{-1}(B)) \subseteq B $. \\
+  D'altro canto sia $ y \in B \subseteq Y $, solo se $ f $ è suriettiva si ha che $ y $ è nell'immagine di $ f $. Formalmente $ \exists x \in X : f(x) \in B \wedge f(x) = y \iff x \in f^{-1}(B) : f(x) = y \iff y \in f(f^{-1}(B)) $. In tale caso avremmo che $ B \subseteq f(f^{-1}(B)) $ da cui deduciamo che $ f(f^{-1}(B)) \subseteq B $.
+\end{enumerate}
+
+
+\begin{es}[Curva di Peano]
+  Sia $ f \colon [0, 1] \to [0, 1] \times [0, 1] $ definita nel seguente modo: scrivendo un numero $ x $ in notazione binaria $ x = 0.a_1 a_2 a_3 \dots $ con $ a_i \in \{0, 1\} $, abbiamo \[f(0.a_1 a_2 a_3 \dots) = (0.a_1 a_3 a_5 \dots, 0.a_2 a_4 a_6 \dots).\] La definizione che abbiamo dato è una buona definizione? Dopo averla ben definita, $ f $ risulta essere iniettiva? $ f $ è suriettiva? Partendo da $ f $, provare a costruire una funzione $ \tilde f \colon [0, 1] \to [0, 1] \times [0, 1] $ biettiva ({Hint}: provare a costruire $ g \colon \{0, 1\}^\N \to [0, 1] $ biettiva).
+\end{es}
+
+Per prima cosa notiamo che la funzione non è ben definita: poiché infatti vale che $ 0.1 = 0.0\overline{1} $ ($ 0.01 $ periodico) si ha, per esempio, \[f(0.11) = (0.1, 0.1) \quad \mathrm{e} \quad f(0.01) = f(0.00\overline{1}) = (0.0\overline{1}, 0.0\overline{1}) = (0.1, 0.1).\] Per ben definire la funzione è necessario specificare quale espressione scegliere per $ x $ nel caso in cui tale numero non abbia rappresentazione univoca; più formalmente se \[x = 0.a_1 a_2 \dots a_n 0\overline{1} = x = 0.a_1 a_2 \dots a_n 1\] sceglieremo la rappresentazione di $ x $ dove le cifre sono definitivamente 0 (ovvero la seconda rappresentazione) e diremo che $ x $ è "ben scritto". Nel caso in cui $ x = 1 $ definiamo $ f(1) = f(0.\overline{1}) = (0.\overline{1}, 0.\overline{1}) = (1, 1) $. \\
+La funzione $ f $ risulta suriettiva. Supponiamo infatti che esista $ (x, y) \in [0, 1]^2 $ che non appartiene all'immagine di $ f $ e siano
+\begin{align*}
+  x = 0.a_1 a_2 \dots & \quad \text{dove $ a_i $ non è definitivamente 1 se $ x \neq 1 $} \\
+  y = 0.b_1 b_2 \dots & \quad \text{dove $b_i $ non è definitivamente 1 se $ y \neq 1 $}
+\end{align*}
+le espressioni di $ x $ e $ y $ in notazione binaria. Allora possiamo costruire il numero $ z = c_1 c_2 \dots $ dove
+\[c_k =
+  \begin{cases*}
+    a_k & \text{se $ k $ è pari} \\
+    b_k & \text{se $ k $ è dispari}
+  \end{cases*}.\]
+Per costruzione $ f(z) = (x, y) $ e tale numero è "ben scritto": le sue cifre non sono definitivamente 1 (a parte se $ x = 1 $ e $ y = 1 $, ma tale caso è già stato contemplato nella nuova definizione di $ f $), altrimenti vorrebbe dire che $ \exists k_0 : \forall k \geq k_0 $  si avrebbe $ a_k = 1 $ e $ b_k = 1 $ ovvero $ x $ e $ y $ avrebbero cifre definitivamente uguali a 1,  contro l'ipotesi che tali sumeri siamo "ben scritti". \\
+Tuttavia $ f $ non è iniettiva: se prediamo per esempio $ z_1 = 0.0\overline{0111} \neq z_2 = 0.1\overline{0010} $ risulta $ f(z_1) = (0.0\overline{1}, 0.\overline{01}) = (0.1, 0.\overline{01}) $ e $ f(z_2) = (0.1, 0.\overline{01}) $, ovvero $ f(z_1) = f(z_2) $. \\
+
+Se esistesse una funzione $ g \colon \{0, 1\}^\N \to [0, 1] $ biettiva potremmo considerare la funzione
+\begin{align*}
+  g_2 \colon \{0, 1\}^\N \times \{0, 1\}^\N & \to [0, 1] \times [0, 1] \\
+  (x, y) & \mapsto (g(x), g(y))
+\end{align*}
+e la funzione
+\begin{align*}
+  \bar{f} \colon \{0, 1\}^\N & \to \{0, 1\}^\N \times \{0, 1\}^\N \\
+  (a_1, a_2, \dots ) & \mapsto ((a_1, a_3, \dots), (a_2, a_4, \dots))
+\end{align*}
+che risultano chiaramente biettive e definire $ \tilde{f}(x) = (g^{-1} \circ \bar{f} \circ g_2)(x) $ che è biettiva in quanto composizione di funzioni biettive.
+\[[0, 1] \overset{g^{-1}}\longrightarrow \{0, 1\}^\N \overset{\bar{f}}\longrightarrow \{0, 1\}^\N \times \{0, 1\}^\N \overset{g_2}\longrightarrow [0, 1] \times [0, 1].\]
+\textsf{Costruiamo quindi la funzione $ g $ in modo esplicito. Se prendiamo $ g((a_1, a_2, \dots)) = 0.a_1 a_2 \dots $ è biettiva solo sui numeri che hanno rappresentazione unica. Intuitivamente sia l'insieme delle liste di numeri che conducono ad una rappresentazione non unica sia l'insieme dei numeri in $ [0, 1] $ con rappresentazione non unica sono numerabili
+  \begin{align*}
+    (1, 0, 0, \dots) & \qquad 0.1 \\
+    (0, 1, 1, \dots) & \\
+    (0, 1, 0, 0, \dots) & \qquad 0.01 \\
+    (0, 0, 1, 1, \dots) & \\
+    (1, 1, 0, 0, \dots) & \qquad 0.11 \\
+    (1, 0, 1, 1, \dots) &
+  \end{align*}
+  eccetera. Possiamo quindi fare uno "switch" e mettere in corrispondenza biunivoca le stringhe e i numeri\ldots Non so come formalizzarlo}\\
+
+\textcolor{red}{Hint Bindini - Un'idea potrebbe essere questa: mettiamo in ordine i numeri "cattivi" come $ 1/2, 1/4, 3/4, 1/8, 3/8, 5/8, 7/8, 1/16, \ldots $ e mettiamo in ordine le sequenze cattive (lessicografico). Poi mandiamo un insieme nell'altro\ldots}
+
+\begin{es}
+  Sia $ A^B = \{f \colon B \to A\} $ l'insieme delle funzioni da $ B $ ad $ A $. Individuare corrispondenze biunivoche (quando esistono) tra le seguenti coppie di insiemi
+  \begin{enumerate}
+  \item $ A \times (B \times C) $ e $ (A \times B) \times C $;
+  \item $ A^{B \cup C} $ e $ A^B \times A^C $;
+  \item $ (A^B)^C $ e $ A^{B \times C} $.
+  \end{enumerate}
+\end{es}
+\begin{enumerate}
+\item La funzione
+  \begin{align*}
+    f \colon A \times (B \times C) \to & (A \times B) \times C \\
+    ((a, b), c) \mapsto & (a, (b, c))
+  \end{align*}
+  è chiaramente una corrispondenza biunivoca tra $ A \times (B \times C) $ e $ (A \times B) \times C $.
+\item ??
+\item ?? \\
+\end{enumerate}
+
+\textcolor{red}{Hint Bindini - Nel punto 2) non esiste corrispondenza (cerca un controesempio). Nel punto 3) la corrispondenza (diciamo $ \Phi $) c'è, prova a scriverla da $ A^{B\times C} $ verso $ (A^B)^C $. Prendi una funzione $ f \colon B \times C \to A $, ovvero $ f(b, c) = a $. Adesso costruisci una funzione $ g = \Phi(f) \colon C \to A^B $ ovvero, fissato $ c $ in $ C $, $ g(c) $ è una funzione da $ B $ ad $ A $\ldots}

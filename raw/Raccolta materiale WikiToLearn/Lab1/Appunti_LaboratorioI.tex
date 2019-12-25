@@ -1,0 +1,418 @@
+\documentclass[a4paper,11pt]{article}
+	 \usepackage[a4paper, left=2.5cm, bottom=2.5cm]{geometry}
+     \usepackage[italian]{babel}
+     \usepackage[utf8]{inputenc}
+     \usepackage{siunitx}
+     \usepackage{graphicx}
+     \usepackage{amsfonts}
+     \usepackage{enumitem}
+     \usepackage{amsmath}
+     \newcommand{\cov}[1]{\textrm{Cov}(#1)}
+     \newcommand{\corr}[1]{\textrm{Corr}(#1)}    
+     \title{Laboratorio I}
+     \author{Appunti vari}
+     \date{\today}
+      
+\begin{document}
+	\maketitle
+	\tableofcontents
+	\newpage
+\section{Statistica}
+\subsection{Misure}
+\begin{enumerate}
+	\item Una qualunque misura di una grandezza fisica $x$ si esprime nella forma $x=\hat{x}\pm\Delta x$ [unità di misura]. $x$ è il misurando, $\hat{x}$ il valore più probabile (o centrale), $\Delta x$ è, almeno per ora, l'errore massimo, ovvero l'ampiezza del più piccolo intervallo in cui siamo sicuri che cada il misurando. L'errore relativo è $\Delta x/|\hat{x}|$.
+	\item Se abbiamo un set $(x_1,\cdots,x_n)$ di misure della stessa grandezza $x$, sembra sensato assumere come valori di $\hat{x}$ e $\Delta x$ \[\hat{x}=\frac{1}{n}\sum_{i=1}^{n}x_i\] \[\Delta x=\frac{1}{2}\left(\max_{1\leq i\leq n}x_i-\min_{1\leq i\leq n}x_i\right)\]
+	\item Se si hanno due grandezze $x=\hat{x}\pm\Delta x$ e $y=\hat{y}\pm\Delta y$ e si vogliono ottenere gli errori sulle grandezze $z=x\pm y$, $w=xy$, $u=x/y$, si ha
+	\[\Delta z=\Delta x+\Delta y\]
+	\[\frac{\Delta w}{|\hat{w}|}=\frac{\Delta u}{|\hat
+	u|}=\frac{\Delta x}{|\hat{x}|}+\frac{\Delta y}{|\hat{y}|}\]
+	In particolare, l'ultima vale solo se $\Delta x\Delta y$ è trascurabile rispetto alle altre grandezze in gioco.
+	Se invece si vuole propagare l'errore su una funzione $f(x)$, vale approssimativamente
+	\[\Delta f\approx\Delta x\left|\frac{\mathrm{d}f}{\mathrm{d}x}\right|_{x=\hat{x}}\]
+	\item Con accuratezza di uno strumento si intende la sua capacità di restituire (in media) il valore del misurando. Con precisione di uno strumento si intende invece l'accordo tra misure successive della stessa grandezza fisica.
+
+\end{enumerate}
+\subsection{Probabilità e variabili casuali}
+\begin{enumerate}[resume]
+	\item Definiamo spazio campionario l'insieme $\Omega$ degli eventi elementari realizzabili di un dato fenomeno, spazio degli eventi l'insieme $\mathcal{F}=\mathcal{P}\left(\Omega\right)$.
+	\item La probabilità $p$ è una funzione $p\colon\mathcal{F}\to[0,1]$ tale che
+	\begin{itemize}
+		\item $p(\Omega)=1$
+		\item $p(E_1\cup E_2)=p(E_1)+p(E_2)$ quando $E_1\cap E_2=\emptyset$, ovvero se $E_1$ e $E_2$ sono incompatibili
+	\end{itemize}
+	Tali proprietà sono anche chiamate assiomi di Kolmogorov.
+	\item Più in generale, se $\mathcal{M}$ è una $\sigma$-algebra su $\Omega$, la probabilità è una misura $\mu$ su $\mathcal{M}$ a valori in $[0,1]$, ovvero $\mu\colon\mathcal{M}\to[0,1]$ gode delle proprietà di
+	\begin{itemize}
+		\item \textit{normalizzazione:} $\mu\left(\Omega\right)=1$
+		\item \textit{$\sigma$-additività:} se $\left(A_i\right)_{i\in\mathbb{N}}$ è una famiglia (eventualmente finita) di elementi di $\mathcal{M}$ a due a due disgiunti, allora \[\mu\left(\bigcup_{n\in\mathbb{N}}A_n\right)=\sum_{n=0}^{\infty}\mu\left(A_n\right)\]
+	\end{itemize}
+	\item Lemmucci di probabilità:
+	\begin{itemize}
+		\item $p(E^c)=1-p(E)$
+		\item $p(\emptyset)=0$
+		\item $p(E_1\cup E_2)=p(E_1)+p(E_2)-p(E_1\cap E_2)$
+		\item $p$ è debolmente crescente rispetto all'inclusione
+	\end{itemize}
+	\item Definizioni operative di probabilità
+	\begin{itemize}
+		\item \textit{Definizione combinatoriale:} se ho una collezione di $N$ casi possibili equiprobabili e i casi favoreli per un evento $E$ sono $n$, si pone
+		\[p(E)=\frac{n}{N}\]
+		\item \textit{Definizione frequentista:} se, fissate $N$ ripetizioni di un fenomeno, l'evento $E$ si verifica $n$ volte, si pone
+		\[p(E)=\lim\limits_{N\to+\infty}\frac{n}{N}\]
+		dove il limite è inteso come convergenza statistica, ovvero
+		\[\forall\varepsilon>0\textrm{ }\forall\delta>0\textrm{ }\exists\tilde{N}:\forall N\ge\tilde{N}\textrm{, }\textrm{ }p\left(\left|\frac{n}{N}-p(E)\right|>\delta\right)<\varepsilon\]
+		\item \textit{Definizione soggettivista:} la probabilità di un evento è la misura di fiducia che ha un soggetto, in base alle proprie informazioni, sulla sua realizzazione.
+	\end{itemize}
+	\item Dati $E_1,E_2\in\mathcal{F}$, con $p(E_2)\neq 0$, si definisce probabilità condizionata di $E_1$ dato $E_2$ la quantità
+	\[p(E_1|E_2)=\frac{p(E_1\cap E_2)}{p(E_2)}\]
+	che è chiaramente anch'essa una probabilità.
+	\item\textbf{Teorema di Bayes:} se $E_1$, $E_2$ sono due eventi, si ha
+	\[p(E_1|E_2)=\frac{p(E_2|E_1)p(E_1)}{p(E_2)}\]
+	$p(E_1),p(E_2|E_1)$ e $p(E_1|E_2)$ si definiscono rispettivamente probabilità a priori, verosimiglianza e probabilità a posteriori.
+	
+	\noindent Più in generale, se $E\in\mathcal{F}$ e $\{A_i\}_{i\in I}$ è una partizione di $\mathcal{F}$, si ha
+	\[p(A_j|E)=\frac{p(E|A_j)p(A_j)}{\sum_{i\in I}p(E|A_i)p(A_i)}\]
+	\item Due eventi $E_1$ e $E_2$ si dicono indipendenti se $p(E_1|E_2)=p(E_1)$ e $p(E_2|E_1)=p(E_2)$, ovvero se $p(E_1\cap E_2)=p(E_1)p(E_2)$.
+	\item Si definisce variabile casuale una variabile che rappresenta la realizzazione numerica di un processo aleatorio. Se poi l'insieme dei valori che tale variabile può assumere è finito o numerabile, la variabile si dirà discreta. Se invece tale insieme è più che numerabile, la variabile si dirà continua.
+	\item Per una variabile discreta, possiamo associare una probabilità ad ogni evento $x_k$. La condizione da richiedere è ovviamente
+	\[\sum_{k}p(x_k)=1\]
+	\item Per una variabile continua a valori in $A\subseteq\mathbb{R}$, definiamo una nuova grandezza $\rho\colon A^\circ\to~[0,+\infty)$, chiamata densità di probabilità
+	\[\rho(x)=\lim\limits_{h\to0}\frac{p(x-h\leq y \leq x+h)}{h}\]
+	La condizione da richiedere è 
+	\[\int_{A}\rho(t)\mathrm{d}t=1\]
+	Se si suppone che $\rho$ sia identicamente nulla fuori da $\overline{A}$, si può anche porre
+	\[\int_{-\infty}^{+\infty}\rho(t)\mathrm{d}t=1\]
+	\item Sia $f\colon\mathbb{R}\to\mathbb{R}$. Si definisce valore di aspettazione di $f$ la grandezza
+	\[E[f(x)]=\left\{\begin{array}{l l}
+	\sum_{k}f(x_k)p(x_k) & \textrm{ per variabili discrete} \\
+	\int_{-\infty}^{+\infty}f(x)\rho(x)\mathrm{d}x & \textrm{ per variabili continue} \\
+	\end{array}\right.\]
+	\item Proprietà di $E$:
+	\begin{itemize}
+		\item $E[\lambda f(x)+\mu g(x)]=\lambda E[f(x)]+\mu E[g(x)]$
+		\item $E[\alpha]=\alpha$
+	\end{itemize}
+	\item Si definiscono media $\mu$ e varianza $\sigma^2$ di una distribuzione i valori di aspettazione $E[x]$ e $E[(x-~\mu)^2]=E[x^2]-\mu^2$. La grandezza $\sqrt{\sigma^2}$ si chiama deviazione standard.
+	\item Per una variabile continua, si definisce la moda come l'ascissa del massimo di $\rho$ e la media come il valore $\mu_{1/2}$ tale che
+	\[\int_{-\infty}^{\mu_{1/2}}\rho(x)\mathrm{d}x=\int_{\mu_{1/2}}^{+\infty}\rho(x)\mathrm{d}x\]
+	\item Si definisce momento di ordine $n$ centrato in $x_0$ la grandezza
+	\[\mathcal{M}(n,x_0)=E[(x-x_0)^n]\]
+	Si definiscono poi momenti algebrici $\lambda_n$ e momenti centrali $\mu_n$ di ordine $n$ come
+	\[\lambda_n=E[x^n]\]
+	\[\mu_n=E[(x-\mu)^n]\]
+	\item\textbf{Teorema di Chebyshev:} data una variabile casuale $x$ di media $\mu$ e varianza $\sigma^2$ e preso $c\in\mathbb{R}$, si ha
+	\[p(|x-\mu|\geq c\sigma)\leq\frac{1}{c^2}\]
+	\item Si definisce skewness di una distribuzione il coefficiente
+	\[\gamma=\frac{\mu_3}{\sigma^3}\]
+	\item Si definisce funzione cumulativa di una distribuzione la funzione
+	\[F(x)=\left\{\begin{array}{l l}
+	\sum_{x_k\leq x}p(x_k) & \textrm{ per variabili discrete} \\
+	\int_{-\infty}^{x}\rho(x')\mathrm{d}x' & \textrm{ per variabili continue} \\
+	\end{array}\right.\]
+	\item Se una variabile casuale ha funzione cumulativa $F$ continua e strettamente crescente, la funzione $F^{-1}$ si chiama funzione di distribuzione inversa o percent point function.
+	\item Se si ha un insieme di variabili casuali $x_1,\cdots,x_n$, è sufficiente definire una probabilità per ogni possibile combinazione, se le variabili sono discrete, mentre se sono continue e la grandezza $x=(x_1,\cdots,x_n)$ e a valori in $A\subseteq\mathbb{R}^n$ si può definire una densità di probabilità $\rho\colon A^\circ\to[0,+\infty)$. Se si suppone $\rho$ identicamente nulla all'infuori di $\overline{A}$, la condizione di normalizzazione è 
+	\[\int_{-\infty}^{+\infty}\rho(x_1,\cdots,x_n)\mathrm{d}x_1\cdots\mathrm{d}x_n=1\]
+	\item Se ci limitiamo a una distribuzione di due variabili continue $x_1$ e $x_2$, definiamo densità di probabilità marginali $p_1(x_1)$ e $p_2(x_2)$ le funzioni
+	\[\rho_1(x_1)=\int_{-\infty}^{+\infty}\rho(x_1,x_2)\mathrm{d}x_2\]
+	\[\rho_2(x_2)=\int_{-\infty}^{+\infty}\rho(x_1,x_2)\mathrm{d}x_1\]
+	\item La probabilità condizionata si definisce come
+	\[\rho(x_1|x_2)=\frac{\rho(x_1,x_2)}{\rho_2(x_2)}\]
+	\[\rho(x_2|x_1)=\frac{\rho(x_1,x_2)}{\rho_1(x_1)}\]
+	\item Se le due variabili sono indipendenti, si ha
+	\[\rho(x_1,x_2)=\rho_1(x_1)\rho_2(x_2)\]
+	In tal caso si ha ovviamente $\rho(x_1|x_2)=\rho_1(x_1)$ e $\rho(x_2|x_1)=\rho_2(x_2)$.
+	\item Definiamo covarianza tra $x_1$ e $x_2$ la grandezza
+	\[\cov{x_1,x_2}=E[(x_1-\mu_1)(x_2-\mu_2)]=E[x_1x_2]-E[x_1]E[x_2]\]
+	e correlazione la grandezza
+	\[\corr{x_1,x_2}=\frac{\cov{x_1,x_2}}{\sigma_1\sigma_2}\]
+	\item La covarianza e la correlazione sono forme bilineari simmetriche. Inoltre, se $c$ è una costante e $x$ una qualunque variabile casuale, si ha $\cov{x,c}=0$ e $\cov{x,x}=\sigma_x^2$.
+	\item Se due variabili sono indipendenti, la loro covarianza è nulla. Il viceversa non vale.
+	\item Le matrici di covarianza e di correlazione di un insieme $x_1,\cdots,x_n$ di variabili casuali sono
+	\vspace{5mm}
+	
+	\[M_{cov}=\left(\begin{array}{c c c c}
+	\sigma_1^2 &\cov{x_1,x_2}&\cdots&\cov{x_1,x_n}\\
+	\cov{x_1,x_2}&\sigma_2^2&\cdots&\cov{x_2,x_n}\\
+	\vdots&\vdots&\ddots&\vdots\\
+	\cov{x_1,x_n}&\cov{x_2,x_n}&\cdots&\sigma_n^2\\
+	\end{array}\right)\]
+	\vspace{5mm}
+	
+	\[M_{corr}=\left(\begin{array}{c c c c}
+	1 &\corr{x_1,x_2}&\cdots&\corr{x_1,x_n}\\
+	\corr{x_1,x_2}&1&\cdots&\corr{x_2,x_n}\\
+	\vdots&\vdots&\ddots&\vdots\\
+	\corr{x_1,x_n}&\corr{x_2,x_n}&\cdots&1\\
+	\end{array}\right)\]
+	\item Supponiamo di avere una variabile $x$ discreta con distribuzione $p_x$ e una funzione $f$. La distribuzione $p_y$ della variabile $y=f(x)$ è
+	\[p_y(y)=\sum_{i}p_x(x_i)\]
+	dove la somma è estesa a tutte le soluzioni di $f(x_i)=y$.
+	\item Se consideriamo invece una variabile $x$ continua e una funzione $f$. La densità di probabilità di $y=f(x)$ è \[\rho_y(y)=\sum_{i}\rho_x(x_i)\left|\frac{\mathrm{d}f^{-1}(x_i)}{\mathrm{d}y}\right|\]	
+	dove, di nuovo,la somma è estesa a tutte le soluzioni di $f(x_i)=y$. 
+	
+\end{enumerate}
+\subsection{Distribuzioni più comuni}
+\subsubsection{Binomiale}
+\begin{enumerate}[resume]
+	\item Consideriamo un evento con due possibili realizzazioni distinte, di cui una ha probabilità $p$. Se l'evento si ripete $n$ volte, la probabilità che la realizzazione presa in considerazione avvenga $k$ volte è 
+	\[\mathcal{B}(k,n,p)=\binom{n}{k}p^k(1-p)^{n-k}\]
+	\item La distribuzione è correttamente normalizzata, ha media $np$ e varianza $np(1-p)$.
+	\item Per i momenti di ordine superiore, vale
+	\[\lambda_{m+1}=p(1-p)\frac{\mathrm{d}\lambda_m}{\mathrm{d}p}-np\lambda_m\]
+	\item La skewness è
+	\[\gamma_1=\frac{1-2p}{\sqrt{np(1-p)}}\]
+\end{enumerate}
+\subsubsection{Poissoniana}
+\begin{enumerate}[resume]
+	\item Un processo si dice poissoniano se valgono le seguenti ipotesi:
+	\begin{itemize}
+		\item \textit{indipendenza:} gli eventi elementari non si influenzano l'un l'altro
+		\item \textit{stazionarietà:} il numero di eventi per unità di tempo è costante
+		\item \textit{non contemporaneità:} la probabilità che due eventi accadano simultaneamente è trascurabile rispetto alla probabilità che accada un evento singolo
+	\end{itemize}
+	Sotto tali ipotesi, la probabilità che avvengano $k$ eventi è
+	\[\mathcal{P}(k,\mu)=\frac{\mu^k}{k!}e^{-\mu}\]
+	\item La poissoniana è il limite di una binomiale per $n\to+\infty$, quando è mantenuto costante il prodotto $\mu=np$.
+	\item La distribuzione è correttamente normalizzata, ha media e varianza $\mu$.
+	\item Per i momenti di ordine superiore, vale
+	\[\lambda_{m+1}=\mu\left(\lambda_m+\frac{\mathrm{d}\lambda_m}{\mathrm{d}\mu}\right)\]
+	\item La skewness è
+	\[\gamma_1=\frac{1}{\sqrt{\mu}}\]
+	\item La distanza temporale tra la realizzazione di due eventi consecutivi è anch'essa una variabile casuale, che segue la distribuzione esponenziale.
+	\item La somma di due poissoniane è ancora una poissoniana, con media pari alla somma delle medie.	
+\end{enumerate}
+\subsubsection{Esponenziale}
+\begin{enumerate}[resume]
+	\item La distribuzione esponenziale, definita per $x\geq0$, è
+	\[\mathcal{E}(x,\lambda)=\lambda e^{-\lambda x}\]
+	\item Il parametro $\lambda^{-1}$ si chiama vita media.
+	\item La distribuzione è correttamente normalizzata e ha media e deviazione standard $\lambda^{-1}$.
+	\item La distribuzione non ha memoria, i.e. per ogni $x_1,x_2$ si ha 
+	\[p(x\geq x_1+x_2|x\geq x_1)=p(x\geq x_2)\]
+	
+\end{enumerate}
+\subsubsection{Gaussiana}
+\begin{enumerate}[resume]
+	\item Una gaussiana di media $\mu$ e deviazione standard $\sigma$ è una distribuzione della forma
+	\[\mathcal{G}(x,\mu,\sigma)=\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}\]
+	\item La distribuzione è correttamente normalizzata ed è il limite di una poissoniana quando $\mu\to+\infty$.
+	\item Una gaussiana si dice in forma standard quando ha media 0 e varianza 1, ovvero si passa in forma standard uutilizzando la variabile casuale $z=(x-\mu)/\sigma$.
+	\item La funzione cumulativa di una gaussiana in forma standard è denotata tipicamente con $\Phi$.
+	\item Si definisce funzione degli errori la funzione
+	\[\textrm{erf}(x)=\frac{2}{\sqrt{\pi}}\int_{0}^{x}e^{-t^2}\mathrm{d}t\]
+	\item Vale
+	\[\Phi(x)=\frac{1}{2}+\textrm{erf}\left(\frac{x}{\sqrt{2}}\right)\]
+	\item\textbf{Teorema centrale del limite:} la somma di $n$ variabili casuali con media e varianza finite è asintotica a una gaussiana, qualunque sia la forma delle loro distribuzioni.
+\end{enumerate}
+\subsubsection{Cauchy}
+\begin{enumerate}[resume]
+	\item Consideriamo una variabile casuale $\alpha$ distribuita uniformemente nell'intervallo $(-\frac{\pi}{2},\frac{\pi}{2})$. La densità di probabilità della variabile $x=\gamma\tan\alpha+x_0$ è
+	\[\mathcal{C}(x,x_0,\gamma)=\frac{1}{\pi}\frac{\gamma}{\gamma^2+(x-x_0)^2}\]
+	\item Se $\gamma=1$ e $x_0=0$, si parla di distribuzione di Cauchy in forma standard.
+	\item La distribuzione è correttamente normalizzata, ma non ha media né deviazione standard. 
+	\item La somma di due distribuzioni di cauchy è ancora una distribuzione di Cauchy, con parametri pari alla somma dei rispettivi parametri di partenza. In particolare, la somma di distribuzioni di Cauchy non converge a una gaussiana.
+\end{enumerate}
+\subsubsection{$\chi^2$}
+\begin{enumerate}[resume]
+	\item Una distribuzione del $\chi^2$ è la distribuzione
+	\[\chi^2(x,n)=\frac{x^{\frac{n}{2}-1}e^{-\frac{x}{2}}}{2^{\frac{n}{2}}\Gamma\left(\frac{n}{2}\right)}\]
+	\item La distribuzione è correttamente normalizzata e ha media $n$ e varianza $2n$.
+	\item La distribuzione è la somma di $n$ gaussiane indipendenti in forma standard al quadrato.
+\end{enumerate}
+\subsection{Errori statistici}
+\begin{enumerate}[resume]
+	\item Rinunciamo alla nozione perversa di errore massimo in favore di quella di errore statistico. Una misura si scrive allora come $x=\hat{x}\pm\sigma_x$ [unità di misura] (livello di confidenza). L'errore statistico non ci assicura più che il misurando stia effettivamente nell'intervallo $[\hat{x}-\sigma_x,\hat{x}+\sigma_x]$, ma ci dà una ben precisa probabilità (i.e il livello di confidenza) che ciò accada. In tal senso, possiamo supporre che la misura di una grandezza fisica $x$ corrisponda in tutto e per tutto al campionamento di una certa distribuzione di probabilità, caratterizzata da una certa media $\mu$ e deviazione standard $\sigma$. Tali parametri è ciò che vogliamo stimare a partire dalle nostre misure.
+	\item Una stima $\chi$ di una grandezza $x$ si dice imparziale se in media il valore di $\chi$ è $x$, ovvero se 
+	\[E[\chi]=E[x]\]
+	\item Supponiamo di avere un set $x_1,\cdots x_n$ di misure della grandezza $x$. Allora possiamo assumere come migliore stima $m$ della media $\mu$, deviazione standard $\sigma_x$ del campione (e quindi della distribuzione) e deviazione standard $x_m$ della media le grandezze
+	\[m=\frac{1}{n}\sum_{i=1}^{n}x_i\]
+	\[s_x=\sqrt{\frac{1}{n-1}\sum_{i=1}^{n}\left(x_i-m\right)^2}\]
+	\[s_m=\frac{s_x}{\sqrt{n}}\]
+	\item Se si hanno $x_1,\cdots,x_n$ variabili caratterizzate da valori medi $\mu_1,\cdots,\mu_n$ e errori statistici $\sigma_1,\cdots,\sigma_n$ e si vuole conoscere il valor medio $\mu_f$ e la deviazione standard $\sigma_f$ di una funzione $f\colon\mathbb{R}^n\to\mathbb{R}$, si ha
+	\[\mu_f=f(\mu_1,\cdots,\mu_n)\]
+	\[\sigma_f^2=\sum_{i,j=1}^{n}\frac{\partial f(\mu_1,\cdots,\mu_n)}{\partial x_i}\cdot\frac{\partial f(\mu_1,\cdots,\mu_n)}{\partial x_j}\sigma_i\sigma_j\corr{x_i,x_j}\]
+	\item Se si hanno due campionamenti $x_1,\dots,x_n$ e $y_1,\cdots,y_n$ di due variabili $x$ e $y$, possiamo assumere come migliori stime $q_{xy}$ della covarianza e $r_{xy}$ della correlazione le grandezze
+	\[q_{xy}=\frac{1}{n-1}\sum_{i=1}^{n}(x_i-m_x)(y_i-m_y)\]
+	\[r_{xy}=\frac{q_{xy}}{s_xs_y}=\frac{\sum_{i=1}^{n}(x_i-m_x)(y_i-m_y)}{\sqrt{\sum_{i=1}^{n}(x_i-m_x)^2\sum_{i=1}^{n}(y_i-m_y)^2}}\]
+	Dove $m_x,m_y,s_x,s_y$ rappresentano le stime di media e deviazione standard di $x$ e $y$, calcolate come sopra.
+\end{enumerate}
+
+\subsection{Metodi di fit}
+\begin{enumerate}[resume]
+	\item Supponiamo di avere due set di dati $x_1,\cdots,x_n$ e $y_1,\cdots,y_n$, con errori statistici $\sigma_{x_1},\cdots,\sigma_{x_n}$ e $\sigma_{y_1},\cdots,\sigma_{y_n}$. Supponiamo inoltre di voler verificare se i dati sono in accordo con un modello $y=f(x,\theta_1,\cdots,\theta_k)$ ed eventualmente di stimare uno o più parametri $\theta_j$ del modello, e che siano verificate le seguenti condizioni:
+	\begin{itemize}
+		\item Le misure sono tra loro indipendenti
+		\item Gli errori sulle misure $x_i$ sono trascurabili, ovvero per ogni $i$ vale
+		\[\left|\frac{\mathrm{d}f(x_i)}{\mathrm{d}x}\right|\sigma_{x_i}\ll\sigma_{y_i}\]
+		\item Le misure $y_i$ siano distribuite gaussianamente
+	\end{itemize}
+	Costruiamo la seguente quantità, dipendente dal set di parametri utilizzato:
+	\[\chi^2\left(\theta_1,\cdots,\theta_k\right)=\sum_{i=1}^{n}\left(\frac{y_i-f(x_i,\theta_1,\cdots,\theta_k)}{\sigma_{y_i}}\right)^2\]
+	Se si vuole ottenere il set di parametri in miglior accordo con i dati sperimentali, occorre minimizzare tale somma, ovvero si deve risolvere il sistema
+	\[\left\{\begin{array}{l}
+	\frac{\partial\chi^2}{\partial\theta_1}=0\\
+	\vdots\\
+	\frac{\partial\chi^2}{\partial\theta_k}=0
+	\end{array}\right.\]
+	Ottendo il set di parametri $(\hat{\theta}_1,\cdots,\hat{\theta}_n)$.
+	\item A titolo di esempio, se si vuole fare una media pesata si otterrà come valore di best fit il valore
+	\[\hat{q}=\frac{\sum_{i=1}^{n}\frac{y_i}{\sigma^2_{y_i}}}{\sum_{i=1}^{n}\frac{1}{\sigma^2_{y_i}}}\]
+	con una varianza di 
+	\[\sigma^2_q=\frac{1}{\sum_{i=1}^{n}\frac{1}{\sigma^2_{y_i}}}\]
+	\item In generale, i parametri di best fit non saranno indipendenti.
+	\item La grandezza
+	\[\chi^2\left(\hat{\theta}_1,\cdots,\hat{\theta}_k\right)=\sum_{i=1}^{n}\left(\frac{y_i-f(x_i,\hat\theta_1,\cdots,\hat\theta_k)}{\sigma_{y_i}}\right)^2\]	
+	può essere utilizzata anche per valutare la bontà di un fit. Sotto le ipotesi di partenza, la somma è effettivamente distribuita come un $\chi^2$. I gradi di libertà sono $n-m$, dove $m$ è il numero di parametri che è stato stimato dai dati. Se alcune ipotesi cadono (ad esempio, gaussianità degli errori), la somma non è più distribuita come un $\chi^2$. In particolare, è ancora vero che il suo valor medio è $n-m$, ma la varianza può cambiare sensibilmente da quella di un $\chi^2$.
+	\item Per una distribuzione in cui sono stati fatti $N$ campionamenti, il valore $i$-esimo è stato conteggiato $o_i$ volte ed ha un valore atteso di $e_i$, si può usare
+	\[\chi^2=\sum_{i=1}^{n}\frac{(o_i-e_i)^2}{e_i}\]
+	Questa formula, che pare una poissoniana, nasconde abilmente una binomiale su $N-1$ eventi. In tal caso, se si sono stimati $m$ parametri i gradi di libertà sono $N-m-1$.
+	\item Si definisce p-value la probabilità di avere, ripetendo la misura, un risultato più estremo di quello ottenuto, quando l'ipotesi nulla è verificata.
+\end{enumerate}
+
+\subsection{Massima verosimiglianza}
+\begin{enumerate}[resume]
+	\item Consideriamo $n$ misure $x_i$ di una grandezza $\xi$. Fissato il valore di $\xi$, se le misure sono indipendenti e fatte nelle stesse condizioni possiamo considerare ogni misura $x_i$ come una variabile casuale dotata di una certa distribuzione $\varphi(x_i,\xi)$. L'uguaglianza delle condizioni in cui vengono fatte le misure ci assicura che $\varphi$ è la stessa per ogni misura, mentre l'indipendenza ci permette di scrivere la probabilità $p$ di ottenere il set di misure come
+	\[p(x_1,\cdots,x_n,\xi)=\prod_{i=1}^{n}\varphi(x_i,\xi)\]
+	Sembra ragionevole assumere come stima di $\xi$ il valore $\hat{\xi}$ che massimizza $p$, o equivalentemente $\log p$. Cerchiamo dunque il valore $\hat{\xi}$ tale che
+	\[\sum_{i=1}^{n}\frac{1}{\varphi(x_i,\hat\xi)}\frac{\partial \varphi(x_i,\hat{\xi})}{\partial \xi}=0\]
+	Tale procedimento prende il nome di principio di massima verosimiglianza. Più formalmente, se $\xi$ è un set di parametri, la funzione di verosimiglianza $\mathcal{L}$ con un esito $x$ è la probabilità che $x$ si verifichi, una volta fissati i parametri, ovvero
+	\[\mathcal{L}(\xi|x)=p(x|\xi)\]
+	\item Nel caso generale, se ho $n$ misure $x_i$ e un modello dipendente da $m$ parametri $\theta_j$, il principio di massima verosimiglianza afferma che la miglior stima della $m$-upla $(\hat\theta_1,\cdots,\hat\theta_m)$ è quella tale che
+	\[\left\{\begin{array}{l}
+	\frac{\partial\mathcal{L}(\hat\theta_1,\cdots,\hat\theta_m,\xi_1,\cdots,\xi_n)}{\partial\theta_1}=0\\
+	\vdots\\
+	\frac{\partial\mathcal{L}(\hat\theta_1,\cdots,\hat\theta_m,\xi_1,\cdots,\xi_n)}{\partial\theta_m}=0
+	\end{array}\right.\]
+	\item\textbf{Caso Poissoniano:} immaginiamo di campionare $n$ volte una distribuzione di Poisson e di ottenere i valori $k_1,\cdots,k_n$. Se $\mu$ è la media della distribuzione, allora per ogni $i$ si ha
+	\[p(k_i)=\frac{\mu^{k_i}}{k_i!}e^{-\mu}\]
+	E dunque, se le misure sono indipendenti, la verosimiglianza è
+	\[\mathcal{L}(\mu,k_1,\cdots,k_n)=\prod_{i=1}^{n}\frac{\mu^{k_i}}{k_i!}e^{-\mu}\]
+	Massimizzando $\log\mathcal{L}$, si ottiene che la miglior stima di $\mu$ è
+	\[\hat{\mu}=\frac{1}{n}\sum_{i=1}^{n}k_i\]
+	\item\textbf{Caso Gaussiano:} immaginiamo di campionare $n$ volte una gaussiana e di ottenere i valori $k_1,\cdots,k_n$. Sempre nell'ipotesi di indipendenza, la verosimiglianza è
+	\[\mathcal{L}(\mu,\sigma,k_1,\cdots,k_n)=\prod_{i=1}^{n}\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(k_i-\mu)^2}{2\sigma^2}}\]
+	E massimizzando $\log\mathcal{L}$ si ottiene
+	\[\hat{\mu}=\frac{1}{n}\sum_{i=1}^{n}k_i\]
+	\[\hat{\sigma}^2=\frac{1}{n}\sum_{i=1}^{n}(k_i-\hat{\mu})^2\]
+	\item\textbf{Caso uniforme:} immaginiamo di campionare $n$ volte una distribuzione uniforme su $[a,b]$ e di ottenere i valori $k_1,\cdots,k_n$. La verosimiglianza è allora
+	\[\mathcal{L}(a,b,k_1,\cdots,k_n)=\frac{1}{(b-a)^n}\]
+	In questo caso non posso utilizzare le derivate per trovare il massimo, e gli unici vincoli sono 
+	\[a\leq\min_{1\leq i\leq n} k_i\leq \max_{1\leq i\leq n}k_i\leq b\]
+	E dato che voglio massimizzare $\mathcal{L}$, scelgo $a$ e $b$ uguali rispettivamente al minimo e al massimo. La stima della media è $\hat{\mu}=(a+b)/2$, che quindi dipende solamente dai due valori estremali dei $k_i$ ed è indipendente dagli altri $n-2$.
+	\item Storicamente, Gauss si è chiesto se esiste una distribuzione continua $\varphi(x,\mu)$ con media $\mu$ tale che la stima di $\mu$ ottenuta per massima verosimiglianza coincida con la media aritmetica dei campionamenti. Si può dimostrare che ciò accade se e solo se
+	\[\frac{\partial\log\varphi(x,\mu)}{\partial \mu}\propto x-\mu\]
+	In tal caso, si ha $\varphi(x,\mu)\propto e^{k(x-\mu)^2}$, ovvero una gaussiana.
+	\item Si può dimostrare che se una distribuzione dipende da un solo parametro $\theta$, la funzione di verosimiglianza è asintotica a una gaussiana per grandi campionamenti, nella forma
+	\[\mathcal{L}(\theta)=\frac{1}{\sqrt{2\pi}\sigma_\theta}e^{-\frac{(\theta-\hat{\theta})^2}{2\sigma_\theta^2}}\]
+	Dove $\sigma_\theta$ è l'incertezza su $\hat{\theta}$. Espandendo in Taylor $\log \mathcal{L}$ attorno a $\hat{\theta}$, si ottiene
+	\[\log\mathcal{L}(\theta)=\log\mathcal{L}(\hat{\theta})-\frac{1}{2}\frac{(\theta-\hat{\theta})^2}{\sigma_\theta^2}+o\left((\theta-\hat{\theta})^2\right)\]
+	E in particolare, per $\theta=\hat{\theta}\pm\sigma_\theta$, si ottiene che l'incertezza verifica la relazione
+	\[\log\mathcal{L}(\hat{\theta}\pm\sigma_\theta)\approx\log\mathcal{L}(\hat{\theta})-\frac{1}{2}\]
+	Ovvero $\sigma_\theta$ è (approssimativamente) la distanza dalla stima $\theta$ nella quale il valore di $\log\mathcal{L}(\theta)$ (che è massimo proprio per $\theta=\hat{\theta}$) è diminuito di $\frac{1}{2}$.
+	Operativamente, si può utilizzare
+	\[\sigma_\theta^2=-\left(\frac{\partial^2\log\mathcal{L}(\hat{\theta})}{\partial\theta^2}\right)^{-1}\]
+	\item Se la distribuzione dipende da più parametri, si può mostrare che se $\mathcal{M}$ è la matrice di covarianza, si ha
+	\[\mathcal{M}^{-1}_{ij}=\frac{\partial^2\log\mathcal{L}(\hat{\theta_1},\cdots,\hat{\theta_m})}{\partial \theta_i\partial\theta_j}\]
+	\item Per un numero elevato di campionamenti, con il metodo della massima verosimiglianza otteniamo la media e la varianza campione. 
+	\item Il metodo dei minimi quadrati è equivalente al principio di massima verosimiglianza. Infatti, se immaginiamo un modello del tipo $y=f(x,\theta_1,\cdots,\theta_m)$ e se immaginiamo di avere $n$ misure indipendenti con errori gaussiani solo su $y$, ovvero se $y_i=f(x_i,\theta_1,\cdots,\theta_m)+\sigma_i$, otteniamo
+	\[\log\mathcal{L}(\theta_1,\cdots,\theta_m)=-\sum_{i=1}^{n}\left[\left(\frac{y_i-f(x_i,\theta_1,\cdots,\theta_m)}{\sqrt{2}\sigma_i}\right)^2+\log\sqrt{2\pi}\sigma_i\right]\]
+	E quindi massimizzare $\log\mathcal{L}$ equivale a minimizzare
+	\[\sum_{i=1}^{n}\left(\frac{y_i-f(x_i,\theta_1,\cdots,\theta_m)}{\sigma_i}\right)^2\]
+\end{enumerate}
+
+\newpage
+\section{Ottica}
+\begin{enumerate}[resume]
+	\item Dette $c$ la velocità di propagazione nel vuoto e $v$ la velocità di propagazione della luce in un mezzo trasparente, si indica con $n$ il rapporto $c/v$ e si chiama indice di rifrazione. Si usa spesso anche la grandezza $\eta=n-1$. Si hanno le seguenti stime:
+	\begin{itemize}
+		\item $\eta\approx10^{-4}\sim10^{-3}$ per i gas
+		\item $\eta\approx10^{-2}\sim10^{-1}$ per le schiume e gli aerogel
+		\item $\eta\approx10^{-1}\sim1$ per i liquidi e i solidi
+	\end{itemize}
+	\item Per un mezzo di densità $\rho$, vale la legge (empirica) di Gladston-Dale
+	\[\eta=k\rho\]
+	\item \textbf{Principio di Fermat:} i raggi luminosi si propagano in modo da minimizzare i tempi di percorrenza.
+	\item \textbf{Invertibilità dei cammini ottici:} se la luce percorre una certa traiettoria da $A$ a $B$, allora percorre la stessa traiettoria da $B$ ad $A$.
+	\item\textbf{Legge di Snell-Cartesio:} $n_1\sin\alpha_1=n_2\sin\alpha_2$.
+	\item\textbf{Leggi della riflessione:}
+	\begin{itemize}
+		\item Il raggio riflesso è contenuto nel piano contenente il raggio incidente e la normale nel punto di incidenza
+		\item L'angolo di riflessione è uguale a quello di incidenza
+	\end{itemize}
+\end{enumerate}
+\subsection{Specchi}
+\begin{enumerate}[resume]
+	\item Uno specchio parabolico è in grado di focalizzare esattamente i raggi paralleli all'asse ottico nel fuoco.
+	\item Per uno specchio sferico concavo di raggio $R$, nell'approssimazione di raggi parassiali (i.e. poco distanti dall'asse ottico e poco inclinati rispetto ad esso) vale 
+	\[\frac{1}{p}+\frac{1}{q}=\frac{1}{f}\]
+	Con $f=R/2$. L'ingrandimento è
+	\[G=\frac{R-q}{p-R}=\frac{f}{p-f}\]
+	\item Un'immagine si dice reale se è intersezione di raggi luminosi (e quindi è raccoglibile su uno schermo). Viceversa, si dice virtuale se è intersezione di prolungamenti di raggi luminosi
+	\item Per uno specchio sferico convesso di raggio $R$, nell'approssimazione di raggi parassiali vale 
+	\[\frac{1}{p}+\frac{1}{q}=\frac{1}{f}\]
+	Con $f=-R/2$. L'ingrandimento è
+	\[G=\frac{q}{p}=\frac{f}{p-f}\]
+	Le immagini sono sempre virtuali e rimpicciolite.
+\end{enumerate}
+\subsection{Ingrandimento rifrattivo}
+\begin{enumerate}[resume]
+	\item Immaginiamo una lastra sottile che separa due regioni trasparenti, con indice relativo $n$. Immaginiamo anche un oggetto di lunghezza $2L$ nel mezzo con indice più alto a distanza $d\gg L$ dalla lastra e un osservatore a distanza $s\ll d$ nella regione con indice di rifrazione più basso. Allora l'ingrandimento angolare è approssivamente di un fattore $n$, ovvero se $\hat{r}$ è il diametro angolare dell'oggetto e $\hat{r}'$ il diametro angolare in assenza di mezzi trasparenti diversi, si ha $\hat{r}\approx n\hat{r}'$.
+\end{enumerate}
+\subsection{Prisma}
+\begin{enumerate}[resume]
+	\item Consideriamo un prisma di indice di rifrazione $n$ che ha per base un triangolo isoscele con angolo al vertice $\varphi$. Un raggio che incide con un angolo di incidenza $i$ su uno dei lati obliqui viene deflesso di un angolo
+	\[\delta=i-\varphi+\arcsin\left(\sin\varphi\sqrt{n^2-\sin^2i}-\cos\varphi\sin i\right)\]
+	\item La funzione $\delta(i)$ ha un minimo $\delta_m$ quando il raggio rifratto all'interno del prisma si propaga parallelamente alla base dello stesso.
+	\item Tale metodo permette di misurare l'indice di rifrazione $n$, infatti vale
+	\[\sin\left(\frac{\delta_m+\varphi}{2}\right)=n\sin\left(\frac{\varphi}{2}\right)\]
+\end{enumerate}
+\subsection{Diottri e lenti}
+\begin{enumerate}[resume]
+	\item Un diottro sferico è una superficie sferica di raggio $R$ che separa due mezzi di indice di rifrazione $n_1$ e $n_2$.
+	\item\textbf{Legge di Gauss per il diottro sferico:} in approssimazione parassiale, vale
+	\[\frac{n_1}{p}+\frac{n_2}{q}=\frac{n_2-n_1}{R}\]
+	\item Una lente è un sistema ottico costituito da un mezzo di indice di rifrazione $n'$ immerso in un mezzo di rifrazione $n$ e delimitato da due superfici, che possono essere piane o curve (con l'avvertenza che non siano contemporaneamente piane).
+	\item\textbf{Formula del costruttore di lenti:} se $R_1$ e $R_2$ sono i raggi di curvatura delle due superfici delimitanti la lente (con la convezione $R=\infty$ per superfici piane), e se la lente è sottile, in approssimazione parassiale vale
+	\[\frac{1}{p}+\frac{1}{q}=\left(\frac{n'}{n}-1\right)\left(\frac{1}{R_1}-\frac{1}{R_2}\right)\]
+	Si chiama lunghezza focale $f$ di una lente la quantità definita da
+	\[\frac{1}{f}=\left(\frac{n'}{n}-1\right)\left(\frac{1}{R_1}-\frac{1}{R_2}\right)\]
+	L'ingrandimento è 
+	\[G=\frac{q}{p}=\frac{f}{p-f}\]
+	\item Se $f>0$, la lente si dice convergente e le immagini formate sono:
+	\begin{itemize}
+		\item Reali, capovolte e rimpicciolite per $p>2f$
+		\item Reali, capovolte e ingrandite per $f<p<2f$
+		\item Virtuali, diritte e ingrandite per $p<f$	
+	\end{itemize}
+	\item Se $f<0$, la lente si dice divergente e le immagini formate sono sempre virtuali, diritte e rimpicciolite.
+	\item Un doppietto di lenti è un sistema ottico composto da due lenti di focali $f_1$ e $f_2$, con assi ottici coincidenti e separate da una distanza $d$. Se la lente con $f_1$ è posta a sinistra, allora un fascio di raggi paralleli all'asse ottico proveniente da sinistra sarà focalizzato nel fuoco destro $f_d$, dato da
+	\[\frac{1}{d-f_1}+\frac{1}{f_d}=\frac{1}{f_2}\]
+	Analogamente, un fascio di raggio paralleli all'asse ottico proveniente da destra sarà focalizzato nel fuoco sinistro $f_s$:	
+	\[\frac{1}{d-f_2}+\frac{1}{f_s}=\frac{1}{f_1}\]
+	Il sistema è equivalente a una lente posta tra le due lenti di focale $f_e$ data da
+	\[f_e=\frac{f_1f_2-d^2/2}{f_1+f_2-d}\]
+	Se poi $d\ll f_1,f_2$, si ha
+	\[\frac{1}{f_e}=\frac{1}{f_1}+\frac{1}{f_2}-\frac{d}{f_1f_2}\]
+	Se si vuole realizzare un sistema afocale, basta scegliere $d=f_1+f_2$. Viceversa, se le lenti sono addossate si ha
+	\[\frac{1}{f_e}=\frac{1}{f_1}+\frac{1}{f_2}\]
+	Ad esempio, posso aumentare la lunghezza focale di una lente convergente addossandola a una lente divergente.
+\end{enumerate}
+\subsection{Cannocchiali}
+\begin{enumerate}[resume]
+	\item\textbf{Cannocchiale rifrattore kepleriano:} il cannocchiale kepleriano è un doppietto afocale di lenti convergenti. Se $\alpha,\beta$ sono rispettivamente i raggi angolari di sorgente e immagine e $f_1,f_2$ le focali delle due lenti (la luce proveniente dalla sorgente incide sulla lente di focale $f_1$), l'ingrandimento angolare è definito da
+	\[\tan\beta=\frac{f_1}{f_2}\tan\alpha\]
+	Un cannocchiale kepleriano mostra immagini capovolte.
+	\item \textbf{Cannocchiale rifrattore galileiano:} il cannocchiale galileiano è un doppietto afocale costituito da una lente convergente e da una lente divergente, quindi le immagini sono diritte. Inoltre, l'ingrandimento angolare è di nuovo definito da
+	\[\tan\beta=\frac{f_1}{|f_2|}\tan\alpha\]
+	\item\textbf{Telescopio riflettore Cassegrain:} il telescopio Cassegrain è formato da due specchi, uno concavo e uno convesso, posizionati in modo da avere fuochi coincidenti.
+\end{enumerate}
+\subsection{Fenomeni atmosferici}
+\begin{enumerate}[resume]
+	\item \textbf{Arcobaleno:} in un mezzo trasparente, l'indice di rifrazione dipende dalla lunghezza d'onda della radiazione che lo attraversa secondo la formula empirica
+	\[n=k_1+\frac{k_2}{\lambda^2}\]
+	Ciò significa che la luce bianca che incide su una goccia d'acqua si separa nelle varie componenti luminose. Se la luce viene riflessa totalmente all'interno della goccia, allora riemerge con un angolo di deviazione di $40^\circ\sim42^\circ$. Da ciò si origina l'arcobaleno (ovviamente, se l'osservatore è posto tra il sole e le gocce d'acqua in sospensione, con il sole alle spalle).
+	\item\textbf{Aloni lunari:} spesso di notte si formano dei cristalli di ghiaccio in atmosfera, la cui orientazione è casuale. Possiamo quindi immaginare tali cristalli, di forma esagonale, come dei prismi di angolo al vertice di $60^\circ$ e, data la loro orientazione casuale, possiamo immaginare che l'angolo di incidenza luminoso sia distribuito uniformemente su $[0,\frac{\pi}{2}]$. Ciò comporta che la maggior parte dei raggi viene deflessa di circa $22^\circ$ (dove si sono usate le formule per il prisma e per la funzione di distribuzione di una funzione di variabili casuali).
+	
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,461 @@
+\documentclass[a4paper,11pt]{article}
+	 \usepackage[a4paper, left=2.5cm, bottom=2.5cm]{geometry}
+     \usepackage[italian]{babel}
+     \usepackage[utf8]{inputenc}
+     \usepackage{enumitem}
+     \usepackage{siunitx}
+     \usepackage{graphicx}
+     \usepackage{amsfonts}
+     \newcommand{\norm}[1]{\left\Vert#1\right\Vert}		%norma
+     \newcommand{\con}[1]{\overline{#1}}				%complesso coniugato
+     \newcommand{\tras}[1]{#1^t}						%trasposta
+     \newcommand{\agg}[1]{#1^*}							%aggiunta
+     \newcommand{\Span}{\mathrm{Span}}					%span
+     \newcommand{\base}[1]{\mathcal{#1}}				%base
+     \newcommand{\rg}{\mathrm{rg}}						%rango
+     \newcommand{\imm}{\mathrm{im}}						%immagine
+     \newcommand{\sign}{\mathrm{sign}}					%segno
+     \title{Teoria di Geometria I}
+
+\begin{document}
+	\maketitle
+\section{Geometria analitica}
+\begin{enumerate}
+	\item ...
+\end{enumerate}
+\section{Spazi vettoriali, matrici, applicazioni lineari}
+\begin{enumerate}[resume]
+	\item Un insieme $V$ si dice spazio vettoriale sul campo $\mathbb{K}$ se
+	\begin{itemize}
+		\item è definita una somma $+\colon V\times V\to V$ tale che $(V,+)$ è un gruppo abeliano, ovvero $+$ è associativa, commutativa, esiste un elemento neutro $0\in V$ e per ogni $v\in V$ esiste un opposto $w\in V$ tale che $v+w=0$.
+		\item è definito un prodotto esterno $\cdot\colon\mathbb{K}\times V\to V$ tale che per ogni $\lambda_1,\lambda_2\in\mathbb{K}$ e per ogni $v,u\in V$ si ha $(\lambda_1\lambda_2)v=\lambda_1(\lambda_2v)$, $(\lambda_1+\lambda_2)v=\lambda_1v+\lambda_2v$, $\lambda_1(v+u)=\lambda_1v+\lambda_1u$, $1\cdot v=v$.
+	\end{itemize}
+	\item L'elemento neutro e l'opposto sono unici.
+	\item $W\subseteq V$ è un sottospazio vettoriale di $V$ se $(W, +_{|W}, \cdot_{|W})$ è uno spazio vettoriale.
+	\item $W\subseteq V$ è un sottospazio se e solo se per ogni $u,v\in W$ e per ogni $\alpha,\beta\in\mathbb{K}$ $\alpha v+\beta w\in W$. In particolare, $0\in W$ e $\{0\}, V$ sono sempre sottospazi.
+	\item Se $A\subseteq B$, $\Span A\subseteq \Span B$.
+	\item Se $v\in\Span A$, $\Span A=\Span (A\cup\{v\})$.
+	\item $\Span A$ è un sottospazio.
+	\item $\base{B}\subseteq V$ è una base se è un insieme linearmente indipendente di generatori.
+	\item Se $v\in V$, la sua scrittura come combinazione lineare di elementi di $\base{B}$ è unica.
+	\item Ogni spazio vettoriale ha una base.
+	\item $A\subseteq V$ è un insieme linearmente indipendente massimale rispetto all'inclusione se e solo se è base di $V$.
+	\item $A\subseteq V$ è un insieme di generatori minimale rispetto all'inclusione se e solo se è una base di $V$.
+	\item Da ogni insieme finito di generatori si può estrarre una base.
+	\item Due basi hanno stessa cardinalità.
+	\item \textbf{Algoritmo di scambio:} se $A=\{u_1,\cdots,u_n\}$ è linearmente indipendente, $v\in\Span A$ e nella sua scrittura il coefficiente di $u_k$ è non nullo, allora $B=A\backslash\{u_k\}\cup\{v\}$ è linearmente indipendente e $\Span A=\Span B$. Più in generale, se $A$ è come sopra e $C={v_1,\cdots, v_m}\subseteq\Span A$ è linearmente indipendente, allora esiste $C'\subseteq A$ tale che $A\backslash C'\cup C$ è linearmente indipendente e ha stesso span di $A$.
+	\item Ogni insieme linearmente indipendente è contenuto in una base.
+	\item Sia $W$ un sottospazio di $V$. Allora $\dim W\leq \dim V$.
+	\item Sia $V$ di dimensione $n$. Allora
+	\begin{itemize}
+		\item Se $v_1,\cdots,v_k$ sono linearmente indipendenti, allora $k\leq n$, con uguaglianza se e solo se $\{v_1,\cdots,v_k\}$ è una base di $V$
+		\item Se $v_1,\cdots,v_k$ generano $V$, allora $k\geq n$, con uguaglianza se e solo se $\{v_1,\cdots,v_k\}$ è una base di $V$
+	\end{itemize}
+	\item Se $U,W$ sono sottospazi, allora $U\cap W$ è sottospazio. $U\cup W$ è sottospazio se solo se $W\subseteq U$ o $U\subseteq W$.
+	\item La somma di due sottospazi $U,W$ è definita da $U+W=\{u+w:u\in U,w\in W\}$.
+	\item $U+W$ è il più piccolo sottospazio contenente $U\cup W$.
+	\item Se $A\subseteq V$, $\Span A$ è il più piccolo sottospazio contenentente $A$.
+	\item Se $U,W$ sono sottospazi tali che $U\cap W=\emptyset$, allora $U,W$ si dicono in somma diretta, e si pone $U\oplus W$.
+	\item Se $U,W$ sono in somma diretta e $v\in U\oplus W$, esistono unici $u\in U,w\in W$ tali che $v=u+w$.
+	\item\textbf{Formula di Grassman:} $\dim(U+W)=\dim U+\dim W-\dim (U\cap W)$
+	\item $v_1,\cdots,v_n$ sono linearmente indipendenti se e solo se $\dim\Span\{v_1,\cdots,v_n\}=n$.
+	\item $v\in\Span\{v_1,\cdots,v_n\}$ se e solo se $\dim\Span\{v_1,\cdots,v_n\}=\dim\Span\{v,v_1,\cdots,v_n\}$.
+	\item Le matrice formano uno spazio vettoriale, inoltre il prodotto righe per colonne è associativo e distributivo rispetto alla somma.
+	\item $\tras{(AB)}=\tras{B}\tras{A}$.
+	\item $(AB)^{-1}=B^{-1}A^{-1}$.
+	\item Il sistema $Av=b$, con $A\in\mathcal{M}_{m\times n}(\mathbb{K})$ e $v,b\in \mathbb{K}^n$ è risolubile se e solo se $b\in\Span\{A^1,A^2,\cdots,A^n\}$.
+	\item Se le colonne di $A$ sono una base di $\mathbb{K}^n$, allora la soluzione esiste unica quale che sia $b$.
+	\item Si definisce $\rg A=\dim\mathcal{C}(A)$, ovvero la dimensione dello spazio generato dalle colonne di $A$.
+	\item \textbf{Teorema di Rouché-Capelli:} il sistema $Av=b$ è risolubile se e solo se, posto $\tilde{A}=[A|b]$, $\rg A=\rg\tilde{A}$. $\tilde{A}$ si chiama matrice completa associata al sistema.
+	\item L'insieme delle soluzioni di un sistema omogeneo (non vuoto, dato che contiene 0) è un sottospazio di $\mathbb{K}^n$ e contiene strettamente $\{0\}$ se e solo se le colonne di $A$ sono linearmente dipendenti.
+	\item Le seguenti operazioni non alterano le soluzioni di un sistema
+	\begin{itemize}
+		\item scambio di righe
+		\item moltiplicazione di righe per un coefficiente non nullo
+		\item sostituzione di una colonna $A^i$ con $A^i+\lambda A^j$.
+	\end{itemize}
+	\item Riduzione a scala, pivot e variabili libere.
+	\item Si possono assegnare valori arbitrari alle variabili libere e ricavare in maniera unica quelle di pivot.
+	\item Se ho $k$ pivot, lo spazio delle soluzioni ha dimensione $n-k$, e una sua base si trova assegnando il valore $1$ a una variabile libera e $0$ alle altre, facendo tutte le possibili combinazioni.
+	\item Le colonne di $A$ contenenti pivot sono linearmente indipendenti e generano $\mathcal{C}(A)$. Quindi $\rg A$ è pari al numero di pivot. Allo stesso modo, le righe non nulle della riduzione a scala di $A$ sono linearmente indipendenti, quindi il rango definito per righe è equivalente al rango definito per colonne.
+	\item Nel caso non omogeneo, le soluzioni formano un sottospazio affine dello spazio delle soluzioni dell'omogeneo associato, quindi è sufficiente trovare una soluzione particolare e una base delle soluzioni dell'omogeneo.
+	\item Se $V,W$ sono $\mathbb{K}$-spazi vettoriale, una funzione $f\colon V\to W$ si dice applicazione lineare se per ogni $u,v\in V$ e per ogni $\alpha\in\mathbb{K}$ si ha $f(u+v)=f(u)+f(v)$ e $f(\alpha v)=\alpha f(v)$.
+	\item Si pongono $\imm f=f(V)$, $\ker f=f^{-1}(0)$.
+	\item $\dim\ker f+\dim\imm f=\dim V$.
+	\item Se $U\subseteq V$ è sottospazio, $\dim f(U)=\dim V-\dim(\ker f\cap U)$.
+	\item $f$ è iniettiva se e solo se $\ker f=\{0\}$.
+	\item Se $f$ è biiettiva, si dice che $f$ è un isomorfismo tra $V$ e $W$, che si dicono isomorfi.
+	\item Se $\dim V=\dim W$, $f$ è iniettiva se e solo se è suriettiva se e solo se è un isomorfismo.
+	\item Se $f\colon V\to W$ è un'applicazione lineare e $\base{B}$ è una base di $V$, $f$ è univocamente determinata da $f(\base{B})$. Viceversa, posto $\base{B}=\{v_1,\cdots v_n\}$ e dati $w_1,\cdots,w_n\in W$ (con eventuali ripetizioni), esiste un'unica applicazione lineare $f$ tale che $f(v_i)=w_i$.
+	\item $U\subseteq \mathbb{K}^n$ di dimensione $d$ è dato in forma cartesiana se si ha $U=\ker A$, per una certa $A\in\mathcal{M}_{(n-d)\times n}(\mathbb{K})$ di rango $n-d$. Viceversa, $U$ è dato in forma parametrica se $U=\imm B$ per una certa $B\in\mathcal{M}_{n\times d}(\mathbb{K})$ di rango $d$. Le colonne di $B$ sono una base per $U$.
+	\item Per passare dalla forma cartesiana a quella parametrica, riduci a scala $A$ per trovare una base di $\ker A$. La matrice che ha per colonne gli elementi della base trovata è $B$. Per passare dalla forma parametrica a quella cartesiana, si riduca a scala $[B|b]$, ottenendo $[B'|b']$. Uguagliando a 0 le ultime $n-d$ componenti di $b$, si trova $A$.
+	\item L'insieme $\mathcal{L}(V,W)=\{f\colon V\to W, f\textrm{ applicazione lineare}\}$ è uno spazio vettoriale con somma e prodotto esterni definiti da $(f+g)(v)=f(v)+g(v)$ e $(\alpha f)(v)=\alpha f(v)$. Inoltre, è chiuso rispetto alla composizione. Si chiama spazio duale di $V$ lo spazio $V^*=\mathcal{L}(V,\mathbb{K})$. Una base di $V^*$ è data da $f_i(v_j)=\delta_{ij}$, dove i $v_j$ formano una base di $V$.
+	\item $\dim\imm(g\circ f)=\dim\imm f-\dim(\ker g\cap\imm f)$
+	\item Sia $V$ un $\mathbb{K}$-spazio di dimensione $n$, $\base{B}$ una sua base, $\varphi_{\base{B}}\colon V\to\mathbb{K}^n$ l'applicazione che associa a $v\in V$ il vettore delle sue coordinate rispetto a $\base{B}$ $[v]_{\base{B}}\in\mathbb{K}^n$. Allora $\varphi_{\base{B}}$ definisce un isomorfismo tra $V$ e $\mathbb{K}^n$.
+	\item Un isomorfismo porta vettori linearmente indipendenti in vettori linearmente indipendenti, in particolare due vettori sono linearmente indipendenti se e solo se lo sono i loro vettori delle coordinate.
+	\item Siano $V,W$ spazi vettoriali, $f\colon V\to W$ un'applicazione lineare, $\base{B}$ e $\base{B'}$ basi rispettivamente di $V,W$. Allora $f$ è univocamente determinata dalla matrice
+	\[M_{\base{B'}}^{\base{B}}(f)=[\varphi_{\base{B'}}(f(v_1))|\cdots|\varphi_{\base{B'}(f(v_n))}]\]
+	In particolare, si ha per ogni $v\in V$ $\varphi_{\base{B'}}(f(v))=M_{\base{B'}}^{\base{B}}(f)\varphi_{\base{B}}(v)$, cosicchè a $f\colon V\to W$ si può associare $\left[f\right]_{\base{B'}}^{\base{B}}\colon\mathbb{K}^n\to\mathbb{K}^m$ tale che $\left[f\right]_{\base{B'}}^{\base{B}}(x)=M_{\base{B'}}^{\base{B}}(f)x$. Tale associazione definisce un isomorfismo tra $\mathcal{L}(V,W)$ e $\mathcal{M}_{m\times n}(\mathbb{K})$, e quindi $\dim\mathcal{L}(V,W)=\dim V\dim W$.
+	\item Su $\mathcal{L}(V)$, definito come $\mathcal{L}(V,V)$, è definita anche l'operazione di composizione, per cui è un anello. $f\in\mathcal{L}(V)$ si chiama endomorfismo.
+	\item Sono equivalenti per $f\in\mathcal{L}(V)$:
+	\begin{enumerate}
+		\item $f$ è invertibile
+		\item $f$ è biiettiva
+		\item $f$ è iniettiva
+		\item $f$ è suriettiva
+		\item $f$ è un isomorfismo
+		\item $\rg f=\dim V$
+	\end{enumerate}
+	\item Siano $f\in\mathcal{L}(V,W)$, $g\in\mathcal{L}(W,Z)$, $\base{B},\base{B'},\base{B''}$ rispettivamente basi di $V,W,Z$. Allora vale
+	\[M_{\base{B''}}^{\base{B}}(g\circ f)=M_{\base{B''}}^{\base{B'}}(g)M_{\base{B'}}^{\base{B}}(f)\]
+	\item Se $f$ è un endomorfismo invertibile, $M_{\base{B}}^{\base{B'}}(f^{-1})=\left(M_{\base{B'}}^{\base{B}}(f)\right)^{-1}$, quindi $f$ è invertibile se e solo se $M_{\base{B'}}^{\base{B}}(f)$ lo è.
+	\item Sia $f\in\mathcal{L}(V,W)$, $\base{B},\base{B'}$ basi di $V$, $\base{C},\base{C'}$ basi di $W$. Allora
+	\[M_{\base{C'}}^{\base{B'}}(f)=M_{\base{C'}}^{\base{C}}(\mathrm{id}_{|W})M_{\base{C}}^{\base{B}}(f)M_{\base{B}}^{\base{B'}}(id_{|V})\]
+	Dato che le matrici a destra e a sinistra al secondo membro sono invertibili, le due matrici associate a $f$ si dicono SD-equivalenti. Se $f$ è un endomorfismo, le due matrici sono simili.
+	\item Comporre un'applicazione con isomorfismi (a destra e sinistra) non ne modifica il rango, in particolare il rango è invariante completo per SD-equivalenza.
+	\item Il determinante è l'unica funzione delle righe di una matrice quadrata multilineare alternante tale che $\varphi(I)=1$.
+	\item Proprietà del determinante utili per mostrarne esistenza e unicità:
+	\begin{itemize}
+		\item Se $A$ ha una riga nulla, $\det A=0$
+		\item Se $A$ ha due righe uguali, $\det A=0$
+		\item Se $A$ ha due righe linearmente dipendenti, $\det A=0$
+		\item Se sostituisco $A_i$ con $A_i+\lambda A_j$, il determinante non cambia
+		\item Se $S$ è una riduzione a scala di $A$, $\det A=\pm \det S$, a seconda del numero di scambio di righe fatto
+		\item Se $A$ è singolare, $\det A =0$.
+	\end{itemize}
+	\item Sia $S_n=\{k\in\mathbb{N}: k\leq n\}$. Si denota con $\Sigma_n=\Sigma(S_n)=\{\sigma\colon S_n\to S_n:\sigma\textrm{ è biettiva}\}$ il gruppo simmetrico, ovvero l'insieme delle permutazioni di $S_n$.
+	\item $\Sigma_n$ con l'operazione di composizione è un gruppo non abeliano di cardinalità $n!$.
+	\item Una traspozione $\tau$ è un elemento di $\Sigma_n$ tale che $\tau$ scambia due soli interi positivi $i$ e $j$. Si indica $\tau=\left(i\textrm{  }j\right)$, e vale $\tau^2=\mathrm{id}$.
+	\item Ogni permutazione si scrive (in maniera non unica) come prodotto di trasposizioni. Se $\sigma=\tau_1\circ\cdots\circ\tau_h=\tau'_1\circ\cdots\circ\tau'_k$, $h$ e $k$ hanno la stessa parità. Si può quindi parlare di permutazioni pari e permutazioni dispari.
+	\item Si pone $\sign(\sigma)=1$ se $\sigma$ è pari, -1 altrimenti. Si ha $\sign(\sigma)=\sign(\sigma^{-1})$.
+	\item Se $A$ è di ordine $n$, si ha $\det A=\sum_{\sigma\in\Sigma_n}\sign(\sigma)a_{1\sigma(1)}\cdots a_{n\sigma(n)}$.
+	\item \textbf{Sviluppo di Laplace del determinante:} sia $\mathcal{A}_{ij}=(-1)^{i+j}\det\tilde{A}_{ij}$, con $\tilde{A}_{ij}$ matrice ottenuta eliminando da $A$ l'$i$-esima riga e la $j$-esima colonna. Allora $\det A=\sum_{j=1}^{n}a_{ij}\mathcal{A}_{ij}=\sum_{i=1}^{n}a_{ij}\mathcal{A}_{ij}$.
+	\item $\det A$ è il volume (con segno) dell'$n$-parallelepipedo che ha per lati le colonne (o le righe) di $A$.
+	\item $\det A\neq 0$ se e solo se $A$ è invertibile.
+	\item Se $A$ è invertibile, $(A^{-1})_{ij}=(\det A)^{-1}\mathcal{A}_{ji}$
+	\item \textbf{Teorema di Binet:} $\det(AB)=\det A\det B$
+	\item Il rango, la traccia e il determinante sono invarianti per similitudine
+	\item Il rango di $A$ è il massimo ordine di una sottomatrice invertibile di $A$.
+	\item Il determinante è invariante per trasposizione.
+	\item $\mathrm{GL}_n(\mathbb{K})$ non è un gruppo rispetto alla somma, ma è un gruppo rispetto alla moltiplicazione righe per colonne.
+\end{enumerate}
+\section{Autoteoria}
+\begin{enumerate}[resume]
+	\item \textbf{Def:} sia $f\colon V\to V$ un endomorfismo di uno spazio vettoriale $V$ e $W\subseteq V$ un sottospazio. $W$ si dice $f$-invariante se $f(W)\subseteq W$.
+	\item \textbf{Def:} sia $V$ un $\mathbb{K}$-spazio. $\lambda \in\mathbb{K}$ si dice autovalore per $f\colon V\to V$ se esiste $v\neq 0$ tale $f(v)=\lambda v$, ovvero se $\textrm{span}\{v\}$ è $f$-invariante. In tal caso, $v$ è autovettore per $f$.
+	\item \textbf{Def:} sia $A\in\mathcal{M}_n(\mathbb{K})$. $\lambda\in\mathbb{K}$ si dice autovalore per $A$ se esiste $v\neq0$ tale che $Av=\lambda v$. In tal caso $v$ è autovettore per $A$.
+	\item $\lambda$ è autovettore per $f$ se e solo se è autovettore per $M_{\mathcal{B}}(f)$ rispetto a una qualche base $\mathcal{B}$.
+	\item $\lambda$ è autovettore per $A$ se e solo se $\dim\ker(A-\lambda I)>0$ se e solo se $\det(A-\lambda I)=0$. In tal caso, gli autovettori $v$ sono soluzioni di $(A-\lambda I)v=0$.
+	\item \textbf{Def:} $p_A(\lambda)=\det(A-\lambda I)$ è il polinomio caratterisco di $A$.
+	\item Il polinomio caratterisco è invariante per similitudine, quindi è ben definito anche per gli endomorfismi.
+	\item Sia $p_A(\lambda)=(-1)^n\left(\lambda^n+a_1\lambda^{n-1}+\cdots+a_n\right)$. Allora $a_1=-\textrm{tr}A$ e $a_n~=~(-1)^n\det A$.
+	\item \textbf{Def:} il sottospazio $V_\lambda=\{v\in V:Av=\lambda v\}$ è l'autospazio relativo a $\lambda$. Si definisce in maniera analoga per gli endomorfismi.
+	\item \textbf{Def:} la molteplicità algebrica $\mu_a(\lambda)$ di un autovalore $\lambda$ è la molteplicità di $\lambda$ come radice di $p_A(\lambda)$. La molteplicità geometrica $\mu_g(\lambda)$ è la dimensione di $V_\lambda$.
+	\item Per ogni autovalore $\lambda$, $\mu_g(\lambda)\leq\mu_a(\lambda)$.
+	\item \textbf{Def:} $A$ è diagonalizzabile se è simile a una matrice diagonale. Analogamente, $f\colon V\to V$ è diagonalizzabile se esiste una base $\mathcal{B}$ di $V$ tale che $M_\mathcal{B}(f)$ è diagonale.
+	\item $f\colon V\to V$ è diagonalizzabile se e solo se $V$ ha una base di autovettori per $f$.
+	\item Autovettori relativi ad autovalori distinti sono linearmente indipendenti, quindi autospazi relativi ad autovalori distinti sono in somma diretta.
+	\item $f\colon V\to V$ è diagonalizzabile se e solo se $V$ si decompone nella somma diretta degli autospazi, i.e. $V=V_{\lambda_1}\oplus V_{\lambda_2}\oplus\cdots\oplus V_{\lambda_k}$.
+	\item Sia $f\colon V\to V$ un endomorfismo con autovalori distinti $\lambda_1,\cdots,\lambda_k$ e sia $n=\dim V$. Allora $f$ è diagonalizzabile se e solo se:
+	\begin{itemize}
+		\item Per ogni $i\leq k$, $\mu_g(\lambda_i)=\mu_a(\lambda_i)$
+		\item $\sum_{i=1}^{k}\mu_a(\lambda_i)=n$
+	\end{itemize}
+	\item Sia $f\colon V\to V$ diagonalizzabile, $V=V_{\lambda_1}\oplus V_{\lambda_2}\oplus\cdots\oplus V_{\lambda_k}$ la decomposizione di $V$ in autospazi e $W\subseteq V$ un sottospazio $f$-invariante. Allora $W=\left(W\cap V_{\lambda_1}\right)\oplus\left(W\cap V_{\lambda_2}\right)\oplus\cdots\left(W\cap V_{\lambda_k}\right)$. Dunque anche $f_{\left|_W\right.}\colon W\to W$ è diagonalizzabile.
+	\item Siano $A$ e $B$ matrici diagonalizzabili. Allora esse sono simultaneamente diagonalizzabili (ovvero esiste una base in cui sono entrambe diagonali) se e solo se $AB=BA$.
+\end{enumerate}
+\section{Polinomio minimo}
+\begin{enumerate}[resume]
+	\item\textbf{Def:} uno spazio vettoriale $V$ munito di una seconda operazione che lo rende un anello è un'algebra.
+	\item Sia $A\in\mathcal{M}_n(\mathbb{K})$ diagonalizzabile. Allora per ogni $p\in\mathbb{K}[x]$, $p(A)$ è diagonalizzabile.
+	\item Siano $A\in\mathcal{M}_n(\mathbb{K})$ una matrice diagonalizzabile e $\sigma_A\colon\mathbb{K}[x]\to\mathcal{M}_n(\mathbb{K})$ l'applicazione tale che $\sigma_A(p)=p(A)$. Allora $\sigma_A(\mathbb{K}[x])$ è un'algebra di matrici simultaneamente diagonalizzabili, che quindi commutano.
+	\item $\dim\ker\sigma_A>0$ e $\ker\sigma_A$ è chiuso rispetto a somma, prodotto e prodotto esterno, quindi è una sottoalgebra. Inoltre, se $p\in\mathbb{K}[x]$ e $q\in\ker\sigma_A$ si ha $pq\in\ker\sigma_A$, quindi $\ker\sigma_A$ è un ideale.
+	\item Se $B\sim A$, $\ker\sigma_A=\ker\sigma_B$.
+	\item Esiste ed è unico un polinomio monico di grado minimo in $\ker\sigma_A$ tale che per ogni $q\in\ker\sigma_A$ si ha $p|q$. Tale polinomio si chiama polinomio minimo.
+	\item\textbf{Hamilton-Cayley:} $p_A\in\ker\sigma_A$.
+	\item\textbf{Def:} $A\in\mathcal{M}_n(\mathbb{K})$ è nilpotente se esiste $j\in\mathbb{N}$ tale che $A^j=0$.
+	\item $A\in\mathcal{M}_n(\mathbb{K})$ è nilpotente se e solo se $p_A(\lambda)=(-1)^n\lambda^n$.
+\end{enumerate}
+\section{Prodotti scalari e hermitiani}
+\subsection{Prodotti scalari}
+\begin{enumerate}[resume]
+	\item \textbf{Def:} siano $U,V,W$ tre $\mathbb{K}$-spazi vettoriali. Un'applicazione $\varphi\colon U\times~V\to~ W$ è bilineare se:
+	\begin{itemize}
+		\item $\forall u_1,u_2 \in U$ $\forall v_1,v_2\in V$ si ha $\varphi(u_1+u_2,v_1)=\varphi(u_1,v_1)+\varphi(u_2,v_1)$ e $\varphi(u_1,v_1+v_2)=\varphi(u_1,v_1)+\phi(u_1,v_2)$
+		\item $\forall\alpha\in\mathbb{K}$ $\forall u\in U$ $\forall v\in V$ si ha $\varphi(\alpha u,v)=\alpha\varphi(u,v)=\varphi(u,\alpha v)$
+	\end{itemize}
+	\item Siano $\mathcal{B}_U=\{u_1,\cdots,u_n\}$ e $\mathcal{B}_V=\{v_1,\cdots,v_m\}$ basi rispettivamente di $U$ e $V$ e $\varphi\colon U\times~ V~\to ~W$ un'applicazione bilineare. Siano $u\in U$ e $v\in V$, con vettori delle coordinate $[u]_{\mathcal{B}_U}=x$ e $[v]_{\mathcal{B}_V}=y$. Allora \[\varphi(u,v)=\sum_{i=1}^{n}\sum_{j=1}^{m}x_iy_j\varphi(u_i,v_j)\]
+	\item Posto $\textmd{Bil}(U\times V,W)=\{f\colon U\times V\to W:\textrm{ $f$ è bilineare}\}$, l'applicazione che manda $f\in\textrm{Bil}(U\times V,W)$ nella lista $\{f(u_i,v_j)\}_{i=1,\cdots,n;\textrm{  }j=1,\cdots,m}$ è un isomorfismo tra $\textrm{Bil}(U\times V,W)$ e $W^{mn}$, da cui, se $p=\dim W$, si ha $\dim\textrm{Bil}(U\times V,W)=mnp$.
+	\item Siano $\mathcal{B}_U=\{u_1,\cdots,u_n\}$, $\mathcal{B}_V=\{v_1,\cdots,v_m\}$, $\mathcal{B}_W=\{w_1,\cdots,w_p\}$ rispettivamente basi di $U,V,W$. Allora una base di $\textrm{Bil}(U\times V,W)$ è $\{\varphi^{\alpha\beta\gamma}\}$ tale che $\varphi^{\alpha\beta\gamma}(u_i,v_j)=\delta_{\alpha i}\delta_{\beta j}w_{\gamma}$.
+	\item \textbf{Def:} un'applicazione bilineare $\varphi\colon V\times V\to W$ si dice simmetrica se  per ogni $v_1,v_2\in V$ si ha $\varphi(v_1,v_2)=\varphi(v_2,v_1)$.
+	\item \textbf{Def:} un prodotto scalare su un $\mathbb{K}$-spazio $V$ è una qualunque applicazione bilineare simmetrica $\varphi\colon V\times V\to\mathbb{K}$.
+	\item Sia $\mathcal{B}=\{v_1,\cdots,v_n\}$ una base di $V$ e $\varphi$ un prodotto scalare su $V$. Allora, posto $A=(\varphi(v_i,v_j))_{i,j=1,\cdots,n}$, si ha per ogni $u,v\in V$
+	\[\varphi(u,v)=[u]^t_{\mathcal{B}}A[v]_{\mathcal{B}}\]
+	$A$ è la matrice associata a $\varphi$ nella base $\mathcal{B}$.
+	\item Siano $\mathcal{B}$ e $\mathcal{B}'$ due basi di $V$. Se $P$ è la matrice di cambio base tra $\mathcal{B}$ e $\mathcal{B}'$ e $A$, $A'$ sono le matrici associate a $\varphi$ nelle due basi, si ha
+	\[A'=P^tAP\]
+	\item\textbf{Def:} due matrici $A,B\in\mathcal{M}_n(\mathbb{K})$ tali che esiste $M\in\textrm{GL}_n(\mathbb{K})$ tale che $A=M^tBM$ si dicono congruenti, e si scrive $A\equiv B$.
+	\item $A\equiv B$ $\Rightarrow$ $\textrm{rg}(A)=\textrm{rg}(B)$, quindi il rango è ben definito per prodotti scalari.
+	\item \textbf{Def:} due vettori $u,v$ sono ortogonali se $\varphi(u,v)=0$.
+	\item\textbf{Def:} il radicale di $V$ è il sottospazio $V^{\perp}=\{v\in V:\forall w\in V,\varphi(v,w)=~0\}$.
+	\item\textbf{Def:} se $W\subseteq V$, l'ortogonale di $W$ è il sottospazio $W^{\perp}=\{v\in V:\forall w\in W,\varphi(v,w)=~0\}$.
+	\item Proprietà dell'ortogonale:
+	\begin{itemize}
+		\item $W^{\perp}$ è un sottospazio, anche se $W$ non lo è
+		\item $W\subseteq U$ $\Rightarrow$ $U^{\perp}\subseteq W^{\perp}$
+		\item $W^{\perp}=(\textrm{span}W)^{\perp}$
+	\end{itemize}
+	\item\textbf{Def:} $\varphi$ è non degenere se $V^{\perp}=\{0\}$.
+	\item Scelta una base $\mathcal{B}$, $V^{\perp}$ è isomorfo a $\ker M_\mathcal{B}(\varphi)$ tramite l'applicazione $v\mapsto[v]_{\mathcal{B}}$.
+	\item Se $W\subseteq V$ è un sottospazio, si ha
+	\[\dim W+\dim W^{\perp}=\dim V+\dim(W\cap V^{\perp})\]
+	\item\textbf{Def:} $v\in V$ si dice isotropo se $\varphi(v,v)=0$.
+	\item $v$ è non-isotropo $\Leftrightarrow$ $\varphi_{\left|_{\textrm{span}(v)}\right.}$ è non degenere $\Leftrightarrow$ $V=\textrm{span}(v)\oplus(\textrm{span}(v))^{\perp}$. Analogamente, $v$ è isotropo $\Leftrightarrow$ $v\in(\textrm{span}(v))^{\perp}$.
+	\item\textbf{Def:} una base $\mathcal{B}=\{v_1,\cdots,v_n\}$ è ortogonale per $\varphi$ se $\varphi(v_i,v_j)=0$ quando $i\neq j$, ovvero se $M_\mathcal{B}(\varphi)$ è diagonale.
+	\item\textbf{Lagrange:} ogni prodotto scalare ammette una base ortogonale.
+	\item Ogni matrice simmetrica è congruente a una matrice diagonale.
+	\item \textbf{Sylvester complesso:} sia $\varphi$ un prodotto scalare su uno spazio vettoriale complesso di rango $r$. Allora esiste una base $\mathcal{B}$ in cui
+	\[M_\mathcal{B}(\varphi)=\left(\begin{array}{c | c}
+	I_r & 0 \\
+	\hline
+	0 & 0 \\
+	\end{array}\right)\]
+	\item Il rango è invariante completo per la congruenza di matrici simmetriche complesse.
+\end{enumerate}
+	\subsection{Prodotti scalari su spazi vettoriali reali}
+\begin{enumerate}[resume]
+	\item\textbf{Def:} $\varphi$ è definito positivo se per ogni $v\neq 0$ si ha $\varphi(v,v)>0$, è definito negativo se per ogni $v\neq 0$ si ha $\varphi(v,v)<0$, è indefinito se è non degenere e non è definito.
+	\item Se $\varphi$ è definito, è non degenere.
+	\item\textbf{Def:} Si definiscono indici di positività, negatività e nullità:
+	\[i_{+}(\varphi)=\max\{\dim W:\textrm{ $W$ è un sottospazio di $V$ e $\varphi_{\left|_{W\times W}\right.}$ è definito positivo}\}\]
+	\[i_{-}(\varphi)=\max\{\dim W:\textrm{ $W$ è un sottospazio di $V$ e $\varphi_{\left|_{W\times W}\right.}$ è definito negativo}\}\]
+	\[i_0(\varphi)=\dim V^{\perp}\]
+	\item $i_+(\varphi)+i_-(\varphi)=\textrm{rg}\varphi$, $i_+(\varphi)+i_-(\varphi)+i_0(\varphi)=\dim V$.
+	\item\textbf{Sylvester reale:} sia $\varphi$ un prodotto scalare su uno spazio vettoriale reale. Allora per ogni base $\mathcal{B}$ ortogonale si ha:
+	\begin{itemize}
+		\item $\left|\{v\in\mathcal{B}:\varphi(v,v)>0\}\right|=i_+(\varphi)$
+		\item $\left|\{v\in\mathcal{B}:\varphi(v,v)<0\}\right|=i_-(\varphi)$
+		\item $\left|\{v\in\mathcal{B}:\varphi(v,v)=0\}\right|=i_0(\varphi)$
+	\end{itemize} 
+	Inoltre esiste una base $\mathcal{B}'$ tale che
+	\[M_{\mathcal{B}'}(\varphi)=\left(\begin{array}{c | c | c}
+	I_{i_+(\varphi) } & 0 & 0 \\
+	\hline
+	0 & -I_{i_-(\varphi)} & 0 \\
+	\hline
+	0 & 0 & 0 \\
+	
+	\end{array}\right)\]
+	\item\textbf{Def:} la segnatura di $\varphi$ è la terna $\sigma(\varphi)=\left(i_+(\varphi),i_-(\varphi),i_0(\varphi)\right)$.
+	\item La segnatura è invariante completo per congruenza di matrici simmetriche reali.
+	\item\textbf{Def:} sia $W\subseteq V$ un sottospazio tale che $\varphi_{\left|_{W\times W}\right.}$ è non degenere. Allora $V=W\oplus W^{\perp}$, quindi per ogni $v\in V$ esistono unici $w\in W$ e $w'\in W^{\perp}$ tali che $v=w+w'$. Si definisce proiezione ortogonale su $W$ l'applicazione $p_W\colon V\to W$ tale che $p_W(v)=w$.
+	\item Sia $\mathcal{B}={w_1,\cdots,w_n}$ una base ortogonale di $W$. Allora si ha
+	\[p_W(v)=\sum_{i=1}^{n}\frac{\varphi(v,w_i)}{\varphi(w_i,w_i)}w_i\]
+	\item\textbf{Def:} il coefficiente $\frac{\varphi(v,w_i)}{\varphi(w_i,w_i)}$ è il coefficiente di Fourier di $v$ rispetto a $w_i$.
+	\item\textbf{Def:} un sottospazio $W$ si dice isotropo se $\varphi_{\left|_{W\times W}\right.}=0$, i.e. se $W\subseteq ~W^{\perp}$.
+	\item Lemmetti a caso:
+	\begin{itemize}
+		\item $\max\{\dim W:\textrm{ $W$ è un sottospazio isotropo di $V$}\}=\min\{i_+(\varphi),i_-(\varphi)\}$
+		\item Se $V$ è somma diretta ortogonale di $U$ e $W$, allora $i_+(\varphi)=i_+(\varphi_{\left|_{U\times U}\right.})+i_+(\varphi_{\left|_{W\times W}\right.})$,$i_-(\varphi)=i_-(\varphi_{\left|_{U\times U}\right.})+i_-(\varphi_{\left|_{W\times W}\right.})$ e $i_0(\varphi)=i_0(\varphi_{\left|_{U\times U}\right.})+i_0(\varphi_{\left|_{W\times W}\right.})$
+		\item $(W^\perp)^\perp=W+V^\perp$
+	\end{itemize}
+\end{enumerate}
+\subsection{Spazi euclidei}
+\begin{enumerate}[resume]
+	\item\textbf{Def:} uno spazio euclideo è una coppia $(V,\varphi)$ dove $V$ è uno spazio vettoriale reale e $\varphi$ un prodotto scalare su $V$ definito positivo.
+	\item\textbf{Def:} la norma di $v$ è $\norm{v}=\sqrt{\varphi(v,v)}$.
+	\item\textbf{Cauchy-Schwarz:} $|\varphi(v,w)|\leq\norm{v}\cdot\norm{w}$
+	\item Proprietà della norma:
+	\begin{itemize}
+		\item $\forall v\in V$, $\norm{v}\geq 0$
+		\item $\norm{v}=0$ $\Leftrightarrow$ $v=0$
+		\item $\forall \lambda\in\mathbb{R}$ $\forall v\in V$, $\norm{\lambda v}=\left|\lambda\right|\norm{v}$
+		\item $\forall v,w\in V$, $\norm{v+w}\leq\norm{v}+\norm{w}$
+	\end{itemize}
+	\item\textbf{Pitagora:} se $\varphi(v,w)=0$, $\norm{v+w}^2=\norm{v}^2+\norm{w}^2$
+	\item Ogni spazio vettoriale normato è pure uno spazio metrico, con distanza indotta $d(v,w)=~\norm{v-w}$. Tale distanza gode anche di altre due proprietà rispetto alle distanze usuali:
+	\begin{itemize}
+		\item $\forall \alpha\in\mathbb{R}$ $\forall v,w\in V$, $d(\alpha v,\alpha w)=\left|\alpha\right|d(v,w)$
+		\item $\forall v,w,z\in V$, $d(v+z,w+z)=d(v,w)$
+	\end{itemize}
+	una distanza che gode di tali proprietà si dice distanza vettoriale.
+	\item\textbf{Def:} una base $\mathcal{B}$ di $V$ è una base ortonormale se è una base ortogonale di vettori di norma 1.
+	\item\textbf{Algoritmo di Gram-Schmidt:} sia $\mathcal{B}=\{v_1,\cdots,v_n\}$ una base di uno spazio euclideo $(V,\varphi)$. Se si pone
+	\[v_1'=v_1\]
+	\[v_i'=v_i-\sum_{j=1}^{i-1}\frac{\varphi(v_i,v_j')}{\varphi(v_j',v_j')}v_j'\]
+	\[v_k''=\frac{v_k'}{\norm{v_k'}}\]
+	Allora $\mathcal{B}''=\{v_1'',\cdots,v_n''\}$ è una base ortonormale per $V$.
+	\item Se $\mathcal{B}$ è una base ortonormale, allora $v=\sum_{i}\varphi(v,v_i)v_i$ per un qualsiasi $v\in V$.
+	\item\textbf{Disuguglianza di Bessel:} se $v_1,\cdots v_k$ sono vettori ortonormali, per ogni $v\in V$ si ha \[\norm{v}^2\geq\sum_{i=1}^{k}\varphi(v,v_i)^2\]
+	\item\textbf{Def:} un endomorfismo $f\colon V\to V$ di uno spazio euclideo $(V,\varphi)$ si dice simmetrico se per ogni $v,w\in V$ si ha $\varphi(f(v),w)=\varphi(v,f(w))$.
+	\item\textbf{Def:} un endomorfismo $f\colon V\to V$ di uno spazio euclideo $(V,\varphi)$ si dice ortogonale se per ogni $v,w\in V$ si ha $\varphi(f(v),f(w))=\varphi(v,w)$.
+	\item Gli operatori simmetrici formano un sottospazio di $\mathcal{L}(V)$.
+	\item Gli operatori ortogonali formano un sottogruppo di $\textrm{GL}(V)$ con l'operazione di composizione.
+	\item Se $f\colon V\to V$ è ortogonale, allora mantiene le distanze.
+	\item\textbf{Def:} $A\in\textrm{GL}_n(\mathbb{R})$ si dice ortogonale se $AA^t=A^tA=I$.
+	\item Siano $\mathcal{B}$ una base ortonormale di $V$ e $f\in\mathcal{L}(V)$. Allora $f$ è un operatore simmetrico se e solo se $M_\mathcal{B}(f)$ è una matrice simmetrica e $f$ è un operatore ortogonale se e solo se $M_\mathcal{B}(f)$ è una matrice ortogonale.
+	\item $O_n(\mathbb{R})=\{A\in\textrm{GL}_n(\mathbb{R}):\textrm{ $A$ è una matrice ortogonale}\}$ è un gruppo rispetto alla moltiplicazione tra matrici.
+	\item Proprietà di $O_n$:
+	\begin{itemize}
+		\item $A\in O_n$ $\Leftrightarrow$ le colonne e le righe di $A$ formano una base ortonormale per il prodotto scalare canonico di $\mathbb{R}^n$
+		\item $A\in O_n$ $\Leftrightarrow$ $A$ conserva il prodotto scalare canonico di $\mathbb{R}^n$.
+		\item $A\in O_n$ $\Leftrightarrow$ $A$ manda basi ortonormali di $\mathbb{R}^n$ rispetto al prodotto scalare canonico in basi ortonormali di $\mathbb{R}^n$ rispetto al prodotto scalare canonico.
+	\end{itemize}
+\end{enumerate}
+\subsection{Prodotti hermitiani}
+\begin{enumerate}[resume]
+	\item\textbf{Def:} sia $V$ uno spazio vettoriale complesso e $\varphi\colon V\times V\to \mathbb{C}$. $\varphi$ è un prodotto hermitiano su $V$ se:
+	\begin{itemize}
+		\item $\forall\alpha,\beta\in\mathbb{C}$ $\forall v,u,w\in V$, $\varphi(v,\alpha u+\beta w)=\alpha\varphi(v,u)+\beta\varphi(v,w)$
+		\item $\forall v,w\in V$, $\varphi(v,w)=\con{\varphi(w,v)}$
+	\end{itemize}
+	\item Per ogni $v\in V$, $\varphi(v,v)\in\mathbb{R}$.
+	\item\textbf{Def:} $A\in\mathcal{M}_n(\mathbb{C})$ è hermitiana se $A=\agg{A}$.
+	\item\textbf{Def:} si definisce aggiunta di $A\in\mathcal{M}_n(\mathbb{C})$ la matrice $\agg{A}=\con{\tras{A}}$.
+	\item\textbf{Def:} $A$ è una matrice unitaria se $A\agg{A}=\agg{A}A=I$.
+	\item Se $\mathcal{B}=\{v_1,\cdots,v_n\}$ è una base di $V$ e $A=(\varphi(v_i,v_j))_{i,j=1,\cdots,n}$, si ha per ogni $v,u\in V$
+	\[\varphi(v,u)=\agg{[v]_\mathcal{B}}A[u]_\mathcal{B}\]
+	$A$ è la matrice associata a $\varphi$ nella base $\mathcal{B}$.
+	\item Se $A,A'$ sono le matrici associate a $\varphi$ nelle basi $\mathcal{B},\mathcal{B}'$ e $P$ è la matrice di cambio base, si ha
+	\[A'=\agg{P}AP\]
+	\item\textbf{Def:} $f\colon V\to V$ è un operatore hermitiano se per ogni $v,w\in V$ si ha $\varphi(f(v),w)=\varphi(v,f(w))$.
+	\item\textbf{Def:} $f\colon V\to V$ è un operatore unitario se per ogni $v,w\in V$ si ha $\varphi(f(v),f(w))=\varphi(v,w)$.
+	\item Per ogni $v\in V$ si ha $\varphi(v,v)\in\mathbb{R}$.	
+	\item Teoremi e definizioni che si ripescano con poche variazioni dai prodotti scalari
+	\begin{itemize}
+		\item Teorema di Lagrange
+		\item Prodotti definiti e indefiniti
+		\item Indici di positività, negatività e nullità
+		\item $f\colon V\to V$ è hermitiano se e solo se $M_\mathcal{B}(f)$ è hermitiana quando $\mathcal{B}$ è una base ortonormale
+		\item $f\colon V\to V$ è unitario se e solo se $M_\mathcal{B}(f)$ è unitaria quando $\mathcal{B}$ è una base ortonormale
+		\item $U_n(\mathbb{C})=\{A\in GL_n(\mathbb{C}):\textrm{ $A$ è unitaria}\}$ è un gruppo rispetto alla moltiplicazione tra matrici
+		\item Proprietà di $U_n$, con il prodotto scalare canonico di $\mathbb{C}^n$.
+	\end{itemize}
+	\item Sia $V$ uno spazio vettoriale complesso, $\varphi$ un prodotto hermitiano su $V$ definito positivo e $f\in\mathcal{L}(V)$ un operatore hermitiano. Allora $f$ ha tutti autovalori reali.
+	\item Se $A\in\mathcal{M}_n(\mathbb{C})$ è hermitiana, ha tutti autovalori reali.
+	\item Se $f\colon V\to V$ è un operatore simmetrico di uno spazio euclideo $(V,\varphi)$, $f$ ha tutti autovalori in $\mathbb{R}$.
+	\item Sia $f\in\mathcal{L}(V)$ un operatore simmetrico di uno spazio euclideo $(V,\varphi)$. Allora autospazi relativi ad autovalori distinti sono ortogonali.
+	\item Sia $V$ uno spazio vettoriale reale (risp. complesso) con prodotto scalare (risp. hermitiano) $\varphi>0$ e sia $f$ un endomorfismo simmetrico (risp. hermitiano) di $V$. Allora se $W\subseteq V$ è un sottospazio invariante, anche $W^\perp$ è un sottospazio invariante.
+	\item\textbf{Teorema spettrale:} sia $V$ uno spazio vettoriale reale (risp. complesso), $\varphi>0$ un prodotto scalare (risp. hermitiano) e $f\in\mathcal{L}(V)$ un endomorfismo simmetrico (risp. hermitiano). Allora $f$ è diagonalizzabile e $V$ ammette una base ortonormale di autovettori per $f$. Inoltre, $V$ si decompone come somma diretta ortogonale degli autospazi di $f$.
+	\item Sia $A$ una matrice reale (risp. complessa). Allora $A$ è simmetrica (risp. hermitiana) se e solo se si diagonalizza tramite una matrice ortogonale (risp. unitaria).
+	\item Sia $f$ un endomorfismo di $V$ con autospazi $V_{\lambda_1},\cdots,V_{\lambda_k}$. Allora per ogni $v\in V$ si ha
+	\[v=\sum_{i=1}^{k}p_{V_{\lambda_i}}(v)\]
+	\[f(v)=\sum_{i=1}^{k}\lambda_i p_{V_{\lambda_i}}(v)\]
+	\item Se $V$ è uno spazio vettoriale reale (risp. complesso), $\varphi>0$ è un prodotto scalare (risp. hermitiano), $f$ un endomorfismo di $V$ e $V$ si decompone nella somma diretta ortogonale degli autospazi di $f$, allora $f$ è simmetrico (risp. hermitiano).
+	\item Sia $A$ simmetrica (risp. hermitiana) e $\varphi_A$ il prodotto scalare (risp. hermitiano) su $\mathbb{R}^n$ (risp. $\mathbb{C}^n$) che ha $A$ come matrice associata rispetto alla base canonica. Allora
+	\begin{itemize}
+		\item $i_+(\varphi_A)=\left|\{\lambda\in\mathbb{R}:\lambda\textrm{ è un autovalore positivo di $A$}\}\right|$
+		\item $i_-(\varphi_A)=\left|\{\lambda\in\mathbb{R}:\lambda\textrm{ è un autovalore negativo di $A$}\}\right|$
+		\item $i_0(\varphi_A)=\mu_a(0)$
+	\end{itemize}
+	dove gli autovalori si intendono presi con molteplicità.
+	\item $\varphi>0$ se e solo se i determinanti principali sono tutti positivi.
+	\item $\varphi<0$ se e solo se i determinanti principali di ordine pari sono positivi e i determinanti principali di ordine dispari sono negativi.
+	\item\textbf{Def:} un prodotto scalare (risp. hermitiano) su $V$ è semidefinito positivo se per ogni $v\in V$ si ha $\varphi(v,v)\geq0$, e si ha una definizione analoga per un prodotto semidefinito negativo.
+	\item Sia $A$ una matrice reale (risp. complessa). Allora i prodotti scalari su $\mathbb{R}^n$ (risp. hermitiani su $\mathbb{C}^n$) con matrici associate rispetto alla base canonica $A\tras{A}$ e $\tras{A}A$ (risp. $A\agg{A}$ e $\agg{A}A$) sono semidefiniti positivi, e se $A$ è non singolare sono definiti positivi.
+	\item\textbf{Def:} $A$ simmetrica è definita positiva se il prodotto associato ad $A$ nella base canonica su $\mathbb{R}^n$ è definito positivo.
+	\item Data $A>0$, esiste un'unica $B>0$ tale che $B^2=A$. Si pone allora $B=\sqrt{A}$.
+	\item Siano $A,B$ simmetriche tali che $AB=BA$. Allora $A$ e $B$ si diagonalizzano simultamente tramite una matrice ortogonale.
+	\item Ogni matrice complessa si triangolarizza tramite una matrice unitaria. Ogni matrice reale con tutti autovalori reali si triangolarizza tramite una matrice ortogonale.
+	\item\textbf{Def:} $A\in\mathcal{M}_n(\mathbb{C})$ si dice normale se $A\agg{A}=\agg{A}A$.
+	\item Se $A$ è una matrice triangolare e normale, allora $A$ è diagonale.
+	\item Se $A$ è normale si diagonalizza tramite una matrice unitaria.
+	\item Se $A$ è normale reale e ha tutti autovalori reali si diagonalizza tramite una matrice ortogonale.
+	\item Se $A,B\in\mathcal{M}_n(\mathbb{C})$ e $AB=BA$, allora $A$ e $B$ si triangolarizzano simultaneamente.
+\end{enumerate}
+\section{Hamilton-Cayley}
+\textbf{Teorema di Hamilton-Cayley:} \textit{sia $A\in\mathcal{M}_n(\mathbb{C})$ e sia $p\in\mathbb{C}_n[x]$ il suo polinomio caratteristico. Allora $p(A)=0$.}
+
+\noindent Supponiamo inizialmente che $A$ sia diagonalizzabile, ossia esistono $D\in\mathcal{M}_n(\mathbb{C})$ diagonale e $M\in\mathrm{GL}_n(\mathbb{C})$ tali che $A=M^{-1}DM$. Se $p(x)=\sum_{j=0}^{n}a_jx^j$, con $a_j$ coefficienti complessi, si ha
+\[p(A)=\sum_{j=0}^{n}a_jA^j=\sum_{j=0}^{n}a_j(M^{-1}DM)^j=M^{-1}\left(\sum_{j=0}^{n}a_jD^j\right)M=M^{-1}p(D)M\]
+Pertanto è sufficiente mostrare che $p(D)=0$. Poichè $D$ e $A$ hanno gli stessi autovalori, $D$ è della forma
+\[D=\left(\begin{array}{c c c c}
+\lambda_1&0&\cdots&0\\
+0&\lambda_2&\cdots&0\\
+\vdots &\vdots&\ddots&\vdots\\
+0&0&\cdots&\lambda_n\\
+\end{array}\right)\]
+dunque $p(D)=\prod_{i=1}^{n}(D-\lambda_iI)=0$. Sia ora $A$ non diagonalizzabile, allora esistono $T\in\mathcal{M}_n(\mathbb{C})$ triangolare superiore e $U\in \mathcal{U}_n$ tali che $A=U^*TU$. Non è quindi restrittivo supporre $A$ della forma
+\[A=\left(\begin{array}{c c c c}
+\lambda_1 &* &\cdots&*\\
+0&\lambda_2&\cdots&*\\
+\vdots&\vdots&\ddots&\vdots\\
+0&0&\cdots&\lambda_n\\
+\end{array}\right)\]
+Se $A$ non è diagonalizzabile, esistono almeno due autovalori uguali. Supponiamo $\lambda_1=\lambda_2=\lambda$ e $\lambda_i\neq\lambda_j$ per ogni $i,j$, $3\leq i,j\leq n$ (la dimostrazione nel caso con più di due autovalori uguali è molto simile). Sia $(A_m)_{m\in\mathbb{N}}$ la successione di matrici definita da
+\[A_m=A+\left(\begin{array}{c c c c}
+\frac{1}{m+1}&0&\cdots&0\\
+0&0&\cdots&0\\
+\vdots&\vdots&\ddots&\vdots\\
+0&0&\cdots&0\\
+\end{array}\right)\]
+Allora $A_m$ è diagonalizzabile per ogni $m$, poichè ha tutti autovalori distinti. Munendo $\mathcal{M}_n(\mathbb{C})$ della norma di Hilbert-Schmidt, si ha che $\lim\limits_{m\to+\infty}A_m=A$. Inoltre, detto $p_m$ il polinomio caratteristico di $A_m$, la successione $(p_m)_{m\in\mathbb{N}}$ converge uniformemente sui compatti di$\mathcal{M}_n(\mathbb{C})$ al polinomio caratteristico $p$ di $A$. Allora ho $\lim\limits_{m\to+\infty}p_m(A_m)=p(A)$, ma $p_m(A_m)=0$ per ogni $m$.
+\subsection{Dimostrazioni teorema spettrale}
+\begin{enumerate}
+	\item Tramite invarianti:
+	\begin{itemize}
+		\item \textit{Sia $V$ uno spazio vettoriale complesso e $\varphi$ un prodotto hermitiano definito positivo. Se $f\in\mathcal{L}(V)$ è un operatore hermitiano), $f$ ha tutti autovalori reali. In particolare, un operatore simmetrico di uno spazio euclideo ha tutti autovalori reali.} 
+		
+		\noindent Se $\lambda$ è autovalore e $v\neq 0$ autovettore relativo a $\lambda$, ho $\lambda\varphi(v,v)=\varphi(v,f(v))=\varphi(f(v),v)=\varphi(\lambda v,v)=\overline{\lambda}\varphi(v,v)$, e poichè $\varphi>0$ deduco $\lambda=\overline{\lambda}$.
+		\item \textit{Se $f\in\mathcal{L}(V)$ è un operatore simmetrico (risp. hermitiano), allora autospazi relativi ad autovalori distinti sono ortogonali.} 
+		
+		\noindent Se $\lambda_1,\lambda_2$ sono autovalori distinti e $v_1,v_2$ rispettivi autovettori, ho $\lambda_1\varphi(v_1,v_2)=\varphi(f(v_1),v_2)=\varphi(v_1,f(v_2))=\lambda_2\varphi(v_1,v_2)$, ovvero $(\lambda_1-\lambda_2)\varphi(v_1,v_2)=0$. Allora $v_1$ e $v_2$ sono ortogonali.
+		\item\textit{Sia $(V,\varphi)$ uno spazio euclideo (risp, $V$ spazio vettoriale su $\mathbb{C}$ e $\varphi>0$ prodotto hermitiano) e $f$ un endomorfismo simmetrico (risp. hermitiano) di $V$. Allora se $W\subseteq V$ è $f$-invariante, anche $W^{\perp}$ lo è.}
+		
+		\noindent Siano $w\in W$, $v\in W^\perp$. Allora $\varphi(w,f(v))=\varphi(f(w),v)=0$, perchè $f(w)\in W$ per ipotesi e $v\in W^\perp$. Allora per arbitrarietà di $w$, $f(v)\in W^\perp$, ovvero $f(W^\perp)\subseteq W^\perp$.
+		\item \textit{Teorema spettrale.} 
+		
+		\noindent Siano $\lambda_1,\cdots,\lambda_k$ tutti gli autovalori distinti di $f$ e $W=V_{\lambda_1}\oplus\cdots\oplus V_{\lambda_k}$. Basta mostrare che $W=V$ per avere la tesi. Se $w\in W$, ho $w=\sum_{i=1}^{k}v_i$, con $v_i\in V_{\lambda_i}$ per ogni $i$. Allora $f(w)=\sum_{i=1}^{k}\lambda_i v_i$, pertanto $W$ è $f$-invariante. Se fosse $W\subset V$, allora $W^\perp\supset\{0\}$ (dato che $\varphi>0$, quindi $V=W\oplus W^\perp$). Allora $f_{|W^\perp}$ sarebbe un endomorfismo simmetrico di $W^\perp$, quindi ammetterebbe un autovalore $\lambda'$, che è assurdo. Allora, dato che $V$ si decompone come somma diretta ortogonale degli autospazi $\{V_{\lambda_i}\}_{i=1,\cdots,k}$ di $f$, se $\base{B}_i$ è una base ortonormale di $V_{\lambda_i}$, allora $\base{B}=\bigcup_{i=1}^k\base{B}_i$ è una base ortonormale di autovettori di $f$.
+	\end{itemize}
+	\item Tramite matrici normali
+	\begin{itemize}
+		\item \textit{Decomposizione di Schur: se $A$ è una matrice quadrata complessa, $A$ si triangolarizza tramite una matrice unitaria. Se $A$ è una matrice quadrata reale con tutti autovalori reali, $A$ si triangolarizza tramite una matrice ortogonale.} 
+		
+		\noindent Dimostriamo la tesi per induzione sull'ordine $n$ di $A$, nel caso in cui $A$ sia complessa. Il caso $n=1$ è ovvio. Supponiamo ora $A\in\mathcal{M}_n(\mathbb{C})$, e sia $\lambda$ un suo autovalore. Sia $v_1$ è un autovettore di $\lambda$ tale che $\norm{v_1}=1$ e $\base{B}=\{v_1,\cdots,v_n\}$ una base ortonormale per $\mathbb{C}^n$. Allora $U_1=[v_1|\cdots|v_n]$ è una matrice unitaria, e \[\agg{U_1}AU_1=\left(\begin{array}{c c}
+		\lambda & B \\
+		0 & C \\
+		\end{array}\right)\]
+		Dato che $C\in\mathcal{M}_{n-1}(\mathbb{C})$, per ipotesi induttiva esiste $\tilde{U}$ tale che $\agg{\tilde{U}}C\tilde U=T$, con $T$ triangolare. Siano
+		\[U_2=\left(\begin{array}{c c}
+		1&0\\
+		0&\tilde{U}\\
+		\end{array}\right)\]
+		\[U=U_1U_2\]
+		Allora si ha
+		\[\agg{U}AU=\left(\begin{array}{c c}
+		\lambda &B\tilde{U} \\
+		0 & T\\
+		\end{array}\right)\]
+		Se $A$ è reale, la dimostrazione è la stessa, dopo aver notato che $C$ e $T$ hanno entrambe autovalori tutti reali.
+		\item \textit{Se $T$ è una matrice triangolare normale, $T$ è diagonale.}
+		
+		\noindent Sia
+		\[T=\left(\begin{array}{c c c c}
+		t_{11}&t_{12}&\cdots&t_{1n}\\
+		0&t_{22}&\cdots&t_{2n}\\
+		\vdots&\vdots&\ddots&\vdots\\
+		0&0&\cdots&t_{nn}
+		\end{array}\right)\]
+		Allora si ha con facili calcoli $(T\agg{T})_{ii}=\sum_{j=i}^{n}|t_{ji}|^2$ e $(\agg{T}T)_{ii}=\sum_{j=1}^{i}|t_{ji}|^2$. Confrontando gli elementi di posto (1,1), ho $t_{j1}=0$ per ogni $j\neq1$, e analogamente per gli altri.
+		\item \textit{Sia $A$ una matrice normale. Allora $A$ si diagonalizza tramite una matrice unitaria. Se $A$ è normale reale con tutti autovalori reali, $A$ si diagonalizza tramite una matrice ortogonale.}
+		
+		\noindent Per la decomposizione di Schur, esistono $T$ triangolare e $U$ unitaria tali che $\agg{U}AU=T$. Ho
+		\[T\agg{T}=\agg{U}AU\agg{U}\agg{A}U=\agg{U}A\agg{A}U=\agg{U}\agg{A}AU=\agg{U}\agg{A}U\agg{U}AU=\agg{T}T\]
+		Quindi anche $T$ è normale. Ma allora è diagonale per il lemma precedente. Il caso reale è analogo.
+		\item \textit{Una matrice hermitiana ha tutti autovalori reali}
+		
+		\noindent Si ha $\agg{U}AU=D$. Poichè $A$ e $D$ sono simili, possiedono gli stessi autovalori. Inoltre, $\agg{D}=\agg{U}\agg{A}U=\agg{U}AU=D$, pertanto $D$ è reale. In particolare, una matrice reale simmetrica possiede tutti autovalori reali.
+		\item \textit{Una matrice reale è normale e con tutti autovalori reali se e solo se è simmetrica.}
+		
+		\noindent $\Rightarrow$: $A$ si diagonalizza tramite una matrice ortogonale, ovvero $A=\tras{O}DO$. Allora $\tras{A}=\tras{O}\tras{D}O=\tras{O}DO=A$.
+		
+		$\Leftarrow$: una matrice simmetrica è normale per ovvi motivi. Inoltre, $A$ ha tutti autovalori reali per il lemma precedente.
+		\item \textit{Teorema spettrale.}
+		
+		\noindent Sia $\base{B}$ una base ortonormale di $V$. Allora $M_\base{B}(f)$ è simmetrica, quindi ha tutti autovalori reali, quindi si diagonalizza tramite una matrice ortogonale $O$. Allora i vettori $v_j$ tali che $[v_j]_\base{B}=O^j$ formano una base ortonormale di autovettori di $f$.
+		\item \textit{Autospazi relativi ad autovalori distinti sono ortogonali.}
+		
+		\noindent Sia $V=V_{\lambda_1}\oplus\cdots\oplus V_{\lambda_k}$. Si prenda $\base{B}$ base ortonormale di autovettori. Allora segue subito che $V_{\lambda_i}\perp V_{\lambda_j}$ se $i\neq j$.
+	\end{itemize}
+\end{enumerate}
+\end{document}

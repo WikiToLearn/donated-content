@@ -1,0 +1,137 @@
+\begin{es}
+  Si caratterizzino le funzioni differenziabili $ f \colon \R^2 \to \R $ tali che \[ x \pd[]{f}{y}(x, y) + y \pd[]{f}{x} = 0\] per ogni $ (x, y) \in \R^2 $.
+\end{es}
+%
+$ f $ è costante sulle rette. Si usa il teorema di Lagrange in più variabili per dimostrare che che è costante \\
+Teorema di Lagrange: $ A \subseteq \R^n $ aperto, $ f \colon A \to \R $ differenziabile, $ \forall x, y \in A $, $ \exists \xi \in \{tx + (1-t)y : t \in (0, 1)\} $ tale che
+\begin{equation*}
+  f(x) - f(y) = \nabla{f}(\xi) \cdot (x - y)
+\end{equation*}
+
+
+\begin{es}
+  Consideriamo la seguente funzione di 2 variabili di classe $ C^{\infty} $ \[f(x, y) = x^3 + y^4 - 1.\] Dire se l'insieme di livello $ E_0 = \{(x, y) \in \R^2 : f(x, y) = 0\} $ è localmente grafico di una funzione $ C^{\infty} $. Tale insieme è compatto? Quante sono le sue componenti connesse?
+\end{es}
+%
+Vogliamo applicare il teorema di funzione implicita. Prima di tutto osserviamo che $ (1, 0) \in E_0 $ e quindi $ E_0 $ è non vuoto. Poiché $ f $ è $ C^{\infty} $ le sue derivate parziali esistono e sono continue $ \forall (x, y) \in \R^2 $. Dobbiamo solo verificare che almeno una tra le derivate parziali di $ f $ si non nulli $ \forall (x, y) \in E_0 $. Verifichiamo quindi che il seguente sistema
+\begin{equation*}
+  \begin{cases}
+    f(x, y) = 0 \\
+    \pd[]{f}{x}(x, y) = 0 \\
+    \pd[]{f}{y}(x, y) = 0 \\
+  \end{cases}
+  \quad \Rightarrow \quad
+  \begin{cases}
+    x^3 + y^4 - 1 = 0 \\
+    3x^2 = 0 \\
+    4y^3 = 0 \\
+  \end{cases}
+\end{equation*}
+non ha soluzione in quanto $ (0, 0) $ non verifica la prima equazione. Il teorema di funzione implicita ci assicura quindi che $ E_0 $ è localmente grafico di una funzione $ C^{\infty} $. Osserviamo che tale insieme non è compatto in quanto pur essendo un chiuso (controimmagine continua di un chiuso, il singoletto $ \{0\} $) non è limitato: se consideriamo infatti la funzione di una variabile $ g_y(x) = x^3 + y^4 - 1 $ si ha \[\lim_{x \to +\infty} g_y(x) = +\infty \quad \lim_{x \to -\infty} g_y(x) = -\infty\] ed essendo $ g_y $ continua, $ \forall y \in \R, \exists x_0 \in \R : g_y(x_0) = f(y, x_0) = 0 $ ovvero $ E_0 $ è illimitato.
+
+Ricavo $ x = \sqrt[3]{1 - y^4} $ $ \Rightarrow $ una sola componente connessa.
+
+\begin{es}
+  Sia $ A \subseteq \R^3 $ un aperto e $ f, g \colon A \to \R $ funzioni $ C^1 $ su $ A $ tali che $ \exists p_0 = (x_0, y_0, z_0) \in A $ tale che $ \nabla{f(p_0)} $ e $ \nabla{g(p_0)} $ solo linearmente indipendenti e $ f(p_0) = g(p_0) = 0 $. Mostrare che l'insieme $ E_0 = \{(x, y, z) \in A : f(x, y, z) = g(x, y, z) = 0\} $ è una curva in un intorno di $ p_0 .$
+\end{es}
+%
+Osserviamo che il prodotto vettore $ w = \nabla{f(p_0)} \times \nabla{g(p_0)} \neq 0 $ se e solo se i vettori $ \nabla{f(p_0)} $ e $ \nabla{g(p_0)} $ sono linearmente indipendenti. Per semplicità supponiamo quindi che si abbia \[w_3 = \pd{f}{x}(p_0) \pd{g}{y}(p_0) - \pd{f}{y}(p_0)\pd{g}{x}(p_0) \neq 0.\] Allora almeno una tra $ \pd{f}{x} $ e $ \pd{f}{y} $ è non nulla in $ p_0 $, supponiamo $ \pd{f}{x}(p_0) \neq 0 $. Essendo $ f $ di classe $ C^1 $, $ \pd{f}{x} $ esiste ed è continua in un intono di $ p_0 $. Possiamo quindi applicare il teorema di funzione implicita e concludere che esiste $ \phi $ definita in un opportuno intorno di $ (y_0, z_0) $ a valori in un opportuno intorno di $ x_0 $  tale che $ x = \phi(x, y) $ è localmente grafico di $ F_0 = \{(x, y, z) \in A : f(x, y, z) = 0\} $ cioè $ F_0 = \{(y, z) : (\phi(y, z), y, z)\} $; essendo inoltre $ f $ di classe $ C^1 $, $ \phi $ è $ C^1 $ e vale \[\pd{\phi}{y}(y, z) = -\frac{\pd{f}{y}(\phi(y, z), y, z)}{\pd{f}{x}(\phi(y, z), y, z)}\] in un intorno di $ (y_0, x_0) $. Così $ E_0 = \{(x, y, z) \in A : f(x, y, z) = g(x, y, z) = 0\} = \{(\phi(y, z), y, z) \in A : g(\phi(y, z), y, z) = 0\} $. Poniamo $ h(y, z) = g(\phi(y, z), y, z) $ così che $ H_0 = \{(y, z) : h(y, z) = 0\} = E_0 $. Osserviamo che
+\begin{equation*}
+  \pd{h}{y}(y_0, z_0) = \pd{g}{x}(p_0) \pd{\phi}{y}(y_0, z_0) + \pd{g}{y}(p_0) = \pd{g}{x}(p_0) \left(-\frac{\pd{f}{y}(p_0)}{\pd{f}{x}(p_0)}\right) + \pd{g}{y}(p_0) = \frac{w_3}{\pd{f}{x}(p_0)} \neq 0.
+\end{equation*}
+Poiché tale formula vale in un intorno di $ (y_0, z_0) $, ossia $ \pd{h}{y}(y, z) = \pd{g}{x}(\phi(y, z), y, z) \pd{\phi}{y}(y, z) + \pd{g}{y}(\phi(y, z), y, z) $ e sia $ \phi $ che $ g $ sono di classe $ C^1 $ otteniamo che $ \pd{h}{y} $ è continua in un intorno di $ (y_0, z_0) $. Per il teorema di funzione implicita possiamo quindi affermare che $ H_0 $ è localmente grafico di una funzione $ \psi $ definita su un opportuno intorno di $ x_0 $ a valori in un opportuno intorno di $ y_0 $ tale che $ y = \psi(z) $, ovvero che $ H_0 = \{(y, z) : h(y, z) = 0\} = \{z : (\psi(z), z)\} $ in opportuni intorni di $ (y_0, z_0) $. Ma allora $ E_0 = \{(\phi(y, z), y, z) : g(\phi(y, z), y, z) = 0\} = \{z : (\phi(\psi(z), z), \psi(z), z)\} $. In altri termini l'insieme $ E_0 $ è il sostegno della la curva $ \gamma(z) = (\phi(\psi(z), z), \psi(z), z) $ per opportuni intorni di $ z_0 $.
+
+
+\begin{es}
+  Sia $ A \subseteq \R^2 $ un aperto e $ f \colon A \to \R $ una funzione che soddisfi le ipotesi del teorema di funzione implicita ($ f $ è continua, $ \exists (x_0, y_0) \in A : f(x_0, y_0) = 0 $, $ \pd{f}{y} $ esiste ed è continua in un intorno di $ (x_0, y_0) $ con $ \pd{f}{y}(x_0, y_0) \neq 0 $) e sia $ g $ la funzione data dal teorema. Supponendo che $ f $ sia Lipschitziana in $ x $ uniformemente in $ y $, mostrate che anche $ g $ è Lipschitziana. Qual è il rapporto tra le constanti di Lipschitz?
+\end{es}
+%
+Per ipotesi $ \exists L > 0 $ tale che \[\forall (x_1, y), (x_2, y) \in A, \ \abs{f(x_1, y) - f(x_2, y)} \leq L \abs{x_1 - x_2}.\] A meno di restringere gli intorni, per la permanenza del segno, essendo $ \pd{f}{y} $ continua in un intorno di $ (x_0, y_0) $, possiamo supporre che esista $ \theta > 0 : \pd{f}{y} \geq \theta $. Allora preso $ (x_1, y) $ in tale intorno per il teorema di Lagrange abbiamo esiste $ \xi $ compreso tra $ y $ e $ y_0 $ tale che che \[f(x_1, y_0) - f(x_1, y) = \pd{f}{y}(x_1, \xi)(y - y_0)\] da cui essendo $ f(x_0, y_0) = 0 $ deduciamo che
+\begin{equation*}
+  \abs{f(x_1, y)} = \pd{f}{y}(x_0, \xi) \abs{y - y_0} \geq \theta \abs{y - y_0}
+\end{equation*}
+
+Dovrebbe venire $ L' = L/\theta $???
+
+\begin{es}
+  Discutere la continuità e la differenziabilità in $ (0, 0) $ delle seguenti funzioni
+  \begin{equation*}
+    f(x, y) =
+    \begin{cases}
+      0 & \text{in } (0, 0) \\
+      (x^2 + y^2) \sin{\left(\frac{1}{\sqrt{x^2 + y^2}}\right)} & \text{altrimenti}
+    \end{cases}
+  \end{equation*}
+  \begin{equation*}
+    g(x, y) =
+    \begin{cases}
+      0 & \text{in } (0, 0) \\
+      \frac{xy}{\sqrt{x^2 + y^2}} & \text{altrimenti}
+    \end{cases}
+    \qquad
+    h(x, y) = \begin{cases}
+      0 & \text{in } (0, 0) \\
+      \frac{x^2 y}{x^6 + y^2} & \text{altrimenti}
+    \end{cases}
+  \end{equation*}
+\end{es}
+%
+\begin{itemize}
+\item Posto $ r = \sqrt{x^2 + y^2} $ osserviamo che \[\lim_{r \to 0} r^2 \sin{\frac{1}{r}} = 0.\] Ciò vuol dire che $ \forall \epsilon > 0, \ \exists \delta > 0 : \abs{r} < \delta \Rightarrow \abs{r^2 \sin{\frac{1}{r}}} < \epsilon $. Così fissato $ \epsilon > 0 $, il $ \delta $ dato dalla condizione trovata ci dice che $ (x, y) \in B((0, 0), \delta) $ implica $ f(x, y) \in B((0, 0), \epsilon) $ che è la definizione di continuità in $ (0, 0) $. \\
+  Discutiamo l'esistenza e la continuità delle derivate parziali: per $ (x, y) \neq (0, 0) $ abbiamo
+  \begin{align*}
+    \pd{f}{x}(x, y) & = 2x \sin{\left(\frac{1}{\sqrt{x^2 + y^2}}\right)} + (x^2 + y^2) \cos{\left(\frac{1}{\sqrt{x^2 + y^2}}\right)} \frac{- 2x}{2 \sqrt{(x^2 + y^2)^3}} \\
+                    & = 2x \sin{\left(\frac{1}{\sqrt{x^2 + y^2}}\right)} - \frac{x}{\sqrt{x^2 + y^2}} \cos{\left(\frac{1}{\sqrt{x^2 + y^2}}\right)}
+  \end{align*}
+  In $ (0, 0) $ abbiamo
+  \begin{equation*}
+    \pd{f}{x}(0, 0) = \lim_{t \to 0} \frac{f(0 + t, 0) - f(0, 0)}{t} = \lim_{t \to 0} \frac{t^2 \sin{\left(\frac{1}{t}\right)}}{t} = \lim_{t \to 0} t \sin{\left(\frac{1}{t}\right)} = 0
+  \end{equation*}
+  Ma il limite per in $ (0, 0) $ della derivata parziale non esiste in quanto lungo la curva $ \gamma(t) = (t, 0) $ tale derivata non ha limite
+  \begin{equation*}
+    \lim_{t \to 0} \pd{f}{x}(t, 0) = \lim_{t \to 0} 2t \sin{\left(\frac{1}{t}\right)} - \cos{\left(\frac{1}{t}\right)}
+  \end{equation*}
+  Tuttavia tale funzione è differenziabile in $ (0, 0) $ in quanto
+  \begin{equation*}
+    f(0 + h) = \abs{h}^2 \sin{\left(\frac{1}{\abs{h}}\right)} \leq \abs{h}^2 \frac{1}{\abs{h}} = \abs{h} \quad \Rightarrow \quad f(0 + h) = f(0) + o(\abs{h}) \ (h \to 0)
+  \end{equation*}
+  Concludiamo quindi in $ (0, 0) $ che $ f $ è continua, ammette derivate parziali non continue ma è differenziabile con gradiente nullo.
+\item Posto $ r = \sqrt{x^2 + y^2} $, usando la disuguaglianza tra media geometrica e media quadratica, otteniamo che
+  \begin{equation*}
+    \abs{g(x, y)} = \abs{\frac{xy}{r}} \leq \abs{\frac{r^2}{2r}} = \frac{\abs{r}}{2}.
+  \end{equation*}
+  Così per $ r \to 0 $ otteniamo $ g(x, y) \to 0 $ e dunque $ g $ è continua nell'origine. \\
+  Discutiamo l'esistenza e l'unicità delle derivate parziali. Per $ (x, y) \neq (0, 0) $ si ha
+  \begin{equation*}
+    \pd{g}{x}(x, y) = y \frac{\sqrt{x^2 + y^2} - x \frac{- 2x}{2 \sqrt{x^2 + y^2}}}{x^2 + y^2} = \frac{y^3}{\sqrt{(x^2 + y^2)^3}}
+  \end{equation*}
+  In $ (0, 0) $ abbiamo
+  \begin{equation*}
+    \pd{g}{x}(0, 0) = \lim_{t \to 0} \frac{g(0 + t, 0) - g(0, 0)}{t} = \lim_{t \to 0} \frac{0}{t} = 0
+  \end{equation*}
+  Ma facendo il limite di $ g $ lungo la curva $ \gamma(t) = (0, t) $ otteniamo
+  \begin{equation*}
+    \lim_{t \to 0} \pd{g}{x}(0, t) = \lim_{t \to 0} \frac{t^3}{t^3} = 1 \neq 0
+  \end{equation*}
+  Similmente si ottiene $ \pd{g}{y}(x, y) = \frac{x^3}{\sqrt{(x^2 + y^2)^3}} $ per $ (x, y) \neq 0 $ e $ \pd{g}{y}(0, 0) = 1 $ ma  $ \pd{g}{x}(t, 0) \to 0 $. \\
+  Osserviamo ora che
+  \begin{equation*}
+    g\left(\frac{1}{\sqrt{2}} \begin{pmatrix} r \\ r \end{pmatrix}\right) = \frac{r^2/2}{r} = \frac{1}{2} r
+  \end{equation*}
+  Ma allora $ g $ on può essere differenziabile in $ (0, 0) $. Infatti se esistesse un differenziale $ \varphi $, esso dovrebbe essere nullo in $ (0, 0) $ poiché le sue componenti dovrebbero coincidere con le derivate parziali di $ g $ nell'origine che sono nulle; così per $ \forall h \in \R $ tale che $ h \to 0 $ si dovrebbe avere $ g(h) = g(0 + h) = g(0) + \varphi(0) \cdot h + o(\abs{h}) = o(\abs{h}) $ che è in contraddizione con quanto trovato in precedenza in quanto per $ r \to 0 $
+  \begin{equation*}
+    g\left(\frac{1}{\sqrt{2}} \begin{pmatrix} r \\ r \end{pmatrix}\right) = \frac{1}{2} r \neq o(r).
+  \end{equation*}
+  Concludiamo quindi che in $ (0, 0) $ la funzione $ g $ è continua, ammette derivate parziali non continue e non è differenziabile.
+\item Tale funzione non è continua nell'origine: infatti lugno la curva $ \gamma(t) = (t, t^3) $ si ha
+  \begin{equation*}
+    \lim_{t \to 0} h(t, t^3) = \lim_{t \to 0} \frac{t^5}{2t^6} = \lim_{t \to 0} \frac{1}{2t} = \infty
+  \end{equation*}
+  Pertanto $ h $ non è nemmeno differenziabile in $ (0, 0) $ perché se lo fosse dovrebbe essere continua in tale punto. \\
+  Tuttavia per quanto riguarda le derivate direzionali osserviamo che se $ v = (v_1, v_2) $ abbiamo che il limite
+  \begin{equation*}
+    \partial_v f(0, 0) = \lim_{t \to 0} \frac{f(0 + tv) - f(0)}{t} = \lim_{t \to 0} \frac{f(tv_1, tv_2)}{t} = \lim_{t \to 0} \frac{t^2 v_1^2 v_2}{t(t^6 v_1^6 + t^2 v_2^2)} = \frac{v_1^2 v_2}{v_2^2} = \frac{v_1^2}{v_2}
+  \end{equation*}
+  esiste finito se $ v_2 \neq 0 $. \\
+  Concludiamo quindi che nell'origine $ h $ non è né continua né differenziabile ma ammette tutte le derivate direzionali eccetto quelle lungo la retta $ y = 0 $.
+\end{itemize}

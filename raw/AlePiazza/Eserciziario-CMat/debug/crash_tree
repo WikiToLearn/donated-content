@@ -1,0 +1,17 @@
+.     ________________________________________
+#--->|ID : @
+.    |block_name : root-block
+.    |attributes: 
+.    |   - title : Complementi di Matematica - Esercitazioni
+.    |content : 
+.    .‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+.    .     ________________________________________
+.    #--->|ID : @-pyd
+.    .    |block_name : section
+.    .    |attributes: 
+.    .    |   - section_name : section
+.    .    |   - title : Cardinalità I
+.    .    |   - index_title : None
+.    .    |   - star : False
+.    .    |content : None
+.    .    .‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾

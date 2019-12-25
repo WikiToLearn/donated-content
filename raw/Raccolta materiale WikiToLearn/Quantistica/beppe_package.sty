@@ -1,0 +1,80 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{beppe_package}[2018/03/04]
+
+%PACCHETTI
+%\RequirePackage[a4paper, left=2.5cm, bottom=2.5 cm]{geometry}
+\RequirePackage[italian]{babel}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage{enumitem}
+\RequirePackage[separate-uncertainty=true]{siunitx}
+\RequirePackage{graphicx}
+\RequirePackage{amsmath}
+\RequirePackage{slashed}
+\RequirePackage{amsfonts}
+\RequirePackage{amsthm}
+\RequirePackage{tikz}
+\RequirePackage{tikz-cd}
+%\RequirePackage{circuitikz}
+%\RequirePackage{circuitikzgit}
+\RequirePackage{tensor}
+\RequirePackage{bm}
+\RequirePackage{mathrsfs}
+\RequirePackage{hyperref}
+\RequirePackage{url}
+\RequirePackage{amssymb}
+\RequirePackage{mathtools}
+
+
+%INTESTAZIONE
+\theoremstyle{definition}
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{solution}{Soluzione}[section]
+\newtheorem{axiom}{Assioma}[section]
+     
+\theoremstyle{theorem}
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{proposition}{Proposizione}[section]
+\newtheorem{corollary}{Corollario}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{problem}{Problema}[section]
+\newtheorem{conjecture}{Congettura}[section]
+
+
+%COMANDI
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\K}{\mathbb{K}}
+\renewcommand{\H}{\mathcal{H}}
+\renewcommand{\S}{\mathbb{S}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\SL}{\mathrm{SL}}
+\newcommand{\SO}{\mathrm{SO}}
+\newcommand{\so}{\mathrm{so}}
+\renewcommand{\O}{\mathrm{O}}
+\newcommand{\U}{\mathrm{U}}
+\newcommand{\SU}{\mathrm{SU}}
+\newcommand{\su}{\mathrm{su}}
+\renewcommand{\d}{\mathrm{d}}
+\newcommand{\der}[3][]{\dfrac{\d ^{#1}#2}{\d {#3}^{#1}}}
+\newcommand{\pder}[3][]{\dfrac{\partial ^{#1}#2}{\partial {#3}^{#1}}}
+\let\oldnabla\nabla
+\renewcommand{\nabla}{\vec{\oldnabla}}
+\newcommand{\lap}{\oldnabla^2}
+\newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+\renewcommand{\vec}{\mathbf}
+\newcommand{\ket}[1]{\left| #1\right\rangle}
+\newcommand{\bra}[1]{\left\langle #1\right|}
+\newcommand{\braket}[2]{\langle #1\vert#2\rangle}
+\newcommand{\Braket}[2]{\left\langle #1\vert#2\right\rangle}
+\newcommand{\braketop}[3]{\langle#1|#2|#3\rangle}
+\newcommand{\bigbraketop}[3]{\langle#1\left|#2\right|#3\rangle}
+\newcommand{\Bigbraketop}[3]{\left\langle#1\left|#2\right|#3\right\rangle}
+\renewcommand{\Re}{\mathrm{Re}\,}
+\renewcommand{\Im}{\mathrm{Im}\,}
+

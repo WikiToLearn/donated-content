@@ -1,0 +1,33 @@
+\begin{enumerate}
+\item \textsf{divisione euclidea}
+\item Sia $ A \subset \N $ un insieme limitato, cioè esiste $ m \in \N $ tale che $ a \leq m $ per ogni $ a \in A $. Si dimostri che $ A $ ammette massimo. \\
+
+  Sia $ M = \{m \in \N : \forall a \in A, a \leq m\} $ l'insieme dei maggioranti di $ A $. Poiché $ M \subset \N $ e $ M \neq \emptyset $ per il buon ordinamento di $ \N $, $ M $ ammette minimo $ m_0 = \max M = \sup A $. Per definizione di $ \sup $ abbiamo che $ \forall \epsilon > 0 : \exists a \in A : m_0 - \epsilon < a $. \\
+  Prendiamo $ \epsilon = 1 $. Per quanto detto $ \exists a_0 \in A : m_0 - 1 < a_0 $ o equivalentemente $ m_0 < a_0 + 1 $. Allora $ \forall a \in A $ segue che $ a \leq m_0 < a_0 + 1 $. Risulta $ a \leq a_0 $ per ogni $ a \in A $: se così non fosse si avrebbe $ a_0 < a $, da cui $ a_0 < a < a_0 + 1 $ che è assurdo. Per definizione di massimo $ a_0 = \max A $ e inoltre $ a_0 = m_0 $. Dunque $ A $ ammette massimo.
+\item (\emph{Induzione "transfinita" su un insieme ben ordinato}) Sia $ (A, \leq) $ un insieme ben ordinato e chiamiamo $ 0_A $ il minimo di $ A $. Si mostri il seguente principio di induzione: data una proposizione $ P(a) $, se
+  \begin{enumerate}[label=(\roman*)]
+  \item $ P(0_A) $ è vera,
+  \item $ (\forall a' < a : P(a')) \Rightarrow P(a) $, cioè posso dedurre $ P(a) $ dal fatto che $ P(a') $ è vera per ogni $ a' < a $,
+  \end{enumerate}
+  allora $ P(a) $ è vera per ogni $ a \in A $. \\
+
+  Sia $ B = \{a \in A : P(a) \; \text{è falsa}\} $. Supponiamo $ B \neq \emptyset $: poiché $ B \subseteq A $ e $ A $ è ben ordinato deduciamo che $ \exists b = \min B $. Per ipotesi $ b \neq 0_A $ dunque $ \exists a \in A : 0_A \leq a < b $. Ma allora dall'ipotesi (ii) abbiamo che $ \forall a < b : P(a) $ da cui deduciamo che $ P(b) $ è vera il che è assurdo. Dunque $ B = \emptyset $.
+\item Sia $ (A, \leq) $ un insieme ben ordinato e chiamiamo $ 0_A $ il minimo di $ A $. Sia inoltre $ f \colon \N \to A $ tale che $ \forall n \in \N : f(n) = 0_A \vel f(n + 1) < f(n) $. Dimostrare che $ \exists n_0 \in \N : \forall n \geq n_0 \Rightarrow f(n) = 0_A $. \\
+
+  Dimostriamo la tesi per induzione estesa su $ n $ (o transfinita).
+  \begin{pbase}
+    Sia $ f(\N) $ l'immagine di $ \N $ attraverso $ f $. Poiché $ f(\N) \subseteq A $ e $ A $ è ben ordinato, $ f(\N) $ ha minimo e sia $ \alpha = \min f(\N) $. Se per ipotesi $ \forall n \in \N, f(n) \neq 0_A $, allora $ f $ sarebbe una funzione strettamente decrescente ($ \forall n, f(n + 1) < f(n) \Rightarrow \forall m > n, f(m) < f(n) $) e dunque non avrebbe minimo; dunque $ \exists n_0 : f(n_0) = 0_A $, ovvero $ P(n_0) $ è vera.
+  \end{pbase}
+  \begin{pind}
+    Per ipotesi induttiva $ \forall m < n, f(m) = 0_A $. Poiché $ f $ è decrescente per ipotesi si ha che $ f(n) \leq f(m) = 0_A $ e quindi $ f(n) = 0_A $ in qunto $ 0_A $ è minimo di $ A \supseteq f(\N) $. Pertanto $ \forall n \leq n_0 \Rightarrow f(n) = 0_A $.
+  \end{pind}
+\item Sia $ (A, \leq) $ un insieme ben ordinato e chiamiamo $ 0_A $ il minimo di $ A $. Sia inoltre $ f \colon \N \to A $ tale che $ \forall n \in \N : f(n) = 0_A \vel f(n + 1) \leq f(n) $. Dimostrare che $ \exists a \in A, \exists n_0 \in \N : \forall n \geq n_0 \Rightarrow f(n) = a $. \\
+
+  Dimostriamo la tesi per induzione estesa su $ n $ (o transfinita).
+  \begin{pbase}
+    Sia $ f(\N) $ l'immagine di $ \N $ attraverso $ f $. Poiché $ f(\N) \subseteq A $ e $ A $ è ben ordinato, $ f(\N) $ ha minimo e sia $ a = \min f(\N) $, ovvero $ \exists a \in A : \exists n_0 \in \N : f(n_0) = a $, ovvero $ P(n_0) $ è vera.
+  \end{pbase}
+  \begin{pind}
+    Per ipotesi induttiva $ \forall m < n, f(m) = a $. Poiché $ f $ è decrescente per ipotesi si ha che $ f(n) \leq f(m) = a $ e quindi $ f(n) = a $ in quanto $ a $ è minimo di $ f $. Pertanto $ \forall n \leq n_0 \Rightarrow f(n) = a $.
+  \end{pind}
+\end{enumerate}

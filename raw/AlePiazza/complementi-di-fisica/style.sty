@@ -1,0 +1,52 @@
+\NeedsTeXFormat{LaTeX2e}
+
+\ProvidesPackage{style}[27/01/2018 Alessandro custom LaTeX style for physics articles]
+
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage{lipsum}
+\usepackage[bookmarks, colorlinks]{hyperref}	% Genera indice e permette di cliccare nel pdf, colorlinks fa il link colorati in rosso invece delle box.
+
+
+% PACCHETTI PER LA SCRITTURA MATEMATICA
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{bm}	% Bold per lettere greche
+\usepackage{enumitem}
+\usepackage[separate-uncertainty=true]{siunitx}
+\usepackage{graphics, pgfplots, tikz}
+\usepackage{cancel}
+\usepackage{framed}
+\usepackage{commath} 	% Comandi per derivate (differenziale: \dif{x}, derivata liebeniz: \od[n]{f}{x}, derivata parziale: \pd[n]{f}{x}, mixed partial derivative: \md{f}{5}{x}{2}{y}{3})
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+	\hskip -\arraycolsep
+	\let\@ifnextchar\new@ifnextchar
+	\array{#1}}
+\makeatother
+
+% Plot con unità SI
+\pgfplotsset{compat=newest}
+\usepgfplotslibrary{units}
+
+
+% VETTORI E FUNZIONI DI PIU' VARIABILI
+\renewcommand{\vec}[1]{\boldsymbol{#1}}		% Vettore in grassetto corsivo
+\newcommand{\vers}[1]{\hat{\boldsymbol{#1}}}% Versore
+\DeclareMathOperator{\grad}{\nabla}			% Gradiente
+\DeclareMathOperator{\lap}{\nabla^2}		% Laplaciano
+\let\div\relax
+\DeclareMathOperator{\div}{\nabla \cdot}	% Divergenza
+\DeclareMathOperator{\rot}{\nabla \times}	% Rotore
+
+% GEOMETRIA
+%\renewcommand{\sp}[2]{\left\langle #1, #2 \right\rangle}	% Prodotto scalare parentesi angolate
+
+% ALTRO
+\renewcommand{\epsilon}{\varepsilon}

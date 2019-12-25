@@ -1,0 +1,756 @@
+% CALCOLO DIFFERENZIALE IN PIU' VARIABILI 
+
+\begin{definition}[$ \R^n $]
+	Dato il campo $ \R $ dei numeri reali, sia $ n $ un numero naturale. Una $ n $-upla di numeri reali è una sequenza $ (x_1, \ldots, x_n) $ di $ n $ numeri reali. Lo spazio di tutte le $ n $-uple di numeri reali forma uno spazio vettoriale di dimensione $ n $ su $ \R $, indicato con $ \R^n $. Indichiamo con $ \{e_1, \ldots, e_n\} $ la base canonica di $ \R^n $. \\
+	Su $ \R^n $ è definito un prodotto scalare definito positivo: dati $ x \coloneqq (x_1, \ldots, x_n), \ y \coloneqq (y_1, \ldots, y_n) \in \R^n $ 
+	\begin{equation}
+		\sp{x}{y} \coloneqq \sum_{k = 1}^{n} x_k y_k = x_1 y_1 + \ldots + x_ny_n.
+	\end{equation}
+	Il prodotto scalare induce una norma su $ \R^n $:  
+	\begin{equation}
+		\norm{x} \coloneqq \sqrt{\sp{x}{x}} 
+	\end{equation}
+	La norma induce una distanza su $ \R^n $
+	\begin{equation}
+		d(x, y) \coloneqq \norm{x - y}
+	\end{equation}
+	La distanza definisce una struttura di spazio metrico e topologico in cui gli aperti sono le \emph{palle aperte} $ B_{r}(x_0) \coloneqq \{x \in \R^n : d(x, x_0) < r\} $.
+\end{definition}
+
+\begin{definition}
+	Sia $ \Omega \subseteq \R^n $ e $ f \colon \Omega \to \R $ una funzione e $ x_0 \in \ouv{\Omega} $. Diciamo che $ f $ è continua in $ x_0 $ se 
+	\begin{equation*}
+		\forall \epsilon > 0, \ \exists \delta > 0 : \forall x \in B_\delta(x_0), \ \abs{f(x) - f(x_0)} \leq \epsilon.
+	\end{equation*}
+\end{definition}
+
+\begin{definition}[derivata direzionale e parziale]
+	Sia $ \Omega \subseteq \R^n $ e $ f \colon \Omega \to \R $ una funzione e $ x_0 \in \ouv{\Omega} $. 
+	\begin{itemize}
+		\item Dato $ v \in \R^n $ con $ \norm{v} \neq 0 $ diciamo che $ f $ è derivabile parzialmente in $ x_0 $ rispetto a $ v $ se esiste finito il limite (in 1 variabile)
+		\begin{equation}
+			\pd{f}{v}{(x_0)} \coloneqq \lim_{t \to 0} \frac{f(x_0 + tv) - f(x_0)}{t}.
+		\end{equation}
+		
+		\item Dato $ i \in \{1, \ldots, n\} $ diciamo che $ f $ è derivabile parzialmente in $ x_0 $ rispetto a $ x_i $ se è derivabile direzionalmente in $ x_0 $ rispetto all'$ i $-esimo vettore $ e_i $ della base canonica di $ \R^n $ e in tale caso poniamo 
+		\begin{equation}
+			\pd{f}{x_i}(x_0) = f_{x_i}(x_0) \coloneqq \lim_{t \to 0} \frac{f(x_0 + te_i) - f(x_0)}{t}
+		\end{equation}   
+	\end{itemize}
+\end{definition}
+
+\begin{definition}[gradiente]
+	Sia $ \Omega \subseteq \R^n $ e $ f \colon \Omega \to \R $ una funzione e $ x_0 \in \ouv{\Omega} $. Si dice gradiente di $ f $ nel punto $ x_0 $ il vettore che ha come componenti le derivate parziali di $ f $ nel punto $ x_0 $
+	\begin{equation}
+		\grad{f}(x_0) \coloneqq \left(f_{x_1}(x_0), \ldots, f_{x_n}(x_0)\right)
+	\end{equation}
+\end{definition}
+
+\begin{definition}[funzione differenziabile]
+	Sia $ \Omega \subseteq \R^n $ e $ f \colon \Omega \to \R^m $ una funzione e $ x_0 \in \ouv{\Omega} $. Diciamo che $ f $ è differenziabile in $ x_0 $ se esiste una applicazione lineare $ L \colon \R^n \to \R^m $ tale che 
+	\begin{equation}
+		f(x_0 + h) = f(x_0) + L h + o(\,\norm{h}) \quad (h \to 0)
+	\end{equation}
+	Nel caso $ m = 1 $, ovvero $ f \colon \Omega \to \R $, fissata una base di $ \R^n $ per il Teorema di Riesz esiste un unico $ \alpha \in \R^n $ tale che l'applicazione lineare $ L h = \sp{\alpha}{h} $ e pertanto la condizione di differenziabilità si traduce nell'esistenza di un $ \alpha \in \R^n $ tale che  
+	\begin{equation}
+		f(x_0 + h) = f(x_0) + \sp{\alpha}{h} + o(\,\norm{h}) \quad (h \to 0)
+	\end{equation}
+\end{definition}
+
+\begin{thm}[differenziabilità, derivabilità, continuità] \label{thm:diff}
+	Sia $ \Omega \subseteq \R^n $ e $ f \colon \Omega \to \R $ una funzione e $ x_0 \in \ouv{\Omega} $. Valgono le seguenti implicazioni (tutte le altre sono false)
+	\begin{enumerate}[label = (\roman*)]
+		\item $ f $ ammette tutte le derivate direzionali in $ x_0 $ $ \Rightarrow $ ammette tutte le derivate parziali in $ x_0 $;
+		\item $ f $ è differenziabile in $ x_0 $ $ \Rightarrow $ continua in $ x_0 $ $ + $ ammette tutte le derivate direzionali in $ x_0 $ $ + $ ammette tutte le derivate parziali in $ x_0 $. \\
+		In tale caso si ha $ \pd{f}{v}(x_0) = \sp{\alpha}{v} $ da cui $ \alpha = \grad{f}(x_0) $ e quindi la condizione di differenziabilità diventa
+		\begin{equation*}
+			f(x_0 + h) = f(x_0) + \sp{\grad{f}(x_0)}{h} + o(\,\norm{h}) \quad (h \to 0)
+		\end{equation*}
+	\end{enumerate}
+\end{thm}
+%
+\begin{proof}
+	\begin{enumerate}[label = (\roman*)]
+		\item Ovvia. 
+		\item Supponiamo $ f $ differenziabile in $ x_0 $, cioè che per $ h \to 0 $ si abbia $ f(x_0 + h) = f(x_0) + \sp{\alpha}{h} + o(\,\norm{h}) $. Così per $ h \to 0 $ si ha
+		\[
+			\abs{f(x_0 + h) - f(x_0)} \leq \abs{\sp{\alpha}{h}} + o(\,\norm{h}) \leq \norm{\alpha} \norm{h} + \frac{o(\,\norm{h})}{\norm{h}} \norm{h} \to 0
+		\]
+		da cui concludiamo che $ f $ è continua in $ x_0 $. Per quanto riguarda le derivate direzionali
+		\[
+			\pd{f}{v}(x_0) = \lim_{t \to 0} \frac{f(x_0 + tv) - f(x_0)}{t} = \lim_{t \to 0} 	\frac{\sp{\alpha}{tv} + o(\,\norm{tv})}{t} = \lim_{t \to 0} \left(\sp{\alpha}{v} + \frac{o(\,\norm{tv})}{\norm{tv}} \norm{v}\right) = \sp{\alpha}{v} 
+		\]
+		Così usando $ v = e_i $ e posto $ \alpha \coloneqq (\alpha_1, \ldots, \alpha_n) $ si ha $ f_{x_i}(x_0) = \sp{\alpha}{e_i} = \alpha_i $ da cui $ \alpha = \grad{f}(x_0) $ e in conclusione $ \pd{f}{v}(x_0) = \sp{\grad{f}(x_0)}{v} $. \qedhere
+	\end{enumerate}
+\end{proof}
+
+\begin{thm}[differenziale totale] \label{thm:difftot}
+	Sia $ x_0 \in \R^n $, $ \delta > 0 $ e $ f \colon B_{\delta}(x_0) \to \R $. Supponiamo che tutte le derivate parziali di $ f $
+	\begin{enumerate}[label = (\roman*)]
+		\item esistano in $ B_{\delta}(x_0) $
+		\item siano continue in $ x_0 $
+	\end{enumerate}
+	Allora $ f $ è differenziabile in $ x_0 $. 
+\end{thm}
+%
+\begin{proof}
+	Fissato $ \epsilon > 0 $ vogliamo mostrare le condizione di differenziabilità in $ x_0 $, cioè che in un intorno di $ x_0 $ valga
+	\[
+		\abs{f(x) - f(x_0) - \sum_{k = 1}^{n} f_{x_k}(x_0)(x_k - {x_0}_k)} \leq \epsilon \norm{x - x_0}
+	\]
+	Essendo le derivate parziali continue in $ x_0 $, dato $ \epsilon > 0 $ esiste $ r > 0 $ (con $ r < \delta / \sqrt{2} $) tale che 
+	\[
+		\abs{f_{x_k}(y) - f_{x_k}(x_0)} \leq \frac{\epsilon}{n} \quad \forall y \in Q_{r}(x_0)
+	\]
+	dove $ Q_r(x_0) $ è il cubo $ n $-dimensionale $ Q_r(x_0) \coloneqq x_0 + (-r, r)^n $. Partiamo dall'uguaglianza valida per $ x \in Q_{r}(x_0) $
+	\[
+		f(x) - f(x_0) = \sum_{k = 0}^{n} f({x_0}_1, \ldots, {x_0}_{k - 1}, x_k, x_{k + 1}, \ldots, x_n) - f({x_0}_1, \ldots, {x_0}_{k - 1}, {x_0}_k, x_{k + 1}, \ldots, x_n).
+	\]
+	Ogni elemento della somma è l'incremento da $ {x_0}_{k} $ a $ x_k $ della funzione di una variabile 
+	\[
+		h_k(t) \coloneqq f({x_0}_1, \ldots, {x_0}_{k - 1}, t, x_{k + 1}, \ldots, x_n).
+	\]
+	Per ipotesi $ h_k(t) $ è derivabile in un intervallo aperto contenente $ {x_0}_{k} $ e $ x_k $ e 
+	\[
+		h'_k(t) = f_{x_k}({x_0}_1, \ldots, {x_0}_{k - 1}, t, x_{k + 1}, \ldots, x_n).
+	\]
+	Applicando il teorema di Lagrange otteniamo che esiste $ c_k = c_k(x_0, x) $ strettamente compreso tra $ {x_0}_{k} $ e $ x_k $ tale che
+	\[
+		h_k(x_k) - h_k({x_0}_k) = f_{x_k}({x_0}_1, \ldots, {x_0}_{k - 1}, c_k, x_{k + 1}, \ldots, x_n) \; (x_k - {x_0}_k)
+	\]
+	Così dal momento che $ y_k \coloneqq ({x_0}_1, \ldots, {x_0}_{k - 1}, c_k, x_{k + 1}, \ldots, x_n) \in Q_r(x_0) $	si ha
+	\begin{align*}
+		\abs{f(x) - f(x_0) - \sum_{k = 1}^{n} f_{x_k}(x_0)(x_k - {x_0}_k)} & = \abs{\sum_{k = 1}^{n} h_k(x_k) - h_k({x_0}_k) - \sum_{k = 1}^{n} f_{x_k}(x_0)(x_k - {x_0}_k)} \\
+		& = \abs{\sum_{k = 1}^{n} f_{x_k}(y_k) (x_k - {x_0}_k) -  f_{x_k}(x_0)(x_k - {x_0}_k)} \\
+		& \leq \sum_{k = 1}^{n} \abs{f_{x_k}(y_k) - f_{x_k}(x_0)} \abs{x_k - {x_0}_k} \leq \frac{\epsilon}{n} \sum_{k = 1}^{n} \abs{x_k - {x_0}_k} \\
+		& \leq \frac{\epsilon}{n} \sum_{k = 1}^{n} \norm{x - x_0} = \frac{\epsilon}{n} \cdot n \norm{x - x_0} = \epsilon \norm{x - x_0}. \qedhere
+	\end{align*} 
+\end{proof}
+
+\begin{thm}[differenziale totale "risparmioso" in $ \R^2 $]
+	Sia $ (x_0, y_0) \in \R^2 $, $ \delta > 0 $ e $ f \colon (x_0 - \delta, x_0 + \delta) \times (y_0 - \delta, y_0 + \delta) \to \R $. Supponiamo che 
+	\begin{enumerate}[label = (\roman*)]
+		\item $ f_y(x, y) $ esiste in tutto $ (x_0 - \delta, x_0 + \delta) \times (y_0 - \delta, y_0 + \delta) $
+		\item $ f_y(x, y) $ sia continua in $ (x_0, y_0) $
+		\item $ f_x(x, y) $ esiste in $ (x_0, y_0) $
+	\end{enumerate}
+	Allora $ f $ è differenziabile in $ (x_0, y_0) $. 
+\end{thm}
+
+\begin{thm}[Schwarz 1]
+	Sia $ (x_0, y_0) \in \R^2 $, $ \delta > 0 $ e $ f \colon (x_0 - \delta, x_0 + \delta) \times (y_0 - \delta, y_0 + \delta) \to \R $. Supponiamo che 
+	\begin{enumerate}[label = (\roman*)]
+		\item $ f_{xy}(x, y) $ e $ f_{yx}(x, y) $ esistano in $ (x_0 - \delta, x_0 + \delta) \times (y_0 - \delta, y_0 + \delta) $
+		\item $ f_{xy}(x, y) $ e $ f_{yx}(x, y) $ siano continue in $ (x_0, y_0) $
+	\end{enumerate}
+	Allora 
+	\begin{equation}
+		f_{xy}(x_0, y_0) = f_{yx}(x_0, y_0)
+	\end{equation}
+\end{thm}
+
+\begin{thm}[Schwarz 2]
+	Sia $ (x_0, y_0) \in \R^2 $, $ \delta > 0 $ e $ f \colon (x_0 - \delta, x_0 + \delta) \times (y_0 - \delta, y_0 + \delta) \to \R $. Supponiamo che 
+	\begin{enumerate}[label = (\roman*)]
+		\item $ f_{xy}(x, y) $ e $ f_{yx}(x, y) $ esistano in $ (x_0 - \delta, x_0 + \delta) \times (y_0 - \delta, y_0 + \delta) $
+		\item $ f_{x}(x, y) $ e $ f_{y}(x, y) $ siano differenziabili in $ (x_0, y_0) $
+	\end{enumerate}
+	Allora 
+	\begin{equation*}
+		f_{xy}(x_0, y_0) = f_{yx}(x_0, y_0)
+	\end{equation*}
+\end{thm}
+
+\begin{thm}[Lagrange direzionale] \label{thm:lagrange}
+	Sia $ \Omega \subseteq \R^n $, $ f \colon \Omega \to \R $ e $ a, b \in \R^n $. Supponiamo che 
+	\begin{enumerate}[label = (\roman*)]
+		\item tutto il segmento di estremi $ a $ e $ b $ sia contenuto in $ \ouv{\Omega} $
+		\item $ f $ ammetta derivate direzionali in $ \ouv{\Omega} $
+	\end{enumerate}
+	Allora esiste almeno un  punto $ c \in \R^n $ nel segmento di estremi $ a $ e $ b $ tale che 
+	\begin{equation}
+		f(b) - f(a) = \pd{f}{v}(c) \, \norm{b - a}  \quad \text{ con } v = \frac{b - a}{\norm{b - a}}
+	\end{equation}
+\end{thm}
+%
+\begin{proof}
+	Consideriamo la restrizione di $ f $ alla retta passate per $ a $ e $ b $, $ t \mapsto a + v t $ con $ v \coloneqq \dfrac{b - a}{\norm{b - a}} $ 
+	\[
+		\varphi(t) \coloneqq f(a + tv)
+	\]
+	Applicando il teorema di Lagrange alla funzione $ \varphi $ di 1 variabile
+	\[
+		f(b) - f(a) = \varphi(\,\norm{b - a}) - \varphi(0) = \varphi'(t_0) \norm{b - a} = \pd{f}{v}(a + t_0v) \, \norm{b - a}
+	\]
+	Ponendo $ c \coloneqq a + t v_0 $ otteniamo la tesi. 
+\end{proof}
+
+\begin{corollary} \label{cor:lagrange}
+	Nelle stesse ipotesi del Teorema \ref{thm:lagrange} se supponiamo che $ f $ sia differenziabile in $ \ouv{\Omega} $ allora esiste almeno un  punto $ c \in \R^n $ nel segmento di estremi $ a $ e $ b $ tale che 
+	\begin{equation}
+		f(b) - f(a) = \sp{\grad{f}(c)}{b - a}
+	\end{equation}
+\end{corollary}
+%
+\begin{proof}
+	Per il Teorema \ref{thm:diff} si ha
+	\[
+		f(b) - f(a) = \pd{f}{v}(c) \, \norm{b - a} = \sp{\grad{f}(c)}{\frac{b - a}{\norm{b - a}}} \, \norm{b - a} = \sp{\grad{f}(c)}{b - a} \qedhere
+	\]
+\end{proof}
+
+\begin{prop}
+	Sia $ D \subseteq \R^n $ un aperto convesso e $ f \colon D \to \R $. Supponiamo che 
+	\begin{enumerate}[label = (\roman*)]
+		\item $ f $ sia differenziabile in $ D $
+		\item $ \grad{f} $ sia limitato in $ D $, cioè $ \exists M \in \R : \forall x \in D, \ \abs{\grad{f}(x)} \leq M $
+	\end{enumerate}
+	Allora $ f $ è $ M $-lipschitziana in $ D $.
+\end{prop}
+
+\begin{definition}[matrice Jacobiana]
+	Sia $ \Omega \subseteq \R^n $ e $ f \colon \Omega \to \R^m $ una funzione differenziabile in $ x_0 \in \ouv{\Omega} $. L'applicazione lineare $ L $ data dalla condizione di differenziabilità è rappresentata dalla matrice Jacobiana
+	\begin{equation}
+		\jac{f}(x_0) \coloneqq \left(\dpd{f_i}{x_j}(x_0)\right)_{ij}
+	\end{equation}
+\end{definition}
+
+\begin{thm}[disuguaglianza di Lagrange direzionale]
+	Sia $ D \subseteq \R^n $ un insieme convesso, $ f \colon D \to \R^m $ e $ a, b \in D $. Supponiamo che $ f $ sia differenziabile in $ D $ e sia $ \jac{f} $ la sua matrice Jacobiana. Allora esiste un punto $ c $ sul segmento di estremi $ a $ e $ b $ tale che 
+	\begin{equation}
+		\norm{f(b) - f(a)} \leq \norm{\jac{f}(c) \ (b - a)}
+	\end{equation}
+\end{thm}
+%
+\begin{proof}
+	Sia $ v \in \R^m $ e $ \varphi \colon D \to \R $ la funzione $ \varphi(x) \coloneqq \sp{f(x)}{v} $. Applicando il Corollario \ref{cor:lagrange} a tale funzione abbiamo che esiste $ c $ nel segmento di estremi $ a $ e $ b $ tale che $ \varphi(b) - \varphi(a) = \sp{\grad{\varphi}(c)}{b - a} $. Osserviamo ora che essendo $ \varphi(x) = v_1 f_1(x) + \ldots + v_m f_m(x) $ si ha pensando a $ v $ come vettore colonna
+	\[
+		\grad{\varphi}(x) = v_1 \grad{f_1}(x) + \ldots + v_m \grad{f_m}(x) = (\jac{f}(x))^t \, v
+	\]
+	da cui
+	\[
+		\sp{f(b) - f(a)}{v} = \sp{f(b)}{v} - \sp{f(a)}{v} = \varphi(b) - \varphi(a) = \sp{(\jac{f}(c))^t \, v}{b - a}
+	\]
+	Usando ora come vettore $ v = f(b) - f(a) $ otteniamo
+	\begin{align*}
+		\norm{f(b) - f(a)}^2 & = \sp{(\jac{f}(c))^t \, (f(b) - f(a))}{b - a} = \sp{f(b) - f(a)}{\jac{f}(c) \, (b - a)} \\
+		& \leq \norm{f(b) - f(a)} \, \norm{\jac{f}(c) \, (b - a)}
+	\end{align*}
+	Semplificando (se possibile) concludiamo 
+	\[
+		\norm{f(b) - f(a)} \leq \norm{\jac{f}(c) \, (b - a)} \qedhere
+	\]
+\end{proof}
+
+\begin{definition}[norma di una matrice]
+	Data $ M \in \mathrm{Mat}_{n \times m}(\R) $ definiamo $ \norm{M} = \left(\sum_{i, j} M_{ij}^2\right)^{1/2} $
+\end{definition}
+
+\begin{prop}[Cauchy-Schwarz per matrici]
+	Sia $ M \in \mathrm{Mat}_{n \times m}(\R) $ e $ v \in \R^m $. Allora vale la stima
+	\[ \norm{Mv} \leq \norm{M} \cdot \norm{v} \]
+\end{prop}
+\begin{proof}
+	Siano $ M_i $ le righe di $ M $. 
+	\[ 
+	\norm{Mv}^2 = \sum_{i=1}^{n} \sp{M_i}{v}^2 \overset{\text{\tiny C-S}}{\leq} \sum_{i=1}^{n} \norm{M_i}^2 \cdot \norm{v}^2
+	    = \norm{v}^2 \sum_{i=1}^{n} \sum_{j=1}^{m} M_{ij}^2 = \norm{M}^2 \cdot \norm{v}^2. \qedhere 
+	\]
+\end{proof}
+
+\begin{prop}
+	Sia $ D \subseteq \R^n $ un aperto convesso e $ f \colon D \to \R $.  Supponiamo che 
+	\begin{enumerate}[label = (\roman*)]
+		\item $ f $ sia differenziabile in $ D $
+		\item $ \jac{f} $ sia limitato in $ D $, cioè $ \exists M \in \R : \forall x \in D, \ \norm{\jac{f}(x)} \leq M $
+	\end{enumerate}
+	Allora $ f $ è $ M $-lipschitziana in $ D $.
+\end{prop}
+
+\begin{thm}[differenziale della funzione composta]
+	Siano $ D \subseteq \R^n $, $ E \subseteq \R^m $, $ f \colon D \to \R^n $ con $ f(D) \subseteq E $ e $ g \colon E \to \R^d $. Siano inoltre $ x_0 \in \ouv{D} $ e $ y_0 = f(x_0) \in E $. Supponiamo che 
+	\begin{enumerate}[label = (\roman*)]
+		\item $ f $ sia differenziabile in $ x_0 $ con $ \jac{f}(x_0) $
+		\item $ g $ sia differenziabile in $ y_0 $ con $ \jac{g}(y_0) $
+	\end{enumerate}
+	Allora $ g \circ f \colon D \to \R^d $ è differenziabile in $ x_0 $ e vale 
+	\begin{equation}
+		\jac{(g \circ f)}(x_0) = \jac{g}(f(x_0)) \ \jac{f}(x_0)
+	\end{equation}
+\end{thm}
+%
+\begin{proof}
+	Sia $ \varphi(x) \colon D \to \R^d $ la funzione composta $ \varphi(x) \coloneqq g(f(x)) $. Per ipotesi si ha per $ h \to 0 $ e $ k \to 0 $
+	\[
+		f(x_0 + h) = f(x_0) + \jac{f}(x_0) \, h + o(\,\norm{h}) \qquad g(y_0 + k) = g(y_0) + \jac{g}(y_0) \, k + o(\,\norm{k}) 
+	\]
+	Pertanto essendo $ y_0 = f(x_0) $ e posto $ k = f(x_0 + h) - f(x_0) $ per $ h \to 0 $ si ha 
+	\begin{align*}
+		\varphi(x_0 + h) & = g(f(x_0 + h)) = g(f(x_0) + f(x_0 + h) - f(x_0)) \\
+		& = g(f(x_0)) + \jac{g}(f(x_0)) \, (f(x_0 + h) - f(x_0)) + o(\,\norm{f(x_0 + h) - f(x_0)}) 
+	\end{align*}
+	Il primo termine è $ \varphi(x_0) $. Per quanto riguarda il secondo termine 
+	\[
+		\jac{g}(f(x_0)) \, (f(x_0 + h) - f(x_0)) = \jac{g}(f(x_0)) \, \left[\jac{f}(x_0) \, h + o(\,\norm{h})\right] = \jac{g}(f(x_0)) \, \jac{f}(x_0) \, h + o(\,\norm{h})
+	\]
+	Mentre il termine restante è $ o(\,\norm{h}) $: infatti
+	\[
+		\norm{f(x_0 + h) - f(x_0)} = \norm{\jac{f}(x_0) \, h} + o(\,\norm{h}) \leq \norm{\jac{f}(x_0)} \, \norm{h} + o(\,\norm{h}) = O(\,\norm{h})
+	\]
+	così $ o(\,\norm{f(x_0 + h) - f(x_0)}) = o(O(\,\norm{h})) = o(\,\norm{h}) $. Concludiamo quindi che
+	\[
+		\varphi(x_0 + h) = \varphi(x_0) + \jac{g}(f(x_0)) \, \jac{f}(x_0) \, h + o(\,\norm{h})
+	\]
+	ovvero $ \varphi $ è differenziabile in $ x_0 $ con differenziale $ \jac{g}(f(x_0)) \, \jac{f}(x_0) $. 
+\end{proof}
+
+\begin{definition}[formalismo multi-indici]
+	Un multi-indice è un vettore $ p = (p_1, \ldots, p_n) $ con $ p_i \in \N $. Poniamo allora 
+	\begin{itemize}
+		\item $ \abs{p} = p_1 + \ldots + p_n $
+		\item $ p! = p_1! \cdots p_n! $
+		\item se $ x = (x_1, \ldots, x_n) \in \R^n $, allora $ x^p = x_1^{p_1} \cdots x_n^{p_n} $
+		\item se $ f \colon \R^n \to \R $ allora $ D^p{f} = \dfrac{\partial^{p_1 + \ldots + p_n}{f}}{\partial{x_1^{p_1}} \cdots \, \partial{x_n^{p_n}}} $
+	\end{itemize}
+\end{definition}
+
+\begin{thm}[Taylor]
+	Sia $ x_0 \in \R^m $, $ \delta > 0 $, $ f \colon B_{\delta}(x_0) \to \R $ e $ n \in \N $. Allora
+	\begin{equation}
+		f(x_0 + h) = \sum_{\abs{p} \leq n} \frac{D^p{f}(x_0)}{p!}h^p + r_n(h) = P(h) + r_n(h)
+	\end{equation}
+	\begin{itemize}
+		\item (\emph{Peano}) Supponiamo che 
+		\begin{enumerate}[label = (\roman*)]
+			\item $ f $ ammetta derivate parziali fino all'ordine $ n - 1 $ in $ B_{\delta}(x_0) $
+			\item le derivate parziali fino all'ordine $ n - 1 $ siano differenziabili in $ x_0 $ (in particolare $ D^p{f}(x_0) $ esiste fino all'ordine $ \abs{p} \leq n $ e valgono i teoremi di scambio)
+		\end{enumerate}
+		Allora 
+		\begin{equation}
+			r_n(h) = o(\,\norm{h}^n)
+		\end{equation}
+		\item (\emph{Lagrange}) Supponiamo che 
+		\begin{enumerate}[label = (\roman*)]
+			\item $ f $ ammetta derivate parziali fino all'ordine $ n + 1 $ in $ B_{\delta}(x_0) $
+			\item avere ipotesi sufficienti per usare i teoremi di scambio fino all'ordine $ n + 1 $ (per esempio tutte le derivate parziali fino all'ordine $ n $ sono differenziabili in $ B_{\delta}(x_0) $)
+		\end{enumerate}
+		Allora esiste un punto $ c \in \R^n $ sul segmento di estremi $ x_0 $ e $ x_0 + h $ (lo stesso per ogni $ p $) tale che 
+		\begin{equation}
+		r_n(h) = \sum_{\abs{p} = n + 1} \frac{D^p{f}(c)}{p!} h^p
+		\end{equation}
+	\end{itemize}
+\end{thm}
+%
+\begin{proof}
+	Dimostriamo l'enunciato per lemmi successivi.
+	\begin{lemma}[derivata di un monomio]
+		Se $ p $ e $ q $ sono multi-indici allora 
+		\begin{equation}
+			(D^q x^p)(0) = 
+			\begin{cases}
+				0 & \text{se $ p \neq q $} \\
+				p! & \text{se $ p = q $}
+			\end{cases}
+		\end{equation}
+	\end{lemma}
+	%
+	\begin{proof}[Dim]
+		Siano $ p \coloneqq (p_1, \ldots, p_n) $ e $ q \coloneqq (q_1, \ldots, q_n) $. Allora se $ x \coloneqq (x_1, \ldots, x_n) $ si ha $ x^p = x_1^{p_1} \cdots x_n^{p_n} $ così
+		\[
+			D^q x^p = \dfrac{\partial^{q_1 + \ldots + q_n}}{\partial{x_1^{q_1}} \cdots \, \partial{x_n^{q_n}}} (x_1^{p_1} \cdots x_n^{p_n}) = \frac{\partial^{q_1}}{\partial x_1^{q_1}} x_1^{p_1} \cdots \frac{\partial^{q_n}}{\partial x_n^{q_n}} x_n^{p_n}
+		\]
+		da cui segue la tesi in quanto se $ y \in \R $ e $ n, m \in \N $ allora $ \od[n]{y^m}{y}(0) $ è pari a $ n! $ se $ n = m $ ed è nullo $ n \neq m $.
+	\end{proof}
+
+	\begin{lemma}[derivata di un polinomio]
+		Sia $ P(x) $ un polinomio in $ n $ variabili, cioè $ P(x) \coloneqq \sum_{\abs{p} \leq d} a_p x^p $. Allora 
+		\begin{equation}
+			(D^pP)(0) = p! a_p.
+		\end{equation}
+	\end{lemma}
+
+	\begin{lemma}[caratterizzazione del polinomio di Taylor] \label{lem:carattTaylor}
+		Sia $ P(x) \coloneqq \sum_{\abs{p} \leq n} \frac{D^pf(x_0)}{p!} x^p $ il polinomio di Taylor di $ f $ di grado $ n $ centrato in $ x_0 $. Allora
+		\begin{equation}
+			(D^pP)(0) = (D^pf)(x_0) \quad \forall p : \abs{p} \leq n.
+		\end{equation}
+	\end{lemma}
+
+	Per dimostrare Taylor-Peano e Taylor-Lagrange possiamo supporre \emph{wlog} $ x_0 = 0 $ e considerare la funzione $ \varphi(x) = f(x) - P(x) $ dove $ P(x) $ è il polinomio di Taylor di $ f $ di grado $ n $ centrato in $ 0 $ la quale per il Lemma \ref{lem:carattTaylor} soddisfa
+	\begin{equation} \label{eqn:carattTaylor}
+		D^p \varphi(0) = 0 \quad \forall p : \abs{p} \leq n.
+	\end{equation} 
+
+	\begin{lemma}[Peano]
+		Supponiamo $ \varphi \colon B_\delta(0) \to \R $ abbia la regolarità prevista da Taylor-Peano e soddisfi \eqref{eqn:carattTaylor}. Allora 
+		\[
+			\lim_{x \to 0} \frac{\varphi(x)}{\norm{x}^n} = 0.
+		\]
+	\end{lemma}
+	\begin{proof}[Dim]
+		Procediamo per induzione su $ n $. Il caso $ n = 0 $ è la definizione di continuità di $ \varphi $. Il caso $ n = 1 $ è la definizione di differenziabilità. Supponiamo ora che $ \varphi $ soddisfi le ipotesi di Taylor-Peano fino all'ordine $ n + 1 $. Allora tutte le derivate parziali prime soddisfano le ipotesi di ordine $ n $ e per ipotesi induttiva sono $ o(\,\norm{x}^n) $. Ma allora anche $ \norm{\grad{\varphi}(x)} = o(\,\norm{x}^n) $. Ora per Lagrange direzionale (Teorema \ref{thm:lagrange}) vale 
+		\[
+			\norm{\varphi(x)} = \norm{\varphi(x) - \varphi(0)} = \norm{\sp{\grad{\varphi}(c)}{x}} \leq \norm{\grad{\varphi}(c)} \, \norm{x}
+		\]
+		per un qualche $ c = c(x) $ tale che $ \norm{c} < \norm{x} $. Così per $ x \to 0 $ otteniamo la tesi
+		\[
+			0 \leq \frac{\norm{\varphi(x)}}{\norm{x}^{n + 1}} \leq \frac{\norm{\grad{\varphi}(c)}}{\norm{c}^n} \, \frac{\norm{c}^n}{\norm{x}^n} \, \frac{\norm{x}}{\norm{x}} \leq  \frac{\norm{\grad{\varphi}(c)}}{\norm{c}^n} \to 0. \qedhere
+		\]
+	\end{proof}
+
+	\begin{lemma}[Lagrange]
+		Supponiamo $ \varphi \colon B_\delta(0) \to \R $ abbia la regolarità prevista da Taylor-Lagrange e soddisfi \eqref{eqn:carattTaylor}. Allora $ \forall x \in B_\delta(0) $ esiste $ c = c(x) $ sul segmento di estremi 0 e $ x $ tale che
+		\[
+			\varphi(x) = \sum_{\abs{p} = n + 1} \frac{D^p \varphi(c)}{p!} x^p.
+		\]
+	\end{lemma}
+	\begin{proof}[Dim]
+		Fissato $ x \in B_\delta(0) $ consideriamo la funzione di 1 variabile $ \psi \colon [-1, 1] \to \R $ data da $ \psi(t) \coloneqq \varphi(tx) $. Per tale funzione vale il Teorema di Taylor-Lagrange in 1 variabile
+		\[
+			\psi(t) = \sum_{k = 0}^{n} \frac{\psi^{(k)}(0)}{k!} t^k + \frac{\psi^{(n + 1)}(t_0)}{(n + 1)!}t^{n + 1}
+		\]
+		da cui
+		\[
+			\varphi(x) = \psi(1) = \sum_{k = 0}^{n} \frac{\psi^{(k)}(0)}{k!} + \frac{\psi^{(n + 1)}(t_0)}{(n + 1)!}
+		\]
+		Per concludere dobbiamo calcolare le derivate di $ \psi $ in funzione di quelle di $ \varphi $ usando la \emph{chain rule}. Per induzione si mostra che 
+		\[
+			\psi^{(k)}(t) = k! \sum_{\abs{p} = k} \frac{D^p \varphi(tx)}{p!} x^p.
+		\]
+		Infatti grazie alla condizione \eqref{eqn:carattTaylor} otteniamo la tesi con $ c = t_0 x $
+		\[
+			\varphi(x) = \sum_{k = 0}^{n} \frac{1}{k!} k! \sum_{\abs{p} = k} \frac{D^p \varphi(0)}{p!} x^p + \frac{1}{(n + 1)!} (n + 1)! \sum_{\abs{p} = n + 1} \frac{D^p \varphi(t_0x)}{p!} x^p = \sum_{\abs{p} = n + 1} \frac{D^p \varphi(t_0x)}{p!} x^p.
+		\]
+		Per quanto riguarda le derivate di $ \psi $ per $ k = 1 $ abbiamo $ \abs{p} = 1 $ e quindi $ p $ è della forma $ (0, \ldots, 1, \ldots, 0) $, così $ p! = 1 $, $ x^p = x_j $ e $ D^p\varphi(tx) = \pd{\varphi}{x_j}(tx) $ se $ p $ ha componente $ j $-esima non nulla. Pertanto $ \psi'(t) = \pd{\varphi}{x_1}(tx) x_1 + \ldots + \pd{\varphi}{x_m}(tx) x_m $ che è la \emph{chain rule}. Per quanto riguarda il passo induttivo si ha		
+		\begin{align*}
+			\psi^{(k + 1)}(t) & = \sum_{\abs{p} = k} \binom{k}{p} \dfrac{\partial^{\,\abs{p} + 1}{\varphi}}{\partial{x_1^{p_1 + 1}} \cdots \, \partial{x_m^{p_m}}} (tx)  \ x_1^{p_1 + 1} \cdots x_m^{p_m} + \ldots + \dfrac{\partial^{\,\abs{p} + 1}{\varphi}}{\partial{x_1^{p_1}} \cdots \, \partial{x_m^{p_m + 1}}} (tx)  \ x_1^{p_1} \cdots x_m^{p_m + 1} \\
+			& = \sum_{q_1 + \ldots + p_m = k + 1} \binom{k}{q_1 - 1, \ldots, p_m} \dfrac{\partial^{\,q_1 + \ldots + p_m}{\varphi}}{\partial{x_1^{q_1}} \cdots \, \partial{x_m^{p_m}}} (tx)  \ x_1^{q_1} \cdots x_m^{p_m} \\
+			& \quad + \ldots + \\
+			& \quad + \sum_{p_1 + \ldots + q_m = k + 1} \binom{k}{p_1, \ldots, q_m - 1} \dfrac{\partial^{\,p_1 + \ldots + q_m}{\varphi}}{\partial{x_1^{p_1}} \cdots \, \partial{x_m^{q_m}}} (tx)  \ x_1^{p_1} \cdots x_m^{q_m} \\
+			& = \sum_{\abs{q} = k + 1} \binom{k}{q_1 - 1, \ldots, q_m} D^q \varphi (tx)  \ x^q + \ldots + \sum_{\abs{q} = k + 1} \binom{k}{q_1, \ldots, q_m - 1} D^q \varphi (tx)  \ x^q \\
+			& = \sum_{\abs{q} = k + 1} \left[\binom{k}{q_1 - 1, \ldots, q_m} + \ldots + \binom{k}{q_1, \ldots, q_m - 1}\right] D^q \varphi (tx)  \ x^q \\
+			& = \sum_{\abs{q} = k + 1} \binom{k + 1}{q_1, \ldots, q_m} D^q \varphi (tx)  \ x^q \\
+			& = (k + 1)!  \sum_{\abs{q} = k + 1} \frac{D^q \varphi(tx)}{q!} x^q
+		\end{align*}
+		Nel primo passaggio abbiamo posto $ q_j = p_j + 1 $ e nel secondo $ q = (q_1, \ldots, q_j - 1, \ldots, q_m) $		
+	\end{proof}
+	\phantom{\qedhere}
+\end{proof}
+
+\iffalse
+Verifichiamolo per semplicità nel caso $ m = 2 $ in cui la formula diventa 
+\[
+\psi^{(k)}(t) = \sum_{i = 0}^{k} \binom{k}{i} \frac{\partial^k \varphi}{\partial x^i \partial y^{k - i}}(tx, ty) x^i y^{k - i}
+\]
+infatti
+\begin{align*}
+\psi^{(k + 1)}(t) & = \sum_{i = 0}^{k} \binom{k}{i} \left[\frac{\partial^{k + 1} \varphi}{\partial x^{i + 1} \partial y^{k - i}}(tx, ty) \cdot x + \frac{\partial^{k + 1} \varphi}{\partial x^{i} \partial y^{k - i + 1}}(tx, ty) \cdot y \right] x^i y^{k - i} \\
+& = \sum_{i = 0}^{k}  \binom{k}{i} \frac{\partial^{k + 1} \varphi}{\partial x^{i + 1} \partial y^{k - i}}(tx, ty) x^{i + 1} y^{k - i} + \sum_{i = 0}^{k} \binom{k}{i} \frac{\partial^{k + 1} \varphi}{\partial x^{i} \partial y^{k - i + 1}}(tx, ty) \cdot x^i y^{k -i + 1} \\
+(j = i + 1) & = \sum_{j = 1}^{k + 1} \binom{k}{j - 1} \frac{\partial^{k + 1} \varphi}{\partial x^{j} \partial y^{k + 1 - j}}(tx, ty) x^{j} y^{k + 1 - j} + \sum_{i = 0}^{k} \binom{k}{i} \frac{\partial^{k + 1} \varphi}{\partial x^{i} \partial y^{k + 1 - i}}(tx, ty) \cdot x^i y^{k + 1 - i} \\
+& = \sum_{j = 0}^{k + 1} \binom{k}{j - 1} \frac{\partial^{k + 1} \varphi}{\partial x^{j} \partial y^{k + 1 - j}}(tx, ty) x^{j} y^{k + 1 - j} + \sum_{i = 0}^{k + 1} \binom{k}{i} \frac{\partial^{k + 1} \varphi}{\partial x^{i} \partial y^{k + 1 - i}}(tx, ty) \cdot x^i y^{k + 1 - i} \\
+& = \sum_{i = 0}^{k + 1} \left[\binom{k}{i - 1} + \binom{k}{i}\right] \frac{\partial^{k + 1} \varphi}{\partial x^{i} \partial y^{k + 1 - i}}(tx, ty) x^{i} y^{k + 1 - i} \\
+& = \sum_{i = 0}^{k + 1} \binom{k + 1}{i} \frac{\partial^{k + 1} \varphi}{\partial x^{i} \partial y^{k + 1 - i}}(tx, ty) x^{i} y^{k + 1 - i} \\
+\end{align*}
+\fi
+
+\begin{definition}[forma quadratica]
+	Una forma quadratica in $ n $ variabili una somma di monomi di secondo grado
+	\begin{equation}
+		q(x) \coloneqq \sum_{\abs{p} = 2} a_p x^p.
+	\end{equation}
+	A ogni forma quadratica possiamo associare una matrice $ M $ simmetrica $ n \times n $ tale che 
+	\begin{equation*}
+		q(x) = x^t M x.
+	\end{equation*}
+	Diciamo inoltre che una forma quadratica di variabile reale è 
+	\begin{itemize}
+		\item \emph{definita positiva} se $ \forall x \neq 0, \ q(x) > 0 $
+		\item \emph{semi-definita positiva} se $ \forall x, \ q(x) \geq 0 $
+		\item \emph{definita negativa} se $ \forall x \neq 0, \ q(x) < 0 $
+		\item \emph{semi-definita negativa} se $ \forall x, \ q(x) \leq 0 $
+		\item \emph{indefinita} se $ \exists v, w : \ q(v) > 0, \ q(w) < 0 $
+	\end{itemize}
+\end{definition}
+
+\begin{prop} \label{prop:formquadratica}
+	Sia $ q(x) $ una forma quadratica di variabile reale definita positiva. Allora esiste $ m > 0 $ tale che 
+	\begin{equation}
+		q(x) \geq m \norm{x}^2 \quad \forall x \in \R^n
+	\end{equation}
+	Similmente se $ q(x) $ è definita negativa allora esiste $ m > 0 $ tale che 
+	\begin{equation}
+		q(x) \leq -m \norm{x}^2 \quad \forall x \in \R^n
+	\end{equation}
+\end{prop}
+%
+\begin{proof}
+	Supponiamo $ q $ definita positiva e sia $ M $ la matrice di $ q $. Mostriamo la tesi con $ m \coloneqq \min{\{\lambda_1,\ldots, \lambda_n\}} > 0 $ dove $ \lambda_1, \ldots, \lambda_n $ sono gli autovalori di $ M $. Essendo $ M $ reale e simmetrica essa è diagonalizzabile mediante una matrice ortonormale, cioè esiste una matrice $ A $ tale che $ A M A^{-1} = A M A^t = D $ con $ D $ matrice diagonale. Allora
+	\[
+		q(x) = x^t M x = x^t A^t D A x = (Ax)^t D Ax \geq m \norm{Ax}^2 = m \norm{x}^2
+	\]
+	La disuguaglianza segue dal fatto che se $ D $ è matrice diagonale, per ogni $ v \in \R^n $ si ha
+	\[
+		v^t D v = \lambda_1 v_1^2 + \ldots + \lambda_n v_n^2 \geq m (v_1^2 + \ldots + v_n^2) = m \norm{v}^2
+	\]
+	Mentre l'ultima uguaglianza segue da 
+	\[
+		\norm{Ax}^2 = (Ax)^t Ax = x^t A^t A x = x^t \Id x = x^t x = \norm{x}^2. \qedhere
+	\]
+\end{proof}
+
+\begin{definition}[matrice Hessiana]
+	Sia $ \Omega \subseteq \R^n $ e $ f \colon \Omega \to \R $ una funzione e $ x_0 \in \ouv{\Omega} $. Si dice matrice Hessiana di $ f $ nel punto $ x_0 $ la matrice che ha come componenti le derivate parziali seconde di $ f $ nel punto $ x_0 $
+	\begin{equation}
+		\hess{f}(x_0) \coloneqq \left(\dmd{f}{2}{x_i}{}{x_j}{} (x_0)\right)_{ij} 
+	\end{equation}
+	Osserviamo che lo sviluppo di Taylor di ordine 2 si può scrivere in termini della matrice Hessiana (matrice associata alla forma quadratica del secondo ordine)
+	\begin{equation}
+		f(x_0 + h) = f(x_0) + \sp{\grad{f}(x_0)}{h} + \frac{1}{2} h^t \, \hess{f}(x_0) \, h + r_2(h)
+	\end{equation}
+\end{definition}
+
+\begin{thm}[punti stazionari e Hessiana]
+	Sia $ x_0 \in \R^n $, $ \delta > 0 $ e $ f \colon B_{\delta}(x_0) \to \R $. Supponiamo che 
+	\begin{enumerate}[label = (\roman*)]
+		\item $ f $ ammetta derivate parziali fino all'ordine 2 continue in $ B_{\delta}(x_0) $
+		\item $ x_0 $ è un punto stazionario per $ f $, cioè $ \grad{f}(x_0) = 0 $
+	\end{enumerate}
+	Allora valgono le seguenti implicazioni
+	\begin{itemize}
+		\item $ \hess{f}(x_0) $ è definita positiva $ \Rightarrow $ $ x_0 $ è punto di minimo locale
+		\item $ \hess{f}(x_0) $ è definita negativa $ \Rightarrow $ $ x_0 $ è punto di massimo locale
+		\item $ \hess{f}(x_0) $ è indefinita $ \Rightarrow $ $ x_0 $ non è né massimo né minimo locale
+		\item $ \hess{f}(x_0) $ è semi-definita $ \Rightarrow $ ?
+	\end{itemize}
+\end{thm}
+%
+\begin{proof}
+	Supponiamo $ \hess{f}(x_0) $ definita positiva e sia $ q(h) $ la forma quadratica associata. Per la Proposizione \ref{prop:formquadratica} $ \exists m > 0 : q(h) \geq m \norm{h}^2 $ per ogni $ h $. Così per Taylor-Peano
+	\begin{gather*}
+		f(x_0 + h) = f(x_0) + \sp{\grad{f}(x_0)}{h} + \frac{1}{2} q(h) + o(\,\norm{h}^2) \geq f(x_0) + m \norm{h}^2 + o(\,\norm{h}^2) \\
+		\Rightarrow \quad f(x_0 + h) - f(x_0) \geq \norm{h}^2 \left(m + \frac{o(\,\norm{h}^2)}{\norm{h}^2}\right)
+	\end{gather*}
+	Dal momento che $ \frac{o(\,\norm{h}^2)}{\norm{h}^2} \to 0 $ per $ h \to 0 $ sappiamo che $ \exists \delta_0 \in (0, \delta) $ tale che $ m + \frac{o(\,\norm{h}^2)}{\norm{h}^2} \geq \frac{m}{2} > 0 $ quando $ \norm{h} \leq \delta_0 $. Da questo concludiamo che 
+	\[
+		f(x_0 + h) > f(x_0) \quad \forall h : 0 < \norm{h} \leq \delta_0
+	\]
+	ovvero $ x_0 $ è punto di minimo locale per $ f $. \\
+	Se $ \hess{f}(x_0) $ è definita negativa procediamo come sopra usando il fatto che $ \exists m > 0 : q(h) \leq -m \norm{h}^2 $ per concludere che $ x_0 $ è punto di massimo locale usando. \\
+	Supponiamo $ \hess{f}(x_0) $ è indefinita e sia $ q(h) $ la forma quadratica ad essa associa. Allora sappiamo che $ \exists v \in \R^n : q(v) < 0 $ e $ \exists w \in \R^n : q(w) > 0 $. Allora per Taylor-Peano in un opportuno intorno di $ x_0 $ ($ t = 0 $), da un lato 
+	\[
+		f(x_0 + tv) - f(x_0) = \frac{1}{2} q(tv) + o(\norm{tv}^2) = t^2 \left(\frac{1}{2}q(v) + \norm{v}^2 \frac{o(t^2\norm{v}^2)}{t^2\norm{v}^2}\right) < 0 \quad \Rightarrow \quad f(x_0 + tv) < f(x_0)
+	\]
+	mentre dall'altro
+	\[
+		f(x_0 + tw) - f(x_0) = \frac{1}{2} q(tw) + o(\norm{tw}^2) = t^2 \left(\frac{1}{2}q(v) + \norm{w}^2 \frac{o(t^2\norm{w}^2)}{t^2\norm{w}^2}\right) > 0 \quad \Rightarrow \quad f(x_0 + tw) > f(x_0)\qedhere
+	\]
+\end{proof}
+
+\begin{thm}[degli zeri generalizzato]
+	Sia $ \Omega \subseteq \R^n $ e $ f \colon \Omega \to \R $ una funzione. Supponiamo che  
+	\begin{enumerate}[label = (\roman*)]
+		\item $ \Omega $ sia connesso
+		\item $ f $ sia continua
+	\end{enumerate}
+	Allora l'immagine di $ \Omega $ secondo $ f $, cioè $ f(\Omega) $, è connesso.
+\end{thm}
+%
+\begin{proof}
+	Supponiamo per assurdo che $ f(\Omega) $ sia sconnesso, ovvero esistano $ A, B \subseteq f(\Omega) $ aperti in $ f(\Omega) $ tali che $ A, B \neq \emptyset $, $ A \cap B = \emptyset $ e $ A \cup B = f(\Omega) $. Ma allora essendo $ f $ continua $ f^{-1}(A) $ e $ f^{-1}(B) $ sono aperti in $ \Omega $ (controimmagine continua di un aperto), sono non vuoti (sottoinsiemi dell'immagine) e risulta $ f^{-1}(A) \cap f^{-1}(B) = f^{-1}(A \cap B) = f^{-1}(\emptyset) = \emptyset $ e $ f^{-1}(A) \cup f^{-1}(B) = f^{-1}(A \cup B) = f^{-1}(f(\Omega)) = \Omega $, ovvero $ \Omega $ è sconnesso da cui l'assurdo. 
+\end{proof}
+
+\begin{lemma} \label{lem:succminim}
+	Sia $ \Omega \subseteq \R^n $ e $ f \colon \Omega \to \R $ una funzione continua. Allora esiste una successione minimizzante, ovvero detto $ I \coloneqq \inf_{\Omega}f $, esiste $ (x_n)_{n \in \N} \subseteq \Omega : f(x_n) \to I $. Enunciato analogo vale per l'estremo superiore.
+\end{lemma}
+%
+\begin{proof}
+	Distinguiamo due casi. Se $ I = -\infty $ allora $ f $ non è inferiormente limitata e pertanto per ogni $ n \in \N $ esiste $ y_n \in f(\Omega) : y_n < -n $. Per definizione di immagine esiste $ x_n \in \Omega : f(x_n) = y_n $ così per confronto $ f(x_n) \to -\infty $. Se $ I \in \R $ allora $ \forall \epsilon > 0 $ esiste $ y \in f(\Omega) : I \leq y < I + \epsilon $. Posto allora $ \epsilon = 1/n $ per ogni $ n \in \N $ abbiamo che $ \exists y_n \in f(\Omega) : I \leq y_n < I + 1/n $. Per definizione di immagine esiste $ x_n \in \Omega : f(x_n) = y_n $ così per confronto $ f(x_n) \to I $.
+\end{proof}
+
+\begin{thm}[Weierstrass] \label{thm:Weierstrass}
+	Sia $ K \subseteq \R^n $ e $ f \colon K \to \R $. Supponiamo che
+	\begin{enumerate}[label = (\roman*)]
+		\item $ K $ sia compatto e $ K \neq \emptyset $
+		\item $ f $ sia continua
+	\end{enumerate}
+	Allora esistono $ \max_K f $ e $ \min_K f $	(se mi basta il minimo è sufficiente che $ f $ sia semi-continua inferiormente). 
+\end{thm}
+%
+\begin{proof}
+	Supponiamo $ f $ semi-continua inferiormente. Sia $ I \coloneqq \inf_K f \in \R \cup \{-\infty\} $. Per il Lemma \ref{lem:succminim} esiste $ (x_n)_{n \in \N} \subseteq K $ tale che $ f(x_n) \to I $ ed essendo $ K $ compatto esiste $ x_0 \in K $ e una sottosuccessione $ (x_{n_k}) \subseteq K $ tale che $ x_{n_k} \to x_0 $. Così per la semi-continuità inferiore
+	\[
+		I \leq f(x_0) \leq \liminf_{k \to +\infty} f(x_{n_k}) = \liminf_{n \to +\infty} f(x_n) = \lim_{n \to +\infty} f(x_n) = I
+	\]
+	In conclusione $ f(x_0) = I $ da cui $ I \in \R $, $ I = \min_K f $ e $ x_0 $ è punto di minimo.
+\end{proof}
+
+\begin{thm}[Weierstrass generalizzato 1] \label{thm:Weierstrassgen1}
+	Sia $ D \subseteq \R^n $ con $ D \neq \emptyset $ e $ f \colon D \to \R $. Supponiamo che
+	\begin{enumerate}[label = (\roman*)]
+		\item esista un sottolivello non vuoto contenuto in un compatto, cioè
+		\[
+			\exists M \in \R, \ \exists K \subseteq D \text{ compatto} : \ \emptyset \neq \{x \in D : f(x) \leq M\} \subseteq K
+		\]
+		\item $ f $ sia continua (semi-continua inferiormente)
+	\end{enumerate}
+	Allora esiste $ \min_D f $. 
+\end{thm}
+%
+\begin{proof}
+	Per il Teorema \ref{thm:Weierstrass}, $ f $ ammette minimo in $ K $ e sia $ x_0 \in K $ un corrispondente punto di minimo. Allora $ x_0 $ è punto di minimo in $ D $: infatti se $ x \in D $
+	\begin{itemize}
+		\item $ x \in K \Rightarrow f(x) \geq f(x_0) $
+		\item $ x \notin K \Rightarrow f(x) > M \geq f(x_0) $
+	\end{itemize}
+	e pertanto in ogni caso $ f(x) \geq f(x_0) $. 
+\end{proof}
+
+\begin{thm}[Weierstrass generalizzato 2]
+	Sia $ f \colon \R^n \to \R $. Supponiamo che 
+	\begin{enumerate}[label = (\roman*)]
+		\item $ \displaystyle{\lim_{\norm{x} \to +\infty}} f(x) = +\infty $
+		\item $ f $ sia continua (semi-continua inferiormente)
+	\end{enumerate}
+	Allora esiste $ \min f $. 
+\end{thm}
+%
+\begin{proof}
+	Consideriamo il sottolivello $ \{x \in \R^n : f(x) \leq f(0)\} $. Tale insieme è 
+	\begin{itemize}
+		\item non vuoto
+		\item chiuso (per la semi-continuità inferiore se $ (x_n) $ è una successione nel sottolivello tale che $ x_n \to x_0 $, allora $ f(x_0) \leq \liminf_{n \to +\infty} f(x_n) \leq f(0) $)
+		\item limitato (per definizione di limite $ \exists R > 0 : \forall x \in \R^n : \norm{x} \geq R, \ f(x) \geq f(0) + 42 $ e quindi il sottolivello è contenuto in $ B_R(0) $)
+	\end{itemize}
+	Essendo quindi il sottolivello compatto per il Teorema \ref{thm:Weierstrassgen1} $ f $ ha minimo su $ \R^n $. 
+\end{proof}
+
+\begin{thm}[funzione implicita] \label{thm:funzimpl}
+	Sia $ \Omega \subseteq \R^n $ aperto, $ f \colon \Omega \to \R $ e $ (x_0, y_0) \in \Omega $ con $ x_0 \in \R^{n - 1} $ e $ y_0 \in \R $ (nel seguito i punti di $ \Omega $ vengono indicati come $ (x, y) $ dove si intende $ x \in \R^{n - 1} $ e $ y \in \R $). Supponiamo che
+	\begin{enumerate}[label = (\roman*)]
+		\item $ f(x_0, y_0) = 0 $ e sia $ V \coloneqq \{(x, y) \in \Omega : f(x, y) = 0\} $ 
+		\item $ f $ sia continua in $ \Omega $ 
+		\item $ f_{x_n}(x, y) $ esiste ed è continua in $ \Omega $ 
+		\item $ f_{x_n}(x_0, y_0) \neq 0 $
+	\end{enumerate}
+	Allora
+	\begin{enumerate}[label = (\arabic*)]
+		\item Esistono $ \rho > 0 $, $ r > 0 $ ed un'unica funzione $ \varphi \colon \overline{B}_{\rho}(x_0) \to [y_0 - r, y_0 + r] $ tale che
+		\[
+			V \cap (\overline{B}_{\rho}(x_0)  \times [y_0 - r, y_0 + r]) = \{(x, y) \in \Omega : x \in \overline{B}_{\rho}(x_0) , \ y = \varphi(x)\}
+		\]
+		\item La funzione $ \varphi $ è continua in $ \overline{B}_{\rho}(x_0)  $
+		\item Se $ f $ è di classe $ C^1 $ in $ \Omega $, allora $ \varphi $ ammette derivate parziali in $ B_{\rho}(x_0)  $ date per ogni $ i \in \{1, \ldots, n - 1\} $ da
+		\begin{equation}
+			\varphi_{x_i}(x) = - \frac{f_{x_i}(x, \varphi(x))}{f_{x_n}(x, \varphi(x))} \qquad \forall x \in B_{\rho_0}(x_0)
+		\end{equation}
+		\item Se $ f $ è i classe $ C^k $ in $ \Omega $ allora $ \varphi $ è di classe $ C^k $
+	\end{enumerate} 
+\end{thm}
+
+\begin{definition}[min/max vincolato]
+	Sia $ \Omega \subseteq \R^n $, $ f \colon \Omega \to \R $ e $ g \colon \Omega \to \R $. Sia $ V $ il luogo degli zeri di $ g $ cioè 
+	\begin{equation}
+		V \coloneqq \{x \in \Omega : \ g(x) = 0\}
+	\end{equation}
+	Diciamo che $ x_0 \in V $ è punto di minimo locale per $ f $ ristretta/vincolata a $ V $ se 
+	\begin{equation*}
+		\exists r > 0 : \ \forall x \in V \cap B_r(x_0), \ f(x) \geq f(x_0)
+	\end{equation*}
+	Analogamente per il massimo.
+\end{definition}
+
+\begin{thm}[moltiplicatori di Lagrange: 1 moltiplicatore]
+	Sia $ \Omega \subseteq \R^n $ aperto, $ f \colon \Omega \to \R $ e $ g \colon \Omega \to \R $ di classe $ C^1 $. Sia inoltre $ V $ il luogo degli zeri di $ g $. Supponiamo che $ x_0 \in V $ sia punto mi massimo o minimo vincolato per $ f $ su $ V $. Allora si ha almeno una delle seguenti possibilità
+	\begin{enumerate}[label = (\roman*)]
+		\item $ \grad{g}(x_0) = 0 $
+		\item $ \grad{f}(x_0) $ è multiplo di $ \grad{g}(x_0) $, cioè 
+		\begin{equation}
+			\exists \lambda \in \R : \grad{f}(x_0) = \lambda \grad{g}(x_0)
+		\end{equation}
+	\end{enumerate}
+\end{thm}
+%
+\begin{proof}
+	(caso $ n = 2 $). Siamo in $ \R^2 $, il punto è $ (x_0, y_0) $, il vincolo è $ g(x, y) = 0 $. Se $ \grad{g}(x_0, y_0) $ allora siamo nel caso (i). Supponiamo quindi $ \grad{g}(x_0, y_0) \neq 0 $, \emph{wlog} $ g_y(x_0, y_0) \neq 0 $. Allora per il Teorema \ref{thm:funzimpl} esistono $ \rho > 0 $, $ r > 0 $ e un'unica $ \gamma \colon [x_0 - \rho, x_0 + \rho] \to [y_0 - r, y_0 + r] $ tale che 
+	\[
+		V \cap ([x_0 - \rho, x_0 + \rho] \times [y_0 - r, y_0 + r]) = \{(x, \gamma(x)) : x \in [x_0 - \rho, x_0 + \rho]\}.
+	\]
+	Consideriamo allora la funzione $ \varphi \colon [x_0 - \rho, x_0 + \rho] \to \R $ definita da $ \varphi(x) \coloneqq f(x, \varphi(x)) $. Per ipotesi sappiamo che $ x_0 $ è punto di max/min per $ \varphi $, dunque $ \varphi'(x_0) = 0 $. D'altra parte per la \emph{chain rule} e per la formula data dal teorema di funzione implicita
+	\[
+		\varphi'(x) = f_x(x, \gamma(x)) + f_y(x, \gamma(x)) \left(- \frac{g_x(x, \gamma(x))}{g_y(x, \gamma(x))}\right)
+	\]
+	così essendo $ y_0 = \gamma(x_0) $
+	\[
+		0 = \varphi'(x_0) = f_x(x_0, y_0) - \frac{f_y(x_0, y_0)}{g_y(x_0, y_0)} g_x(x_0, y_0).
+	\]
+	Posto allora $ \lambda \coloneqq \dfrac{f_y(x_0, y_0)}{g_y(x_0, y_0)} $ otteniamo la tesi
+	\[
+		f_x(x_0, y_0) = \lambda g_x(x_0, y_0), \quad f_y(x_0, y_0) = \lambda g_y(x_0, y_0) \quad \Rightarrow \quad \grad{f}(x_0, y_0) = \lambda \grad{g}(x_0, y_0) \qedhere
+	\]
+\end{proof}
+\begin{proof}
+	(caso $ n $ generico). Siamo in $ \R^n $, il punto è $ x_0 \coloneqq ({x_0}_1, \ldots, {x_0}_n) $, il vincolo è $ g(x_1, \ldots, x_n) = 0 $. Se $ \grad{g}(x_0) $ allora siamo nel caso (i). Supponiamo quindi $ \grad{g}(x_0) \neq 0 $, \emph{wlog} $ g_{x_n}(x_0) \neq 0 $. Nel seguito indichiamo i punti come $ (\bar{x}, \bar{y}) $ con $ \bar{x} \in \R^{n - 1} $ e $ \bar{y} \in \R $ e poniamo $ \bar{x}_0 = ({x_0}_1, \ldots, {x_0}_n) $ e $ \bar{y}_0 = {x_n}_0 $ così $ x_0 = (\bar{x}_0, \bar{y}_0) $. Allora per il Teorema \ref{thm:funzimpl} esistono $ \rho > 0 $, $ r > 0 $ e un'unica $ \gamma \colon \overline{B}_\rho(\bar{x}_0) \to [\bar{y}_0 - r, \bar{y}_0 + r] $ tale che 
+	\[
+		V \cap (\overline{B}_\rho(\bar{x}_0) \times [\bar{y}_0 - r, \bar{y}_0 + r]) = \{(\bar{x}, \gamma(\bar{x})) : \bar{x} \in \overline{B}_\rho(\bar{x}_0)\}.
+	\]
+	Consideriamo allora la funzione $ \varphi \colon \overline{B}_\rho(\bar{x}_0) \to \R $ definita da $ \varphi(\bar{x}) \coloneqq f(\bar{x}, \gamma{(\bar{x})}) $. Per ipotesi sappiamo che $ \bar{x}_0 $ è punto di max/min per $ \varphi $, dunque $ \varphi'(\bar{x}_0) = 0 $. D'altra parte per la \emph{chain rule} e per la formula data dal teorema di funzione implicita
+	\[
+		\varphi_{x_i}(\bar{x}) = f_{x_i}(\bar{x}, \gamma(\bar{x})) + f_{x_n}(\bar{x}, \gamma(\bar{x})) \left(- \frac{g_{x_i}(\bar{x}, \gamma(\bar{x}))}{g_{x_n}(\bar{x}, \gamma(\bar{x}))}\right) \quad \forall i \in \{1, \ldots, n - 1\}
+	\]
+	così essendo $ \bar{y}_0 = \gamma(\bar{x}_0) $
+	\[
+		0 = \varphi_{x_i}(\bar{x}_0) = f_{x_i}(\bar{x}_0, \bar{y}_0) - \frac{f_{x_n}(\bar{x}_0, \bar{y}_0)}{g_{x_n}(\bar{x}_0, \bar{y}_0)} g_{x_i}(\bar{x}_0, \bar{y}_0) \quad \forall i \in \{1, \ldots, n - 1\}.
+	\]
+	Posto allora $ \lambda \coloneqq \dfrac{f_{x_n}(\bar{x}_0, \bar{y}_0)}{g_{x_n}(\bar{x}_0, \bar{y}_0)} $ otteniamo la tesi
+	\begin{gather*}
+		f_{x_i}(\bar{x}_0, \bar{y}_0) = \lambda g_{x_i}(\bar{x}_0, \bar{y}_0) \ \quad \forall i \in \{1, \ldots, n - 1\}, \quad f_{x_n}(\bar{x}_0, \bar{y}_0) = \lambda g_{x_n}(\bar{x}_0, \bar{y}_0) \\
+		\Rightarrow \quad \grad{f}(x_0) = \lambda \grad{g}(x_0) \qedhere
+	\end{gather*}
+\end{proof}
+
+\begin{thm}[funzione implicita con $ k $ equazioni]
+	Sia $ \Omega \subseteq \R^n $ aperto, $ f \colon \Omega \to \R^k $ e $ (x_0, y_0) \in \Omega $ con $ x_0 \in \R^{n - k} $ e $ y_0 \in \R^k $ (nel seguito i punti di $ \Omega $ vengono indicati come $ (x, y) $ dove si intende $ x \in \R^{n - k} $ e $ y \in \R^k $). Supponiamo che
+	\begin{enumerate}[label = (\roman*)]
+		\item $ f(x_0, y_0) = 0 $ e sia $ V \coloneqq \{(x, y) \in \Omega : f(x, y) = 0\} $
+		\item $ f $ sia continua in $ \Omega $
+		\item $ \jac_y{f}(x, y) $ (matrice $ k \times k $ delle derivate di $ f $ rispetto alle ultime $ k $ variabili) esista e sia continuo in $ \Omega $
+		\item $ \jac_y{f}(x_0, y_0) $ sia invertibile
+	\end{enumerate}
+	Allora
+	\begin{enumerate}[label = (\arabic*)]
+		\item Esistono $ \rho > 0 $, $ r > 0 $ ed un'unica funzione $ \varphi \colon \overline{B}_{\rho}(x_0) \to \overline{B}_{r}(y_0) $ tale che
+		\[
+		V \cap (\overline{B}_{\rho}(x_0) \times \overline{B}_{r}(y_0)) = \{(x, y) \in \Omega : x \in \overline{B}_{\rho}(x_0) , \ y = \varphi(x)\}
+		\]
+		\item La funzione $ \varphi $ è continua in $ \overline{B}_{\rho}(x_0) $
+		\item Se $ f $ è differenziabile in $ (x_0, y_0) $ allora $ \varphi $ è differenziabile in $ x_0 $ e vale
+		\begin{equation}
+			\jac_x{\varphi}(x_0) = - \left[\jac_y{f}(x_0, y_0)\right]^{-1} \jac_x{f}(x_0, y_0)
+		\end{equation}
+		\item Se $ f $ è i classe $ C^k $ in $ \Omega $ allora $ \varphi $ è di classe $ C^k $ 
+	\end{enumerate} 
+\end{thm}
+
+\begin{thm}[moltiplicatori di Lagrange: $ k $ moltiplicatori]
+	Sia $ \Omega \subseteq \R^n $ aperto, $ f \colon \Omega \to \R $ di classe $ C^1 $ e $ k < n $. Siano $ g_1, \ldots, g_k \colon \Omega \to \R $ di classe $ C^1 $ e $ V $ il luogo degli zeri di $ g_1, \ldots, g_k $ cioè 
+	\begin{equation*}
+		V \coloneqq \{x \in \Omega : g_1(x) = \ldots = g_k(x) = 0\}.
+	\end{equation*}
+	Supponiamo che $ x_0 \in V $ sia punto mi massimo o minimo vincolato per $ f $ su $ V $. Allora si ha almeno una delle seguenti possibilità
+	\begin{enumerate}[label = (\roman*)]
+		\item $ \grad{g_1}(x_0), \ldots, \grad{g_k}(x_0) $ sono linearmente dipendenti
+		\item $ \grad{f}(x_0) $ è combinazione lineare di $ \grad{g_1}(x_0), \ldots, \grad{g_k}(x_0) $, cioè 
+		\begin{equation}
+			\exists \lambda_1, \ldots, \lambda_k \in \R : \grad{f}(x_0) = \lambda_1 \grad{g_1}(x_0) + \ldots +\lambda_k \grad{g_k}(x_0)
+		\end{equation}
+	\end{enumerate}
+\end{thm}
+
+\begin{prop}
+	Sia $ \Omega \subseteq \R^n $ e $ f \colon \Omega \to \R $. Sia $ x_0 \in \Omega $ un punto di minimo o massimo per $ f $. Allora $ x_0 $ appartiene ad una delle seguenti categorie
+	\begin{itemize}
+		\item $ x_0 $ è un punto stazionario interno, cioè $ x_0 \in \ouv{\Omega} $ e $ \grad{f}(x_0) = 0 $
+		\item $ x_0 $ è un punto singolare interno, cioè $ x_0 \in \ouv{\Omega} $ e $ \grad{f}(x_0) $ non esiste
+		\item $ x_0 $ è un punto di bordo, cioè $ x_0 \in \partial \Omega $
+	\end{itemize}
+\end{prop}

@@ -1,0 +1,153 @@
+\begin{es}
+  Sia $ (X, d) $ uno spazio metrico. Data una successione $ (x_n)_{n \in \N} \subseteq X $, mostrare che se converge a un punto allora è di Cauchy.
+\end{es}
+%
+Supponiamo che $ x_n \to x $. Allora $ \forall \epsilon > 0, \exists n_0 \in \N : \forall n \geq n_0 \Rightarrow d(x_n, x) < \epsilon $. Allora fissato $ \epsilon > 0 $, per ogni $ n, m \geq n_0 $, si ha dalla disuguaglianza triangolare che $ d(x_n, x_m) \leq d(x_n, x) + d(x, x_m) < \epsilon + \epsilon = 2\epsilon $. Dunque posto $ \epsilon' = 2\epsilon $ abbiamo che $ \forall \epsilon' > 0, \exists n_0 \in \N : \forall n, m \geq n_0 \Rightarrow d(x_n, x_m) < \epsilon' $ ovvero $ (x_n) $ è di Cauchy.
+
+\begin{es}
+  Generalizziamo la definizione di spazio metrico assumendo che la funzione distanza $ d \colon X \to [0, +\infty] $ (con gli stessi assiomi). Mostrare che $ x \sim y \iff d(x, y) < +\infty $ è una relazione di equivalenza e che le classi di equivalenza sono aperte, e dunque sono sconnesse una dall'altra.
+\end{es}
+%
+Affinché $ \sim $ sia una relazione di equivalenza dobbiamo verificare i tre assiomi.
+\begin{enumerate}[label = (\roman*)]
+\item \emph{Riflessiva}. Per definizione di distanza abbiamo che $ d(x, x) = 0 < +\infty $ e quindi $ x \sim x $.
+\item \emph{Transitiva}. Supponiamo che $ x \in y $ e $ y \sim z $ ovvero che $ d(x, y) < +\infty $ e $ d(y, z) < +\infty $; allora per la disuguaglianza triangolare abbiamo che $ d(x, z) \leq d(x, y) + d(y, z) < +\infty $ e quindi $ x \sim z $.
+\item \emph{Simmetrica}. Segue banalmente dalla simmetria della funzione distanza.
+\end{enumerate}
+Sia $ [x] $ la classe di equivalenza di $ x $ ovvero $ [x] = \{y \in X : d(x, y) < +\infty\} $. Allora $ \forall y \in [x] $ e $ \forall r \in \R $ si ha che $ B(y, r) = \{z \in X : d(y, z) < r\} \subseteq [x] $ ($ z \in B(y, r) \Rightarrow d(z, y) < r \Rightarrow d(z, x) \leq d(z, y) + d(y, x) < +\infty $) ovvero $ [x] $ è aperto.
+
+\begin{es}
+  Sia $ (X, d) $ uno spazio metrico. Supponiamo che $ \varphi \colon [0, +\infty) \to [0, +\infty) $ sia una funzione monotona debolmente crescente e subadditiva ($ \forall s, t \geq 0 : \varphi(s + t) \leq \varphi(s) + \varphi(t) $) e supponiamo inoltre che $ \varphi(x) = 0 \iff x = 0 $. Verificare che $ \varphi \circ d $ è ancora una distanza. Mostrare inoltre che se $ \varphi $ è continua in zero allora la topologia associata è la stessa.
+\end{es}
+%
+Verifichiamo che $ \varphi \circ d $ è ancora una distanza. Di seguito poniamo $ (\varphi \circ d)(x, y) = \varphi\left(d(x, y)\right) $.
+\begin{enumerate}[label = (\roman*)]
+\item $ \varphi\left(d(x, y)\right) = 0 \iff d(x, y) = 0 \iff x = y $.
+\item Segue banalmente dalla simmetria di $ d $.
+\item Per la disuguaglianza triangolare su $ d $ abbiamo che $ d(x, z) \leq d(x, y) + d(y, z) $. Dalla debole crescenza e dalla subadditività abbiamo quindi $ \varphi\left(d(x, z)\right) \leq \varphi\left(d(x, y) + d(y, z)\right) \leq \varphi\left(d(x, y)\right) + \varphi\left(d(y, z)\right) $.
+\end{enumerate}
+
+\begin{es}
+  Se $ (x_n) \subseteq X $ è una successione e $ x \in X $, si mostri che $ \lim_{x \to +\infty} x_n = x $ se e solo se per ogni sotto-successione $ n_k $ esiste una sotto-sotto-successione $ n_{k_h} $ tale che $ \lim_{h \to +\infty} x_{n_{k_h}} = x $.
+\end{es}
+%
+Se $ \lim_{n \to +\infty} x_n = x $ allora ogni sotto-successione $ (x_{n_k}) $ converge a $ x $ e pertanto esiste una sotto-sotto-successione $ (x_{n_{k_h}}) $ che converge a $ x $. Per l'implicazione inversa supponiamo per assurdo che $ (x_n) $ non converga a $ x $, cioè che $ \exists \epsilon > 0 : \forall N \in \N, \exists n \geq N : d(x_n, x) \geq \epsilon $. Ma allora da questa condizione possiamo costruire una sotto-successione $ n_k $ tale che $ \forall k \in \N : d(x_{n_k}, x) \geq \epsilon $. Ma ciò è assurdo perché per ipotesi da $ (x_{n_k}) $ è possibile estrarre una sotto-sotto-successione $ (x_{n_{k_h}}) $ che converge a $ x $. Concludiamo quindi che $ \lim_{n \to +\infty} x_n = x $.
+
+\begin{es}
+  Una successione $ (x_n) \subseteq X $ è una successione di Cauchy se e solo se esiste una successione $ (\epsilon_n) $ tale che $ \forall n \in \N : \epsilon_n \geq 0 $ e $ \epsilon_n \to 0 $ per cui $ \forall n \in \N, \forall m \geq n $ si ha $ d(x_n, x_m) \leq \epsilon_n $.
+\end{es}
+%
+Definiamo $ \epsilon_n = \sup{\{d(x_n, x_m) : m \geq n\}} $ così, poiché $ (x_n) $ è du Cauchy, sappiamo che, fissato $ n \geq n_0 $, $ \forall m \geq n_0 : d(x_n, x_m) < \epsilon $ ovvero $ \epsilon_n = \sup{\{d(x_n, x_m) : m \geq n\}} < \epsilon $ e quindi $ \epsilon_n \to 0 $. Per l'implicazione inversa sappiamo che $ \forall \epsilon > 0, \exists n_0 \in \N : \forall n \geq n_0 : \epsilon_n < \epsilon $. Ma allora $ \forall n, m \geq n_0 $ abbiamo che $ d(x_n, x_m) \leq \epsilon_n < \epsilon $ ovvero $ (x_n) $ è di Cauchy.
+
+\begin{es}
+  Se $ (x_n) \subseteq X $ è una successione di Cauchy e esistono $ x \in X $ e una sotto-successione $ n_m $ tale che $ \lim_{m \to +\infty} x_{n_m} = x $ allora $ \lim_{n \to +\infty} x_n = x $.
+\end{es}
+Da un lato sappiamo che $ \forall \epsilon > 0, \exists n_0 \in \N : \forall h, k \geq n_0 : d(x_h, x_k) < \epsilon $ ma anche che $ \forall \epsilon > 0, \exists m_0 \in \N : \forall m \geq m_0 : d(x_{n_m}, x) < \epsilon $. Ma allora fissato $ \epsilon $ abbiamo che scegliamo $ m \geq m_0 $ e $ k = n_m \geq n_0 $ così $ \forall h \geq n_0 $ si ha $ d(x_h, x) \leq d(x_h, x_{x_m}) + d(x_{n_m}, x) < 2\epsilon $ ovvero $ x_n \to x $.
+
+\begin{es}
+  Sia $ \epsilon_n > 0 $ una successione reale decrescente e infinitesima. Se $ (x_n) \subseteq X $ è di Cauchy allora esiste una sotto-successione $ n_k $ tale che $ \forall k, \forall h, h > k \Rightarrow d(x_{n_k}, x_{n_h}) \leq \epsilon_k $
+\end{es}
+%
+Procediamo induttivamente:
+\begin{itemize}
+\item preso $ \epsilon_0 > 0 $ poiché $ (x_n) $ è di Cauchy $ \exists n_0 : \forall h, k \geq n_0 : d(x_h, x_k) \leq \epsilon_0 $;
+\item preso $ \epsilon_1 > 0 $ poiché $ (x_n) $ è di Cauchy $ \exists n_1 > n_2 : \forall h, k \geq n_2 : d(x_h, x_k) \leq \epsilon_1 $;
+\item (in generale) preso $ \epsilon_j > 0 $ poiché $ (x_n) $ è di Cauchy $ \exists n_{j} > n_{j - 1} : \forall h, k \geq n_{j} : d(x_h, x_k) \leq \epsilon_j $.
+\end{itemize}
+Abbiamo quindi costruito una sotto-successione $ n_j $ tale che $ \forall k, \forall h, h > k \Rightarrow d(x_{n_k}, x_{n_h}) \leq \epsilon_k $
+
+\begin{es}
+  Sia $ (x_n) \subseteq X $ una successione tale che $ \sum_{n = 1}^{+\infty} d(x_n, x_{n + 1}) < +\infty $. Si provi che è una successione di Cauchy.
+\end{es}
+Poiché $ \sum_{n = 1}^{+\infty} d(x_n, x_{n + 1}) < +\infty $ per la proprietà della coda di una serie vuol dire che $ \forall \epsilon > 0, \exists n_0 \in \N : \sum_{n = n_0}^{+\infty} d(x_n, x_{n + 1}) < \epsilon $. Allora fissato $ \epsilon > 0 $, presi $ h, k \geq n_0 $ abbiamo che, usando più volte la disuguaglianza triangolare, \[d(x_h, x_k) \leq d(x_h, x_{h + 1}) + \ldots + d(x_{k - 1}, x_k) \leq \sum_{n = n_0}^{+\infty} d(x_n, x_{n + 1}) < \epsilon\] ovvero $ (x_n) $ è di Cauchy.
+
+\begin{es}
+  Se $ (x_n) \subseteq X $ è una successione di di Cauchy e $ (y_n) \subseteq X $ è un'altra successione e $ d(x_n, y_n) \to 0 $ allora $ (y_n) $ è successione di Cauchy.
+\end{es}
+%
+Per ipotesi sappiamo che $ \forall \epsilon > 0, \exists n_0 \in N :  \forall n, m \geq n_0 : d(x_n, x_m) < \epsilon $ e che $ \forall \epsilon > 0, \exists N \in N :  \forall n \geq N : d(x_n, y_n) < \epsilon $. Allora fissato $ \epsilon > 0 $ e presi $ n, m \geq \max{\{n_0, N\}}$ abbiamo che $ d(y_n, y_m) \leq d(y_n, x_n) + d(x_n, x_m) + d(x_m, y_m) < 3\epsilon $ ovvero $ (y_n) $ è di Cauchy.
+
+\begin{es}
+  Preso $ (X, d) $ spazio metrico si mostri che la funzione distanza $ d \colon X \times X \to \R $ è continua, anzi Lipschitziana.
+\end{es}
+%
+Se $ d $ è Lipschitziana allora è uniformemente continua e quindi è continua. Indichiamo con $ \abs{\cdot} $ la distanza euclidea, con $ d $ la distanza su $ X $ e con $ d_{X \times X} $ la distanza sul prodotto (ricordiamo che si definisce $ d_{X \times X}((x, x'),(y, y')) = d(x, y) + d(x', y') $). Dati $ (x, x'), (y, y') \in X \times X $ si ha che
+\begin{align*}
+  \abs{d(x, x') - d(y, y')} & \leq \abs{d(x, x') - d(x, y')} + \abs{d(x, y') - d(y, y')} \\
+                            & \leq d(x', y') + d(x, y) \\
+                            & = d_{X \times X}((x, x'),(y, y')).
+\end{align*}
+Dunque $ d $ è Lipschitziana con costante $ L = 1 $ rispetto alle distanze prodotto sul dominio $ X \times X $ (indotta dalla distanza $ d $ su $ X $) e distanza euclidea sul codominio $ \R $.
+
+\begin{es}
+  Sia $ \alpha(x) $ una funzione continua su $ \R $, limitata superiormente e strettamente positiva. Date $ f, g $ continue su $ \R $, si ponga \[d(f, g) = \sup_{x \in \R}(\min{\{\alpha(x), \abs{f(x) - g(x)}\}}).\] Si dimostri che $ d $ è una distanza su $ C(\R) $ (insieme delle funzioni continue su $ \R $) e che $ (C(\R), d) $ è completo.
+\end{es}
+%
+Prima di tutto $ d $ è ben definita in quanto per la limitatezza di $ \alpha $ sappiamo che $ \exists M \in \R : \forall x \in \R, \alpha(x) \leq M $ così $ \forall f, g \in C(\R), d(f, g) \leq M $ ovvero $ d(f, g) < +\infty $. Dimostriamo che $ d $ soddisfa gli assiomi
+\begin{enumerate}[label = (\roman*)]
+\item Si ha $ d(f, f) = \sup_{x \in \R}(\min{\{\alpha(x), \abs{f(x) - f(x)}\}}) = \sup_{x \in \R}(\min{\{\alpha(x), 0\}}) = 0 $. D'altra parte se $ d(f, g = )\sup_{x \in \R}(\min{\{\alpha(x), \abs{f(x) - g(x)}\}}) = 0 $ poiché $ \forall x \in \R, \alpha(x) > 0 $ deve essere necessariamente $ \forall x \in \R, \abs{f(x) - g(x)} = 0 $ ovvero $ f = g $.
+\item Si ha ovviamente $ d(f, g) = d(g, f) $
+\item Dalla disuguaglianza triangolare sulla distanza euclidea di $ \R $ abbiamo che \[\forall x \in \R,  \abs{f(x) - h(x)} \leq \abs{f(x) - g(x)} + \abs{g(x) - h(x)}\] da cui \[\forall x \in \R,  \min{\{\alpha(x), \abs{f(x) - h(x)}\}} \leq \min{\{\alpha(x), \abs{f(x) - g(x)}\}} + \min{\{\alpha(x), \abs{g(x) - h(x)}\}}\] poiché tutte quantità positive. Per la subadditività del $ \sup $ abbiamo quindi
+  \begin{align*}
+    \sup_{x \in \R} (\min{\{\alpha(x), \abs{f(x) - h(x)}\}} & \leq \sup_{x \in \R}(\min{\{\alpha(x), \abs{f(x) - g(x)}\}}) + \sup_{x \in \R}(\min{\{\alpha(x), \abs{g(x) - h(x)}\}}) \\
+                                                            & = d(f, g) + d(g, h)
+  \end{align*}
+  dunque $ \forall x \in \R $ si ha $ \min{\{\alpha(x), \abs{f(x) - h(x)}\}} \leq d(f, g) + d(g, h) $ e quindi passando tale relazione deve essere rispettata anche dall'estremo superiore. Concludiamo quindi che \[d(f, h) = \sup_{x \in \R}(\min{\{\alpha(x), \abs{f(x) - h(x)}\}}) \leq d(f, g) + d(g, h)\]
+\end{enumerate}
+Per dimostrare che $ (C(\R), d) $ è completo sia $ (f_n) \subseteq C(\R) $ una successione di Cauchy. Allora sappiamo che \[\forall \epsilon > 0, \exists n_0 : \forall n, m \geq n_0, d(f_n, f_m) =  \sup_{x \in \R}(\min{\{\alpha(x), \abs{f_n(x) - f_m(x)}\}}) < \epsilon\] ovvero che \[\forall \epsilon > 0, \exists n_0 : \forall n, m \geq n_0 : \forall x \in \R, \min{\{\alpha(x), \abs{f_n(x) - f_m(x)}\}}) < \epsilon.\] Sia ora $ I = [-R, R] \subset \R $. La funzione $ \alpha |_{I} $ è una funzione continua su un intervallo chiuso e limitato e quindi per il teorema di Weierstrass ammette minimo. Inoltre $ \forall x \in \R, \alpha(x) > 0 $ e quindi $ \exists m > 0 : \forall x \in I, \alpha(x) \geq m $. Ma allora preso $ \epsilon < m/2 $ abbiamo che $ \forall x \in I, \min{\{\alpha(x), \abs{f_n(x) - f_m(x)}\}} < \epsilon \Rightarrow  \abs{f_n(x) - f_m(x)} < \epsilon $. Dunque la successione a valori reali $ (f_n(x)) \subseteq \R $ è di Cauchy e per la completezza di $ \R $ converge. Esiste quindi $ \forall x \in I $ finito il \[f(x) = \lim_{n \to +\infty} f_n(x)\] ovvero le $ f_n $ convergono puntualmente a $ f(x) $. Mostriamo ora che $ f $ è continua. Dalla condizione di Cauchy sulle $ f_n(x) $ e dalla loro convergenza sappiamo che per ogni intervallo chiuso e limitato $ I $ \[\forall x \in I, \forall \epsilon \geq 0, \exists n_0 : \forall m, n \geq n_0, \abs{f_n(x) - f_m(x)} \leq \epsilon \Rightarrow \abs{f_{n_0}(x) - f(x)} = \lim_{m \to +\infty} \abs{f_{n_0}(x) - f_m(x)} \leq \epsilon.\] D'altra parte per la continuità di $ f_{n_0} $ sappiamo che \[\forall x \in \R, \forall \epsilon \geq 0, \exists \delta_{n_0} \geq 0 : \forall x \in \R : \abs{x - y} \leq \delta_{n_0} \Rightarrow \abs{f_{n_0}(x) - f_{n_0}(y)} \leq \epsilon.\] Allora fissati $ x \in \R $ e $ \epsilon > 0 $ e preso $ y \in I = [- \delta_{n_0} + x, x + \delta_{n_0}] $ di modo che $ \abs{x - y} \leq \delta_{n_0} $ abbiamo che \[\abs{f(x) - f(y)} \leq \abs{f(x) - f_{n_0}(x)} + \abs{f_{n_0}(x) - f_{n_0}(y)} + \abs{f_{n_0}(y) - f(y)} \leq 3\epsilon\] dove abbiamo usato la condizione su $ f_{n_0} $ trovata in precedenza e la continuità di $ f_{n_0} $. Concludiamo quindi che $ f $ \[\forall x \in \R, \forall \epsilon \geq 0, \exists \delta : \forall y \in \R : \abs{x - y} \leq \delta \Rightarrow \abs{f(x) - f(y)} \leq \epsilon\] ovvero $ f $ è continua sui $ \R $ e quindi $ f \in C(\R) $. Pertanto $ (C(\R), d) $ è completo.
+
+\begin{es}
+  Sia $ (X, d) $ uno spazio metrico e $ A \subseteq X $.
+  \begin{enumerate}[label = (\roman*)]
+  \item Mostrare con un semplice esempio in cui $ \clo{(\ouv{A})} $ non è contenuto né contiene $ A $.
+  \item Dare una caratterizzazione di $ \clo{(\ouv{A})} $ usando successioni e palle.
+  \item Mostrare che l'operazione "apre-chiude" è idem-potente, cioè che $ \clo{\ouv{A}} = \clo{(\ouv{(\clo{\ouv{A}})})} $.
+  \end{enumerate}
+\end{es}
+%
+\begin{enumerate}[label = (\roman*)]
+\item Sia $ X = \R $ con la distanza euclidea e $ A = (0, 1) \cup \{2\} $. Allora $ \clo{(\ouv{A})} = [0, 1] $ e chiaramente A non contiene né è contenuto in $ A $
+\item $ x \in \clo{(\ouv{A})} \iff \exists (x_n) \subseteq \ouv{A} : x_n \to x \iff \exists (x_n) \subseteq \ouv{A} : \forall r > 0, \exists n_0 : \forall n \geq n_0, x \in B(x_n, r) $ ??
+\item ??
+\end{enumerate}
+
+\begin{es}
+  Mostrare che per ogni insieme chiuso $ C \subseteq X $ esistono numerabili aperti $ A_n $ tali che $ \bigcap_{n} A_n = C $. \\
+\end{es}
+%
+Per $ n > 0 $ prendiamo $ A_n = \bigcup_{x \in C} B{\left(x, \frac{1}{n}\right)} $. Poiché in uno spazio metrico le palle sono aperte, gli $ \{A_n\}_{n \in \N} $ sono aperti perché unione arbitraria di aperti e ed è
+un insieme numerabile. Chiaramente $ C \subseteq A_n $ per ogni $ n \in \N $ e quindi $ C $ è contenuto nella loro intersezione, i.e. $ C \subseteq \bigcup_{n} A_n $. D'altra parte sia $ z \in \bigcup_{n \in \N} A_n $: allora $ \forall n \in \N, z \in A_n $ ovvero $ \forall n \in \N, \exists x \in C : z \in B{\left(x, \frac{1}{n}\right)} \Rightarrow \forall n \in \N, \exists x \in C : d(x, z) < \frac{1}{n} $. Ma allora abbiamo che, posto $ r = 1/n $, $ \forall r > 0, \exists x \in C : x \in B(z, r) $ ovvero che $ B(z, r) \cap C \neq \emptyset $. Dunque $ z \in \clo{C} = C $ (poiché $ C $) è chiuso. Dunque $ \bigcap_{n} A_n \subseteq C $
+
+\begin{es}
+  Consideriamo uno spazio metrico $ (M, d) $. Sia $ A $ chiuso e non vuoto, sia $ r > 0 $ fissato e sia $ \mathrm{dist}_A $ la funzione distanza da un insieme (Esercizio \ref{es:distanza_da_insieme}). Sia poi $ E = \{x \in M : \mathrm{dist}_A(x) \leq r\} $.
+  \begin{enumerate}[label = (\roman*)]
+  \item Mostrare che $ \mathrm{dist}_E(x) \geq \max{\{0, \mathrm{dist}_A(x) - r\}} $.
+  \item Mostrare che si ha uguaglianza se $ M = \R^n $
+  \item Dare un esempio di spazio metrico in cui non si ha l'uguaglianza.
+  \item Se $ M = \R^n $, dato $ A \subset \R^n $ chiuso non vuoto, mostrare che $ E = A \oplus D_r $ dove $ D_r = \{x \in M : \abs{x} < r \} $ e $ A \oplus B = \{x + y, x \in A, y \in B\} $ è la somma di Minkowski di due insiemi.
+  \end{enumerate}
+\end{es}
+%
+\begin{enumerate}[label = (\roman*)]
+\item Per definizione $ z \in E \iff \mathrm{dist}_A(z) \leq r \iff \forall a \in A, d(z, a) \leq r $. Fissato $ x \in M $ per ogni $ z \in E $ vale quindi $ d(x, z) \geq d(x, a) - d(a, z) \geq \inf_{a \in A} d(a, x) - r = \mathrm{dist}_A(x) - r $. Tale proprietà vale per ogni $ z \in E $ e quindi vale anche per l'estremo inferiore. Concludiamo quindi che $ \mathrm{dist}_E(x) = \inf_{z \in E} d(x, z) \geq \mathrm{dist}_A(x) - r \geq \max{\{0, \mathrm{dist}_A(x) - r\}} $ come volevamo.
+\item Per quanto dimostrato nel punto (iv) dell'Esercizio \ref{es:distanza_da_insieme} sappiamo che in $ \R^n $ l'estremo inferiore di $ \mathrm{dist}_E(x) = \inf_{z \in E} \abs{x - y} $ è in realtà un minimo, ovvero $ \exists z_0 \in E : \mathrm{dist}_E(x) = d(x, z_0) $. Dato $ x \in \R^n $ abbiamo due casi. Se $ x \in E $ allora chiaramente $ \mathrm{dist}_E(x) = 0 $. Supponiamo ora $ x \notin E $ e consideriamo $ \mathrm{dist}_E(x) $ e $ \mathrm{dist}_A(x) $: poiché la distanza è in realtà un minimo $ \exists y_0 \in E : \mathrm{dist}_E(x) = \abs{x - y_0} $ e $ \exists z_0 \in A : \mathrm{dist}_A(x) = \abs{x - z_0} $. Se per assurdo fosse $ \mathrm{dist}_A(x) - \mathrm{dist}_E(x) > r \Rightarrow
+  \mathrm{dist}_A(x) > \mathrm{dist}_E(x) + r $, avremmo che $ \abs{z_0 - y_0} \geq \abs{x - y_0} - \abs{x - z_0} > r $. Considerando ora $ \mathrm{dist}_A(y_0) $, sappiamo che $ \exists \bar{z} \in A : \mathrm{dist}_A(y_0) = \abs{y_0 - \bar{z}} \leq r $. Ma allora avremmo che $ \mathrm{dist}_A(x) \leq \abs{x - \bar{z}} \leq \abs{x - y_0} + \abs{y_0 - \bar{z}} \leq \mathrm{dist}_E(x) + r $ contro l'ipotesi che fosse $ \mathrm{dist}_A(x) > \mathrm{dist}_E(x) + r $.
+\item
+\item
+\end{enumerate}
+
+\begin{es}
+  sia $ A \subset \R $ e sia $ \der{A} $ il derivato di $ A $ (i.e. l'insieme di punti di accumulazione per $ A $). Descrivere un insieme chiuso $ A $ tale che gli insiemi $ A, \der{A}, \der{\der{A}}, \der{\der{\der{A}}}, \ldots $ siano tutti diversi.
+\end{es}
+
+
+\begin{es}
+  Sia $ (X, d) $ uno spazio metrico contenente almeno due punti. Si mostri che se $ X $ è connesso, allora la sua cardinalità à almeno quella del continuo.
+\end{es}
+%
+Siano $ a, b \in X $ con $ a \neq b $ e consideriamo la funzione
+\begin{align*}
+  f_a \colon X & \to [0, +\infty) \\
+  x & \mapsto d(a, x)
+\end{align*}
+Tale funzione è continua per la continuità della funzione distanza ed è a valori in un connesso. Dunque la sua immagine $ f_a(X) $ è un sottoinsieme connesso di $ [0, +\infty) \subset \R $ e quindi un intervallo. Ma allora posto $ \lambda = f_a(b) = d(a, b) $ otteniamo che $ \forall \alpha \in [0, \lambda], \exists x \in X : f_a(x) = \alpha $ o, in altri termini, $ f_a $ mappa $ X $ in $ [0, \lambda] $ in modo suriettivo. Dunque $ \card{X} \geq \card{[0, \lambda]} = \card{\R} $ come volevamo.

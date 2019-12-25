@@ -1,0 +1,125 @@
+\begin{es}
+  Dimostrare che gli insiemi $ [0, 1] $, $ [0, 1) $, $ (0, 1) $, $ (0, 1) \cup (2, 4) $, $ \R $, $ \R^2 $, $ \{0, 1\}^\N $ e $ \P(\N) $ hanno tutti la stessa cardinalità.
+\end{es}
+
+Costruiamo un \emph{ciclo} di funzioni iniettive tra gli insiemi dati. Il \textsc{Teorema di Cantor-Bernstein} ci garantirà l'esistenza di una biezione tra le coppie di insiemi e quindi l'uguaglianza tra le cardinalità.
+\begin{itemize}
+\item $ f \colon (0, 1) \to [0, 1) $ iniettiva è l'inclusione;
+\item $ f \colon [0, 1) \to [0, 1] $ iniettiva è l'inclusione;
+\item $ f \colon [0, 1] \to (0, 1) \cup (2, 4) $ iniettiva definita come
+  \[f(x) =
+    \begin{cases}
+      x & \text{se $ x \in (0, 1) $} \\
+      e & \text{se $ x = 0 $} \\
+      \pi & \text{se $ x = 1 $} \\
+    \end{cases};\]
+\item $ f \colon (0, 1) \cup (2, 4) \to \R $ iniettiva è l'inclusione;
+\item $ f \colon \R \to \R^2 $ iniettiva definita come $ f(x) = (x, 0) $;
+\item $ f \colon \R^2 \to (0, 1)^2 $ iniettiva (in realtà biettiva) definita come $ f(x, y) = \left(\frac{1}{1 + e^{-x}}, \frac{1}{1 + e^{-y}}\right) $;
+\item $ f \colon (0, 1)^2 \to (0, 1) $ iniettiva è la funzione definita nell'Esercizio 10.
+\end{itemize}
+
+\begin{es}
+  Sia $ p(n, m) = \frac{(n + m)(n + m + 1)}{2} + m $. Mostrare che $ p \colon \N^2 \to \N $ è una biezione. Usare $ p $ per costruire biezioni polinomiali tra $ \N^k $ e $ \N $.
+\end{es}
+
+\begin{itemize}
+\item \emph{Suriettività}. Indicando con $ k \in p(\N^2) $ procediamo per induzione su $ k $.
+  \begin{pbase}
+    $ 0 \in p(\N^2) \iff \exists n, m \in \N : p(n, m) = 0 $, basta prendere la coppia $ (0, 0) $
+  \end{pbase}
+  \begin{pind}
+    Supponiamo vera $ P(k) $, ovvero che $ \exists n, m \in \N : p(n, m) = k $ e mostriamo che ciò implica $ P(k + 1) $, ovvero che $ \exists n', m' : p(n', m') = k + 1 $. Se $ n = 0 $, ovvero $ k = p(0, m) = \frac{m (m + 1)}{2} + m $ basterà prendere $ (n', m') = (m + 1, 0) $ e si avrà \[p(m + 1, 0) = \frac{(m + 1)(m + 2)}{2} = \frac{m (m + 1) + 2m + 2}{2} = p(0, m) + 1 \overset{P(k)}{=} k + 1.\] Se invece $ n \geq 1 $ basterà prendere $ (n', m') = (n - 1, m + 1) $ e ottenere \[p(n - 1, m + 1) = \frac{(n - 1 + m + 1)(n - 1 + m + 1 + 1)}{2} + m + 1 = p(n, m) + 1 \overset{P(k)}{=} k + 1.\]
+  \end{pind}
+\item \emph{Iniettività}. Vogliamo mostrare che $ (n, m) \neq (n', m') \Rightarrow p(n, m) \neq p(n', m') $. Dividiamo in due casi:
+  \begin{itemize}
+  \item se $ n + m = n' + m' = S $ allora la tesi è verificata in quanto \[m \neq m' \Rightarrow \frac{S (S + 1)}{2} + m \neq \frac{S (S + 1)}{2} + m' \Rightarrow  p(n, m) \neq p(n', m').\]
+  \item se \emph{wlog} $ n + m < n' + m' $ allora possiamo porre $ n + m = S $ e $ n' + m' = T $ con $ S < T $. Si verifica facilmente che risulta $ p(n + m, 0) \leq p(n, m) \leq p(0, n + m) $. Se allora dimostriamo che $ p(0, n + m) \leq p(0, n' + m' - 1) $ avremo concluso in quanto di avrà \[p(n, m) \leq p(0, n + m) \leq p(0, n' + m' - 1) < p(0, n' + m') \leq p(n', m').\] Dimostrare quella disuguaglianza equivale a mostrare che
+    \begin{gather*}
+      \frac{S(S + 1)}{2} + S \leq \frac{(T - 1)T}{2} + T - 1 \\
+      \frac{S(S + 1) - T(T - 1)}{2} + S - T + 1 \leq 0 \\
+      \frac{S^2 - T^2 + S + T}{2} + S - T + 1 \leq 0 \\
+      \frac{(S - T + 1)(S + T) + 2(S - T + 1)}{2} \leq 0 \\
+      (S - T + 1)(S + T + 2) \leq 0
+    \end{gather*}
+    che è sempre vera in quanto per ipotesi $ S < T \Rightarrow S \leq T - 1 \Rightarrow S - T + 1 \leq 0 $ e chiaramente poiché $ S, T \geq 0 \Rightarrow S + T + 2 \geq 0 $ dunque il prodotto è una quantità minore o uguale a 0.
+  \end{itemize}
+\end{itemize}
+\textsf{Per $ k \geq 2 $ definiamo $ p_k \colon \N^k \to \N $ in modo ricorsivo come
+  \[\begin{cases}
+      p_2(n_1, n_2) = p(n_1, n_2) \\
+      p_{k + 1}(n_1, \dots, n_k, n_{k + 1}) = p_2(p_{k}(n_1, \dots, n_k), n_{k + 1})
+    \end{cases}\]
+  che è biettiva in quanto \emph{composizione} (in realtà la cosa importante è che $ p_2 $ è biettiva) di funzioni biettive.}
+
+\begin{es}
+  Siano $ \mathcal{A} = \{A_k\}_{k \in \N} $ la famiglia degli insiemi al più numerabili. Si dimostri che $ A = \nolinebreak \bigcup_{k \in \N} A_k $ è al più numerabile.
+\end{es}
+
+Supponiamo inoltre che gli $ A_k $ siano disgiunti (se infatti non lo fossero la cardinalità dell'unione sarebbe minore dell'unione degli insiemi disgiunti). Per ipotesi sappiamo che $ \forall k \in \N : |A_k| \leq \N $ ovvero che esiste una famiglia di funzioni $ \mathcal{F} = \{f_k \colon A_k \to \N\}_{k \in \N} $ iniettive. Ognuna di queste funzioni definisce un ordinamento distinto sugli elementi di ognuno degli $ A_k $: $ \forall x, y \in A_k : x \preceq y \iff f_k(x) \leq_{\N} f_k(y) $. Allora le funzione
+\begin{align*}
+  \phi \colon \bigcup_{k \in \N} A_k \to & \N \times \N \\
+  x \mapsto & (i, j)
+\end{align*}
+tale se $ x \in A_i $ e $ f_i(x) = j $ associa a $ x $ la coppia $ (i, j) $ è una funzione biettiva: se infatti $ x \neq y $ appartengono a diversi $ A_k $, $ \phi(x) \neq \phi(y) $ in quanto differiscono per il primo elemento della coppia ordinata; se invece appartengono allo stesso $ A_k $, l'iniettività di $ f_k $ garantisce che si abbia $ \phi(x) \neq \phi(y) $. Concludiamo quindi che $ \left|\bigcup_{k \in \N}A_k\right| \leq |\N \times \N| = |\N| $ (per l'uguaglianza si veda l'esercizio precedente) ovvero l'unione degli $ A_k $ è al più numerabile.
+
+\begin{es}
+  Sia $ \P^*(\N) $ l'insieme delle parti finite di $ \N $, cioè $ \P^*(\N) = \{A \in \P(\N) : |A| < \infty\} $. Si mostri che $ \P^*(\N) $ è un insieme numerabile.
+\end{es}
+Sia $ A_n = \{A \in \P^*(\N) : |A| = n\} $ la famiglia dei sottoinsiemi di $ \N $ di cardinalità $ n $. Allora $ \P^*(\N) = \bigcup_{n \in \N} A_n $. Dato un $ A = \{x_1 < x_2 < \dots < x_n\} \in A_n $ definiamo $ f_n \colon A_n \to \N^n $ tale che $ f_n(A) = (x_1, \dots, x_n) $. Per costruzione $ f_n $ è iniettiva. Pertanto $ |A_n| \leq |\N^n| = |\N| $ e per quanto dimostrato nell'esercizio precedente $ |\P^*(\N)| = \left|\bigcup_{n \in \N} A_n\right| \leq |\N| $. D'altra parte si ha ovviamente che $ |\P^*(\N)| \geq |\N| $ (basta prendere la funzione che a un elemento di $ \P^*(\N) $ associa la sua cardinalità, che è suriettiva) da cui concludiamo che $ |\P^*(\N)| = |\N| $ per il \textsc{Teorema di Cantor-Bernstein}.
+
+\begin{es}
+  Siano $ A $ e $ B $ due insiemi. Sia $ f \colon A \to B $. Mostrare che
+  \begin{enumerate}
+  \item $ f $ è iniettiva se e solo se esiste $ g \colon B \to A $ tale che $ g \circ f = \Id_A $.
+  \item Supponendo $ A $ numerabile, $ f $ è suriettiva se e solo se esiste $ g \colon B \to A $ tale che $ f \circ g = \Id_B $.
+  \item Utilizzando l'\textsc{Assioma della scelta}, dimostrare il punto precedente anche quando $ A $ non è numerabile.
+  \item Senza \textsc{Assioma della scelta}, dimostrare il secondo punto anche quando $ A $ è ben ordinato.
+  \end{enumerate}
+\end{es}
+\begin{enumerate}
+\item \begin{itemize}[label = $ \Rightarrow $]
+  \item Se $ f \colon A \to B $ è iniettiva allora esiste l'inversa $ f^{-1} \colon B \to A $. Ma allora presa $ g = f^{-1} $ si ha chiaramente $ g \circ f $ è una funzione da $ A $ in $ A $ e vale $ g \circ f = f^{-1} \circ f = \Id_A $.
+  \end{itemize}
+  \begin{itemize}[label = $ \Leftarrow $]
+  \item Supponiamo ora che esista $ g \colon B \to A $ tale che $ g \circ f = \Id_A $. Prima di tutto ciò significa che la funzione $ f $ deve essere definita da $ A $ in $ B $. Inoltre $ f $ risulta essere iniettiva: se infatti $ f(a_1) = f(a_2) $, applicando $ g $ ad entrambi i membri otteniamo $ g(f(a_1)) = g(f(a_2)) \Rightarrow a_1 = a_2 $.
+  \end{itemize}
+\item  \begin{itemize}[label = $ \Rightarrow $]
+  \item
+  \end{itemize}
+  \begin{itemize}[label = $ \Leftarrow $]
+  \item Poiché $ f \circ g = \Id_B $ è una funzione biettiva e in particolare suriettiva ciò implica che $ f $ è suriettiva (vedi Esercizio 22).
+  \end{itemize}
+\item \begin{itemize}[label = $ \Rightarrow $]
+  \item Poiché $ f $ è suriettiva per ogni $ b \in B $ l'insieme $ A_b = \{a \in A : f(a) = b\} $ è non vuoto. L'\textsc{Assioma della scelta} granisce allora l'esistenza di una funzione $ g \colon B \to \bigcup_{b \in B} A_b = A $ tale che $ \forall b \in B $, $ g(b) \in A_b $. Ma allora per definizione $ f(g(b)) = b $, ovvero $ f \circ b = \Id_B $.
+  \end{itemize}
+  \begin{itemize}[label = $ \Leftarrow $]
+  \item Come al punto 2.
+  \end{itemize}
+\item \begin{itemize}[label = $ \Rightarrow $]
+  \item
+  \end{itemize}
+  \begin{itemize}[label = $ \Leftarrow $]
+  \item Come al punto 2.
+  \end{itemize}
+\end{enumerate}
+
+\begin{es}
+  Siano $ A $ e $ B $ due insiemi. Mostrare che $ |A| \leq |B| $ se e solo se esiste una funzione suriettiva da $ B $ ad $ A $ (vi veda l'esercizio precedente).
+\end{es}
+\begin{itemize}[label = $ \Rightarrow $]
+\item Se $ |A| \leq |B| $ vuol dire che esiste $ f \colon A \to B $ initettiva. Per quanto dimostrato nell'esercizio precedente esiste $ g \colon B \to A $ tale che $ g \circ A = \Id_A $. Poiché l'identità è biettiva e in particolare suriettiva vuol dire che $ g $ è suriettiva (Esercizio 22).
+\end{itemize}
+\begin{itemize}[label = $ \Leftarrow $]
+\item Supponiamo che esista $ f \colon B \to A $ suriettiva. Per quanto dimostrato nell'esercizio precedente esiste $ g \colon A \to B $ tale che $ f \circ g = \Id_A $. Poiché l'identità è biettiva e in particolare iniettiva vuol dire che $ g $ è iniettiva (Esercizio 22) ovvero $ |A| \leq |B| $.
+\end{itemize}
+
+\begin{es}
+  Siano $ \{A_i\}_{i \in I} $ e $ \{B_i\}_{i \in I} $ con i $ B_i $ disgiunti a due a due (i.e. $ \forall i \neq j : B_i \cap B_j = \emptyset $), tali che $ |A_i| \leq |B_i| $. Si mostri che \[\left|\bigcup_{i \in I} A_i\right| \leq \left|\bigcup_{i \in I} B_i\right|.\] Discutere la possibilità di dimostrare il risultato senza usare l'\textsc{Assioma della scelta}.
+\end{es}
+Possiamo supporre che anche gli $ A_i $ sono sono disgiunti a due a due (se così non fosse $ \left|\bigcup_{i \in I} A_i\right| $ sarebbe minore di quella gli inisemi disgiunti). Per ipotesi per ogni $ i \in I $ esiste una $ f_i \colon A_i \to B_i $ iniettiva. Definiamo allora una funzione
+\begin{align*}
+  f \colon \bigcup_{i \in I} A_i \to & \bigcup_{i \in I} B_i \\
+  a \mapsto & f_i(a) \; \text{se $ a \in A_i $}
+\end{align*}
+che risulta essere ben definita in quanto dato un $ a \in \bigcup_{i \in I} A_i $ esiste un unico $ i $ tale che $ a \in A_i $ e allora $ f(a) = f_i(a) \in B_i \subseteq \bigcup_{i \in I} B_i $. Inoltre essa è iniettiva. Prendendo $ a_1 \neq a_2 $ si presentano due casi: se $ a_1, a_2 \in A_i $, allora l'iniettività di $ f_i $ garantisce che si abbia $ f_i(a_1) \neq f_i(a_2) $; se invece $ a_1 \in A_i $ e $ a_2 \in A_j $ con $ i \neq j $ si ha che $ f_i(a_1) \in B_i $ e $ f_j(a_2) \in B_j $ ma poiché i $ B_k $ sono a due a due disgiunti si ha necessariamente che $ f_i(a_1) \neq f_j(a_2) $. Concludiamo quindi che $ \left|\bigcup_{i \in I} A_i\right| \leq \left|\bigcup_{i \in I} B_i\right| $.

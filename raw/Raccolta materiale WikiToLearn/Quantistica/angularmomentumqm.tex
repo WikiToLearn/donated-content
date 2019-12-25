@@ -1,0 +1,446 @@
+\documentclass[a4paper, 11pt]{article}
+	\usepackage[a4paper, left=2.5cm, bottom=2.5cm]{geometry}
+	\usepackage{beppe_package}
+	\usepackage{bbm}
+	
+	\title{Il momento angolare in Meccanica Quantistica}
+	
+	\newcommand{\op}{\hat}
+	\newcommand{\Op}[1]{\vec{\hat{#1}}}
+	\def\bal#1\eal{\begin{align*}#1\end{align*}}
+	\renewcommand{\H}{\mathcal{H}}
+	\renewcommand{\L}{\mathcal{L}}
+	\newcommand{\1}{\mathbbm{1}}
+	\renewcommand{\l}{\ell}
+	
+\begin{document}
+	\maketitle
+	\section*{Introduzione}
+	Sappiamo bene che l'omogeneità dello spazio euclideo in una teoria non relativistica è associata a un'operatore unitario della forma
+	\[\op U=\exp\left(-\frac{i\Op{P}\cdot\vec{x}}{\hbar}\right)\]
+	Nell'ambito delle teorie classiche è definito il prodotto interno tra vettori di $\R ^3$ 
+	\[\vec{a}\cdot\vec{b}=a_ib_i\]
+	ed è ben noto che tale prodotto è invariante sotto l'endomorfismo $\vec{a}\mapsto R\vec{a}$, dove $R\in\mathrm{O}(3)$. Limitiamoci ora al caso $R\in\mathrm{SO}(3)\subseteq\mathrm{O}(3)$ e usiamo la notazione $a_i'=R_{ij}a_j$.\footnote{In una teoria non relativisticamente invariante non è importante distinguere tra indici covarianti e indici controvarianti.}
+	\section{Rotazioni}
+	\subsection{Trasformazione degli autostati dell'impulso}
+	Consideriamo gli autostati di $\Op{P}$, definiti da
+	\[\Op{P}\ket{\vec{p}}=\vec{p}\ket{\vec{p}}\]
+	Alla rotazione associata a $R$ facciamo corrisponde la mappa sullo spazio di Hilbert $\H$
+	\[\ket{\vec{p}}\to\ket{R\vec{p}}\]
+	L'interpretazione è chiara: ruotando nello spazio fisico, un autostato dell'impulso rimane autostato dell'impulso, ma il suo autovalore è il ruotato dell'autovalore originario. Si noti ora che 
+	\bal 
+	\braket{R\vec{q}}{R\vec{p}}&=(2\pi\hbar)^3\delta^3(R\vec{q}-R\vec{q})=\\&=\frac{(2\pi\hbar)^3}{|\det R|}\delta^3(\vec{q}-\vec{p})=\\&=\braket{\vec{q}}{\vec{p}}
+	\eal
+	dove si è usato il fatto che $\det R=1$. La trasformazione introdotta lascia quindi invariati i prodotti scalari dello spazio di Hilbert, dunque per il teorema di Wigner esiste un operatore unitario $\op U(R)$ tale che
+	\[\op U(R)\ket{\vec{p}}=\ket{R\vec{p}}\]
+	Sia ora $\rho\colon\SO(3)\to\L(\H)$ la mappa
+	\[R\mapsto\op U(R)\]
+	e dimostriamo che è una rappresentazione di $\SO(3)$. Per linearità, è sufficiente considerare un autostato dell'impulso, dato che questi formano una base di $\H$. Si ha allora
+	\bal\op U(R_1R_2)\ket{\vec{p}}&=\ket{R_1R_2\vec{p}}=\\&=\op U(R_1)\ket{R_2\vec{p}}=\\&=\op U(R_1)\op U(R_2)\ket{\vec{p}} 
+	\eal
+	e quindi, come voluto, $\rho$ è una rappresentazione. Questo significa chiaramente che $\op U^{-1}(R)=\op U(R^{-1})$, che unito all'unitarietà porta a
+	\[\op U^\dagger(R)=\op U(R)\]
+	In particolare è
+	\[\bra{\vec{p}}\op U(R)=\bra{R^{-1}\vec{p}}\]
+	\subsubsection{Trasformazione delle funzioni d'onda}
+	L'azione di $\op U(R)$ sugli autostati dell'impulso è chiaramente identica all'azione sugli autostati della posizione. Questo significa che la funzione d'onda $\braket{\vec{x}}{\psi}$ associata allo stato $\ket\psi$ trasforma come
+	\bal
+	\psi(\vec{x})&\mapsto\psi_R(\vec{x})=\\&=\braketop{\vec{x}}{\op U(R)}{\psi}=\\&=\braket{R^{-1}\vec{x}}{\psi}=\\&=\psi(R^{-1}\vec{x}) 
+	\eal
+	Nel seguito, indichiamo con $\mathcal{U}(R)$ l'operatore su $\mathbb L^2(\R ^3)$ che trasforma le funzioni d'onda, i.e.
+	\[[\mathcal{U}(R)\psi](\vec{x})=\psi(R^{-1}\vec{x})\]
+	\subsection{Rotazioni infinitesime}
+	Associamo a una rotazione antioraria di un angolo $\theta$ intorno all'asse $\vec{n}$ il vettore $\bm{\theta}=\theta\vec{n}$. Si sa che se $\theta$ è un angolo generico, allora un vettore $\vec{v}$ trasforma come
+	\[\vec v\mapsto\vec{v}'=(\vec{v}\cdot\vec{n})\vec{n}+(\vec{v}-(\vec{v}\cdot\vec{n})\vec{n})\cos\theta+(\vec{n}\times\vec{v})\sin\theta\]
+	Per una rotazione infinitesima è $|\theta|\ll1$, dunque al primo ordine si trova
+	\[\vec{v}'=\vec{v}+\bm{\theta}\times\vec{v}+o(\theta)\]
+	Si trova così
+	\[R^{-1}\vec{x}=\vec{x}-\bm{\theta}\times\vec{x}+o(\theta)\]
+	e dunque sulle funzioni d'onda
+	\bal
+	[\mathcal{U}(R)\psi](\vec{x})&=\psi(R^{-1}\vec{x})=\\&=\psi(\vec{x}-\bm\theta\times\vec{x}+o(\theta))=\\&=\psi(\vec{x})-(\bm\theta\times\vec{x})\cdot\nabla\psi(\vec{x})+o(\theta)=\\&=[(\1-\bm\theta\cdot(\vec{x}\times\nabla))\psi](\vec{x})+o(\theta)
+	\eal
+	D'altro canto, per il teorema di Stone è
+	\[\mathcal{U}(R)=\exp(-i\bm\theta\cdot\Op{L})\]
+	dove $\Op{L}$ è il generatore infinitesimo delle rotazioni. Per confronto, è
+	\[\hbar\Op{L}=-i\hbar\vec{x}\times\nabla=\vec{x}\times\Op{P}\]
+	dunque $\hbar\Op{L}$ coincide con la definizione classica di momento angolare. In meccanica quantistica, tale operatore è noto come momento angolare orbitale, per distinguerlo dal momento angolare intrinseco o di spin. Si noti che la costante di Planck che compare nella definizione serve unicamente a rendere $\Op{L}$ adimensionale. In componenti, è
+	\[\op L_i=-i\varepsilon_{ijk}\op x_j\partial_k=\hbar^{-1}\varepsilon_{ijk}\op x_j\op P_k\]
+	Da cui si ricavano le regole commutazione
+	\begin{align}
+	[\op L_i,\op L_j]&=\hbar^{-2}\varepsilon_{ikl}\varepsilon_{jmn}[\op x_k\op P_l,\op x_m\op P_n]=\nonumber\\&=\hbar^{-2}\varepsilon_{ikl}\varepsilon_{jmn}\left(\op x_k[\op P_l,\op x_m]\op P_n+\op x_m[\op x_k,\op P_n]\op P_l\right)=\nonumber\\&=i\hbar^{-1}\varepsilon_{ikl}\varepsilon_{jmn}(-\op x_k\op P_n\delta_{lm}+\op x_m\op P_l\delta_{kn})=\nonumber\\&=i\hbar^{-1}(-\varepsilon_{ikl}\varepsilon_{jln}\op x_k\op P_n+\varepsilon_{ikl}\varepsilon_{jmk}\op x_m\op P_l)=\nonumber\\&=i\hbar^{-1}(-(\delta_{in}\delta_{kj}-\delta_{ij}\delta_{kn})\op x_k\op P_n+(\delta_{lj}\delta_{im}-\delta_{ij}\delta_{lm})\op x_m\op P_l)=\nonumber\\&=i\hbar^{-1}(\op x_i\op P_j-\op x_j\op P_i)=\nonumber\\&=i\varepsilon_{ijk}\op L_k\label{eq:commutation}
+	\end{align}
+	Si noti che, posto $\Op{L}^2=\op L_i\op L_i$, si ha
+	\[[\op L_i,\Op{L}^2]=0\]
+	dato che
+	\[[\op L_i,\op L_j\op L_j]=i\varepsilon_{ijk}(\op L_j\op L_k+\op L_k\op L_j)=0\]
+	\subsection{Trasformazione degli operatori}
+	L'operatore $\op U(R)$ su $\H$ induce la mappa su $\L (\H)$ che manda
+	\[\op A\mapsto \op A'=\op U^\dagger(R)\op A\op U(R)\]
+	Per rotazioni infinitesime, è $\op U(R)=\op\1-i\bm\theta\cdot\Op L+o(\theta)$, quindi è
+	\bal 
+	\op A'&=(\op\1+i\bm\theta\cdot\Op{L}+o(\theta))\op A(\op\1-i\bm\theta\cdot\Op{L}+o(\theta))=\\&=\op A+i[\bm\theta\cdot\Op{L},\op A]+o(\theta)
+	\eal
+	Si deduce quindi che $\op A$ è invariante sotto rotazioni se e solo se commuta con tutte le componenti di $\Op L$. In tal caso diciamo che $\op A$ è uno scalare.
+	
+	Se invece abbiamo una tripletta $(\op A_1,\op A_2,\op A_3)$ di operatori con le regole di commutazione
+	\[[\op L_i,\op A_j]=i\varepsilon_{ijk}\op A_k\]
+	diciamo che $\Op A=(\op A_1,\op A_2,\op A_3)$ è un vettore. Si mostra facilmente che $\Op A^2$ è sempre uno scalare. In particolare, la posizione, l'impulso e il momento angolare sono vettori, come si dimostra usando la definizione di $\Op L$.
+	\section{Autostati del momento angolare}
+	Dalle regole di commutazione \ref{eq:commutation} è chiaro che non possiamo diagonalizzare simultaneamente le tre componenti di $\Op L$, al contrario di quanto siamo riusciti a fare con posizione e impulso. Possiamo però diagonalizzare simultaneamente una componente di $\Op L$ e $\Op L^2$. Scegliamo, come di consueto, di diagonalizzare $\op L_z$ e $\Op L^2$. Dato che $\op L_x$ e $\op L_y$ commutano con $\Op L^2$, ma non con $\op L_z$, è noto che esiste almeno un autovalore di $\Op{L}^2$ degenere. 
+	\subsection{Autostati astratti}
+	Vediamo ora gli autostati veri e propri: in astratto, vogliamo risolvere le equazioni agli autovalori
+	\[\op L_z\ket{\l,m}=m\ket{j,m},\qquad\qquad\Op L^2\ket{\l,m}=\alpha_\l\ket{\l,m}\]
+	Definiamo a tal proposito gli operatori di salita e discesa
+	\[\op L_\pm=\op L_x\pm i\op L_y\]
+	le cui relazioni di commutazione sono
+	\[[\op L_+,\op L_-]=2\op L_z,\qquad\qquad[\op L_z,\op L_\pm]=\pm\op L_\pm\]
+	Si noti che è
+	\bal 
+	\Op L^2&=\left(\frac{\op L_++\op L_-}{2}\right)^2+\left(\frac{\op L_+-\op L_-}{2i}\right)^2+\op L_z^2=\\&=\op L_+\op L_-+\op L_z^2-\op L_z=\\&=\op L_-\op L_++\op L_z^2+\op L_z
+	\eal
+	e dunque
+	\bal 
+	\op L_z\op L_\pm\ket{\l,m}&=(\pm\op L_\pm+\op L_\pm\op L_z)\ket{\l,m}=\\&=(m\pm 1)\op L_\pm\ket{\l,m}\\\Op L^2\op L_\pm\ket{\l,m}&=\alpha_\l\op L_\pm\ket{\l,m}\eal
+	Quindi gli operatori di salita e di discesa permettono di passare da un autospazio di $\op L_z$ a un altro, rimando all'interno dello stesso autospazio di $\Op L^2$. Notiamo ora che $\Op L^2-\op L_z^2$ è un operatore positivo, quindi deve essere
+	\begin{equation}\label{eq:eigenvaluesineq}\alpha_\l^2-m^2\geq0\end{equation}
+	Sia $M$ l'autovalore massimo per $\op L_z$, a un dato $\l$. Deve essere
+	\[\op L_+\ket{\l,M}=0\]
+	e dunque agendo con $\Op L^2$ si ottiene
+	\bal 
+	\alpha_\l\ket{\l,M}&=\Op L^2\ket{\l,M}=\\&=(\op L_-\op L_++\op L_z^2+\op L_z)\ket{\l,M}=\\&=M(M+1)\ket{\l,M}
+	\eal
+	è quindi $\alpha_\l=M(M+1)$. Possiamo identificare $\l$ con $M$, e scrivere semplicemente
+	\[\Op L^2\ket{\l,m}=\l(\l+1)\ket{\l,m},\qquad\qquad\op L_z\ket{\l,m}=m\ket{\l,m}\]
+	Si noti che la \ref{eq:eigenvaluesineq} limita anche dal basso i valori di $m$. Questo significa che esiste $k\in \N$ tale che
+	\[\op L_-\ket{\l,\l-k}=0\]
+	Si deduce allora
+	\bal 
+	\Op L^2\ket{\l,\l-k}&=(\op L_+\op L_-+\op L_z^2-\op L_z)\ket{\l,\l-k}=\\&=((\l-k)^2-(\l-k))\ket{\l,\l-k}
+	\eal
+	deve quindi essere
+	\[(\l-k)^2-(\l-k)=\l(\l+1)\]
+	e dunque
+	\[k=2\l\]
+	Questo significa che $\l$ è intero o semi-intero. $m$ può quindi assumere i $2\l+1$ valori compresi tra $-\l$ e $\l$, quindi l'autovalore $\l(\l+1)$ di $\Op L^2$ è degenere $2\l+1$ volte.
+	\subsection{Elementi di matrice del momento angolare}
+	Gli elementi di matrice di $\Op L^2$ e $\op L_z$ sono chiaramente
+	\[\braketop{\l,m}{\Op L^2}{\l',m'}=\l(\l+1)\delta_{\l,\l'}\delta_{m,m'},\qquad\qquad\braketop{\l,m}{\op L_z}{\l',m'}=m\delta_{\l,\l'}\delta_{m,m'}\]
+	Costruiamo anche gli elementi di matrice di $\op L_\pm$. Sappiamo che
+	\[\op L_\pm\ket{\l,m}=k_\pm(\l,m)\ket{\l,m\pm1}\]
+	ma dobbiamo determinare la costante moltiplicativa. Notiamo che
+	\bal 
+	\l(\l+1)&=\braketop{\l,m}{\Op L^2}{\l,m}=\\&=\braketop{\l,m}{\op L_+\op L_-+\op L_z^2-\op L_z}{\l,m}=\\&=m^2-m+\sum_{\l',m'}\braketop{\l,m}{\op L_+}{\l',m'}\braketop{\l',m'}{\op L_-}{\l,m}=\\&=m^2-m+\sum_{\l',m'}|\braketop{\l,m}{\op L_+}{\l',m'}|^2=\\&=m^2-m+|k_+(\l,m-1)|^2
+	\eal
+	Usando la seconda scrittura di $\Op L^2$ in termini di $\op L_\pm $ e $\L_z$, si mostra allo stesso modo
+	\[\l(\l+1)=m^2+m+|k_-(\l,m-1)|^2\]
+	Le fasi dei due coefficienti vanno fissate. Seguiamo la convenzione di Condon-Shortley, che prende la radice positiva. In altre parole, è
+	\[\braketop{\l,m-1}{\op L_-}{\l,m}=\braketop{\l,m}{\op L_+}{\l,m-1}=\sqrt{(\l+m)(\l-m+1)}\]
+	o, in termini delle azioni degli operatori,
+	\bal 
+	\op L_+\ket{\l,m}&=\sqrt{\l(\l+1)-m(m+1)}\ket{\l,m+1}\\\op L_-\ket{\l,m}&=\sqrt{\l(\l+1)-m(m-1)}\ket{\l,m-1}
+	\eal
+	\subsection{Armoniche sferiche}
+	Come spazio di Hilbert, prendiamo $\H=\mathbb L^2(\S ^2)$, con il prodotto interno
+	\[(f,g)=\int \d \Omega\,f^*(\Omega)g(\Omega)\]
+	dove $\d \Omega=\sin\theta\,\d \theta\,\d \phi$ è l'usuale elemento di angolo solido. Si noti che $\d \Omega$ è invariante sotto rotazioni, come deve essere. Infatti, è
+	\[\d ^3x=r^2 \,\d r\, \d \Omega\]
+	ma $\d ^3x$ e $r$ sono invarianti sotto rotazioni, dunque anche $\d \Omega$ lo è. In tale spazio, gli operatori $\op L_\pm$, $\op L_z$ e $\Op L^2$ sono dati rispettivamente da
+	\bal 
+	\op L_\pm&=e^{\pm i\phi}\left(\pm\pder{}{\theta}+i\cot\theta\pder{}{\phi}\right)\\\op L_z&=\frac{1}{i}\pder{}{\phi}\\\Op L^2&=-\left[\frac{1}{\sin\theta}\pder{}{\theta}\left(\sin\theta\pder{}{\theta}\right)+\frac{1}{\sin^2\theta}\pder[2]{}{\phi}\right]
+	\eal
+	Poniamo ora $\braket{\theta,\phi}{\l,m}=Y_{\l, m}(\theta,\phi)$. Deve essere
+	\[\frac{1}{i}\pder{Y_{\l,m}}{\phi}=mY_{\l,m}\]
+	ossia
+	\[Y_{\l,m}(\theta,\phi)=f_{\l,m}(\theta)e^{im\phi}\]
+	Fisicamente è sensato richiedere $Y_{\l,m}(\theta,\phi+2\pi)=Y_{\l,m}(\theta,\phi)$, ma questo implica $m\in\Z$. Ricordando che $m$ assume i valori $-\l,-\l+1,\dots,\l-1,\l$, deve essere anche $\l\in\N$. Vedremo dopo come conciliare questo fatto con il risultato $2\l\in\N$, ottenuto nella sezione precedente.
+	
+	L'equazione per $\Op{L}^2$ diventa
+	\[\frac{1}{\sin\theta}\pder{}{\theta}\left(\sin\theta\pder{f_{\l,m}}{\theta}\right)-\frac{m^2}{\sin^2\theta}f_{\l,m}+\l(\l+1)f_{\l,m}=0\]
+	e, facendo il cambio di variabile $\xi=\sin\theta$, si trova
+	\[\der{}{\xi}\left((1-\xi^2)\der{f_{\l,m}}{\xi}\right)-\frac{m^2}{1-\xi^2}f_{\l,m}+\l(\l+1)f_{\l,m}=0\]
+	La soluzione di questa equazione è ben nota. La soluzione completa è l'armonica sferica
+	\[Y_{\l,m}(\theta,\phi)=\sqrt{\frac{2\l+1}{4\pi}\frac{(\l+m)!}{(\l-m)!}}e^{im\phi}P^m_\l(\cos\theta)\]
+	dove
+	\bal P^m_\l(x)&=(-)^\l(1-x^2)^{|m|/2}\der[m]{}{x}P_\l(x)\\P_\l(x)&=\frac{1}{2^\l\l!}\der[\l]{}{x}(x^2-1)^\l\eal
+	sono, rispettivamente, i polinomi di Legendre generalizzati e i polinomi di Legendre. 
+	
+	Le armoniche sferiche formano un insieme completo e ortonormale per $\H$ e godono delle proprietà
+	\bal 
+	Y^*_{\l,m}(\theta,\phi)&=(-)^m Y_{\l,-m}(\theta,\phi)\\
+	Y_{\l,m}(\pi-\theta,\phi+\pi)&=(-)^\l Y_{\l,m}(\theta,\phi)\\
+	\eal
+	Valgono inoltre l'espansione del potenziale coulombiano
+	\[\frac{1}{|\vec{r}-\vec{r}'|}=\sum_{n=0}^{+\infty}\frac{(\min\left\{|\vec{r}|,|\vec{r}'|\right\})^n}{(\max\left\{|\vec{r}|,|\vec{r}'|\right\})^{n+1}}P_n\left(\frac{\vec{r}\cdot\vec{r}'}{|\vec{r}||\vec{r}'|}\right)\]
+	e la formula di somma
+	\[P_\l(\cos\alpha)=\frac{4\pi}{2\l+1}\sum_{m=-\l}^{\l}Y_{\l,m}(\theta,\phi)Y^*_{\l,m}(\theta',\phi')\]
+	dove $\alpha$ è l'angolo tra $(\sin\theta\cos\phi,\sin\theta\sin\phi,\cos\theta)$ e $(\sin\theta'\cos\phi',\sin\theta'\sin\phi',\cos\theta')$.
+	Si noti infine che il laplaciano in coordinate sferiche si scrive nella forma
+	\[\lap f=\frac{1}{r}\pder[2]{}{r}\left(r\pder{f}{r}\right)+\frac{\Op L^2}{r^2}f\]
+	\section{Gruppo delle rotazioni}
+	Studiamo più in dettaglio $\SO(3)$. Consideriamo una rotazione infinitesima $R$
+	\[R_{ij}=\delta_{ij}+\varepsilon M_{ij}\]
+	La condizione $R^t=R^{-1}$ implica
+	\[M_{ij}=-M_{ji}\]
+	Dato che le matrice $3\times3$ antisimmetriche formano un sottospazio delle matrici $3\times3$ di dimensione 3, avremo tre generatori. Questi sono convenzionalmente
+	\bal
+	i\Sigma_1&=\left(\begin{array}{c c c}
+		0&0&0\\0&0&1\\0&-1&0
+	\end{array}\right)\\
+	i\Sigma_2&=\left(\begin{array}{c c c}
+	0&0&-1\\0&0&0\\1&0&0
+\end{array}\right)\\
+	i\Sigma_3&=\left(\begin{array}{c c c}
+	0&1&0\\-1&0&0\\0&0&0
+\end{array}\right)
+	\eal
+	ossia $i(\Sigma_i)_{jk}=\varepsilon_{ijk}$. Le regole di commutazione per tali generatori sono
+	\[[\Sigma_i,\Sigma_j]=i\varepsilon_{ijk}\Sigma_k\]
+	Dunque le costanti di struttura di $\textrm{so}(3)$ nella base delle matrici $\Sigma$ sono $\varepsilon_{ijk}$. In termini dei generatori, una rotazione di $\bm\theta=\theta\vec{n}$ è
+	\[\exp(i\bm\theta\cdot\bm\Sigma)\]
+	Infatti, preso un vettore $\vec{v}$ siano $\vec{v}_\perp$ e $\vec{v}_\parallel$ le componenti di $\vec{v}$ ortogonali e parallele a $\vec n$
+	\[\vec{v}_\perp=\vec{v}-(\vec{v}\cdot\vec{n})\vec{n},\qquad\qquad\vec{v}_\parallel=(\vec{v}\cdot{\vec{n}})\vec{n}\]
+	Si noti ora che
+	\begin{align*}
+		(i\bm\theta\cdot\bm\Sigma)\vec{v}&=-\theta n_i\varepsilon_{ijk}v_k\hat{x}_j=\\&=\bm\theta\times\vec{v}\\
+		(i\bm\theta\cdot\bm\Sigma)(i\bm\theta\cdot\bm\Sigma)\vec{v}&=\bm\theta\times(\bm\theta\times\vec{v})=\\&=-\theta^2\vec{v}_\perp
+	\end{align*}
+	Notando che $\vec{n}\times\vec{v}=\vec{n}\times\vec{v}_\perp$, è chiaro che
+	\[(i\bm\theta\cdot\bm\Sigma)^{2k}\vec{v}=(-)^k\theta^{2k}\vec{v}_\perp,\qquad\qquad(i\bm\theta\cdot\bm\Sigma)^{2k+1}\vec{v}=(-)^k\theta^{2k+1}\vec{n}\times\vec{v}\]
+	e dunque
+	\bal
+	\exp(i\bm\theta\cdot\bm\Sigma)\vec{v}&=\vec{v}+\sum_{k=1}^{+\infty}\frac{(-)^k}{(2k)!}\theta^{2k}\vec{v}_\perp+\sum_{k=0}^{+\infty}\frac{(-)^k}{(2k+1)!}\theta^{2k+1}\vec{n}\times\vec{v}=\\&=\vec{v}+\vec{v}_\perp\cos\theta+\vec{n}\times\vec{v}\sin\theta
+	\eal
+	Abbiamo quindi una mappa suriettiva $\exp\colon\mathrm{so}(3)\to\SO(3)$.
+	\subsection{Rappresentazioni di algebre}
+	Premettiamo due definizioni.
+	\begin{definition}
+		Sia $V$ un $\C$-spazio. L'algebra di Lie $\mathcal{GL}(V)$ degli operatori lineari su $V$ è lo spazio $\GL(V)$, dotato del prodotto di Lie
+		\[[\op A,\op B]=\op A\op B-\op B\op A\]
+	\end{definition}
+	\begin{definition}
+		Una rappresentazione $\rho$ di un'algebra di Lie $\mathcal{L}$ su un $\C$-spazio $V$ è un omomorfismo di algebre di Lie $\rho\colon\L\to\mathcal{GL}(V)$.
+	\end{definition}
+	Da qui in poi le nozioni usuali della teoria delle rappresentazioni, come l'irriducibilità, non subiscono modifiche. Sappiamo ora che possiamo mappare tutto $\SO(3)$ a partire da $\mathrm{so}(3)$. Sembra quindi ragionevole cercare le rappresentazioni irriducibili di $\mathrm{so}(3)$ e ricavarne quelle di $\SO(3)$. Più precisamente, se $\rho\colon\mathrm{so}(3)\to\mathcal{GL}(V)$ è una rappresentazione irriducibile di $\mathrm{so}(3)$, vorremmo dire che esite una rappresentazione $\tilde{\rho}\colon\SO(3)\to\mathcal{GL}(V)$ che faccia commutare il diagramma
+	\begin{figure}[h!]
+		\centering
+	\begin{tikzcd}
+		\mathrm{so}(3)\arrow [r, "\rho"]\arrow [d, "\exp" left]&\mathcal{GL}(V)\\\SO(3)\arrow[ru, "\tilde{\rho}" right]&
+	\end{tikzcd}
+\end{figure}
+
+
+	Iniziamo notando che abbiamo in realtà già trovato le rappresentazioni irriducibili di $\mathrm{so}(3)$: i suoi generatori soddisfano le stesse regole di commutazione del momento angolare, dunque ha anche le stesse rappresentazioni. Queste sono le rappresentazioni sugli spazi
+	\[V_\l=\langle\left\{\ket{\l,m}:m=-\l,-\l+1,\dots,\l-1,\l\right\}\rangle\]
+	definite sui generatori da
+	\[\rho\colon\Sigma_i\mapsto\op L_i\]
+	Verifichiamo l'irriducibilità: sia $W\subseteq V_\l$ un sottospazio $\mathrm{so}(3)$-invariante e non vuoto. Se $\ket{w}\in W$, sicuramente è
+	\[\ket{w}=\sum_{m=-\l}^{\l}\alpha_m\ket{\l,m}\]
+	Sia $\overline{m}=\min\left\{m:\alpha_m\neq0\right\}$. Deve essere
+	\[(\rho(\Sigma_1)+i\rho(\Sigma_2))^{\l-\overline{m}}\ket{w}\in W\]
+	ma questo significa ovviamente $\ket{\l,\l}\in W$. Preso $k\in1,\dots,2\l$, è allora
+	\[(\rho(\Sigma_1)-i\rho(\Sigma_2))^k\ket{\l,\l}=\ket{\l,\l-k}\in W\]
+	e quindi $W=V_\l$.
+	
+	Prendiamo ora come candidata per $\tilde{\rho}_\l\colon\SO(3)\to\mathcal{GL}(V_\l)$ la mappa
+	\[\tilde{\rho}_\l\colon\exp(i\bm\theta\cdot\bm\Sigma)\mapsto\exp(i\bm\theta\cdot\Op{L})\]
+	dove, si intende, le matrici associate a $\Op L$ sono quelle a fissato $\l$. C'è un problema: non tutte le $\tilde{\rho}_\l$ appena definite sono rappresentazioni. Infatti, prendiamo $\bm\theta=2\pi\hat{z}$: è $\exp(i\bm\theta\cdot\bm\Sigma)=\mathrm{Id}$, ma è
+	\[\exp(i\bm\theta\cdot\Op L)\ket{\l,m}=e^{2\pi im}\ket{\l, m}\]
+	che \emph{non} è l'identità se $m$ (e dunque $\l$) è semi-intero. Vediamo come si risolve questo dilemma
+	\section{$\SU(2)$}
+	$\SU(2)$ è il gruppo delle matrici unitarie $2\times2$ con determinante 1. La più generica matrice di tale forma è
+	\[\left(\begin{array}{c c}a&b\\-b^*&a^*\end{array}\right)\]
+	con la condizione aggiuntiva
+	\[|a|^2+|b|^2=1\]
+	Si deduce quindi che $\SU(2)$ è uno spazio vettoriale reale di dimensione 3 isomorfo a $\S^3\subseteq \R ^4$, tramite la mappa $\pi\colon\S ^3\to\SU(2)$ definita da
+	\[\pi\colon (x_1,x_2,x_3,x_4)\mapsto\left(\begin{array}{c c}
+	x_1+ix_2&x_3+ix_4\\x_3-ix_4&x_1-ix_2
+	\end{array}\right)\]
+	che è anche un isomorfismo di gruppi. Questo implica un'importante proprietà: $\SU(2)$ è semplicemente connesso. Vediamone i generatori: se $M\in\SU(2)$ e
+	\[M=1+i\varepsilon A+o(\varepsilon)\]
+	deve essere
+	\[1=M^\dagger M=(1-i\varepsilon A^\dagger)(1+i\varepsilon A)+o(t)=1+i\varepsilon(A-A^\dagger)+o(\varepsilon)\]
+	I generatori sono quindi matrici Hermitiane. Dato che è $M=\exp(i\varepsilon A)$, se $U$ diagonalizza $A$ e questa ha autovalori $\lambda_1$ e $\lambda_2$, è
+	\bal\det M&=\det(UMU^\dagger)=\\&=\det\exp(i\varepsilon UAU^{-1})=\\&=e^{i\varepsilon(\lambda_1+\lambda_2)}
+	\eal
+	otteniamo quindi la condizione $\mathrm{tr} A=0$. Un set di generatori è dato dalle matrici di Pauli
+	\bal 
+	\sigma_1&=\left(\begin{array}{c c}
+	0&1\\1&0	
+	\end{array}\right)\\
+	\sigma_2&=\left(\begin{array}{c c}
+	0&-i\\i&0
+	\end{array}\right)\\
+	\sigma_3&=\left(\begin{array}{c c}
+	1&0\\0&-1
+	\end{array}\right)\\
+	\eal
+	Chiamiamo $\mathrm{su}(2)$ l'algebra di Lie generata da queste matrici. Dato che
+	\[\sigma_i\sigma_j=\delta_{ij}+i\varepsilon_{ijk}\sigma_k\]
+	si deduce che, per $s_i=\sigma_i/2$, è
+	\[[s_i,s_2]=i\varepsilon_{ijk}s_k\]
+	Ma allora la mappa $\pi\colon\mathrm{su}(2)\to\mathrm{so}(3)$ definita da
+	\[\rho\colon s_i\mapsto\Sigma_i\]
+	è un isomorfismo di algebre di Lie. Le rappresentazioni di $\mathrm{su}(2)$ sono quelle già viste. Questo \emph{non} implica in alcun modo un isomorfismo tra $\SU(2)$ e $\SO(3)$. Piuttosto, si consideri l'omomorfismo di gruppi $\rho\colon\SU(2)\to\SO(3)$ dato da
+	\[\rho\colon\exp\left(i\bm\theta\cdot\frac{\bm\sigma}{2}\right)\mapsto \exp(i\bm\theta\cdot\bm\Sigma)\]
+	Questa mappa è chiaramente suriettiva, ma non è iniettiva. Il suo nucleo è $\ker\rho=\left\{\pm1\right\}$, quindi per il primo teorema di omomorfismo è $\SO(3)\cong\SU(2)/\Z _2$. Le rappresentazioni di $\mathrm{su}(2)$ sono estendibili a rappresentazioni di $\SU(2)$, ma solo quelle con $\l$ intero sono effettivamente rappresentazioni di $\SO(3)$.
+	
+	Mostriamo incidentalmente che esiste una formula chiusa per $\exp\left(i\bm\theta\cdot\frac{\bm\sigma}{2}\right)$. Usando le regole di moltiplicazione delle matrici di Pauli è
+	\bal 
+	(\bm\theta\cdot\bm\sigma)^2&=\theta^2n_in_j(\delta_{ij}+i\varepsilon_{ijk}\sigma_k)=\\&=\theta^2
+	\eal
+	e quindi
+	\bal 
+	(\bm\theta\cdot\bm\sigma)^{2k}&=\theta^{2k}\\
+	(\bm\theta\cdot\bm\sigma)^{2k+1}&=\theta^{2k+1}\vec{n}\cdot\bm\sigma\\\exp\left(i\bm\theta\cdot\frac{\bm\sigma}{2}\right)&=\sum_{k=0}^{+\infty}\frac{(-)^k\theta^{2k}}{2^{2k}(2k)!}+i\vec{n}\cdot\bm\sigma\sum_{k=0}^{+\infty}\frac{(-)^k\theta^{2k+1}}{2^{2k+1}(2k+1)!}=\\&=\cos\frac{\theta}{2}+i\vec{n}\cdot\bm\sigma\sin\frac{\theta}{2}
+	\eal
+	\section{Spin}
+	Definiamo lo spin di un certo sistema come il momento angolare intrinseco, ovvero come il momento angolare nel sistema del centro di massa. Indichiamo lo spin con $\Op{s}$. Le sue regole di commutazione sono quelle usuali per un momento angolare
+	\[[\op s_i,\op s_j]=i\varepsilon_{ijk}\op s_k\]
+	Dobbiamo capire su quali variabili agisce $\Op{s}$. Avevamo descritto l'azione  del momento angolare orbitale $\hbar\Op L=\Op x\times\Op p$ sugli autostati della posizione (o dell'impulso). Per $\Op s$ invece le variabili naturali sono gli autovalori di una delle sue componenti, ad esempio $\op s_z$. Per una particella libera, il momento angolare intrinseco è una sua caratteristica, quindi ha un valore ben definito. Questo significa che ci troviamo in una qualche rappresentazione di $\SU(2)$, ovvero che
+	\[\Op s^2=s(s+1)\]
+	per un qualche $s$. Al solito, gli autovalori di $\op s_z$ (indichiamoli con $\sigma$) assumono i valori $|\sigma|\leq s$. La funzione d'onda di uno stato generico $\ket{\psi}$ necessita allora di due coordinate, ossia la posizione e il valore di $\sigma$. Abbiamo cioè
+	\[\psi(\vec{x},\sigma)=\braket{\vec{x},\sigma}{\psi}\]
+	A seconda dei gusti, si può anche dire che la funzione d'onda del sistema è in realtà un vettore di funzioni d'onda con $2s+1$ componenti, ossia la funzione d'onda è
+	\[\bm\psi(\vec{x})=\left(\begin{array}{c}
+	\psi(\vec{x},-s)\\\psi(\vec{x},-s+1)\\\vdots\\\psi(\vec{x},s-1)\\\psi(\vec{x},s)
+	\end{array}\right)\]
+	Il prodotto scalare fra stati è definito in maniera naturale come
+	\[\braket{\varphi}{\psi}=\int\d ^3\vec{x}\sum_{\sigma=-s}^s\varphi^*(\vec{x},\sigma)\psi(\vec{x},\sigma)=\int\d ^3\,\vec{x}\bm\varphi^*(\vec{x})\cdot\bm\psi(\vec{x})\]
+	e, al solito, $|\psi(\vec{x},\sigma)|^2$ si interpreta come la densità di probabilità di trovare la particella in $\vec{x}$ con componente $z$ dello spin pari a $\sigma$.
+	\subsection{Trasformazione delle funzioni d'onda}
+	Introduciamo le matrici $(2s+1)\times(2s+1)$ $D^{(s)}(R)$, definite da
+	\[D^{(s)}_{\sigma,\sigma'}(R)=\braketop{s,\sigma'}{\op U(R)}{s,\sigma}\]
+	(Si noti l'ordine inverso in $\sigma$ e $\sigma'$ tra primo e secondo membro. In tal modo l'azione di $\op U(R)$ su un ket si ottiene in forma matriciale contraendo il secondo indice di $D^{(\l)}(R)$, come si fa usualmente nel prodotto matrice-vettore colonna). Per tali matrici vale
+	\[[D^{(s)}(R)]^\dagger=D^{(s)}(R^{-1})\]
+	In tal modo, è
+	\bal 
+	\op U(R)\ket{\vec{x},s,\sigma}&=D^{(s)}_{\sigma,\sigma'}(R)\ket{R\vec{x},s,\sigma'}	\\\bra {\vec{x},s,\sigma}\op U(R)&=D^{(s)}_{\sigma,\sigma'}(R)\bra {R^{-1}\vec{x},s,\sigma'}
+	\eal
+	Quindi una funzione d'onda per una particella di spin $s$ trasforma come
+	\[\psi_R(\vec{x},\sigma)=\braketop{\vec{x},s,\sigma}{\op U(R)}{\psi}=\sum_{\sigma'}D^{(s)}_{\sigma,\sigma'}(R)\psi(R^{-1}\vec{x},s,\sigma')\]
+	\section{Momento angolare totale}
+	Consideriamo ora il caso generale di una particella con spin e momento angolare orbitale. Sia $\Op J$ il generatore delle rotazioni, che chiamiamo momento angolare totale. Per definizione è
+	\[\op U(R)=\exp(i\bm\theta\cdot\Op J)\]
+	Abbiamo visto nella sezione precedente l'azione di $\op U(R)$ su una funzione d'onda. Per una rotazione infinitesima è
+	\bal \exp(i\bm\theta\cdot\Op J)&=1+i\bm\theta\cdot\Op J+o(\theta)\\D^{(s)}(R)&=1+i\bm\theta\cdot\Op s+o(\theta)\\ R\vec{x}&=\vec{x}-i\bm\theta\cdot\Op L\vec{x}+o(\theta)\eal
+	Deve quindi essere
+	\bal \psi(\vec{x},\sigma)+i\bm\theta\cdot\Op J\psi(\vec{x},\sigma)&=\sum_{\sigma'}D^{(s)}_{\sigma,\sigma'}(R)\left[\psi(\vec{x},s,\sigma')+i\bm\theta\cdot\Op L\psi(\vec{x},\sigma')\right]=\\&=\psi(\vec{x},\sigma)+i\bm\theta\Op L\psi(\vec{x},\sigma)+i\bm\theta\cdot\op s_{\sigma,\sigma'}\psi(\vec{x},\sigma')\eal
+	Il momento angolare totale è quindi
+	\[\Op J=\Op L+\Op s\]
+	Sotto rotazioni, la grandezza conservata è $\Op J$, mentre in generale non si conservano separatamente $\Op L$ e $\Op s$. Questo è dovuto al fatto che
+	\[[\op J_i,\op L_j]=[\op L_i,\op L_j]\neq0\]
+	e analogamente per lo spin. Si noti infatti che $[\op L_i,\op s_j]=0$. Dimostriamo ora un'importante proprietà sulla composizione di momenti angolari: sia $\rho_n\colon\SU(2)\to\mathcal{GL}(V_n)$ la rappresentazione di $\SU(2)$ di dimensione $2n+1$. Allora è
+	\[V_{\l_1}\otimes V_{\l_2}\cong\bigoplus_{\l=|\l_1-\l_2|}^{\l_1+\l_2}V_\l\]
+	In un certo senso, questa decomposizione è analoga alle disuguaglianze che abbiamo classicamente per due vettori qualunque $\vec{a}$ e $\vec{b}$:
+	\[\left||\vec{a}|-|\vec{b}|\right|\leq\left|\vec{a}+\vec{b}\right|\leq|\vec{a}|+|\vec{b}|\]
+	Per la dimostrazione, supponiamo wlog $\l_1\leq\l_2$ e sia 
+	\[\mathcal{B}=\left\{\ket{\l_1,m_1}\otimes\ket{\l_2,m_2}:m_1=-\l_1,-\l_1+1,\dots,\l_1-1,\l_1,\,m_2=-\l_2,-\l_2+1,\dots,\l_2-1,\l_2\right\}\]
+	la base naturale di $V_{\l_1}\otimes V_{\l_2}$. La componente $z$ del momento angolare $\Op L=\Op L_1\otimes\op\1_2+\op\1_1\otimes\Op L_2$ agisce sui vettori di base come
+	\[\op L_z\ket{\l_1,m_1}\otimes\ket{\l_2,m_2}=(m_1+m_2)\ket{\l_1,m1}\otimes\ket{\l_2,m_2}\]
+	Dunque l'autovalore massimo di $\op L_z$ è $\l_1+\l_2$, ed ha come unico autovettore $\ket{\l_1,\l_1}\otimes\ket{\l_2,\l_2}$. Più in generale, poniamo
+	\[\mathcal{B}_k=\left\{\ket{\l_1,m_1}\otimes\ket{\l_2,m_2}\in\mathcal{B}:m_1+m_2=k\right\}\]
+	In tal modo, $|\mathcal{B}_k|$ è il numero di vettori di base con momento angolare lungo $z$ pari a $k$. Mostriamo alla fine della sezione che per $\l_2-\l_1\leq k\leq \l_1+\l_2$ è $|\mathcal{B}_k|=\l_1+\l_2+1-k$. Con questo risultato abbiamo concluso: abbiamo infatti $k$ stati con componente $\op L_z$ pari a $\l_1+\l_2+1-k$: partendo da $\ket{\l_1,\l_1}\otimes\ket{\l_2,\l_2}$, possiamo trovare una copia di $V_{\l_1+\l_2}$ all'interno di $V_{\l_1}\otimes V_{\l_2}$ tramite l'operatore di discesa $\op L_-$. Ci rimane così un vettore $\ket{u}$ indipendente da $\op L_-\ket{\l_1,\l_1}\otimes\ket{\l_2,\l_2}$ con $\op L_z$ pari a $\l_1+\l_2-1$. Questo vettore appartiene necessariamente a una copia $V_\l$ con $\l\geq\l_1+\l_2-1$, ma non può essere $\l\geq\l_1+\l_2$ perchè altrimenti agendo con $\op L_+$ su $\ket{u}$ troveremmo altri autostati di $\op L_z$, che abbiamo già mostrato che non esistono. Quindi è $\l=\l_1+\l_2-1$ e tramite $\op L_-$ costruiamo una copia di $V_{\l_1+\l_2-1}$ all'interno di $V_{\l_1}\otimes V_{\l_2}$. Il processo continua diminuendo di 1 l'autovalore di $\op L_z$. Ad ogni passaggio troviamo \emph{una} copia di $V_{\l_1+\l_2-k}$ all'interno del prodotto tensoriale. Per trovare l'indice a cui fermarsi, basta ragionare per dimensioni: dato che $\dim V_\l=2\l+1$, è
+	\bal(2\l_1+1)(2\l_2+1)&=\dim\bigoplus_{\l=n}^{\l_1+\l_2}V_\l=\\&=\sum_{k=n}^{\l_1+\l_2}(2\l+1)=\\&=\l_1+\l_2+1-n+2\sum_{\l=0}^{\l_1+\l_2}\l-2\sum_{\l=0}^{n-1}\l=\\&=\l_1+\l_2+1-n+(\l_1+\l_2)(\l_1+\l_2+1)-n(n-1)=\\&=(\l_1+\l_2+1)^2-n^2
+	\eal
+	Si trova così $n=|\l_2-\l_1|$, come preannunciato. Resta da mostrare la parte più importante della dimostrazione, ossia il calcolo di $|\mathcal{B}_k|$. Procediamo induttivamente su $j=\l_1+\l_2-k$: dobbiamo così mostrare $|\mathcal{B}_{\l_1+\l_2-j}|=j+1$. Per $j=0$ la tesi è vera ed è riportata sopra. Per $j\leq 0$, consideriamo l'insieme delle coppie $(m_1,m_2)$ che risolvono $m_1+m_2=\l_1+\l_2-j$. Vogliamo contare le coppie che risolvono $m_1+m_2=\l_1+\l_2-j-1$. FINISCI.
+	\subsection{Coefficienti di Clebsch-Gordan}
+	Dalla decomposizione precedente
+	\[V_{\l_1}\otimes V_{\l_2}\cong\bigoplus_{\l=|\l_1-\l_2|}^{\l_1+\l_2}V_\l\]
+	segue che abbiamo due basi naturali di $V_{\l_1}\otimes V_{\l_2}$: una è $\mathcal{B}$, l'altra è chiaramente
+	\[\tilde{\mathcal{B}}=\left\{\ket{\l_1,\l_2;L,M}:|\l_1-\l_2|\leq L\leq \l_1+\l_2,\,M=-L,-L+1,\dots,L-1,L\right\}\]
+	I coefficienti del cambio di base tra $\mathcal{B}$ e $\tilde{\mathcal{B}}$ sono noti come coefficienti di Clebsch-Gordan. Convenzionalmente si pone
+	\[\ket{\l_1,\l_2;L,M}=\tensor*{C}{^{L\,\l_1\,\l_2}_{M\,m_1\,m_2}}\ket{\l_1,m_1}\otimes\ket{\l_2,m_2}\]
+	Ovviamente è
+	\[\tensor*{C}{^{L\,\l_1\,\l_2}_{M\,m_1\,m_2}}=(\bra {\l_1,m_1}\otimes\bra{\l_2,m_2})\ket{\l_1,\l_2;L,M}\]
+	Vediamo qualche proprietà: abbiamo due regole di selezione, ossia due condizioni necessarie affinché $\tensor*{C}{^{L\,\l_1\,\l_2}_{M\,m_1\,m_2}}\neq0$. Esse sono, per quanto visto nella sezione precedente,
+	\[|\l_1-\l_2|\leq L\leq \l_1+\l_2,\qquad\qquad M=m_1+m_2\]
+	Inoltre, con la convenzione scelta per le fasi degli autostati del momento angolare si hanno dei coefficienti di Clebsch-Gordan reali. Infine, sotto scambio dei due spazi prodotto si ha
+	\[(\bra{\l_1,m_1}\otimes\bra {\l_2,m_2})\ket{\l_1,\l_2;L,M}=(-)^{-L+\l_1+\l_2}(\bra{\l_2,m_2}\otimes\bra {\l_1,m_1})\ket{\l_2,\l_1;L,M}\]
+	ossia
+	\[\tensor*{C}{^{L\,\l_1\,\l_2}_{M\,m_1\,m_2}}=(-)^{-L+\l_1+\l_2}\tensor*{C}{^{L\,\l_2\,\l_1}_{M\,m_2\,m_1}}\]
+	\subsection{Angoli di Eulero}
+	Riprendiamo le matrici di rotazione
+	\[D^{(j)}_{m,m'}(R)=\braketop{j,m}{\op U(R)}{j,m'}\]
+	e cerchiamo un modo conveniente per calcolarle che non sia il calcolo diretto dell'esponenziale $\exp(i\bm\theta\cdot\Op J)$. Sappiamo dai corsi precedenti che una rotazione si può esprimere in termini di angoli di Eulero. In particolare, se abbiamo un sistema $S$ con assi $x,y,z$ che viene ruotato nel sistema $S'$ con assi $x',y',z'$, possiamo
+	\begin{itemize}
+		\item ruotare di un angolo $\alpha$ intorno a $z$ per portare il sistema $S_1=S$ nel sistema $S_2$. L'asse $y$ viene portato nell'asse $y_2$ e scegliamo $\alpha$ in modo che $y_2$ sia ortogonale al piano passante per $z$ e $z'$.
+		\item Ruotare di un angolo $\beta$ intorno a $y_2$ per portare il sistema $S_2$ nel sistema $S_3$. Scegliamo $\beta$ in modo che $z$ venga portato in $z'$.
+		\item Ruotare di un angolo $\gamma$ intorno a $z'$ per portare il sistema in $S_4=S'$. 
+	\end{itemize}
+
+	Se indichiamo con $\rho(\theta,\xi,S)$ una rotazione di un angolo $\theta$ intorno all'asse $\xi$ del sistema $S$ e con $\overline{\rho}(R,S)$ una rotazione $R$ del sistema $S$, la nostra rotazione si scrive come si scrive come
+	\[\overline{\rho}(R,S)=\rho(\gamma,z',S_3)\rho(\beta,y_2,S_2)\rho(\alpha,z,S_1)\]
+	Abbiamo un'importante proprietà: se un sistema $K$ viene ruotato in un sistema $K'$ tramite una rotazione $R_1$ e in questo facciamo una rotazione $R_2$, abbiamo
+	\[\overline{\rho}(R_2,K')=\overline{\rho}(R_1,K)\overline{\rho}(R_2,K)\overline{\rho}(R_1^{-1},K)\]
+	Da questo si deduce
+	\[\overline{\rho}(R,K)\rho(\alpha,z,S_1)\rho(\beta,y,S_1)\rho(\gamma,z,S_1)\]
+	e dunque
+	\[\exp(i\bm\theta\cdot\Op J)=e^{i\alpha \op J_z}e^{i\beta\Op J_y}e^{i\gamma\Op J_z}\]
+	Si ha dunque
+	\[D^{(j)}_{m,m'}(R)=e^{i\alpha m}d^{(j)}_{m,m'}(\beta)e^{im'\gamma}\]
+	dove
+	\[d^{(j)}_{m,m'}(\beta)=\braketop{j,m}{e^{i\beta \op J_y}}{j,m'}\]
+	Dobbiamo quindi solo calcolare l'elemento di matrice di una rotazione intorno all'asse $y$ per trovare quello di una rotazione generica. Esplicitamente è
+	\[d^{(j)}_{m,m'}(\beta)=\sqrt{\frac{(j+m)!(j-m)!}{(j+m')!(j-m')!}}\left(\cos\frac{\beta}{2}\right)^{2j}\sum_{k}(-)^k\binom{j+m'}{k}\binom{j-m'}{j-m-\mu}\left(\tan\frac{\beta}{2}\right)^{m-m'+2k}\]
+	dove la somma su $k$ è estesa a tutti i valori per cui sono definiti i binomiali. Queste matrici sono tabulate nella tabelle dei coefficienti di Clebsch-Gordan.
+	\section{Rotazione degli stati}
+	Consideriamo ancora una volta l'azione di $\op U(R)$ su uno stato $\ket{j,m}$. Intuitivamente, se $R\hat{z}=\vec{a}$, lo stato ruotato $\op U(R)\ket{j,m}$ è autostato di $\Op J\cdot\vec{a}$. Dimostriamolo formalmente: è
+	\bal 
+	(\Op J\cdot\vec{a})\op U(R)\ket{j,m}&=\op U(R)\op U^\dagger(R)(\Op J\cdot\vec{a})\op U(R)\ket{j,m}=\\&=a_i\op U(R)(\op U^\dagger(R)\op J_i\op U(R))\ket{j,m}=\\&=a_i\op U(R)R_{im}\op J_m\ket{j,m}=\\&=\op U(R)(R\Op J\cdot\vec{a})\ket{j,m}=\\&=\op U(R)(\Op J\cdot R^{-1}\vec{a})\ket{j,m}=\\&=\op U(R)\op J_z\ket{j,m}=\\&=m\op U(R)\ket{j,m}
+	\eal
+	Consideriamo ora un versore $\vec{n}$. A questo possiamo associare un autostato della posizione su $\S ^2$, che indichiamo indifferentemente con le notazioni $\ket{\vec{n}}$ o $\ket{\theta,\phi}$. Le armoniche sferiche sono allora
+	\[Y_{\l,m}(\theta,\phi)=\braket{\theta,\phi}{\l,m}\]
+	Sotto rotazioni si ha, per quanto detto
+	\bal 
+	\braketop{\vec{n}}{\op U(R)}{\l,m}=\\&=\braket{R^{-1}\vec{n}}{\l,m}=\\&=Y_{\l,m}(R^{-1}n)
+	\eal
+	D'altro canto, ricordando la decomposizione in rappresentazioni irriducibili di $\op U(R)$, è
+	\[\op U(R)\ket{\l,m}=D^{(\l)}_{m,m'}(R)\ket{\l,m'}\]
+	e quindi troviamo la legge di trasformazione
+	\[Y_{\l,m}(R^{-1}\vec{n})=D^{(\l)}_{m,m'}Y_{\l,m'}(\vec{n})\]
+	\section{Tensori sferici}
+	Definiamo un tensore sferico di rango $j$ come un insieme di $2j+1$ operatori $\left\{\op T^{j}_{-j},\op T^j_{-j+1},\dots,\op T^j_{j-1},\op T^j_j\right\}$ per cui valga
+	\[\op U(R)\op T^j_m\op U^\dagger(R)=D^{(j)}_{m,m'}(R)\op T^j_{m'}\]
+	ossia
+	\[\op U(R)\left(\begin{array}{c}
+	\op T^j_{-j}\\\op T^j_{-j+1}\\\vdots\\\op T^j_{j-1}\\\op T^j_j
+	\end{array}\right)\op U^\dagger(R)=D^{(j)}(R)\left(\begin{array}{c}
+	\op T^j_{-j}\\\op T^j_{-j+1}\\\vdots\\\op T^j_{j-1}\\\op T^j_j
+	\end{array}\right)\]
+	Per una rotazione infinitesima si trova
+	\[[\bm\theta\cdot\Op J,\op T^j_m]=(\bm\theta\cdot\Op J)_{m,m'}\op T^j_{m'}\]
+	e prendendo le varie componenti
+	\bal 
+	[\op J_z,\op T^j_m]&=m\op T^j_m\\ [\op J_\pm,\op T^j_m]&=\sqrt{j(j+1)-m(m\pm 1)}\op T^j_{m\pm 1}
+	\eal
+	In particolare, dalla prima si deduce
+	\bal 
+	(m_1-m_2)\braketop{j,m_1,\alpha}{\op T^{j}_m}{j,m_2,\beta}&=\braketop{j,m_1,\alpha}{\op J_z\op T^j_m-\op T^j_m\op J_z}{j,m_2,\beta}=\\&=m\braketop{j,m_1,\alpha}{\op T^j_m}{j,m_2,\beta}
+	\eal
+	Se l'elemento di matrice è non nullo, deve quindi essere
+	\[m_1=m_2+m\]
+	Questo è un esempio di regola di selezione, ossia di condizione necessaria tra due stati affinché possa esserci una transizione da uno all'altro.
+	
+	Vediamone un'altra: uno stato $\op T^j_m\ket{j_2,m_2}$ trasforma sotto rotazioni come
+	\bal 
+	\op U(R)\op T^j_m\ket{j_2,m_2}=&=\op U(R)\op T^j_m\op U^\dagger(R)\op U(R)\ket{j_2,m_2}=\\&=D^{(j)}_{m,m'}(R)D^{(j_2)}_{m_2,m_2'}\op T^j_{m'}\ket{j_2,m_2'}
+	\eal
+	Lo stato trasforma quindi come $j\otimes j_2$. Ma allora se
+	\[\braketop{j_1,m_1}{\op T^j_m}{j_2,m_2}\neq0\]
+	deve essere $|j-j_2|\leq j_1\leq j+j_2$.
+	\subsection{Teorema di Wigner-Eckart}
+	C'è una stretta connessione tra i tensori sferici e i coefficienti di Clebsch-Gordan. Questa connessione è data dal teorema di Wigner-Eckart: dato un tensore sferico $\op T^{j}$ di rango $j$, allora è
+	\[\braketop{j_1,m_1,\alpha}{\op T^j_m}{j_2,m_2,\beta}=\frac{\Lambda(j;j_1,\alpha;j_2,\beta)}{\sqrt{2j+1}}\tensor*{C}{^{j\,j_1\,j_2}_{m\,m_1\,m_2}}\]
+	In altre parole, per l'elemento di matrice di una componente di un tensore sferico è
+	\[\braketop{j_1,m_1,\alpha}{\op T^j_m}{j_2,m_2,\beta}\propto(\bra{j_1,m_1}\otimes\bra{j_2,m_2})\ket{j_1,j_2;j,m}\]
+	dove la costante di proporzionalità \emph{non} dipende da $m$, $m_1$ e $m_2$. Tale costante si chiama elemento di matrice ridotto ed è usualmente scritta nella fuorviante forma
+	\[\Lambda(j;j_1,\alpha;j_2,\beta)=\braketop{j_1,\alpha}{|\op T^j|}{j_2,\beta}\]
+	Il teorema è particolarmente importante perchè
+	\begin{itemize}
+		\item Tiene automaticamente conto delle regole di selezione sui tensori sferici, poichè già implementate nei coefficienti di Clebsch-Gordan.
+		\item Permette di calcolare tutti gli elementi di matrice di tutti gli operatori del tensore considerato, una volta che conosciamo un certo elemento di matrice.
+		\item Tutti gli operatori hanno elementi di matrice proporzionali tra loro (con la costante di proporzionalità eventualmente nulla).
+	\end{itemize}
+	DIMOSTRAZIONE: DA FARE.
+\end{document}

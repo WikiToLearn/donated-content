@@ -1,0 +1,61 @@
+\begin{es}
+  Sia $ (K, d) $ uno spazio metrico compatto e $ f \colon K \to K $ una funzione tale che per ogni $ x, y \in K $ tale che $ x \neq y $ si ha \[d(f(x), f(y)) < d(x, y).\] Dimostrare che $ f $ ammette un unico punto fisso $ \bar{x} $ e che $ \forall x \in K $ la successione $ x_0 = x $ e $ x_{n + 1} = f(x_n) $ converge a $ \bar{x} $.
+\end{es}
+%
+Consideriamo la funzione
+\begin{align*}
+  g \colon K & \to [0, +\infty) \\
+  x & \mapsto d(x, f(x))
+\end{align*}
+Osserviamo che dal momento che $ f $ è continua (per ogni $ x, y \in K $, fissato $ \epsilon > 0 $ se prendo $ x, y $ tali che $ d(x, y) < \epsilon $ allora $ d(f(x), f(y)) < d(x, y) < \epsilon $) e anche la funzione distanza $ d $ è continua otteniamo che $ g $ è continua su un compatto e quindi per il teorema di Weierstrass ammette minimo $ \bar{x} \in K $ ovvero tale che $ \forall x \in K, \ g(\bar{x}) \leq g(x) $. Se per assurdo fosse $ \bar{x} \neq f(\bar{x}) $ allora si avrebbe
+\begin{equation*}
+  d(f(\bar{x}), f(f(\bar{x}))) < d(\bar{x}, f(\bar{x}))
+\end{equation*}
+contro l'ipotesi di minimalità di $ \bar{x} $. Dunque $ \bar{x} $ è un punto fisso di $ f $. L'unicità segue dal fatto che se $ \bar{x}' \neq \bar{x} $ è un altro punto fisso di $ f $ allora si avrebbe
+\begin{equation*}
+  d(\bar{x}, \bar{x}') = d(f(\bar{x}), f(\bar{x}')) < d(\bar{x}, \bar{x}')
+\end{equation*}
+che è assurdo. Pertanto $ f $ ammette uno e un solo funto fisso. \\
+Sia ora $ x \in K $ e $ (x_n) \subseteq K $ la successione delle iterate
+\begin{equation*}
+  \begin{cases}
+    x_0 = x \\
+    x_{n + 1} = f(x_n)
+  \end{cases}
+\end{equation*}
+Se $ \exists n_0 \in \N : x_n = \bar{x} $ allora $ x_n = \bar{x} $ per ogni $ n \geq n_0 $. Supponiamo quindi $ x_n \neq \bar{x} $ per ogni $ n \in \N $ e consideriamo la successione reale $ d(x_n, \bar{x}) $. Osserviamo che la tale successione è positiva per definizione di distanza e decrescente in quanto
+\begin{equation*}
+  d(x_{n + 1}, \bar{x}) = d(f(x_n), f(\bar{x})) < d(x_n, \bar{x}).
+\end{equation*}
+Per completezza di $ \R $ esiste quindi finito $ \lim_n d(x_n, \bar{x}) = l \geq 0 $. Mostriamo che in particolare $ l = 0 $. Per compattezza di $ K $ sappiamo che esiste una sottosuccessione $ n_k $ e un $ y \in K $ tale che $ x_{n_k} \to y $. Per continuità della distanza $ d(x_{n_k}, \bar{x}) \to d(y, \bar{x}) $ e per continuità di $ f $ otteniamo invece $ d(x_{n_k + 1}, \bar{x}) = d(f(x_{n_k}), \bar{x}) \to d(f(y), \bar{x}) $. Ma essendo $ x_{n_k} $ e $ x_{n_k + 1} $ sottosuccessioni di $ x_n $ deve valere $ l = d(y, \bar{x}) = d(f(y), \bar{x}) $. Ma se fosse $ y \neq \bar{x} $ allora si avrebbe
+\begin{equation*}
+  d(y, \bar{x}) = d(f(y), \bar{x}) = d(f(y), f(\bar{x})) < d(y, \bar{x})
+\end{equation*}
+che è assurdo. Concludiamo che $ y = \bar{x} $ e quindi $ d(x_n, \bar{x}) \to l = 0 $ ovvero $ x_n \to \bar{x} $.
+
+\begin{es}
+  Sia $ f \colon [a, b] \to [a, b] $ una funzione crescente e $ A = \{x \in [a, b] : f(x) \geq x\} $. Si mostri che $ s = \sup{A} $ è un punto fisso di $ f $.
+\end{es}
+%
+Prima di tutto osserviamo che poiché $ f $ è definita su un chiuso e limitato, $ s \in [a, b] $. Supponiamo $ a < s < b $. Allora definitivamente $ s - 1/n $ e $ s + 1/n $ sono in $ [a, b] $ e inoltre $ s - 1/n \in A $ e $ s - 1/n < s $ mentre $ s + 1/n \notin A $ e $ s < s + 1/n $. Così per la crescenza di $ f $ otteniamo
+\begin{equation*}
+  s - \frac{1}{n} \leq f\left(s - \frac{1}{n}\right) \leq f(s) \leq f\left(s +\frac{1}{n}\right) < s + \frac{1}{n}.
+\end{equation*}
+Passando al limite in $ n $ otteniamo infine $ f(s) = s $ come volevamo. \\
+Se invece $ s = a $ oppure $ s = b $ sostituiamo la stima dal basso o dall'alto con $ a $ o $ b $. Così definitivamente si ha
+\begin{equation*}
+  a \leq f(a) \leq a + \frac{1}{n} \qquad b - \frac{1}{n} \leq f(b) \leq b
+\end{equation*}
+e passando al limite otteniamo $ f(a) = a  $ o $ f(b) = b $. In ogni caso concludiamo che $ s = \sup{A} $ è punto fisso di $ f $.
+
+\begin{es}
+  Sia $ f \colon \R \to \R $ tale che esista la funzione inversa $ f^{-1} $ e $ f^{-1} = f $. Dimostrare che esiste almeno un punto fisso per $ f $. Se inoltre $ f $ è crescente, allora tutti i punti sono fissi per $ f $, cioè $ f $ è la funzione identità.
+\end{es}
+%
+Ricordiamo che se $ f $ è una funzione continua invertibile su un intervallo allora è biettiva e monotona. \\
+Supponiamo $ f $ decrescente e consideriamo la funzione $ g \colon \R \to \R $ data da $ g(x) = f(x) - x $. Essendo $ f $ continua e monotona, esistono finiti o infiniti i limiti di $ f $ per $ x \to \pm \infty $. Sia nel caso di limite finito che infinito otteniamo
+\begin{equation*}
+  \lim_{x \to +\infty} g(x) = -\infty \qquad \lim_{x \to -\infty} g(x) = +\infty
+\end{equation*}
+Per continuità di $ g $ concludiamo che $ \exists \bar{x} \in \R : g(\bar{x}) = 0 $ ovvero $ f(\bar{x}) = \bar{x} $ cioè $ \bar{x} $ è un punto fisso di $ f $\footnote{Notare che tale risultato vale per ogni $ f \colon \R \to \R $ decrescente}. \\
+Se invece $ f $ è crescente mostriamo che è l'identità. Sia $ x \in \R $ e $ y = f(x) $, vogliamo concludere che necessariamente $ x = y $ ovvero $ x $ è punto fisso di $ f $. Osserviamo prima di tutto che se $ y = f(x) $ allora $ f(y) = x $ essendo $ f $ un'involuzione ($ f = f^{-1} $). Se fosse $ x < y $ per crescenza di $ f $ si avrebbe $ f(x) \leq f(y) $ da cui $ y \leq x $ che è assurdo. Similmente se fosse $ x > y $ per crescenza di $ f $ si avrebbe $ f(x) \geq f(y) $ da cui $ x \geq y $ contro l'ipotesi di partenza. Dunque l'unica possibilità è che sia $ x = y $. Per genericità di $ x $ concludiamo che ogni punto è un punto fisso per $ f $ ovvero $ f $ è l'identità.

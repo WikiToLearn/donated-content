@@ -1,0 +1,2062 @@
+\documentclass[a4paper,11pt]{article}
+	 \usepackage[a4paper, left=2.5cm, bottom=2.5cm]{geometry}
+     \usepackage[italian]{babel}
+     \usepackage[utf8]{inputenc}
+     \usepackage{enumitem}
+     \usepackage{siunitx}
+     \usepackage{graphicx}
+     \usepackage{amsmath}
+     \usepackage{amsfonts}
+     \usepackage{tikz}
+     \usepackage{tikz-cd}
+     \usepackage{amsthm}
+     \title{Geometria differenziale}
+     
+     \theoremstyle{definition}
+     \newtheorem{osservazione}{Osservazione}[section]
+     \newtheorem{definizione}{Definizione}[section]
+     \newtheorem{esempio}{Esempio}[section]
+     
+     \theoremstyle{theorem}
+     \newtheorem{teorema}{Teorema}[section]
+     \newtheorem{proposizione}{Proposizione}[section]
+     \newtheorem{corollario}{Corollario}[teorema]
+     \newtheorem{lemma}[teorema]{Lemma}
+     
+     \newcommand{\crit}[1]{\mathrm{Crit}(#1)}
+     \newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+     \newcommand{\der}[1]{\mathrm{Der}_#1}
+     \newcommand{\bil}[2]{\textrm{Bilin}\left(#1\times#2\right)}
+     \newcommand{\lie}[2]{\mathcal{L}_{#1}#2}
+     \newcommand{\dif}{\mathrm{d}}
+     \newcommand{\R}{\mathbb{R}}
+     \newcommand{\Z}{\mathbb{Z}}
+     \newcommand{\C}{\mathbb{C}}
+     \newcommand{\N}{\mathbb{N}}
+     \newcommand{\Q}{\mathbb{Q}}
+     \newcommand{\T}{\mathcal{T}}
+     \renewcommand{\div}{\textrm{div}}
+     \newcommand{\grad}{\textrm{grad}}
+     \newcommand{\tr}{\textrm{tr}}
+     \newcommand{\ric}{\textrm{Ric}}
+    
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\section{Carte, atlanti, varietà topologiche e differenziabili, funzioni su varietà a valori reali.}
+\begin{definizione}
+	Siano $X$ uno spazio topologico, $U$ un aperto di $X$, $V$ un aperto di $\mathbb{R}^n$, $\phi\colon U\to V$ un omeomorfismo. La coppia $(U,\phi)$ si chiama carta locale, la sua inversa $\phi^{-1}$ parametrizzazione locale. La carta si dice centrata in $P\in U$ se $\phi(P)=0$.
+\end{definizione}
+\begin{definizione}
+	Siano $X$ uno spazio topologico, $(U_1,\phi_1)$ e $(U_2,\phi_2)$ due carte su $X$ tali che $U_1\cap U_2\neq\emptyset$. Allora $\eta_{1,2}=\phi_1\circ\phi_2^{-1}$ e $\eta_{2,1}=\phi_2\circ\phi_1^{-1}$ definiscono degli omeomorfismi tra $\phi_1(U_1)$ e $\phi_2(U_2)$ che sono detti mappe di transizione, mappe di incollamento o cambio di coordinate.
+	\[\begin{tikzcd}
+	& X \arrow[dl, "\sim", "\phi_1" near start] \arrow[dr, "\sim", "\phi_2" near start] \\
+	U_1 \arrow[rr, "\eta_{2,1}", shift left=0.5ex] & & U_2 \arrow[ll, "\eta_{1,2}", shift left=0.5ex]
+	\end{tikzcd}\]
+\end{definizione}
+
+\begin{osservazione}
+	A rigore, si dovrebbe porre $\eta_{1,2}=\phi_1\circ\phi^{-1}_{2|\phi_2(U_1\cap U_2)}$, e analogamente per $\eta_{2,1}$, ma per semplicità di notazione le restrizioni saranno sempre sottintese.
+\end{osservazione}
+\begin{osservazione}
+	Valgono le seguenti proprietà:
+	\begin{itemize}
+		\item $\eta_{ii}=id$
+		\item $\eta_{ij}=\eta_{ji}^{-1}$
+		\item Se $U_i$, $U_j$, $U_k$ sono aperti di $X$ tali che $U_i\cap U_j\cap U_k\neq\emptyset$, allora $\eta_{ij}\circ\eta_{jk}=\eta_{ik}$.
+	\end{itemize}
+\end{osservazione}
+\begin{definizione}
+	Una famiglia di carte viene chiamata atlante.
+\end{definizione}
+\begin{definizione}
+	Uno spazio topologico $X$ è una varietà topologica se esiste un atlante $\left\{(U_i,\phi_i)\right\}_{i\in I}$ tale che $X=\bigcup_{i\in I}U_i$. 
+\end{definizione}
+\begin{osservazione}
+	Se $(U_1,\phi_1)$ è una carta tra $U_1$ e un aperto di $\mathbb{R}^n$, $(U_2,\phi_2)$ è una carta tra $U_2$ e un aperto di $\mathbb{R}^m$ e $U_1\cap U_2\neq\emptyset$, si può dimostrare che $n=m$. Dunque se la varietà è connessa si può ben definire la dimensione della varietà, altrimenti si può parlare di dimensione delle sue componenti connesse.
+\end{osservazione}
+\begin{osservazione}
+	Siano $X$ una varietà topologica, $f\colon X\to\mathbb{R}$, $\left\{(U_i,\phi_i)\right\}_{i\in I}$ un atlante per $X$. Ponendo per $i\in I$ $\tilde{f}_i=f_{|U_i}\circ\phi_i^{-1}$, posso ridurmi a studiare una funzione su $\mathbb{R}^n$ a valori reali. Se $U_i\cap U_j\neq\emptyset$, ho $\tilde{f}_j=\tilde{f}_i\circ\eta_{ij}$.
+	\[\begin{tikzcd}
+	& \mathbb{R} \\
+	& X \arrow[dl, "\sim", "\phi_i" near start] \arrow[u, "f"] \arrow[dr, "\sim", "\phi_j" near start] \\
+	U_i\arrow[uur, bend left, "\tilde{f}_i"] \arrow[rr, "\eta_{ji}", shift left=0.5ex] &  & U_j \arrow[uul, bend right, "\tilde{f}_j"] \arrow[ll, "\eta_{ij}", shift left=0.5ex]
+	\end{tikzcd}\]
+\end{osservazione}
+\begin{definizione}
+	Sia $X$ una varietà topologica. Si dice che $X$ è differenziabile se tutte le funzioni $\eta_{ij}$ sono di classe $C^1$, e più in generale di classe $C^m$ se tutte le funzioni di transizione $\eta_{ij}$ sono di classe $C^m$.
+\end{definizione}
+\begin{osservazione}
+	D'ora in poi indicheremo con varietà differenziabile una varietà topologica in cui le funzioni di transizione sono di classe $C^\infty$. La definizione precedente vale per varietà reali, nel caso di varietà complesse si richiede che le funzioni di transizione siano olomorfe.
+\end{osservazione}
+\begin{definizione}
+	Siano $X$ una varietà topologica di classe $C^m$, $f\colon X\to\mathbb{R}$, $x_0\in X$. $f$ si dice di classe $C^r$ in $x_0$, con $r\leq m$, se preso $i\in I$ tale che $x_0\in U_i$, $\tilde{f}_i$ è di classe $C^r$ in $\phi_i(x_0)$. 
+\end{definizione}
+\begin{osservazione}
+	La richiesta $r\leq m$ ci assicura che se $U_i$, $U_j$ contengono $x_0$, allora $\tilde{f}_i$ è di classe $C^r$ in $\phi_i(x_0)$ se e solo se $\tilde{f}_j$ è di classe $C^r$ in $\phi_j(x_0)$, quindi la definizione precedente non dipende dal particolare $i$ scelto.
+\end{osservazione}
+\begin{osservazione}
+	Dato che ogni punto di $X$ ha un intorno aperto omeomorfo a un aperto di $\mathbb{R}^n$, la topologia su $X$ ha le stesse proprietà locali della topologia euclidea, e in particolare:
+	\begin{itemize}
+		\item localmente compatta (cioè ogni punto ha una base di intorni compatti),
+		\item localmente connessa,
+		\item localmente connessa per archi.
+	\end{itemize}
+	Non vale lo stesso per proprietà globali, che vanno richieste separatamente. Tendenzialmente, si richiede che $X$ sia di Hausdorff e che abbia una base numerabile. Per comodità, supporremo anche che $X$ sia connesso.
+\end{osservazione}
+\begin{definizione}
+	Siano $X$ una varietà $m$-dimensionale, $Y$ una varietà $n$-dimensionale, $\mathcal{A}=\left\{(U_\alpha,\phi_\alpha)\right\}_{\alpha\in A}$ un atlante per $X$, $\mathcal{B}=\left\{(V_\beta,\psi_\beta)\right\}_{\beta\in B}$ un atlante per $Y$. $X\times Y$ è una varietà $m+n$-dimensionale, chiamata varietà prodotto, e $\mathcal{A}\times\mathcal{B}=\left\{(U_\alpha\times V_\beta,\phi_\alpha\times\psi_\beta)\right\}_{(\alpha,\beta)\in A\times B}$ è un atlante per $X\times Y$.
+\end{definizione}
+\newpage
+\section{Teorema sulle curve di livello.}
+\begin{definizione}
+	Sia $\Omega$ un aperto di $\mathbb{R}^n$ e sia $F\colon\Omega\to\mathbb{R}^m$ di classe $C^1$. Un punto $P\in\Omega$ è detto punto critico di $F$ se il differenziale $\mathrm{d}F_P\colon\mathbb{R}^n\to\mathbb{R}^m$ non è suriettivo.
+	L'immagine di un punto critico è detta valore critico. Un valore regolare è un punto di $F(\Omega)$ che non è un valore critico. Indichiamo con $\crit{F}\subseteq\Omega$ l'insieme dei punti critici di $F$.
+\end{definizione}
+\begin{osservazione}
+	$\mathrm{Crit}(F)$ è un sottoinsieme chiuso di $\Omega$.
+\end{osservazione}
+\begin{teorema}[della funzione inversa]
+	Siano $\Omega$ un aperto di $\mathbb{R}^n$, $F\colon\Omega\to\mathbb{R}^n$ di classe $C^k$, con $k\geq1$. Sia $P\in\Omega$ tale che $\det(JF(P))\neq0$. Allora esistono un intorno $U$ di $P$ in $\Omega$ e un intorno $V$ di $F(P)$ in $\mathbb{R}^n$ tali che $F_{|U}\colon U\to V$ sia un diffeomorfismo di classe $C^k$.
+\end{teorema}
+\begin{teorema}
+	Siano $\Omega$ un aperto di $\mathbb{R}^{n+m}$, $F\colon\Omega\to\mathbb{R}^m$ di classe $C^\infty$. Se $a\in F(\Omega)$, allora l'insieme $M_a=F^{-1}(a)\backslash\crit{F}$ è una varietà differenziabile $n$-dimensionale compatibile con la topologia indotta da $\mathbb{R}^{m+n}$. In particolare, se $a$ è un valore regolare l'intera curva di livello $F^{-1}(a)$ è una varietà $n$-dimensionale.
+\end{teorema}
+\begin{proof}
+	Sia $P_0\in M_a$. Dato che $P_0$ non è un punto critico, $\mathrm{rnk}JF(P_0)=m$. Allora esiste una sottomatrice quadrata $B$ di ordine $m$ con determinante non nullo, e a meno di permutare le coordinate posso supporre che tale sottomatrice sia quella formata dalle ultime $m$ righe e $m$ colonne di $JF(P_0)$. Sia ora $G\colon\Omega\to\mathbb{R}^{n+m}$ definita da $G(x)=(x^1,\dots,x^n,F(x))$. Allora
+\[JG(P_0)=\left(\begin{array}{c | c}
+I_n & 0 \\
+\hline
+* & B
+\end{array}\right)\]
+Con $I_n$ matrice identità di ordine $n$. Allora $\det JG(P_0)=\det B\neq0$. Allora per il teorema di funzione inversa esistono $\tilde  U\subseteq \Omega\backslash\crit{F}$ intorno di $P_0$ e $W\subseteq\mathbb{R}^{n+m}$ intorno di $G(P_0)$ tali che $G_{|\tilde U}\colon \tilde U\to W$ sia un diffeomorfismo di classe $C^\infty$. Sia $H=G_{|\tilde U}^{-1}=(h^1,\dots,h^{n+m})$. Sulle prime $n$ componenti, $H$ coincide con l'identità, pertanto 
+\begin{equation}
+\label{curvelivello}
+(F\circ H)(y)=(y^1,\dots,y^n,h^{n+1}(y),\dots,h^{n+m}(y)=(y^{n+1},\dots,y^{n+m})\end{equation}
+Siano ora $U=\tilde U\cap M_a$, $V=\left\{x\in\mathbb{R}^n:(x,a)\in W\right\}$. $V$ è un aperto di $\mathbb{R}^n$, dato che $W$ è un aperto di $\mathbb{R}^{n+m}$. Sia $\psi\colon V\to\mathbb{R}^{n+m}$ definita da $\psi(x)=(x,h^{n+1}(x,a),\dots,h^{n+m}(x,a))$. Da (\ref{curvelivello}) si deduce $\psi(V)=F^{-1}(a)\cap\tilde{U}=U$. Allora $\varphi=\psi^{-1}$ è una carta locale su $M_a$, definita in $U$. Per l'arbitrarietà di $P_0$, l'esistenza di un atlante è immediata, quindi $M_a$ è una varietà topologica. Notiamo ora che $\varphi$ è la proiezione di $x\in\mathbb{R}^{n+m}$ sulle prime $n$ componenti (in generale non è vero, in questo caso lo è per l'ipotesi sulla permutazione delle coordinate di $JF(P_0)$). Allora la mappa di transizione tra $(U,\varphi)$ e $(U',\varphi')$ ha come componenti $x_i$ oppure $h_i(x,a)$, e in entrambi i casi è di classe  $C^\infty$.
+\end{proof}
+\[\begin{tikzcd}
+P_0\in M_a\supseteq U \arrow[d, "\sim", "\phi" near start, shift left=0.5ex] \subseteq\tilde{U} \arrow[r, bend left, shift left=0.5ex, "G_{|\tilde{U}}"]\subseteq\Omega\arrow[r, "G"]&\mathbb{R}^{n+m}\supseteq W\arrow[l, bend right, shift left=0.5ex, "H"]\ni G(P_0) \\
+ V \arrow[u, "\sim", "\psi" near start, shift left=0.5ex]
+\end{tikzcd}\]
+ 
+\begin{esempio}
+	Sia $F\colon\mathbb{R}^{n+1}\to\mathbb{R}$ tale che $F(x)=\norm{x}^2$. $F$ è di classe $C^\infty$ e l'unico punto critico è 0, pertanto per $R\neq0$ $F^{-1}(R^2)$ è una varietà di dimensione $n$. Dato che $F^{-1}(R^2)=\mathbb{S}^n_R$, la $n$-sfera è una varietà differenziabile di dimensione $n$. Un atlante è dato dalle due proiezioni stereografiche rispetto ai due "poli" (i punti $(0,\dots,0,\pm R)$), ed è l'atlante di cardinalità minima. Infatti, se esistesse un atlante formato da una sola mappa, allora esisterebbe un omeomorfismo tra la sfera e un aperto di $\mathbb{R}^n$, ma la prima è compatta e il secondo no, e l'immagine continua di un compatto è compatta.
+\end{esempio}
+\newpage
+
+\section{Funzioni differenziabili tra varietà, diffeomorfismi, rivestimenti.}
+\begin{definizione}
+	Siano $X$ e $Y$ due varietà differenziabili, $F\colon X\to Y$ continua. Siano $(U,\varphi)$ una carta locale di $X$ tale che $P\in U$ e $(V,\psi)$ una carta locale di $Y$ tale che $F(P)\in V$. Dato che $V$ è aperto, posso supporre $F(U)=V$. Si dice che $F$ è di classe $C^r$ in un intorno di $P$ se $\tilde{F}=\psi\circ F\circ\varphi^{-1}\colon\mathbb{R}^n\to\mathbb{R}^m$ è di classe $C^r$ in un intorno di $\varphi(P)$.
+	\[\begin{tikzcd}
+	X\supseteq U\arrow[r, "F_{|U}"]\arrow[d, "\sim", shift left=3ex, "\varphi" near start] & \arrow[d, "\sim", shift right=2.5ex, "\psi" near start] V\subseteq Y \\
+	\mathbb{R}^n\supseteq\varphi(U)\arrow[r, "\tilde{F}"]\arrow[u, shift right=2.2ex, "\varphi^{-1}" near start, "\sim"] & \psi(V) \arrow[u, shift left=3.3ex, "\psi^{-1}" near start, "\sim"]\subseteq\mathbb{R}^m
+	\end{tikzcd}\]
+\end{definizione}
+\begin{osservazione}
+	La definizione precedente è ben posta, ossia non dipende dalle particolari carte scelte. Se $(U_1,\varphi_1)$ e $(U_2,\varphi_2)$ sono due carte locali di $X$ e $P\in U_1\cap U_2$, $(V_1,\psi_1)$ e $(V_2,\psi_2)$ sono due carte locali di $Y$ e $F(P)\in V_1\cap V_2$, allora se si pone $\tilde{F}_1=\psi_1\circ F\circ \varphi_1^{-1}$ e $\tilde{F}_2=\psi_2\circ F\circ \varphi_2^{-1}$ si ha $\tilde {F}_2=\theta_{21}\circ\tilde{F}_1\circ\eta_{12}$, e dato che tutte le mappe di transizione sono di classe $C^\infty$ allora $\tilde{F}_1$ è di classe $C^k$ se e solo se $\tilde{F}_2$ lo è.
+	\[\begin{tikzcd}
+		\varphi_1(U_1\cap U_2)\arrow[rrr, "\tilde{F}_1"] & & &\psi_1(U_1\cap U_2) \\
+		&U_1\cap U_2 \arrow[ul, "\sim", "\varphi_1" near start]\arrow[r, "F_{|U_1\cap U_2}"]\arrow[dl, "\sim", "\varphi_2" near start]& V_1\cap V_2\arrow[ur,"\sim", "\psi_1" near start]\arrow[dr,"\sim", "\psi_2" near start] &\\
+		\varphi_2(U_1\cap U_2)\arrow[rrr,"\tilde{F}_2"]\arrow[uu, bend left,  shift left=5ex, near start, "\eta_{12}=\varphi_1\circ\varphi_2^{-1}"]& & &\psi_2(V_1\cap V_2) \arrow[uu,bend right, shift right=5ex, near end, "\theta_{12}=\psi_1\circ\psi_2^{-1}"]
+	\end{tikzcd}\]
+\end{osservazione}
+\begin{proposizione}
+	Siano $X,Y,Z$ varietà differenziabili, $F\colon X\to Y$, $G\colon Y\to Z$ funzioni differenziabili, allora $G\circ F\colon X\to Z$ è differenziabile.
+\end{proposizione}
+\begin{proof}
+	Banale.
+\end{proof}
+\begin{definizione}
+	Siano $X,Y$ due varietà differenziabili, $F\colon X\to Y$. Diremo che $F$ è un diffeomorfismo di classe $C^r$ se è una funzione biiettia di classe $C^r$ e $F^{-1}\colon Y\to X$ è di classe $C^r$. In assenza di specificazione, si intende sempre di classe $C^\infty$.
+\end{definizione}
+\begin{esempio}
+	Sia $X=\mathrm{GL}_n(\mathbb{R})$. $X$ è una varietà differenziabile di dimensione $n^2$, quindi $X\times X$ è una varietà di dimensione $2n^2$. Sia $F\colon X\times X\to X$ tale che $F(A,B)=AB$ (prodotto righe per colonne). Le componenti di $F$ sono polinomiali, in particolare sono di classe $C^\infty$, quindi è una funzione di classe $C^\infty$. Analogamente, se $G\colon X\to X$ tale che $G(A)=A^{-1}$, $G$ è di classe $C^\infty$.
+\end{esempio}
+\textbf{Risultati interessanti senza dimostrazione:}
+\begin{itemize}
+	\item Esistono varietà topologiche di dimensione strettamente maggiore di 3 che non ammettono alcuna struttura differenziabile.
+	\item Una varietà topologica di dimensione al più 3 ammette sempre una struttura di varietà differenziabile, che è unica a meno di diffeomorfismi.
+	\item Per ogni $n\neq 4$, $\mathbb{R}^n$ ammette un'unica struttura di varietà differenziabile (sempre a meno di diffeomorfismi). 
+	\item $\mathbb{R}^4$ ammette un'infinità non numerabile di strutture differenziali non diffeomorfe tra loro.
+	\item La sfera $\mathbb{S}^7$ ha esattamente 28 strutture differenziali non diffeomorfe, che possono essere descritte esplicitamente.
+\end{itemize}
+\begin{definizione}
+	Una funzione $F\colon X\to Y$ è un diffeomorfismo locale se per ogni $P\in X$ esiste un intorno aperto $U$ contenente $P$ tale che $F(U)$ sia aperto e $F_{|U}\colon U\to F(U)$ sia un diffeomorfismo.
+\end{definizione}
+\begin{definizione}
+	$\pi\colon X\to Y$ è un rivestimento se
+	\begin{itemize}
+		\item $\pi$ è suriettiva e differenziabile,
+		\item per ogni $P\in Y$ esiste un intorno aperto connesso $U\subseteq Y$ tale che la restrizione di $\pi$ a una qualunque componente connessa $\tilde U$ di $\pi^{-1}(U)$ sia un diffeomorfismo tra $\tilde{U}$ e $U$.
+	\end{itemize}
+	Se $X$ è semplicemente connesso, $\pi$ si dice rivestimento universale.
+\end{definizione}
+\begin{esempio}
+	Siano $X=\mathbb{R}$, $Y=\mathbb{S}^1_R\subseteq\mathbb{R}^2$. Allora $F\colon X\to Y$ tale che $F(\theta)=(R\cos\theta,R\sin\theta)$ è un rivestimento universale.
+\end{esempio}
+\newpage
+
+\section{Divagazione sui gruppi di Lie.}
+\begin{definizione}
+	Un gruppo di Lie è un gruppo $G$ dotato di una struttura di varietà differenziabile tale che il prodotto $F\colon G\times G\to G$ che mappa $(g_1,g_2)$ in $g_1g_2$ e l'inverso $H\colon G\to G$ che mappa $g$ in $g^{-1}$ siano funzioni di classe $C^\infty$.
+\end{definizione}
+\begin{esempio} Alcuni gruppi di Lie
+	\begin{enumerate}
+		\item $\mathbb{R}^2$, che è isomorfo a $\mathbb{C}$, eredita da quest'ultimo la struttura di campo. Allora \[\mathbb{S}^1=\left\{(x,y)\in\mathbb{R}^2:x^2+y^2=1\right\}\] si può identificare con $U(1)=\left\{z\in\mathbb{C}:|z|=1\right\}$, che è un gruppo abeliano. Allora $\mathbb{S}^1$ è un gruppo di Lie commutativo.
+		\item $\mathbb{R}^4$ è isomorfo al corpo dei quaternioni $\mathbb{H}$. Allora \[\mathbb{S}^3=\left\{(x,y,z,t)\in\mathbb{R}^4:x^2+y^2+z^2+t^2=1\right\}\] si può identificare con il gruppo dei quaternioni unitari. Di nuovo, $\mathbb{S}^3$ è un gruppo di Lie, è anche semplicemente connesso, ma a differenza del caso precedente non è un gruppo abeliano. 
+		\item $\mathbb{S}^2$ non è un gruppo di Lie.
+		\item In meccanica quantistica, le matrici di Pauli
+		\[\sigma_1=\left(\begin{array}{c c}
+		0 & 1 \\
+		1 & 0
+		\end{array}\right)\]
+		\[\sigma_2=\left(\begin{array}{c c}
+		0 & -i \\
+		i & 0
+		\end{array}\right)\]
+		\[\sigma_3=\left(\begin{array}{c c}
+		1 & 0\\
+		0 & -1
+		\end{array}\right)\]
+		sono matrici hermitiane e unitarie, quindi $\sigma_m^2=I$. Inoltre, $\sigma_l\sigma_m=i\varepsilon_{lmn}\sigma_n$. Se si pone $\tilde{\sigma}_m=i\sigma_m$ si ha $\tilde{\sigma}_m^2=-I$, $\tilde{\sigma}_l\tilde{\sigma}_m=-\varepsilon_{lmn}\tilde\sigma_n$.
+		Tramite la mappa $1\mapsto I$, $i\mapsto\tilde{\sigma}_3$, $j\mapsto\tilde{\sigma}_2$, $k\mapsto\tilde{\sigma}_3$, possiamo rappresentare i quaternioni sotto forma di matrici, in particolare
+		\[z=a+bi+cj+dk\mapsto \left(\begin{array}{c c}
+		a+ib & c+id \\
+		-c+id & a-ib
+		\end{array}\right)=A_z\in\mathcal{M}_2(\mathbb{C})\]
+		Questa matrice ha la proprietà che $\det A_z=|z|^2$, e in particolare posso identificare il gruppo dei quaternioni unitari con $SU(2)$.
+		\item Ponendo $\mathbb{H}_0=\left\{z=a+ib+jc+kd\in\mathbb{H}:|z|=1,a=0\right\}$, posso identificare $\mathbb{R}^3$ con $\mathbb{H}_0$ tramite la mappa $x=(x_1,x_2,x_3)\mapsto q(x)=ix_1+jx_2+kx_3$. Se $z\in\mathbb{H}$ è unitario, posso costruire la mappa da $\mathbb{H}_0$ in sè (e quindi da $\mathbb{R}^3$ in sè) tale che $q(x)\mapsto R_z(q(x))=zq(x)z^{-1}$, infatti si vede facilmente che $zq(x)z^{-1}\in\mathbb{H}_0$. Inoltre, $|q(x)|=|R_z(q(x))|$, quindi $R_z$ è un'isometria di $\mathbb{R}^3$. In particolare, $\det R_z=1$, quindi $R_z\colon\mathbb{R}^3\to\mathbb{R}^3$ è una rotazione. Si può mostrare che tutte le rotazioni sono della forma $R_z$ per un qualche $z\in\mathbb{H}$ unitario. Notato poi che $R_z=R_{z'}$ se e solo se $z=\pm z'$, si ottiene un omeomorfismo suriettivo da $SU(2)$ in $SO(3)$. Il nucleo di questo omeomorfismo è $\left\{I,_I\right\}$ quindi $SU(2)/\left\{I,-I\right\}$ è isomorfo a $SO(3)$. Se invece pensiamo a $SU(2)$ e $SO(3)$ come varietà, l'omeomorfismo suriettivo precedente è un rivestimento a due fogli (cioè la controimmagine di un qualunque elemento di $SO(3)$ è composta da due elementi di $SU(2)$). Dato che $SU(2)$ è isomorfo a $\mathbb{S}^3$, che è semplicemente connesso, $SU(2)$ è il rivestimento universale di $SO(3)$.
+		
+	\end{enumerate}
+\end{esempio}
+\newpage
+
+\section{Spazio tangente, derivazioni, differenziale.}
+\begin{definizione}
+	 Sia $X$ una varietà differenziabile. Se $U\subseteq X$ è un aperto, poniamo
+	 \[C^\infty(U)=\left\{f\colon U\to\mathbb{R}:f\textrm{ è di classe }C^\infty \right\}\]
+\end{definizione}
+\begin{osservazione}
+	$C^\infty(U)$ è un anello.
+\end{osservazione}
+\begin{definizione}
+	Siano $X$ una varietà differenziabile, $P\in X$. Consideriamo l'insieme delle coppie $(U,f)$, dove $U$ è un aperto di $X$ contenente $P$ e $f\in C^\infty(U)$. Introduco la relazione di equivalenza $(U_1,f_1)\sim(U_2,f_2)$ se esiste $W\subseteq U_1\cap U_2$ intorno aperto di $P$ tale che $f_{1|W}=f_{2|W}$. Definisco ora
+	\[C^\infty_P=\left\{(U,f):P\in U,f\in C^\infty(U)\right\}\slash\sim\]
+	Posto $f_P=[(U,f)]$, si dice che $f_P$ è il germe di $f$ in $P$.
+	Dotiamo ora $C^\infty_P$ di una somma e un prodotto ponendo
+	\[[(U_1,f_1)]+[(U_2,f_2)]=[(U_1\cap U_2,f_1+f_2)]\]
+	\[[(U_1,f_1)]\cdot[(U_2,f_2)]=[(U_1\cap U_2,f_1f_2)]\]
+	Con tali operazioni, $C^\infty_P$ è un anello, detto anello dei germi delle funzioni di classe $C^\infty$ in $P$. Inoltre, per ogni $U\subseteq X$ aperto contentente $X$ si ha un omomorfismo di anelli tra $C^\infty(U)$ e $C^\infty_P$, che associa $f$ al suo germe in $P$, $f_P=[(U,f)]$.	
+\end{definizione}
+\begin{definizione}
+	Sia $F\colon X\to Y$ una funzione differenziabile tra due varietà. Se $U\subseteq Y$ è aperto, allora $F^{-1}(U)\subseteq X$ è aperto per continuità di $F$. Se $f\in C^\infty_Y(U)$, posso costruire il seguente diagramma
+	\[\begin{tikzcd}
+	X\supseteq F^{-1}(U)\arrow[rr, "F"]\arrow[dr, "f\circ F"] & &U\subseteq Y\arrow[dl, "f"]\\
+	& \mathbb{R}
+	\end{tikzcd}\]
+	Chiaramente $f\circ F\in C^\infty_X(F^{-1}(U))$, quindi per ogni aperto $U\subseteq Y$ $F\colon X\to Y$ induce una funzione $F^*\colon C^\infty_Y(U)\to C^\infty_X(F^{-1}(U))$, chiamata pullback, tale che $F^*(f)=f\circ F$. $F^*$ è un omomorfismo di anelli. Se $P\in X$ e $Q=F(P)$, la funzione $F^*_P\colon C^\infty_{Y,Q}\to C^\infty_{X,P}$ che mappa $[(U,f)]$ in $[(F^{-1}(U),f\circ F)]$ induce un omomorfismo di anelli dei germi delle funzioni di classe $C^\infty$. Anche in questo caso $F^*_P$ si chiama pullback.
+\end{definizione}
+\begin{definizione}
+	Siano $X$ una varietà differenziabile e $P$ un punto di $X$. Una derivazione in $P$ è una funzione $D_P\colon C^\infty_P\to\mathbb{R}$ tale che 
+	\begin{itemize}
+		\item è lineare: $D_P(f+g)=D_P(f)+D_P(g)$,
+		\item è nulla sulle costanti,
+		\item rispetta la regola di Leibniz: $D_P(fg)=D_P(f)g(P)+D_P(g)f(P)$.
+	\end{itemize}
+	L'insieme delle derivazioni in $P$, indicato con $\der{P}$, ha una naturale struttura di spazio vettoriale reale.	
+\end{definizione}
+\begin{definizione}
+	Lo spazio tangente a $X$ in un suo punto $P$ è $T_PX=\der{P}$.
+\end{definizione}
+\begin{osservazione}
+Intuitivamente, si potrebbe pensare al vettore tangente a una varietà in un punto $P$ come il vettore tangente a una curva passante per $P$ e con sostegno nella varietà. Ad esempio, se la varietà è contenuta in $\mathbb{R}^n$ si potrebbe definire lo spazio tangente in $P$ come lo spazio formato dai $\gamma'(0)$, dove $\gamma(-\varepsilon,\varepsilon)\to\mathbb{R}^n$ è una curva di classe $C^1$ definita per qualche $\varepsilon>0$, con sostegno nella varietà e tale che $\gamma(0)=P$. Purtroppo nel caso generale si deve passare attraverso le carte locali e la teoria non è molto elegante. Per questo motivo si preferisce la costruzione precedente, anche se più astratta. Inoltre, la definizione precedente è intrinseca, cioè non dipende da scelte arbitrarie (ad esempio, la scelta di una carta locale).
+\end{osservazione}
+\begin{definizione}
+	Sia $(U,\varphi)$ una carta locale attorno a $P\in X$. Usando $\varphi$ posso definire delle derivazioni nel modo seguente: sia $f_P=[(V,f)]\in C^\infty_P$. A meno di sostituire $V$ con un aperto più piccolo contenente $P$, posso supporre $V\subseteq U$.
+	\[\begin{tikzcd}
+	U\supseteq V\arrow[rr,"\sim", "\varphi" near start]\arrow[dr, "f"] & &\varphi(V)\subseteq \mathbb{R}^n\arrow[dl, "f\circ\varphi^{-1}"]\\
+	& \mathbb{R}	
+	\end{tikzcd}\]
+	Definisco
+	\[\left.\partial_i\right|_{P}(f_P)=\frac{\partial(f\circ\varphi^{-1})}{\partial x^i}(\varphi(P))\in T_PX\]
+\end{definizione}
+\begin{osservazione}
+	Possiamo interpretare $\left.\partial_i\right|_{P}(f_P)$ come l'operatore che associa il vettore tangente a $f_P$ nella direzione $i$.
+\end{osservazione}
+\begin{osservazione}
+	Si verifica facilmente che la definizione precedente è ben posta, ossia non dipende dal particolare elemento scelto dalla classe di equivalenza $f_P$. Dipende invece dalla carta locale, quindi se cambio le coordinate locali cambio i vettori tangenti
+\end{osservazione}
+\begin{definizione}
+	Sia $F\colon X\to Y$ una funzione differenziabile. Siano $P\in X$, $Q=F(P)\in Y$. Sia $D\colon C^\infty_{X,P}\to\mathbb{R}$ un elemento di $T_PX$. Consideriamo il diagramma
+	\[\begin{tikzcd}
+	C^\infty_{Y,Q}\arrow[rr, "F^*_P"]\arrow[dr, "D\circ F^*_P"] & &C^\infty_{X,Q}\arrow[dl, "D"]\\
+	& \mathbb{R}	
+	\end{tikzcd}\]
+	Ottengo così la funzione $D\circ F^*_P\colon C^\infty_{Y,Q}\to\mathbb{R}$, che è una derivazione in quanto $(D\circ F^*_P)(f)=D(f\circ F)$. Definisco quindi la funzione $\mathrm{d}F_P\colon T_PX\to T_{F(P)}Y$ tale che $\mathrm{d}F_P(D)=D\circ F^*_P$ come il differenziale di $F$ in $P$. A volte si indica $\mathrm{d}F_P$ con $T_PF$.
+\end{definizione}
+\begin{osservazione}
+	$\mathrm{d}F_P$ è lineare.
+\end{osservazione}
+\begin{osservazione}
+	Intuitivamente, pensando a $v\in T_PX$ come al vettore tangente in $P$ a una certa curva $\gamma$ con sostegno in $X$, mi aspetto che $F$ induca una mappa che associa $v$ al vettore $w\in T_QY$ tangente in $Q$ alla curva $F\circ\gamma$.
+\end{osservazione}
+\begin{proposizione}
+	\begin{enumerate}
+		\item Se $F$ è l'identità $\textrm{id}_X\colon X\to X$, allora $\mathrm{d}(\textrm{id}_X)_P=\textrm{id}_{T_PX}$.
+		\item Se $X,Y,Z$ sono tre varietà e $F\colon X\to Y$, $G\colon Y\to Z$ sono differenziabili, allora $\mathrm{d}(G\circ F)_P=\mathrm{d}G_{F(P)}\circ\mathrm{d}F_P$.
+		\item Se $F$ è un diffeomorfismo, allora $(\mathrm{d}F_P)^{-1}=\mathrm{d}(F^{-1})_{F(P)}$.
+	\end{enumerate}
+\end{proposizione}
+\begin{proof}
+	\begin{enumerate}
+		\item Se $F=id_X$, allora $F^*_P\colon C^\infty_P\to C^\infty_P$ è anch'essa l'identità. Allora $\mathrm{d}(id_X)_P\colon D\mapsto D\circ F^*_P=D$, ovvero $\mathrm{d}(id_X)_P=id_{T_PX}$.
+		\item Sia $D\in T_PX$. Allora
+		\[\mathrm{d}(G\circ F)_P(D)=D\circ(G\circ F)^*_P=D\circ(F^*_P\circ G^*_{F(P)})=\mathrm{d}F_P(D)\circ G^*_{F(P)}=(\mathrm{d}G_{F(P)}\circ\mathrm{d}F_P)(D)\]
+		\item Dato che $F^{-1}\circ F=id_X$, per i punti precedenti si ha 
+		\[id_{T_PX}=\mathrm{d}(F^{-1}\circ F)_P=\mathrm{d}(F^{-1})_{F(P)}\circ\mathrm{d}F_P\]
+		Da cui segue facilmente la tesi.
+	\end{enumerate}
+\end{proof}
+ Vogliamo ora dimostrare che $\dim T_PX=\dim X$.
+\begin{lemma}
+	Siano $\tilde{x}\in\mathbb{R}^n$, $f\in C^\infty_{\tilde{x}}$. Allora esistono dei germi di funzioni $g_1,\dots,g_n\in C^\infty_{\tilde{x}}$ tali che \[g_j(\tilde{x})=\frac{\partial f}{\partial x^j}(\tilde x)\]
+	\[f(x)=f(\tilde{x})+\sum_{j=1}^{n}g_j(x)(x^j-\tilde{x}^j)\]
+\end{lemma}
+\begin{proof}
+	Sia $(U,f)$ un rappresentante di $f\in C^\infty_{\tilde{x}}$. A patto di restringere $U$, posso supporre quest'ultimo stellato rispetto a $\tilde{x}$. Allora
+	\[f(x)=f(\tilde{x})+\int_{0}^{1}\frac{\partial f}{\partial t}(\tilde{x}+t(x-\tilde{x}))\mathrm{d}t=\]
+	\[=f(\tilde{x})+\sum_{j=1}^{n}(x^j-\tilde{x}^j)\int_{0}^{1}\frac{\partial f}{\partial x^j}(\tilde{x}+t(x-\tilde{x}))\mathrm{d}t\]
+	La tesi è immediata ponendo
+	\[g_j(x)=\int_{0}^{1}\frac{\partial f}{\partial x^j}(\tilde{x}+t(x-\tilde{x}))\mathrm{d}t\]
+	che sono funzioni di classe $C^\infty$ su $U$.
+\end{proof}
+
+\begin{teorema} L'idea del teorema è dimostrare la tesi per aperti di $\mathbb{R}^n$, e poi nel caso generale sfruttare il fatto che una varietà differenziabile è localmente modellata da un opportuno aperto di $\mathbb{R}^n$.
+	\begin{enumerate}
+		\item Siano $U$ un aperto di $\mathbb{R}^n$, $\tilde{x}\in U$, $\iota\colon\mathbb{R}^n\to T_{\tilde{x}}U$ tale che \[\iota(a^1,\dots,a^n)=\sum_{j=1}^{n}a^j\left.\frac{\partial}{\partial x^j}\right|_{\tilde{x}}\]
+		Allora $\iota$ è un isomorfismo di spazi vettoriali.
+		\item Sia $X$ una varietà differenziabile di dimensione $n$ e $P\in X$. $T_PX$ è uno spazio vettoriale di dimensione $n$. In particolare, se $\varphi=(x^1,\dots,x^n)$ è una carta locale in $P$, allora
+		\[\left\{\left.\partial_1\right|_{P},\dots,\left.\partial_n\right|_{P}\right\}\]
+		è una base di $T_PX$.
+	\end{enumerate} 
+\end{teorema}
+\begin{proof}
+	\begin{enumerate}
+		\item Chiaramente $\iota$ è lineare. Inoltre, se $(a^1,\dots,a^n)\neq0$, allora esiste $h$ tale che $a^h\neq0$. Se $F_h\colon\mathbb{R}^n\to\mathbb{R}$ mappa $(q^1,\dots,q^n)$ in $q^h$, allora
+		\[\iota(a^1,\dots,a^n)(F_h)=\sum_{j=1}^{n}a^j\frac{\partial x^h}{\partial x^j}=\sum_{j=1}^{n}a^j\delta^j_{h}=a^h\neq0\]
+		Quindi $\iota$ è iniettiva.
+		Per la suriettività, sia $D\in T_{\tilde{x}}U$ una derivazione. Posso porre $a^j=D(F_j)$, dato che $F_j\in C^\infty_{\tilde{x}}$. Dico ora che $D=\iota(a^1,\dots,a^n)$. Sia quindi $f\in C^\infty_{\tilde{x}}$, per il lemma precedente ho
+		\[D(f)=D\left[f(\tilde{x})+\sum_{j=1}^{n}(x^j-\tilde{x}^j)g_j(x)\right]=\]
+		\[=D(f(\tilde{x}))+\sum_{j=1}^{n}D\left[(x^j-\tilde{x}^j)g_j(x)\right]=\]
+		\[=\sum_{j=1}^{n}(D(x^j)-D(\tilde{x}^j)g_j(\tilde{x})+\sum_{j=1}^{n}(x^j-\tilde{x}^j)Dg_j=\sum_{j=1}^{n}a^jg_j(\tilde{x})=\]\[=\sum_{j=1}^{n}a^j\frac{\partial f}{\partial x^j}(\tilde{x})=\iota(a^1,\dots,a^n)(f)\]
+		Quindi $\iota$ è un isomorfismo.
+		\item Siano $P\in X$ e $(U,\varphi)$ una carta locale, con $P\in U$. Dato che $\varphi$ è un diffeomorfismo, allora $\mathrm{d}\varphi_P\colon T_PU\to T_{\varphi(P)}\varphi(U)\cong\mathbb{R}^n$ è un isomorfismo tra spazi vettoriali, e in particolare $\dim T_PU=n$. Le controimmagini della base canonica di $T_{\varphi(P)}\varphi(U)\cong\mathbb{R}^n$ formano chiaramente una base di $T_PU$, e sono proprio quelli indicati sopra.
+	\end{enumerate}
+\end{proof}
+\begin{osservazione}
+	La controimmagine tramite $\varphi$ della base canonica di $\mathbb{R}^n$ non genera una base "canonica" dello spazio tangente. Infatti la base di $T_PU$ dipende dalla particolare carta scelta.
+\end{osservazione}
+\begin{osservazione}
+	Siano $F\colon X\to Y$ differenziabile, $(U,\varphi)$ una carta locale per $X$, $P\in U$, $(V,\psi)$ una carta locale per $Y$ tale che $F(P)\in V$. Posso supporre $F(U)=V$. In tal caso ottengo il diagramma
+	\[\begin{tikzcd}
+	X\supseteq U\arrow[r, "F_{|U}"]\arrow[d, "\sim", "\varphi" near start, shift left=2.5ex]&V\subseteq Y\arrow[d, "\sim", "\psi" near start, shift right=3ex]\\
+	\mathbb{R}^m\supseteq\varphi(U)\arrow[r, "\tilde F"]&\psi(V)\subseteq\mathbb{R}^n
+	\end{tikzcd}\]
+	Tramite $\varphi$ abbiamo la base $\left.\partial_1\right|_{P},\dots,\left.\partial_m\right|_{P}$ di $T_PX$ e tramite $\psi$ abbiamo la base $\left.\partial_1\right|_{F(P)},\dots,\left.\partial_n\right|_{f(P)}$ di $T_{F(P)}Y$.
+	Il differenziale di $F$ in $P$ è \[\mathrm{d}F_P\colon T_PX\to T_{F(P)}Y\]
+	Vogliamo scrivere la matrice associata a $\mathrm{d}F_P$ nelle basi dei due spazi. Si ha
+	\[\mathrm{d}F_P\left(\left.\frac{\partial}{\partial x^h}\right|_P\right)=\sum_{k=1}^{n}a^h_k\left.\frac{\partial}{\partial y^k}\right|_{F(P)}\]
+	La matrice $A=(a^h_k)$ è la matrice cercata. Sia $g\in C^\infty_{Y,F(P)}$ e scegliamo un rappresentate $g$ definito su un intorno aperto di $F(P)$ $W\subseteq V$. Sia $\tilde{g}=g\circ\psi^{-1}$
+	\[\begin{tikzcd}
+	 V\supseteq W\arrow[dr, "g"]\arrow[dd, "\sim", "\psi" near start, shift left=2.5ex] \\
+	 &\mathbb{R}\\
+	 \psi(V)\supseteq\psi(W)\arrow[ur,"\tilde{g}"]
+	\end{tikzcd}\]
+	Si ha
+	\[\mathrm{d}F_P\left(\left.\frac{\partial}{\partial x^h}\right|_P\right)(g)=\left(\left.\frac{\partial}{\partial x^h}\right|_P\circ F^*_P\right)(g)=\left.\frac{\partial}{\partial x^h}(g\circ F)\right|_P=\]\[=\left.\frac{\partial}{\partial x^h}(\tilde{g}\circ\tilde{F})\right|_{\varphi(P)}=\sum_{k=1}^{n}\left.\frac{\partial\tilde{g}}{\partial y^k}\right|_{\tilde{F}(\varphi(P))}\left.\frac{\partial y^k}{\partial x^h}\right|_{\varphi(P)}\]
+	Dato che $y=\tilde{F}(x)$, ho
+	\[\left.\frac{\partial}{\partial x^h}\right|_P=\sum_{k=1}^{n}\left(\left.\frac{\partial\tilde{F}^k}{\partial x^h}\right|_{\varphi(P)}\left.\frac{\partial}{\partial y^k}\right|_{\tilde{F}(\varphi(P))}\right)\tilde{g}=\]\[=\sum_{k=1}^{n}\left(\left.\frac{\partial\tilde{F}^k}{\partial x^h}\right|_{\varphi(P)}\left.\frac{\partial}{\partial y^k}\right|_{F(P)}\right)g\]
+	E quindi
+	\[a^h_{k}=\left.\frac{\partial\tilde{F}^k}{\partial x^h}\right|_{\varphi(P)}\]
+	Cioè la matrice che rappresenta localmente $\mathrm{d}F_P$ è la matrice jacobiana di $\tilde{F}=\psi\circ F\circ\varphi^{-1}$.
+\end{osservazione}
+\begin{osservazione}
+	Il calcolo di $\mathrm{d}F_P$ permette di formulare alcuni teoremi validi per funzioni differenziabili tra $\mathbb{R}^n$ e $\mathbb{R}^m$ in una versione per varietà.
+\end{osservazione}
+\begin{teorema}[della funzione inversa]
+	Sia $F\colon X\to Y$ una funzione differenziabile tra due varietà. Sia $P\in X$ tale che $\mathrm{d}F_P\colon T_PX\to T_{F(P)}Y$ sia un isomorfismo. Allora esistono un intorno $U\subseteq X$ di $P$ e un intorno $V\subseteq Y$ di $F(P)$ tali che $F_{|U}\colon U\to V$ sia un diffeomorfismo.
+\end{teorema}
+\begin{proof}
+	Possiamo scegliere due carte $(U,\varphi)$ per $X$, con $P\in U$, e $(V,\psi)$ per $Y$, con $F(P)\in V$, tali che si abbia il seguente diagramma
+	\[\begin{tikzcd}
+	X\supseteq U\arrow[r, "F_{|U}"]\arrow[d, "\sim", "\varphi" near start, shift left=2.5ex]&V\subseteq Y\arrow[d, "\psi" near end, "\sim", shift right=3ex]\\
+	\mathbb{R}^m\supseteq\varphi(U)\arrow[r, "\tilde F"]&\psi(V)\subseteq\mathbb{R}^n
+	\end{tikzcd}\]
+	$\tilde{F}$ è la rappresentazione locale di $F$ e $J\tilde F$ rappresenta $\mathrm{d}F_P$. Se quest'ultimo è un isomorfismo, allora $J\tilde{F}$ è invertibile. Allora per $\tilde F$ vale il teorema della funzione inversa di $\mathbb{R}^n$.
+\end{proof}
+\begin{teorema}[della funzione implicita]
+	Sia $\phi\colon X\times Y\to Y$ una funzione differenziabile. Per ogni $P\in X$ definisco $\phi_P\colon Y\to Y$ tale che $\phi_P(Q)=\phi(P,Q)$. Supponiamo che $(P_0,Q_0)\in X\times Y$ sia tale che \[\mathrm{d}(\phi_{P_0})_{Q_0}\colon T_{Q_0}Y\to T_{\phi(P_0,Q_0)}Y\]
+	sia invertibile. Allora esistono un intorno $V_0\subseteq X$ di $P_0$, un intorno $W_0\subseteq Y$ di $Q_0$ e una funzione differenziabile $F\colon V_0\to W_0$ tale che $\phi^{-1}(\phi(P_0,Q_0))\cap(V_0\times W_0)$ coincide con il grafico di $F$.
+\end{teorema}
+\begin{proof}
+	Usando le carte locali ci si riduce al teorema della funzione implicita per funzioni su $\mathbb{R}^n$.
+\end{proof}
+\newpage
+
+\section{Immersioni, sommersioni, embedding, sottovarietà.}
+\begin{definizione}
+	Sia $F\colon X\to Y$ differenziabile. Il rango di $F$ in $P\in X$ è il rango di $\mathrm{d}F_P$.
+\end{definizione}
+\begin{definizione}Sia $F\colon X\to Y$ differenziabile.
+	\begin{enumerate} 
+		\item $F$ è una immersione se $\mathrm{d}F_P$ è iniettivo per ogni $P\in X$.
+		\item $F$ è una sommersione se $\mathrm{d}F_P$ è suriettivo per ogni $P\in X$.
+		\item $F$ è un embedding se è una immersione e se inoltre $F$ è un omeomorfismo tra $X$ e $F(X)$.
+	\end{enumerate}
+\end{definizione}
+\begin{esempio}
+	\begin{itemize}
+		\item Consideriamo la curva $\alpha\colon\mathbb{R}\to\mathbb{R}^2$ tale che $\alpha(t)=(t^2,t^3)$. $\alpha$ è iniettiva, ma $\alpha'(t)=(2t,3t^2)$ si annulla in $t=0$. In particolare, il differenziale $\mathrm{d}\alpha$ non è iniettivo in 0, quindi $\alpha$ non è una immersione.		
+		\item Sia $\beta\colon\mathbb{R}\to\mathbb{R}^2$ tale che $\beta(t)=(t^3-4t,t^2-4)$. Dato che $\beta'(t)=(3t^2-4,2t)$ non si annulla mai, $\beta$ è una immersione (anche se $\beta$ non è iniettiva, dato che $\beta(2)=\beta(-2)=(0,0)$, e in particolare non è un embedding).
+		\item Sia $\gamma\colon(-\frac{\pi}{2},\frac{3}{2}\pi)\to\mathbb{R}^2$ tale che $\gamma(t)=(\sin2t,\cos t)$. $\gamma$ è iniettiva, inoltre $\gamma'(t)=(2\cos2t,-\sin t)$ non è mai nullo, quindi $\gamma$ è una immersione. Nonostante ciò, l'immagine di $\gamma$ è compatta (rispetto alla topologia di $\mathbb{R}^2$), ma $\gamma$ è definita su intervallo aperto, quindi non è un omeomorfismo, e quindi non è un embedding.
+	\end{itemize}
+\end{esempio}
+\begin{teorema}
+	Sia $F\colon X_1\to X_2$ una immersione. Allora per ogni $P\in X_1$ esiste un intorno aperto $U\subseteq X_1$ tale che $F_{|U}\colon U\to X_2$ sia un embedding.
+\end{teorema}
+\begin{osservazione}
+	Se $F\colon X\to Y$ è una immersione iniettiva, $F(X)$ ha una naturale struttura di varietà indotta da quella di $X$. Infatti, per il teorema precedente esiste un atlante $\mathcal{A}=\left\{(U_\alpha,\varphi_\alpha)\right\}_{\alpha\in A}$ tale che $F_{|U_\alpha}$ è un omeomorfismo sulla sua immagine per ogni $\alpha\in A$. Allora si verifica facilmente che $\left\{\left(F(U_{\alpha}),\varphi_\alpha\circ F^{-1}_{|U_{\alpha}}\right)\right\}$ è un atlante per $F(X)$. Può accadere che tale struttura non sia compatibile con la struttura di varietà di $Y$.
+\end{osservazione}
+\begin{lemma}
+	Sia $f\colon X\to Y$ una funzione biiettiva e continua, $X$ uno spazio topologico compatto, $Y$ uno spazio topologico di Hausdorff. Allora $f$ è un omeomorfismo.
+\end{lemma}
+\begin{proof}
+	Sia $g=f^{-1}\colon Y\to X$. Sia $V\subseteq X$ chiuso. Allora $V$ è compatto, quindi $g^{-1}(V)=f(V)$ è compatto. Dato che $Y$ è di Hausdorff, $f(V)$ è anche chiuso.
+\end{proof}
+\begin{teorema}
+	Sia $f\colon M\to N$ una immersione iniettiva. Se $M$ è compatto, allora $f$ è un embedding di $X$ in $Y$.
+\end{teorema}
+\begin{proof}
+	$M$ è uno spazio topologico compatto, $N$ è di Hausdorff, $f$ è continua e iniettiva. La tesi deriva dal lemma precedente.
+\end{proof}
+\begin{definizione}
+	Una sottovarietà (embedded) di una varietà $X$ è un sottoinsieme $Z\subseteq X$ dotato di una struttura di varietà differenziabile tale che la mappa di inclusione $\iota\colon Z\to X$ sia un embedding.
+\end{definizione}
+\begin{definizione}
+	Una sottovarietà immersa è l'immagine di una immersione iniettiva $F\colon X\to Y$, considerata con la struttura di varietà indotta da $X$ tramite $F$.
+\end{definizione}
+\begin{osservazione}
+	Una sottovarietà immersa è anche embedded, il viceversa non è in generale vero.
+\end{osservazione}
+\begin{esempio}
+	Sia $\Lambda$ il reticolo di $\mathbb{R}^2$ generato da $(1,0)$ e $(0,1)$, e sia $T^2=\mathbb{R}^2\slash\Lambda$ il toro. Se considero la retta $r$ di equazione $y=mx$. Se $m\in\mathbb{R}\backslash\mathbb{Q}$, allora l'immagine $\gamma$ della retta $r$ è densa e semplice nel toro. $\gamma$ è una sottovarietà immersa (poichè è iniettiva), il differenziale non è mai nullo, ma non è embedded. Infatti la topologia su $\gamma$ indotta da $r$ non coincide con la topologia su $\gamma$ indotta da $T^2$.
+\end{esempio}
+\begin{teorema}[del rango]
+	Siano $M,N$ varietà differenziabili e siano $m=\dim M$, $n=\dim N$, $F\colon M\to N$ una funzione differenziabile di rango costante $r$. Per ogni $P\in M$ esistono carte locali $(U,\varphi)$ per $M$ centrata in $P$, $(V,\psi)$ per $N$ centrata in $F(P)$ tali che $F(U)\subseteq V$ e inoltre tali che la rappresentazione locale $\tilde{F}$ di $F$ sia della forma
+	\[\tilde{F}(x^1,\dots,x^r,x^{r+1},\dots,x^m)=(x^1,\dots,x^r,0,\dots,0)\]
+	In particolare
+	\begin{itemize}
+		\item Se $F$ è una sommersione, allora 
+		\[\tilde{F}(x^1,\dots,x^n,x^{n+1},\dots,x^m)=(x^1,\dots,x^n)\]
+		\item Se $F$ è una immersione, allora
+		\[\tilde{F}(x^1,\dots,x^m)=(x^1,\dots,x^m,0,\dots,0)\]
+		
+	\end{itemize}
+\end{teorema}
+\begin{definizione}
+	Siano $X$ una varietà $n$-dimensionale, $Z\subset X$ una sottovarietà $k$-dimensionale di $X$. Una carta $(U,\varphi)$ è detta adattata a $Z$ se $U\cap Z=\emptyset$ oppure se $\varphi(U\cap Z)=\varphi(U)\cap\left\{x\in\mathbb{R}^n:x=(x^1,\dots,x^k,0,\dots,0)\right\}$. Un atlante di $X$ è detto adattato a $Z$ se ogni sua carta lo è.
+\end{definizione}
+\begin{definizione}
+	Sia $F\colon X\to Y$ una funzione differenziabile tra varietà. $P\in X$ è un punto critico di $F$ se $\mathrm{d}F_P\colon T_PX\to T_{F(P)}Y$ non è suriettivo. Un valore critico è l'immagine di un punto critico. Un valore regolare è un punto di $F(X)$ che non è valore critico. Indichiamo con $\crit{F}\subseteq X$ l'insieme dei punti critici di $F$. Una curva di livello di $F$ è un qualunque insieme della forma $F^{-1}(Q)$, con $Q\in F(X)$.
+\end{definizione}
+\begin{teorema}
+	Sia $F\colon X\to Y$ una funzione differenziabile tra varietà, con $\dim Y=n$, $\dim X=n+k$.
+	\begin{enumerate}
+		\item Per ogni $a\in F(X)$, l'insieme
+		\[X_a=F^{-1}(a)\backslash\crit{F}\]
+		è una sottovarietà $k$-dimensionale di $X$.
+		\item Se $P\in X_a$, lo spazio tangente $T_PX_a$ coincide con il nucleo di $\mathrm{d}F_P\colon T_PX\to T_{F(P)}Y$. In particolare, se $Y=\mathbb{R}$ e $F\in C^\infty(X)$ allora $T_PX_a$ è costituito dalle derivazioni $D\in T_PX$ tali che $D(F)=0$.
+	\end{enumerate}
+\end{teorema}
+\begin{proof}
+	\begin{enumerate}
+		\item Usando carte locali ci si riconduce al caso di una funzione $F\colon\mathbb{R}^{n+k}\to\mathbb{R}^n$.
+		\item Sia $\iota\colon X_a\to X$ l'inclusione. Per ogni $P\in X$ possiamo identificare $T_PX_a$. Per ogni $P\in X_a$ possiamo identificare $T_PX_a$ con la sua immagine in $T_PX$ tramite $\mathrm{d}\iota_P$. Basta allora dimostrare che $\mathrm{d}\iota_P(T_PX_a)=\ker(\mathrm{d}F_P)$. Dato che $P$ non è un punto critico, i due spazi hanno la stessa dimensione, quindi è sufficiente mostrare una sola inclusione. Siano $D\in T_PX_a\cong\mathrm{d}\iota_P(T_PX_a)$ e $f\in C^\infty_{F(P)}$. Allora
+		\[\mathrm{d}F_P(\mathrm{d}\iota_P(D))(f)=\mathrm{d}(F\circ\iota)_P(D)(f)=D(f\circ F\circ\iota)=D(f\circ F_{|X_a})=0\]
+		Dato che $F_{|X_a}$ è costante per definizione di $X_a$. Per l'arbitrarietà di $f$ si ha $\mathrm{d}\iota_P(D)\in\ker(\mathrm{d}F_P)$, da cui la tesi.
+	\end{enumerate}
+\end{proof}
+\newpage
+
+\section{Fibrato tangente, fibrato vettoriale.}
+\begin{definizione}
+	Sia $X$ una varietà differenziabile. A ogni punto $P\in X$ abbiamo associato uno spazio vettoriale $T_PX$. In generale, se $P\neq Q$ si ha $T_PX\neq T_QX$ (anche se hanno stessa dimensione). Poniamo
+	\[TX=\bigsqcup_{P\in X}T_PX=\bigcup_{P\in X}\left\{P\right\}\times T_PX\]
+	Sia $\pi\colon TX\to X$ la proiezione, ossia $\pi(P,v)=P$.
+	$TX$, con la mappa $\pi\colon TX\to X$ è detto il fibrato tangente di $X$. La fibra in $P$ è 
+	\[\pi^{-1}(P)=\left\{(P,v):v\in T_PX\right\}\cong T_PX\]
+\end{definizione}
+\begin{osservazione}
+	Sia $(U,\varphi)$ una carta locale per $X$. Questa carta determina per ogni $P\in U$ la base
+	\[\left\{\left.\partial_1\right|_{P},\dots,\left.\partial_n\right|_{P}\right\}\]
+	di $T_PX$. L'esistenza di questa base permette di identificare $T_PX$ con $\mathbb{R}^n$ tramite l'applicazione che mappa $v=a^i\left.\partial_i\right|_{P}\in T_PX$ in $a=(a^1,\dots,a^n)\in\mathbb{R}^n$. Di conseguenza, si ottiene una identificazione 
+	\[TX_{|U}=\bigsqcup_{P\in U}T_PX=\bigcup_{P\in U}\left\{P\right\}\times T_PX\rightarrow U\times\mathbb{R}^n\]
+	\[\left(P,a^i\left.\partial_i\right|_{P}\right)\mapsto(P,(a^1,\dots,a^n))\]
+	Ciò significa che il fibrato tangente è localmente triviale, ovvero esiste un ricoprimento aperto $\left\{U_i\right\}_{i\in I}$ tale che $TX_{|U_i}\cong U_i\times\mathbb{R}^n$. Questa proprietà non vale ovviamente in modo globale. 
+\end{osservazione}
+\begin{osservazione}
+	Siano $(U_i,\varphi_i)$ e $(U_j,\varphi_j)$ due carte locali che trivializzano il fibrato tangente tali che $U_i\cap U_j\neq\emptyset$.
+	\[\begin{tikzcd}
+	& TX_{|U_i\cap U_j}\arrow[dl, "\textrm{tramite }\varphi_i"]\arrow[dr, "\textrm{tramite }\varphi_j"] & \\
+	\left(U_i\cap U_j\right)\times\mathbb{R}^n & & \left(U_i\cap U_j\right)\times\mathbb{R}^n
+	\end{tikzcd}\]
+	Supponiamo che $(P,v)\mapsto(P,(x^1\dots,x^n))$ tramite $\varphi_i$ e $(P,v)\mapsto(P,(y^1,\dots,y^n))$ tramite $\varphi_j$. Vogliamo trovare una relazione tra $x=(x^1,\dots,x^n)$ e $y=(y^1,\dots,y^n)$. Si ha
+	\[\begin{tikzcd}
+	& U_i\cap U_j\arrow[dl, "\sim", "\varphi_i" near start]\arrow[dr, "\sim", "\varphi_j" near start] & \\
+	\varphi_i(U_i\cap U_j)\arrow[rr, shift left=0.5ex,  "\eta_{ji}=\varphi_j\circ\varphi_i^{-1}"] & & \arrow[ll, shift left=0.5ex, "\eta_{ij}=\varphi_i\circ\varphi_j^{-1}"] \varphi_j(U_i\cap U_j)\\
+	(x^1,\dots,x^n) \arrow[rr, shift left=0.5ex, mapsto, "\eta_{ji}"] & &(y^1,\dots,y^n) \arrow[ll, shift left=0.5ex, mapsto, "\eta_{ij}"] 
+	\end{tikzcd}\]
+	Per semplicità di notazione, al posto di $(y^1,\dots,y^n)=\eta_{ji}(x^1,\dots,x^n)$ uso la notazione $y^h=y^h(x)$ (e analogamente $x^k=x^k(y)$). Se $v\in T_PX$, si ha
+	\[v=a^k\left.\frac{\partial}{\partial x^k}\right|_P=b^h\left.\frac{\partial}{\partial y^h}\right|_P\]
+	Per la chain rule, si ha
+	\[\left.\frac{\partial}{\partial y^h}\right|_P=\left.\frac{\partial x^k}{\partial y^h}\right|_P\left.\frac{\partial}{\partial x^k}\right|_P\]
+	Di conseguenza
+	\[a^k=b^h\left.\frac{\partial x^k}{\partial y^h}\right|_P\]
+	\[a=J\eta_{ij}(\varphi_j(P))b\]
+	Ovviamente, $J\eta_{ij}\in\mathrm{GL}_n(\mathbb{R})$ perchè $\eta_{ij}$ è un diffeomorfismo. In particolare, ho
+	\[b=\left(J\eta_{ij}(\varphi_j(P))\right)^{-1}a=J\eta_{ji}(\varphi_i(P))a\]
+	In seguito, se non ci sono ambiguità useremo la notazione $\eta_{ij}(P)=J\eta_{ij}(\varphi_j(P))$.
+	Le $\eta_{ij}$ sono lineari, e anzi sono isomorfismi di spazi vettoriali. In particolare, soddisfano le proprietà:
+	\begin{itemize}
+		\item $\eta_{ii}(P)=I$
+		\item $\eta_{ij}(P)=\eta_{ji}(P)^{-1}$
+		\item $\eta_{ij}(P)\eta_{jk}(P)=\eta_{ik}(P)$ su $U_i\cap U_j\cap U_k$.
+	\end{itemize}
+\end{osservazione}
+\begin{osservazione}
+	Sia $(U,\varphi)$ una carta locale per $X$. Ho
+	\[\begin{tikzcd}[column sep=large]
+	TX_{|U}\arrow[r, "\textrm{tramite }\varphi"]&U\times\mathbb{R}^n\arrow[r, "\varphi\times id"]&\varphi(U)\times\mathbb{R}^n\subseteq\mathbb{R}^{2n}
+	\end{tikzcd}\]
+	Quindi una carta locale $(U,\varphi)$ permette di identificare $TX_{|U}$ con un aperto di $\mathbb{R}^{2n}$. Ciò permette di identificare una struttura di varietà differenziabile di $TX$ di dimensione $2n$.
+	Riguardo la proiezione locale $\pi\colon TX\to X$, si ha
+	\[\begin{tikzcd}[column sep=large]
+	TX_{|U}\arrow[r, "\textrm{tramite }\varphi"]\arrow[dr, "\pi"]&U\times\mathbb{R}^n\arrow[r, "\varphi\times id"]\arrow[d, "p_1"]&\varphi(U)\times\mathbb{R}^n\subseteq\mathbb{R}^{2n}\arrow[d, "p_1", shift right=3ex]\\
+& U\arrow[r, "\varphi" near start, "\sim"]&\varphi(U)\subseteq\mathbb{R}^n
+	\end{tikzcd}\]
+	Dove $p_1$ è la proiezione sul primo fattore.
+\end{osservazione}
+\begin{definizione}
+	Un fibrato vettoriale (reale) di rango $r$ su $X$ è una varietà differenziabile $E$, con una funzione differenziabile suriettiva $\pi\colon E\to X$ tale che:
+	\begin{enumerate}
+		\item per ogni $P\in X$, la fibra $E_P=\pi^{-1}(P)$ è uno spazio vettoriale (reale) di dimensione $r$,
+		\item per ogni $P\in X$ esistono un intorno aperto $U\subseteq X$ di $P$ e un diffeomorfismo $\chi\colon E_{|U}=\pi^{-1}(U)\to U\times\mathbb{R}^r$, detto trivializzazione locale, tale che il seguente diagramma commuti
+		\[\begin{tikzcd}[column sep=small]
+		E_{|U}\arrow[rr, "\chi"]\arrow[dr, "\pi"] && U\times\mathbb{R}^r\arrow[dl, "p_1"]\\
+		& U&
+		\end{tikzcd}\]
+		Inoltre $\chi$ è tale che per ogni $P\in U$ la funzione indotta $\chi_{|P}\colon E_P\to\left\{P\right\}\times\mathbb{R}^r$ sia un isomorfismo di spazi vettoriali.
+	\end{enumerate}
+	$E$ è detto lo spazio totale del fibrato vettoriale.
+	$E=X\times\mathbb{R}^r$ è detto il fibrato banale, o triviale.
+	Per le funzioni di transizione
+	\[\eta_{ij}\colon U_i\cap U_j\to\mathrm{GL}_r(\mathbb{R})\]
+	\[P\mapsto \eta_{ij}(P)\]
+	valgono delle proprietà analoghe a quelle viste per il fibrato tangente.
+\end{definizione}
+\begin{osservazione}
+	Il fibrato tangente è un caso particolare di fibrato vettoriale di rango pari a $\dim X$.
+\end{osservazione}
+\begin{osservazione}
+	Si dimostra che il solo dato delle funzioni di transizione è sufficiente a ricostruire il fibrato vettoriale $E$.
+\end{osservazione}
+\begin{osservazione}
+	Le operazioni che si possono fare sugli spazi vettoriali si possono estendere ai fibrati vettoriali (basta farle sulle fibre, che sono spazi vettoriali), ad esempio:
+	\begin{itemize}
+		\item somma diretta di fibrati: se $E$ e $P$ sono fibrati  vettoriali su $X$, pongo
+		\[E\oplus F=\bigsqcup_{P\in X}E_P\oplus F_P\]
+		\item fibrato duale: se $E$ è un fibrato su $X$, pongo
+		\[E^*=\bigsqcup_{P\in X}E^*_P\]
+	\end{itemize}
+\end{osservazione}
+\begin{definizione}
+	Sia $X$ una varietà differenziabile. Il fibrato cotangente $T^*X$ è il duale del fibrato tangente, ovvero \[T^*X=(TX)^*=\bigsqcup_{P\in X}T^*_PX\]
+	$T^*_PX$ viene detto spazio cotangente a $X$ in $P$. Se $(U,\varphi)$ è una carta locale per $X$ e
+	\[\left\{\left.\partial_1\right|_{P},\dots,\left.\partial_n\right|_{P}\right\}\]
+	è la base di $T_PX$ per ogni $P\in U$, la base duale di $T^*_PX$ viene indicata con
+	\[\left\{\left.\mathrm{d}x^1\right|_{P},\dots,\left.\mathrm{d}x^n\right|_{P}\right\}\]
+	Per definizione di base duale, si ha
+	\[\left.\mathrm{d}x^i\right|_{P}\colon T_PX\to\mathbb{R}\textrm{, }\left.\mathrm{d}x^i\right|_{P}\left(\left.\frac{\partial}{\partial x^j}\right|_{P}\right)=\delta^i_j\]
+	Si usa anche la notazione
+	\[\left.\mathrm{d}x^i\right|_{P}\left(\left.\frac{\partial}{\partial x^j}\right|_{P}\right)=\left\langle \left.\mathrm{d}x^i\right|_{P},\left.\frac{\partial}{\partial x^j}\right|_{P}\right\rangle\]
+\end{definizione}
+\begin{osservazione}
+	La base duale è indicata con $\left.\mathrm{d}x^i\right|_{P}$ per il seguente motivo: sia $x^i\colon X\supseteq U\to\mathbb{R}$ tale che $x^i(P)=x^i(\varphi(P))$. Il differenziale di questa funzione in $P$ è la funzione lineare
+	\[\left.\mathrm{d}x^i\right|_P\colon T_PX=T_PU\to T_{x^i(P)}\mathbb{R}\cong\mathbb{R}\]
+	L'isomorfismo $\iota\colon T_{x^i(P)}\mathbb{R}\to\mathbb{R}$ è dato da
+	\[\iota\left(\left.\frac{\mathrm{d}}{\mathrm{d}t}\right|_{x^i(P)}\right)=1\]
+	Dalla definizione di differenziale si ha
+	\[\mathrm{d}x^i_P\left(\left.\frac{\partial}{\partial x^j}\right|_{P}\right)=\left.\frac{\partial}{\partial x^j}\right|_{P}\circ\left(x^i\right)^*=\left.\frac{\partial x^i}{\partial x^j}\right|_{P}\circ\frac{\mathrm{d}}{\mathrm{d}t}=\delta^i_j\frac{\mathrm{d}}{\mathrm{d}t}\]
+	Da cui la conclusione precedente.
+\end{osservazione}
+\begin{osservazione}
+	Un elemento dello spazio cotangente è della forma
+	\[\alpha_i\left.\mathrm{d}x^i\right|_P\]
+	con $\alpha_i\in\mathbb{R}$. Tale elemento è detto covettore, e spesso è indicato semplicemente con $\alpha_i$. Allo stesso modo, un elemento dello spazio tangente è della forma
+	\[\beta^j\left.\frac{\partial}{\partial x^j}\right|_P\]
+	con $\beta^j\in\mathbb{R}$. Tale elemento è detto vettore, e spesso è indicato semplicemente con $\beta^j$.
+\end{osservazione}
+\begin{osservazione}
+	Siano $U\subseteq X$, $f\colon U\to\mathbb{R}$ differenziabile. Allora
+	\[\mathrm{d}f_P=\sum_{i=1}^{n}\frac{\partial f}{\partial x^i}(P)\mathrm{d}x^i_P\in T^*_PX\]
+	Se $v\in T_PX$, ho
+	\[\mathrm{d}f_P(v)=\left\langle\frac{\partial f}{\partial x^i}(P)\mathrm{d}x^i_P, v^j\left.\frac{\partial}{\partial x^j}\right|_P\right\rangle=v^i\frac{\partial f}{\partial x^i}(P)\]
+	Cioè la classica derivata direzionale di $f$ nella direzione di $v$.
+\end{osservazione}
+\begin{definizione}
+	Sia $\pi\colon E\to X$ un fibrato vettoriale su $X$. Una sezione di $E$ su un aperto $U\subseteq X$ è una funzione differenziabile $\sigma\colon U\to E$ tale che $\pi\circ\sigma=id_U$.
+	\[\begin{tikzcd}[column sep=small]
+	&& E\arrow[d,"\pi"]\arrow[dll, "\pi\circ\sigma",shift left=0.5ex]\\
+	U \arrow[urr, "\sigma", shift left=0.5ex]& \subseteq & X
+	\end{tikzcd}\]
+	Esplicitamente, ciò significa che $\sigma(P)=(P,v)$, con $v\in E_P$ per ogni $P\in U$, con $v$ che dipende da $P$ in modo $C^\infty$. Indichiamo con $E(U)$ o $\Gamma(U,E)$ l'insieme delle sezioni di $E$ sull'aperto $U$. Tale insieme è un gruppo abeliano: se $\sigma_1,\sigma_2$ sono due sezioni e $\sigma_1(P)=(P,v_1),\sigma_2(P)=(P,v_2)$, basta porre $(\sigma_1+\sigma_2)(P)=(P,v_1+v_2)$.
+\end{definizione}
+\begin{osservazione}
+	Da bravo fisico, una sezione la considero a tutti gli effetti come un campo vettoriale che manda $P$ in un elemento della sua fibra.
+\end{osservazione}
+\begin{osservazione}
+	Una sezione del fibrato tangente è un campo di vettori tangenti, una sezione del fibrato cotangente è una forma differenziale.
+\end{osservazione}
+\newpage
+
+\section{Prodotti tensoriali, algebra simmetrica, algebra esterna.}
+\begin{definizione}
+	Siano $V,W$ due spazi vettoriali reali, $\phi\in V^*,\psi\in W^*$. Possiamo definire una funzione bilineare $g\colon V\times W\to\mathbb{R}$ tale che $g(v,w)=\phi(v)\psi(w)$. Poniamo $g=\phi\otimes\psi$, ossia
+	\[\phi\otimes\psi(v,w)=\phi(v)\psi(w)\]
+	Tale "prodotto" è detto prodotto tensoriale.
+\end{definizione}
+\begin{definizione}
+	Lo spazio \[\bil{V}{W}=\left\{g\colon V\times W\to\mathbb{R}:\textrm{ $g$ è bilineare}\right\}\] sarà indicato con $V^*\otimes W^*$.
+\end{definizione}
+\begin{osservazione}
+	Siano $\alpha_1,\alpha_2,\beta_1,\beta_2\in\mathbb{R}$, $\phi_1,\phi_2\in V^*$, $\psi_1,\psi_2\in W^*$. Allora
+	\[(\alpha_1\phi_1+\alpha_2\phi_2)\otimes\psi_1=\alpha_1\phi_1\otimes\psi_1+\alpha_2\phi_2\otimes\psi_1\]
+	\[\phi_1\otimes(\beta_1\psi_1+\beta_2\psi_2)=\beta_1\phi_1\otimes\psi_1+\beta_2\phi_1\otimes\psi_2\]
+	Di conseguenza, prese $\left\{\phi_1,\dots,\phi_m\right\}$ e $\left\{\psi_1,\dots,\psi_n\right\}$ basi rispettivamente di $V^*$ e $W^*$, allora se $\phi\in V^*$ e $\psi\in W^*$ si ha
+	\[\phi=a^i\phi_i\]
+	\[\psi=b^j\psi_j\]
+	\[\phi\otimes\psi=a^ib^j\phi_i\otimes\psi_j\]
+	In particolare, $\left\{\phi_i\otimes\psi_j\right\}_{(i,j)\in\left\{1,\dots,m\right\}\times\left\{1,\dots,n\right\}}$ è una base di $V^*\otimes W^*$ e $\dim \left(V^*\otimes W^*\right)=\left(\dim V^*\right)\left(\dim W^*\right)$.
+\end{osservazione}
+\begin{osservazione}
+	Se $U,V,W$ sono spazi vettoriali, posso costruire lo spazio delle funzioni trilineari e porre, se $\phi\in V^*,\psi\in V^*,\xi\in W^*$
+	\[\phi\otimes\psi\otimes\xi(u,v,w)=\phi(u)\psi(v)\xi(w)\]
+	Si ha un caso analogo per funzioni multilineari.
+\end{osservazione}
+\begin{osservazione}
+	Siano $V$ uno spazio vettoriale reale di dimensione finita, $V^{**}$ il suo biduale. Esiste un isomorfismo canonico $\varphi\colon V\to V^{**}$. Scriveremo semplicemente $\varphi(v)=\langle v,\varphi\rangle$. Quindi scambiando i ruoli di $V^*$ e $V$ si può dare la seguente definizione:
+\end{osservazione}
+\begin{definizione}
+	Se $V$, $W$ sono spazi vettoriali reali di dimensione finita, si pone
+	\[V\otimes W=\left\{g\colon V^*\times W^*\to\mathbb{R}:\textrm{ $g$ è bilineare}\right\}\]
+	Se $v\in V,w\in W$, allora $v\otimes w$ è la funzione bilineare
+	\[v\otimes w\colon V^*\times W^*\to\mathbb{R}\]
+	\[v\otimes w(\varphi,\psi)=\langle v,\varphi\rangle\langle w,\psi\rangle\]
+	Riguardo la base di $V^*\otimes W^*$, valgono le osservazioni precedenti.
+\end{definizione}
+\begin{osservazione}
+	Si possono fare anche prodotti del tipo $V^*\otimes W$, $V\otimes U^*\otimes W$, etc.
+\end{osservazione}
+\begin{osservazione}
+	Esistono degli ovvi isomorfismi
+	\[V\otimes W\cong W\otimes V\]
+	\[(V\otimes U)\otimes W\cong V\otimes(U\otimes W)\]
+	\[\left(\bigoplus_{i=1}^r V_i\right)\otimes\left(\bigoplus_{j=1}^{s}W_j\right)\cong\bigoplus_{i,j}\left(V_i\otimes W_j\right)\]
+\end{osservazione}
+\begin{proposizione}
+	Siano $V,W$ due spazi vettoriali, 
+	\[\textrm{Hom}(V,W)=\left\{f\colon V\to W:\textrm{ $f$ è lineare}\right\}\]
+	Allora esiste un isomorfismo canonico tra $\textrm{Hom}(V,W)$ e $V^*\otimes W$.
+\end{proposizione}
+\begin{proof}
+	Definiamo $F\colon V^*\otimes W\to\textrm{Hom}(V,W)$ come segue
+	\[F\left(\varphi\otimes w\right)(v)=\varphi(v)w\]
+	Siano $\left\{v_1,\dots,v_n\right\}$ una base di $V$, $\left\{v^1,\dots,v^n\right\}$ la base duale di $V^*$ (ovvero $v^i(v_j)=\delta^i_j$), $\left\{w_1,\dots,w_m\right\}$ una base di $W$. Una base di $V^*\otimes W$ è $\left\{v^i\otimes w_j\right\}_{(i,j)\in\left\{1,\dots,n\right\}\times\left\{1,\dots,m\right\}}$. Poniamo $\eta^i_j=F\left(v^i\otimes w_j\right)\in\textrm{Hom}(V,W)$. Le funzioni lineari $\eta^i_j\colon V\to W$ sono tali che
+	\[\eta^i_j(v_h)=v^i(v_h)w_j=\delta^i_hw_j\]
+	Le $\eta^i_j$ formano una base di $\textrm{Hom}(V,W)$. Infatti, se $f\in\textrm{Hom}(V,W)$ e $f(v_j)=a^i_jw_i$, si ha $f=a^i_h\eta^h_i$, dato che
+	\[(a^i_h\eta^h_i)(v_j)=a^i_h\eta^h_i(v_j)=a^i_h\delta^h_jw_i=a^i_jw_i=f(v_j)\]
+	Le due funzioni sono lineari e coincidono sulla base di $V$, dunque coincidono ovunque.
+	Per concludere basta osservare che $F$ trasforma una base di $V^*\otimes W$ in una base di $\textrm{Hom}(V,W)$, e quindi è un isomorfismo di spazi vettoriali.
+\end{proof}
+\begin{definizione}
+	Poniamo 
+	\[\T^0(V)=\T_0(V)=\T^0_0(V)=\mathbb{R}\]
+	\[\T^p(V)=\T^p_0(V)=\underbrace{V\otimes \dots\otimes V}_{\textrm{$p$ volte}}\]
+	\[\T_q(V)=\T^0_q(V)=\underbrace{V^*\otimes\dots\otimes V^*}_{\textrm{$q$ volte}}\]
+	\[\T^p_q(V)=T^p(V)\otimes \T_q(V)=\underbrace{V\otimes\dots\otimes V}_{\textrm{$p$ volte}}\otimes\underbrace{V^*\otimes\dots\otimes V^*}_{\textrm{$q$ volte}}\]
+	\[\T^\cdot(V)=\bigoplus_{p\geq 0}\T^p(V)\]
+	\[\T_\cdot(V)=\bigoplus_{q\geq 0}\T_q(V)\]
+	\[\T(V)=\bigoplus_{p,q\geq0}\T^p_q(V)\]
+	$\T(V)$ è detta algebra tensoriale di $V$. Un elemento di $\T^p_q(V)$ è detto tensore $p$-controvariante e $q$-covariante.
+\end{definizione}
+\begin{osservazione}
+	Un tensore $t\in \T^p_q(V)$ è una funzione multilineare
+	\[t\colon\underbrace{V^*\times\dots\times V^*}_{\textrm{$p$ volte}}\times\underbrace{V\times\dots\times V}_{\textrm{$q$ volte}}\to\mathbb{R}\]
+	Se $\left\{v_1,\dots,v_n\right\}$ è una base di $V$ e $\left\{v^1,\dots, v^n\right\}$ è la base duale di $V^*$, allora i tensori
+	\[v_{i_1}\otimes\dots\otimes v_{i_p}\otimes v^{j_1}\otimes\dots\otimes v^{j_q}\]
+	con $i_1,\dots,i_p,j_1,\dots,j_q=1,\dots,n$ formano una base di $\T^p_q(V)$, che ha dimensione $n^{p+q}$. Un generico $t\in\T^p_q(V)$ è quindi della forma
+	\[t=a^{i_1,\dots,i_p}_{j_1,\dots,j_q}v_{i_1}\otimes\dots\otimes v_{i_p}\otimes v^{j_1}\otimes\dots\otimes v^{j_q}\]
+	con $a^{i_1,\dots,i_p}_{j_1,\dots,j_q}\in\mathbb{R}$. Per semplificare la notazione, si tende a scrivere
+	\[t=\left(a^{i_1,\dots,i_p}_{j_1,\dots,j_q}\right)\]
+\end{osservazione}
+\begin{osservazione}
+	Sono possibili diverse operazioni tra tensori. La somma è ovvia, ed è definita per tensori con stesso numero di indici. Il prodotto tensoriale tra $t_1\in \T^{p_1}_{q_1}(V)$ e $t_2\in \T^{p_2}_{q_2}(V)$ è definito come \[(t_1, t_2)=t_1\otimes t_2\in T^{p_1+p_2}_{q_1+q_2}(V)\] Infine, la contrazione di tipo $\binom{r}{s}$ è la funzione lineare
+	\[C^r_s\colon \T^p_q(V)\to \T^{p-1}_{q-1}(V)\]
+	definita ponendo
+	\[C^r_s(v_{i_1}\otimes\dots\otimes v_{i_p}\otimes v^{j_1}\otimes\dots\otimes v^{j_q})=v^{j_s}(v_{i_r})v_{i_1}\otimes\dots\otimes\widehat{v_{i_r}}\otimes\dots\otimes v_{i_p}\otimes v^{j_1}\otimes\dots\otimes\widehat{v^{j_s}}\otimes\dots\otimes v^{j_q}\]
+	Cioè se $t=\left(a^{i_1,\dots,i_p}_{j_1,\dots,j_q}\right)$ si ha
+	\[C^r_s(t)=\sum_{h}\left(a^{i_1,\dots,i_{r-1},h,i_{r+1},\dots,i_p}_{j_1,\dots,j_{s-1},h,j_{s+1},\dots j_1}\right)\]
+\end{osservazione}
+\begin{esempio}
+	Se $t\in \T^1_1(V)$, allora $t=a^i_jv_i\otimes v^j$, quindi $t$ si identifica all'endomorfismo di $V$ che rispetto alla base $\left\{v_1,\dots,v_n\right\}$ ha matrice associata $A=\left(a^i_j\right)$. Si ha
+	\[C^1_1(t)=a^i_jC^1_1(v_i\otimes v^j)=a^i_jv^j(v_i)=a^i_j\delta^i_j=\textrm{Tr}A\]
+\end{esempio}
+\begin{osservazione}
+	Tutte le costruzioni precedenti, ottenute partendo da uno spazio vettoriale $V$, si estendonon facilmente al caso di un fibrato vettoriale $E$ su una varietà differenziabile $X$, ripetendole sulle fibre di $E$. A partire dal fibrato $E$ e dal fibrato duale $E^*$ si possono costruire i vari prodotti
+	\[\T^p_q(E)=\underbrace{E\otimes\dots\otimes E}_{\text{$p$ volte}}\otimes\underbrace{E^*\otimes\dots\otimes E^*}_{\textrm{$q$ volte}}\]
+	Ad esempio, una sezione del fibrato $T^p_q(E)$ su un aperto $U\subseteq X$ è una funzione di classe $C^\infty$ tale che $U\ni P\mapsto t(P)\in T^p_q(E_P)$ Da bravo fisico, questa applicazione definisce in modo naturale un campo tensoriale.
+\end{osservazione}
+\begin{osservazione}
+	Siano $V$ uno spazio vettoriale, $t\in T^p(V)$ (si ha un caso analogo per $T_q(V)$). Allora $t$ è un'applicazione multilineare
+	\[t\colon \underbrace{V^*\times\dots\times V^*}_{\textrm{$p$ volte}}\to\mathbb{R}\]
+	Se $t=a^{i_1,\dots,i_p}v_{i_1}\otimes\dots\otimes v_{i_p}$, si ha
+	\[t(\alpha^1,\dots,\alpha^p)=a^{i_1,\dots,i_p}\alpha^1(v_{i_1})\dots\alpha^p(v_{i_p})\]
+	Tra tutte le applicazioni multilineari si evidenziano
+	\begin{itemize}
+		\item le applicazioni simmetriche, cioè tali che $t(\alpha^{\sigma(1)},\dots,\alpha^{\sigma(n)}=t(\alpha^1,\dots,\alpha^n)$ per ogni permutazione $\sigma$ di $\left\{1,\dots,n\right\}$,
+		\item le applicazioni alternanti, cioè tali che $t(\alpha^{\sigma(1)},\dots,\alpha^{\sigma(n)})=\mathrm{sign}(\sigma)t(\alpha^1,\dots,\alpha^n)$
+	\end{itemize}
+	Di conseguenza si può parlare di tensori simmetrici e di tensori antisimmetrici o alternanti.
+\end{osservazione}
+\begin{esempio}
+	Consideriamo $\T^2(V)$. Se $v,w\in V$, il tensore $v\otimes w\in \T^2(V)$ non è, in generale, né simmetrico né antisimmetrico. Il tensore $t_1=v\otimes w+w\otimes v$ è simmetrico, mentre il tensore $t_2=v\otimes w-w\otimes v$ è antisimmetrico. Indichiamo con $S^p(V)$ il sottospazio dei tensori simmetrici, con $A^p(V)$ o $\Lambda^p(V)$ il sottospazio dei tensori antisimmetrici. Posto $n=\dim V$, si può dimostrare che
+	\[\dim S^p(V)=\binom{n+p-1}{p}\]
+	\[\dim\Lambda^p(V)=\left\{\begin{array}{l l}
+	\binom{n}{p} &\textrm{ se $0\leq p\leq n$}\\
+	0 &\textrm{ se $p>n$}
+	\end{array}\right.\]
+\end{esempio}
+\begin{osservazione}
+	Se $p=2$,  $\dim \T^2(V)=\dim S^2(V)+\dim\Lambda^2(V)$. In effetti si ha $\T^2(V)=S^2(V)\oplus\Lambda^2(V)$, dato che basta porre
+	\[v\otimes w=\frac{v\otimes w+w\otimes v}{2}+\frac{v\otimes w-v\otimes w}{2}\]
+	Se $p>2$, non è più vero che $\T^p(V)=S^p(V)\oplus\Lambda^p(V)$.
+\end{osservazione}
+\begin{definizione}
+	Definiamo un'applicazione lineare $S\colon \T^p(V)\to S^p(V)$ nel seguente modo
+	\[S(v_1\otimes\dots\otimes v_p)=\frac{1}{p!}\sum_{\sigma\in\Sigma_p}v_{\sigma(1)}\otimes\dots\otimes v_{\sigma(p)}\]
+	$S$ è detto operatore di simmetrizzazione. Analogamente, definiamo $A\colon \T^p(V)\to\Lambda^p(V)$ nel seguente modo
+	\[A(v_1\otimes\dots\otimes v_p)=\frac{1}{p!}\sum_{\sigma\in\Sigma_p}\textrm{sign}(\sigma)v_{\sigma(1)}\otimes\dots\otimes v_{\sigma(p)}\]
+	$A$ è detto operatore di antisimmetrizzazione.
+\end{definizione}
+\begin{osservazione}
+	Il fattore $(p!)^{-1}$ è introdotto affinchè $S_{|S^p(V)}=id$ e $A_{|\Lambda^p(V)}=id$.
+\end{osservazione}
+\begin{definizione}
+	Si può definire un prodotto simmetrico
+	\[S^p(V)\times S^q(V)\to S^{p+q}(V)\]
+	\[(t_1,t_2)\mapsto t_1\odot t_2\]
+	ponendo
+	\[t_1\odot t_2=\binom{p+q}{q}S(t_1\otimes t_2)\]
+	Tale prodotto è commutativo.
+\end{definizione}
+\begin{esempio}
+	Se $v,w\in S^1(V)=V$, si ha
+	\[v\odot w=v\otimes w+w\otimes v\]
+	Lo spazio vettoriale $S(V)=\bigoplus_{p\geq0}S^p(V)$, dotato del prodotto simmetrico $\odot$, è detto algebra simmetrica di $V$.
+\end{esempio}
+\begin{definizione}
+	Analogamente, possiamo definire un prodotto esterno
+	\[\Lambda^p(V)\times\Lambda^q(V)\to\Lambda^{p+q}(V)\]
+	\[(t_1,t_2)\mapsto t_1\wedge t_2\]
+	ponendo
+	\[t_1\wedge t_2=\binom{p+q}{q}A(t_1\otimes t_2)\]
+\end{definizione}
+\begin{esempio}
+	Se $v,w\in\Lambda^1(V)=V$, si ha
+	\[v\wedge w=v\otimes w-w\otimes v\]
+	Lo spazio vettoriale $\Lambda(V)=\bigoplus_{p=0}^{n}\Lambda^p(V)$, dotato del prodotto esterno $\wedge$, è detto algebra esterna di $V$.
+\end{esempio}
+\begin{osservazione}
+	Tutte queste costruzioni posso essere adattate a un fibrato vettoriale, come al solito è sufficiente farle sulle fibre. Si possono quindi definire un'algebra simmetrica $S(E)$, un'algebra esterna $\Lambda(E)$ e un'algebra tensoriale $T(E)$. In particolare, l'algebra esterna $\Lambda(T^*X)$ viene detta algebra esterna di $X$.
+\end{osservazione}
+\begin{definizione}
+	Un campo vettoriale su una varietà $M$ è una sezione di $TM$. L'insieme dei campi vettoriali viene indicato con $\mathcal{T}(M)$ oppure $\mathcal{X}(M)$.
+	Una $k$-forma differenziale su $M$ è una sezione di $\Lambda^k(T^*M)$. L'insieme delle $k$-forme differenziali viene indicato con $A^K(M)$ oppure $\Omega^k(M)$.
+	Infine, un campo tensoriale di tipo $\binom{r}{s}$ è una sezione di $T^*_s(TM)$.
+\end{definizione}
+\begin{osservazione}
+	Se $(U,\varphi)$ è una carta locale su $M$, possiamo indicare con $\frac{\partial}{\partial x^i}$ la sezione di $TM$ tale che \[\frac{\partial}{\partial x^i}(P)=\left.\frac{\partial}{\partial x^i}\right|_P\]
+	Le sezioni
+	\[\frac{\partial}{\partial x^1},\dots,\frac{\partial}{\partial x^n}\]
+	hanno la proprietà che la loro valutazione in $P$ forma una base di $T_PM$ per ogni $P\in U$. Diremo che
+	\[\frac{\partial}{\partial x^1},\dots,\frac{\partial}{\partial x^n}\]
+	sono un riferimento locale (o una base locale) per $TM$ su $U$.
+	
+	Analogamente, se $\mathrm{d}x^1_P,\dots,\mathrm{d}x^n_P$ è la base duale in $P$, posso definire le sezioni $\mathrm{d}x^i$ di $T^*M$ tali che $\mathrm{d}x^i(P)=\mathrm{d}x^i_P$, quindi
+	\[\mathrm{d}x^1,\dots,\mathrm{d}x^n\]
+	formano un riferimento locale per $T^*M$ su $U$. Da ciò si deduce che le $k$-forme differenziali
+	\[\mathrm{d}x^{i_1}\wedge\dots\wedge\mathrm{d}x^{i_k}\]
+	con $1\leq i_1<i_2<\dots<i_k\leq n$, formano un riferimento locale per il fibrato $\Lambda^kT^*M$, ovvero una $k$-forma differenziale è della forma
+	\[\omega=\sum_{1\leq i_1<\dots<i_k\leq n}a_{i_1,\dots,i_k}\mathrm{d}x^{i_1}\wedge\dots\wedge\mathrm{d}x^{i_k}\]
+	Gli indici nei prodotti esterni possono essere ordinati in modo crescente, a patto eventualmente di cambiare segni. Inoltre, devono essere tutti diversi perchè altrimenti il prodotto esterno è nullo.
+\end{osservazione}
+\begin{osservazione}
+	Sia $f\colon M\to\mathbb{R}$ differenziabile. Allora $\mathrm{d}f_P\colon T_PM\to T_{f(P)}\mathbb{R}=\mathbb{R}$ è una funzione lineare, ovvero $\mathrm{d}f_P\in T^*_PM$. Il differenziale $\mathrm{d}f$ è quindi una sezione del fibrato cotangente $T^*M$:
+	\[\mathrm{d}f\colon M\to T^*M\]
+	\[P\mapsto (P,\mathrm{d}f_P)\]
+	Cioè $\mathrm{d}f$ è una $1$-forma differenziale.
+	Difatti, si era già visto
+	\[\mathrm{d}f=\frac{\partial f}{\partial x^j}\mathrm{d}x^j\]
+\end{osservazione}
+\newpage
+
+\section{Partizioni dell'unità.}
+\begin{definizione}
+	Sia $h\colon\mathbb{R}\to\mathbb{R}$ definita da
+	\[h(t)=\left\{\begin{array}{l l}
+	e^{-1/t}&\textrm{ se $t>0$}\\
+	0 &\textrm{ se $t\leq0$}
+	\end{array}\right.\]
+\end{definizione}
+$h$ è notoriamente di classe $C^\infty$. Definiamo $\eta\colon\mathbb{R}\to\mathbb{R}$ ponendo
+\[\eta(t)=\frac{h\left(1-|t|^2\right)}{h\left(1-|t|^2\right)+h\left(|t|^2-\frac{1}{4}\right)}\]
+$\eta$ è di classe $C^\infty$, inoltre si ha $\eta_{|\left[-\frac{1}{2},\frac{1}{2}\right]}\equiv1$, $\eta_{|(-\infty,-1]\cup[1,+\infty)}\equiv0$.
+Si può definire un'analoga funzione $\eta\colon\mathbb{R}^n\to\mathbb{R}$ ponendo
+\[\eta(x)=\frac{h\left(1-\norm{x}^2\right)}{h\left(1-\norm{x}^2\right)+h\left(\norm{x}^2-\frac{1}{4}\right)}\]
+il cui supporto è $\overline{B_1(0)}$.
+\begin{teorema}
+	Sia $K\subseteq X$ un sottoinsieme compatto di una varietà differenziabile $X$, e sia $V\supseteq K$ un intorno aperto di $K$. Allora esiste $g\in C^\infty(X)$ tale che $g_{|K}\equiv1$ e $\textrm{supp}(g)\subset V$.
+	\label{supporto}
+\end{teorema}
+\begin{proof}
+	Sia $\eta\colon\mathbb{R}^n\to\mathbb{R}$ la funzione definita in precedenza. Per ogni $P\in K$ scegliamo una carta locale $(U_P,\varphi_P)$, centrata in $P$, tale che $\overline{U}_p\subseteq V$ e $\varphi_P(U_P)=B_2(0)\subseteq\mathbb{R}^n$. Per compattezza di $K$, possiamo trovare un numero finito di punti $P_1,\dots,P_k\in K$ tali che
+	\[K\subseteq\bigcup_{j=1}^{k}\varphi^{-1}_{P_j}\left(B_{1/2}(0)\right)\subseteq\bigcup_{j=1}^{k}U_{P_j}=W\subseteq V\]
+	Definiamo
+	\[g_j(Q)=\left\{\begin{array}{l l}
+	\eta\left(\varphi_{P_j}(Q)\right)&\textrm{ se $Q\in U_{P_j}$}\\
+	0 & \textrm{ altrimenti}
+	\end{array}\right.\]
+	Dato che $g_{j|\varphi_j^{-1}\left(B_2(0)\backslash B_1(0)\right)}\equiv0$, si ha $g_j\in C^\infty(X)$.
+	Definiamo ora $g\colon X\to\mathbb{R}$ definita da
+	\[g(Q)=1-\prod_{j=1}^{k}\left(1-g_j(Q)\right)\]
+	Chiaramente $g\in C^\infty(X)$. Inoltre, se $Q\in K$ esiste almeno un $j$ tale che $g_j(Q)=1$, ovvero $g_{|K}\equiv1$. Se invece $Q\not\in W$, allora $Q\not\in U_{P_j}$ per ogni $j$, e quindi $g_j(Q)=0$ per ogni $j$. Allora $g(Q)=0$, e per arbitrarietà di $Q$ $\textrm{supp}(g)\subseteq W\subseteq V$.
+\end{proof}
+\begin{corollario}
+	\label{supporto2}
+	Sia $P\in X$, $V\subseteq X$ un intorno aperto di $P$. Allora esiste $f\in C^\infty(X)$ tale che $f(P)=0$, $f_{|X\backslash V}\equiv 1$.
+\end{corollario}
+\begin{proof}
+	Sia $g$ data dal teorema precedente, con $K=\left\{P\right\}$. $f=1-g$ soddisfa le ipotesi richieste.
+\end{proof}
+\begin{definizione}
+	Sia $S\subseteq X$ un sottoinsieme qualsiasi. Definiamo
+	\[C^\infty(S)=\left\{f\colon S\to\mathbb{R}:\textrm{ $f$ si estende a $V$ intorno aperto di $S$ e l'estensione è in $C^\infty(V)$}\right\}\]
+\end{definizione}
+\begin{corollario}
+	Sia $K\subseteq X$ compatto e sia $f\in C^\infty(K)$. Allora se $W$ è un intorno aperto di $K$ esiste un'estensione $\tilde{f}\in C^\infty(X)$ di $f$ tale che $\textrm{supp}(\tilde{f})\subseteq W$.
+\end{corollario}
+\begin{proof}
+	Per definizione esistono $U$ intorno aperto di $K$ e $\hat{f}\in C^\infty(U)$ tali che $\hat{f}_{|K}\equiv f$. Siano $V=W\cap U$, $h$ data dal teorema \ref{supporto}. La tesi si ha ponendo 
+	\[\tilde{f}(Q)=\left\{\begin{array}{l l}
+	0 &\textrm{ se $Q\not\in V$}\\
+	h(Q)\hat{f}(Q) &\textrm{ se $Q\in V$}
+	\end{array}\right.\]
+\end{proof}
+\begin{definizione}
+	Un ricoprimento di uno spazio topologico $X$ è una famiglia $\mathcal{U}=\left\{U_i\right\}_{i\in I}$ tale che $X=\bigcup_{i\in I}U_i$.
+	
+	Il ricoprimento si dice aperto se tutti gli $U_i$ sono aperti.
+	
+	Il ricoprimento si dice localmente finito se per ogni $P\in X$ esiste un intorno $U\subseteq X$ tale che $U\cap U_i\neq\emptyset$ solo per un numero finito di indici $i$.
+	
+	Un secondo ricoprimento $\mathcal{V}=\left\{V_j\right\}_{j\in J}$ è un raffinamento di $\mathcal{U}$ se per ogni $j\in J$ esiste $i\in I$ tale che $V_j\subseteq U_i$.
+\end{definizione}
+\begin{definizione}
+	Una partizione dell'unità su una varietà $X$ è una famiglia di funzioni $\left\{\rho_{\alpha}\right\}_{\alpha\in\mathcal{A}}$ tali che
+	\begin{enumerate}
+		\item $\rho_{\alpha}\in C^\infty(X)$ per ogni $\alpha\in\mathcal{A}$
+		\item $\rho_{\alpha}(X)\subseteq[0,1]$ per ogni $\alpha\in \mathcal{A}$
+		\item $\left\{\textrm{supp}(\rho_{\alpha})\right\}_{\alpha\in\mathcal{A}}$ è un ricoprimento localmente finito di $X$
+		\item $\sum_{\alpha\in\mathcal{A}}\rho_{\alpha}(x)=1$ per ogni $x\in X$
+	\end{enumerate}
+	Diciamo che la partizione $\left\{\rho_{\alpha}\right\}_{\alpha\in\mathcal{A}}$ è subordinata al ricoprimento aperto $\mathcal{U}=\left\{U_{\alpha}\right\}_{\alpha\in \mathcal{A}}$ se $\textrm{supp}(\rho_{\alpha})\subseteq U_{\alpha}$ per ogni $\alpha\in \mathcal{A}$.
+\end{definizione}
+\begin{osservazione}
+	Per ogni $x\in X$ la somma $\sum_{\alpha\in\mathcal A}\rho_{\alpha}(x)$ ha solo un numero finito di termini non nulli, per la proprietà 3.
+\end{osservazione}
+\begin{teorema}
+	Sia $X$ una varietà differenziabile, di Hausdorff e a base numerabile. Allora ogni ricoprimento aperto ammete una partizione dell'unità subordinata ad esso.
+\end{teorema}
+\begin{proof}
+	Vedi \textit{Geometria differenziale} di Abate-Tovena.
+\end{proof}
+\newpage
+
+\section{Campi vettoriali, derivazioni, curve integrali.}
+\begin{definizione}
+	Sia $A$ uno spazio vettoriale su un campo $\mathbb{K}$ dotato di un'operazione binaria di moltiplicazione $\cdot\colon V\times V\to V$ che goda delle proprietà
+	\begin{itemize}
+		\item $(x+y)\cdot z=x\cdot z+y\cdot z$
+		\item $x\cdot(y+z)=x\cdot y+x\cdot z$
+		\item $(ax)\cdot y=a(x\cdot y)=x\cdot(ay)$
+	\end{itemize}
+	per ogni $x,y,z\in A$ e per ogni $a\in\mathbb{K}$. Allora $A$ si dice algebra sul campo $\mathbb{K}$. Se poi la moltiplicazione è commutativa, l'algebra si dice commutativa.
+\end{definizione}
+\begin{definizione}
+	Siano $\mathbb{K}$ un campo, $A$ un'algebra commutativa su $\mathbb{K}$. Una derivazione di $A$ (su $\mathbb{K}$) è una funzione lineare $D\colon A\to A$ che soddisfa la regola di Leibniz, ovvero $D(ab)=D(a)b+aD(b)$ per ogni $a,b\in A$.
+\end{definizione}
+\begin{teorema}
+	Sia $M$ una varietà differenziabile. Lo spazio vettoriale $\mathcal{T}(M)$ dei campi vettoriali su $M$ è isomorfo allo spazio vettoriale delle derivazioni della $\mathbb{R}$-algebra $C^\infty(M)$.
+\end{teorema}
+\begin{proof}
+	Vogliamo mostrare che ad ogni campo vettoriale possiamo associare una derivazione e viceversa.
+	
+	Sia $X\in\mathcal{T}(M)$ un campo vettoriale su $M$, $X\colon M\to TM$, con $X(P)\in T_PM$ per ogni $P\in M$. Sia $f\in C^\infty(M)$. Definiamo la funzione $X(f)$ tale che $X(f)(P)=X_P(f_P)$, dove $f_P\in C^\infty_P$ è il germe di $f$ in $P$ e $X_P=X(P)\in T_PM$. Se $(U,\varphi)$ è una carta locale e $P\in U$, $\partial/\partial x^1,\dots\partial/\partial x^n$ è il riferimento locale di $TM$, si ha
+	\[X=\sum_{i=1}^{n}X^i\frac{\partial}{\partial x^i}\]
+	con $X^i\in C^\infty(U)$. Allora
+	\[X(f)=\sum_{i=1}^{n}X^i\frac{\partial f}{\partial x^i}\in C^\infty(M)\]
+	Abbiamo quindi definito $X\colon C^\infty(M)\to C^\infty(M)$,e si verifica facilmente che è una derivazione. Pertanto, a ogni campo vettoriale $X\in\mathcal{T}(M)$ abbiamo associato una derivazione su $C^\infty(M)$. 
+	
+	Per il viceversa, sia $X\colon\mathbb{C}^\infty(M)\to C^\infty(M)$. Iniziamo mostrando che se $f\in C^\infty(M)$ è nulla in un intorno $U$ di $P$, allora $X(f)(P)=0$. Sia $h\in C^\infty(M)$ tale che $h(P)=0$, $h_{|M\backslash U}\equiv 1$, che esiste sempre per il corollario \ref{supporto2}. Si verifica immediatamente che $hf=f$. Allora si ha
+	\[X(f)(P)=X(hf)(P)=X(h)(P)f(P)+X(f)(P)h(P)=0\]
+	Segue facilmente che se $f,g$ sono in $C^\infty(M)$ e coincidono in un intorno $U$ di $P\in M$, allora $X(f)(P)=X(g)(P)$.
+	Inoltre, se $f$ è una funzione di classe $C^\infty$ definita in un intorno di $P$, può essere estesa a una funzione di classe $C^\infty$ su tutto $M$ (con argomenti simili a quelli visti nella sezione sulle partizioni dell'unità). Allora una derivazione $X\colon C^\infty(M)\to C^\infty(M)$ definisce in modo naturale una derivazione $X'\colon C^\infty(U)\to C^\infty(U)$ per ogni $U$ aperto di $X$. Questa, a sua volta, definisce una derivazione $X_P\colon C^\infty_P\to\mathbb{R}$ nel modo seguente: sia $f_P=[(U,f)]\in C^\infty_P$. Poniamo $X_P(f_P)=X'(f)(P)$. Le proprietà appena mostrate assicurano che la definizione non dipende dal particolare rappresentante di $f_P$, dunque alla derivazione $X\colon C^\infty(M)\to C^\infty(M)$ abbiamo associato una sezione di $TM$. La sezione è un campo vettoriale di classe $C^\infty$, dato che in coordinate locali si ha
+	\[X_P=\sum_{j=1}^{n}X(x^j)(P)\left.\frac{\partial}{\partial x^j}\right|_{P}\]
+\end{proof}
+Richiamiamo ora un teorema ben noto sulle equazioni differenziali ordinarie, per poi dimostrare risultati analoghi per le varietà differenziabili.
+\begin{teorema}[di Cauchy-Lipschitz]
+	\label{cauchylipschitz}
+	Sia $U$ un aperto di $\mathbb{R}^n$ e siano date $f_1,\dots,f_n\in C^\infty(U)$. Allora
+	\begin{enumerate}
+		\item Per ogni $t_0\in\mathbb{R}$ e per ogni $x_0\in U$ esistono $\delta>0$ e un intorno aperto $U_0\subseteq U$ di $x_0$ tali che per ogni $x\in U_0$ esiste una curva $\sigma_x\colon(t_0-\delta,t_0+\delta)\to U$ soluzione del problema di Cauchy
+		\[\left\{\begin{array}{l l}
+		\frac{\mathrm{d}\sigma^j}{\mathrm{d}t}(t)=f_j(\sigma(t))&\textrm{ per $j=1,\dots,n$}\\
+		\sigma(t_0)=x&\\
+		\end{array}\right.\]
+		\item Due soluzioni del problema di Cauchy del punto precedente coincidono sempre nell'intersezione dei rispettivi domini.
+		\item La funzione $\Theta\colon(t_0-\delta,t_0+\delta)\times U_0\to U$ definita da $\Theta(t,x)=\sigma_x(t)$ è di classe $C^\infty$.
+	\end{enumerate}
+\end{teorema}
+\begin{definizione}
+	Sia $X\in\mathcal{T}(M)$ un campo vettoriale su una varietà $M$. Dati $P\in M$ e $I\subseteq\mathbb{R}$ un intervallo contenente lo 0, una curva $\sigma\colon I\to M$ tale che $\sigma(0)=P$ e $\sigma'(t)=X(\sigma(t))$ per ogni $t\in I$ è una curva integrale di $X$ uscente da $P$.
+\end{definizione}
+\begin{osservazione}
+	Se $(U,\varphi)$ è una carta locale centrata in $P$, il campo vettoriale $X$ si può scrivere localmente come 
+	\[X=X^i\frac{\partial}{\partial x^i}\]
+	Se ora $\sigma\colon(-\varepsilon,\varepsilon)\to M$ è una curva tale che $\sigma(0)=P$, si può scegliere $\varepsilon$ abbastanza piccolo in modo che $\sigma((-\varepsilon,\varepsilon))\subseteq U$. Allora, posto $\tilde{\sigma}=\varphi\circ\sigma$, si ottiene 
+	\[\begin{tikzcd}
+	& U\subseteq M \arrow[dd, "\sim", "\varphi" near start, shift right=2.5ex] \\
+	(-\varepsilon,\varepsilon)\arrow[ur, "\sigma"]\arrow[dr, "\tilde{\sigma}"] & \\
+	& \varphi(U)\subseteq \mathbb{R}^n
+	\end{tikzcd}\]
+	Si ha
+	\[\tilde{\sigma}'(t)=\sum_{j=1}^{n}\left(\tilde{\sigma}^j\right)'(t)\left.\frac{\partial}{\partial x^j}\right|_{\tilde{\sigma}(t)}\]
+	$\sigma$ è una curva integrale di $X$ se e solo se $\tilde{\sigma}$ risolve il problema di Cauchy
+	\[\left\{\begin{array}{l l}
+	\frac{\mathrm{d}\sigma^j}{\mathrm{d}t}(t)=f_j(\sigma(t))&\textrm{ per $j=1,\dots,n$}\\
+	\sigma(t_0)=\varphi(P)&\\
+	\end{array}\right.\]
+	Possiamo ora dimostrare il teorema seguente.
+\end{osservazione}
+\begin{teorema}[del flusso]
+	Sia $X\in\mathcal{T}(M)$ un campo vettoriale su una varietà differenziabile $M$. Allora esistono un unico intorno aperto $\mathcal{U}$ di $\{0\}\times M$ in $\mathbb{R}\times M$ e un'unica funzione $\Theta\colon \mathcal{U}\to M$ di classe $C^\infty$ che soddisfano le seguenti proprietà:
+	\begin{enumerate}
+		\item Per ogni $P\in M$, l'insieme
+		\[\mathcal{U}^P=\left\{t\in\mathbb{R}:(t,P)\in\mathcal{U}\right\}\]
+		è un intervallo aperto contenente 0.
+		\item Per ogni $P\in M$, la curva $\theta^P\colon\mathcal{U}^P\to M$ definita da $\theta^P(t)=\Theta(t,P)$ è l'unica curva integrale massimale di $X$ uscente da $P$.
+		\item Per ogni $t\in\mathbb{R}$, l'insieme
+		\[\mathcal{U}_t=\left\{P\in M:(t,P)\in\mathcal{U}\right\}\]
+		è un sottoinsieme aperto di $M$.
+		\item Se $P\in\mathcal{U}_t$, allora $P\in\mathcal{U}_{t+s}$ se e solo se $\Theta(t,P)\in\mathcal{U}_s$ e, in tal caso, si ha
+		\[\theta_s(\theta_t(P))=\theta_{s+t}(P)\]
+		dove $\theta_t\colon\mathcal{U}_t\to M$ è definita ponendo $\theta_t(P)=\Theta(t,P)$. In particolare, $\theta_0=id$ e $\theta_t\colon\mathcal{U}_t\to\mathcal{U}_{-t}$ è un diffeomorfismo, la cui inversa è $\theta_{-t}$.
+		\item Per ogni $(t,P)\in\mathcal{U}$, si ha \[\mathrm{d}\left(\theta_t\right)_P(X_P)=X_{\theta_t(P)}\]
+		\item Per ogni $f\in C^\infty(M)$ e per ogni $P\in M$, si ha
+		\[\frac{\mathrm{d}\left(f\circ\theta^P\right)}{\mathrm{d}t}(0)=X(f)(P)\]
+	\end{enumerate}
+\end{teorema}
+\begin{proof}
+	Il teorema \ref{cauchylipschitz} ci assicura che per ogni $P\in M$ esiste sempre una curva integrale di $X$ uscente da $P$ e che se due curve coincidono in un punto allora coincidono sull'intera intersezione dei loro domini. Dato $P\in M$, sia $\mathcal{U}^P$ l'unione di tutti gli intervalli aperti $I\subseteq \mathbb{R}$ contenenti 0 su cui sia definita una curva integral $\sigma\colon I\to M$ di $X$, uscente da $P$. $\mathcal{U}^P$ è un intervallo aperto contenente l'origine, e ciò dimostra il primo punto. Adesso $\theta^P\colon\mathcal{U}^P\to M$ si costruisce nel modo standard dei corsi di Analisi, ed è unica. Sia ora
+	\[\mathcal{U}=\left\{(t,P)\in\mathbb{R}\times M:t\in\mathcal{U}^P\right\}\]
+	e definiamo $\Theta\colon\mathcal{U}\to M$ ponendo $\Theta(t,P)=\theta^P(t)$. POniamo
+	\[\mathcal{U}_t\left\{P\in M:(t,P)\in\mathcal{U}\right\}\]
+	e definiamo $\theta_t\colon\mathcal{U}_t\to M$ ponendo $\theta_t(P)=\Theta(t,P)$. In questo modo abbiamo anche mostrato il secondo punto e l'unicità di $\mathcal{U}$ e $\Theta$. 
+	
+	Tralasciamo ora per un attimo il terzo punto e passiamo al quarto. Per definizione $\mathcal{U}_0=M$ e $\theta_0=id_M$. Siano $P\in M$, $t\in\mathcal{U}^P$ e poniamo $Q=\theta^P(t)$. Sia $\sigma\colon\mathcal{U}^P-t\to M$ definita ponendo \[\sigma(s)=\theta^P(s+t)\] dove
+	\[\mathcal{U}^P-t=\left\{s\in\mathbb{R}:s+t\in\mathcal{U}^P\right\}\]
+	La curva $\sigma$ è ancora una curva integrale di $X$, infatti si ha
+	\[\sigma'(s)=\frac{\mathrm{d}\theta^P}{\mathrm{d}s}(s+t)=X\left(\theta^P(s+t)\right)=X(\sigma(s))\]
+	Dato che $\sigma(0)=Q$, $\sigma$ è la curva integrale di $X$ uscente da $Q$, pertanto $\sigma(s)=\theta^Q(s)$. Ancora, si ha
+	\[\theta^{\theta^P(t)}(s)=\theta^P(s+t)\]
+	ovvero
+	\[\Theta(s,\Theta(t,P))=\Theta(s+t,P)\]
+	\[\theta_{s+t}(P)=\theta_{s}(\theta_t(P))\]
+	Inoltre, $\mathcal{U}^P-t\subseteq\mathcal{U}^Q$. Dato che \[0\in\mathcal{U}^P\], $-t\in\mathcal{U}^Q$ e $\theta^Q(-t)=P$. Questo implica che $\mathcal{U}^Q+t\subseteq\mathcal{U}^P$, e infine \[\mathcal{U}^P-t=\mathcal{U}^Q=\mathcal{U}^{\Theta(t,P)}\]
+	Allora $Q=\Theta(t,P)\in\mathcal{U}_s$ se e solo se $P\in\mathcal{U}_{s+t}$, ovvero il quarto punto.
+	
+	Dimostriamo ora che $\mathcal{U}$ è un sottoinsieme aperto di $\mathbb{R}\times M$. Sia $W\subseteq\mathcal{U}$ l'insieme delle coppie $(t,P)$ tali che esista un intorno di $(t,P)$ della forma $I\times U$, con $I$ intervallo contenente 0 e $t$ e $U$ intorno aperto di $P\in M$. Chiaramente $W$ è aperto. Di nuovo, per il teorema \ref{cauchylipschitz} ci dice che $(0,P)\in W$ per ogni $P\in M$. Supponiamo per assurdo che esista $(t_0,P_0)\in\mathcal{U}\backslash W$. Dato che $t_0\neq0$, possiamo supporre $t_0>0$ (il caso $t_0<0$ è analogo). Sia
+	\[\tau=\sup\left\{t\in\mathbb{R}:(t,P_0)\in W\right\}\]
+	Chiaramente $0<\tau\leq t_0$. Siccome $t_0\in\mathcal{U}^{P_0}$, si ha $\tau\in\mathcal{U}^{P_0}$, dato che quest'ultimo è un intervallo contenente 0 e $t_0$. Sia $Q_0=\theta^{P_0}(\tau)$. Per il teorema \ref{cauchylipschitz} esistono $\delta>0$ e un intorno $U_0$ di $Q_0$ tale che $\Theta$ sia definita e di classe $C^\infty$ in $(-\delta,\delta)\times U_0$.Sia $t_1<\tau$ tale che $t_1+\delta>\tau$ e $U^{P_0}(t_1)\in U_0$. Si ha $(t_1,P_0)\in W$ e quindi esiste un intorno $(-\varepsilon,t_1+\varepsilon)\times U_1$ di $(t_1,P_0)$ su cui $\Theta$ è definita e di classe $C^\infty$. Inoltre, possiamo scegliere $U_1$ sufficientemente piccolo in modo che $\Theta(t_1,U_1)\subseteq U_0$. Quindi se $P\in U_1$, $\theta_{t_1}(P)$ è definita e dipende in modo $C^\infty$ da $P$. Dato che $\theta_{t_1}(P)\in U_0$, si ha che $\theta_{t-t_1}\circ\theta_{t_1}(P)$ è definita e dipende in modo $C^\infty$ da $t\in(t_1-\delta,t_1+\delta)$ e $P\in U_1$. Dato che per il quarto punto si ha $\theta_{t-t_1}\circ\theta_{t_1}=\theta_t$, abbiamo esteso $\Theta$ in modo $C^\infty$ a un aperto della forma $(-\varepsilon,t_1+\delta)\times U_1$. Ciò è assurdo per la definizione di $\tau$ e perchè $t_1+\delta>\tau$. Allora $\mathcal{U}=W$, e si ha il terzo punto.
+	
+	Per provare il sesto punto, si ha
+	\[X(f)(P)=\mathrm{d}f_P(X_P)=\frac{\mathrm{d}\left(f\circ\theta^P\right)}{\mathrm{d}t}(0)\]
+	Dato che $\theta^P(0)=P$ e $\left(\theta^P\right)'(0)=X_P$.
+	
+	Infine, siano $(t_0,P_0)\in\mathcal{U},f\in C^\infty_{\theta_{t_0}(P_0)}$. Si ha
+	\[\mathring{d}\left(\theta_{t_0}\right)_{P_0}(X_{P_0})(f)=X_{P_0}(f\circ\theta_{t_0})=\]
+	\[=\frac{\mathrm{d}}{\mathrm{d}t}\left(f\circ\theta_{t_0}\circ\theta^{P_0}(t)\right)(0)=\frac{\mathrm{d}}{\mathrm{d}t}\left(f\circ\theta_{t_0+t}(P_0)\right)(0)=\]\[\frac{\mathrm{d}}{\mathrm{d}t}\left(f\circ\theta^{P_0}(t_0+t)\right)(0)=X_{\theta^{P_0}(t_0)}(f)=X_{\theta_{t_0}(P_0)}(f)\]
+	e questo, per l'arbitrarietà di $f$, è il sesto punto.
+\end{proof}
+\begin{definizione}
+	La funzione $\Theta\colon\mathcal{U}\to M$ è detta flusso locale del campo vettoriale $X$. $X$ è detto completo se $\mathcal{U}=\mathbb{R}\times M$, ovvero se tutte le curve integrali di $X$ sono definite per tutti i tempi $t$. Un campo vettoriale $Y\in\mathcal{T}(M)$ è $X$-invariante se
+	\[\mathrm{d}\left(\theta_t\right)_P(Y_P)=Y_{\theta_t(P)}\]
+	per ogni $(t,P)$ nel dominio del flusso locale $\Theta$ di $X$.
+\end{definizione}
+\begin{osservazione}
+	Il punto (5) del teorema precedente ci dice che $X$ è $X$-invariante.
+\end{osservazione}
+\begin{osservazione}
+	Siano $X$ e $Y$ due campi vettoriali su $M$, intesi come derivazioni. La composizione $X\circ Y$ non è in generale una derivazione, infatti
+	\[X\circ Y(fg)=X(fY(g)+gY(f)=fX\circ Y(g)+X(f)Y(g)+X(g)Y(f)+gX\circ Y(f)\]
+	Dallo stesso calcolo segue che $X\circ Y-Y\circ X$ è una derivazione, cioè un nuovo campo vettoriale.
+\end{osservazione}
+\begin{definizione}
+	Siano $X,Y\in\mathcal{T}(M)$. La parentesi di Lie di $X$ e $Y$ è il campo vettoriale
+	\[[X,Y]=X\circ Y-Y\circ X\]	
+	Diremo che $X$ e $Y$ commutano se $[X,Y]=0$.
+\end{definizione}
+\begin{osservazione}
+	Le parentesi di Lie hanno un'interpretazione geometria assai bella: sia $P\in M$. Da $P$ ci spostiamo per un tempo $h$ seguendo la curva integrale di $X$, fino a fermarci in un altro punto. Da questo, ci muoviamo per un tempo $h$ seguendo la curva integrale di $Y$. A questo punto, ripartiamo seguendo la curva integrale di $X$ e muovendoci per un tempo $-h$. Infine, ripartiamo seguendo la curva integrale di $Y$ muovendoci sempre per un tempo $-h$. Troviamo così un punto, $\sigma(h)$, che in generale non coincide con $P$. La curva che mappa $h\mapsto\sigma(h)$ è di classe $C^\infty$ ed è tale che $\sigma(0)=P$. Inoltre, si può dimostrare che $\sigma'(0)=0$, $\sigma''(0)=2[X,Y]_P$. In particolare, $X$ e $Y$ commutano se il "quadrilatero" che abbiamo ottenuto è chiuso fino al secondo ordine.
+\end{osservazione}
+\begin{proposizione}
+	Siano $X,Y,Z\in\mathcal{T}(M)$, $a,b\in\mathbb{R}$, $f,g\in C^\infty(M)$. Allora:
+	\begin{enumerate}
+		\item $[X,Y]=-[Y,X]$
+		\item $[aX+bY,Z]=a[X,Z]+b[Y,Z]$
+		\item (identità di Jacobi) $[X,[Y,Z]]+[Y,[Z,X]]+[Z,[X,Y]]=0$
+		\item $[fX,gY]=fg[X,Y]+fX(g)Y-gY(f)X$
+		
+		In particolare, se $f\equiv 1$, si ha \[[X,gY]=g[X,Y]+X(g)Y\]
+		Cioè la funzione $[X,\cdot]\colon\mathcal{T}(M)\to\mathcal{T}(M)$ che mappa $Y$ in $[X,Y]$ si comporta come una "derivazione".
+		\item Se, in coordinate locali, si ha
+		$X=X^h\partial_h$ e
+		$Y=Y^k\partial_k$, dove $\partial_j=\frac{\partial}{\partial x^j}$, allora
+		\[[X,Y]=\left(X^h\partial_hY^k-Y^h\partial_hX^k\right)\partial_k\]
+		e in particolare
+		$[\partial_h,\partial_k]=0$.
+	\end{enumerate}
+\end{proposizione}
+\begin{proof}
+	1. e 2. sono ovvie. Per 3., è sufficiente notare che
+	\[[X,[Y,Z]]=XYZ-XZY-YZX+ZYX\]
+	e sommare le tre parentesi permutate. Per 4., si ha
+	\[[fX,gY]=fX(gY)-gY(fX)=fX(g)Y+fgXY-gY(f)X+gfYX=\]\[=fg[Y,X]+fX(g)Y-gY(f)X\]
+	Allora, 5. segue dal semplice calcolo
+	\[[X,Y]=[X^h\partial_h,Y^k\partial_k]=X^h\partial_h(Y^k\partial_k)-Y^k\partial_k(X^h\partial_h)=\]
+	\[=X^h(\partial_hY^k)\partial_k+X^hY^k\partial_h\partial_k-Y^k(\partial_kX^h)\partial_h-Y^kX^h\partial_k\partial_h=\]
+	\[=X^h(\partial_hY^k)\partial_k-Y^k(\partial_kX^h)\partial_h=\left(X^h\partial_hY^k-Y^h\partial_hX^k\right)\partial_k\]
+	Dato che per funzioni $C^\infty$ l'ordine di derivazione è ininfluente e dato che nell'ultimo termine $h$ e $k$ sono indici muti.
+\end{proof}
+\begin{definizione}
+	Siano $X,Y\in\mathcal{T}(M)$. La derivata di Lie di $Y$ lungo $X$ è il campo vettoriale $\mathcal{L}_XY\in\mathcal{T}(M)$ definito da
+	\[\lie{X}{Y}(P)=\lim\limits_{t\to0}\frac{\dif(\theta_{-t})_{\theta_t(P)}(Y)-Y_P}{t}=\frac{\dif}{\dif t}\left.\left(\dif(\theta_{-t})_{\theta_t(P)}(Y)\right)\right|_{t=0}\]
+\end{definizione}
+\begin{osservazione}
+	Intuitivamente, $\lie{X}{Y}$ è il limite del rapporto incrementale lungo le curve integrali di $X$. Nella definizione si utilizza $\dif\theta_{-t}$ perchè formalmente $Y_P$ e $Y_{\theta_t(P)}$ sono due vettori di due spazi vettoriali diversi, quindi non avrebbe senso considerare il "rapporto incrementale" $(Y_{\theta_t(P)}-Y_P)/t$.
+\end{osservazione}
+\begin{osservazione}
+	Se $Y$ è un campo $X$-invariante, allora $\lie{X}{Y}=0$.
+\end{osservazione}
+\begin{lemma}
+	Siano $U\subseteq M$ un aperto, $\delta>0$, e sia $h\colon(-\delta,\delta)\times U\to\R$ una funzione di classe $C^\infty$ tale che $h(0,P)=0$ per ogni $P\in U$. Allora esiste $g\colon(-\delta,\delta)\times U\to\R$ di classe $C^\infty$ tale che $h(t,P)=tg(t,P)$ e $g(0,P)=\frac{\partial h}{\partial t}(0,P)$ per ogni $P\in U$.
+\end{lemma}
+\begin{proof}
+	La funzione
+	\[g(t,P)=\int_{0}^{1}\frac{\partial h}{\partial t}(ts,P)\dif s\]
+	soddisfa le proprietà richieste.
+\end{proof}
+\begin{teorema}
+	\label{lie}
+	Siano $X,Y\in\mathcal{T}(M)$. Allora
+	\[\lie{X}{Y}=[X,Y]\]
+\end{teorema}
+\begin{proof}
+	Sia $\Theta\colon\mathcal{U}\to M$ il flusso locale di $X$. Dato $P\in X$, siano $\delta>0$ e $U_0$ un intorno di $P$ tali che $(-\delta,\delta)\times U_0\subseteq\mathcal{U}$. Sia $(U,f)$ un rappresentante di un germe di funzione $f_P$. Possiamo scegliere $U_0,U$ e eventualmente diminuire $\delta$ in modo che $\Theta((-\delta,\delta)\times U_0)\subseteq U$. Sia $h\colon(-\delta,\delta)\times U\to\R$ definita ponendo
+	\[h(t,Q)=f(Q)-f(\theta_{-t}(Q))\]
+	Si ha $h(0,Q)=0$ per ogni $Q\in U$. Sia allora $g$ la funzione data dal lemma precedente. Si ha
+	\[f(\theta_{-t}(Q))=f(Q)-tg(t,Q)\]
+	Inoltre, sempre per il lemma precedente si ha
+	\[g(0,Q)=\frac{\partial h}{\partial t}(0,Q)=-\frac{\partial}{\partial t}\left.f(\theta_{-t}(Q))\right|_{t=0}=\frac{\partial}{\partial t}\left.f(\theta_t(Q))\right|_{t=0}=X_Q(f)=(Xf)(Q)\]
+	dove l'ultima uguaglianza segue dal teorema del flusso. Allora, ponendo $g(t,Q)=g_t(Q)$, si ha
+	\[\dif(\theta_{-t})_{\theta_t(P)}(Y)(f)=Y_{\theta_t(P)}(f\circ\theta_{-t})=Y(f)(\theta_t(P))-tY(g_t)(\theta_t(P))\]
+	Di conseguenza, per definizione di derivata di Lie si ha
+	\[\lie{X}{Y}(f)(P)=\lim\limits_{t\to0}\frac{\dif(\theta_{-t})_{\theta_t(P)}(Y)-Y_P}{t}(f)=\]
+	\[=\lim\limits_{t\to0}\frac{Y(f)(\theta_t(P))-tY(g_t)(\theta_t(P))-Y(f)(P)}{t}=\]\[=\lim\limits_{t\to0}\frac{Y(f)(\theta_t(P))-Y(f)(P)}{t}-Y(g_0)(P)=\]
+	\[=\frac{\dif}{\dif t}\left.(Y(f)\circ\theta^P)\right|_{t=0}-Y_P(X(f))=X(Y(f))(P)-Y(X(f))(P)=[X,Y](f)(P)\]
+	dove si è usato nuovamente il teorema del flusso.
+\end{proof}
+\begin{definizione}
+	Sia $F\colon M\to N$ un diffeomorfismo. Dato $X\in\mathcal{T}(M)$, indichiamo con $\dif F(X)$, o con $F_*(X)$, il campo vettoriale su $N$ definito per ogni $Q\in N$ ponendo
+	\[\dif F(X)_Q=\dif F_{F^{-1}(Q)}(X_{F^{-1}(Q)})\]
+	$F_*$ è chiamato pushforward.
+\end{definizione}
+\begin{definizione}
+	Sia $F\colon M\to N$ una funzione di classe $C^\infty$. Diciamo che $Y\in\mathcal{T}(N)$ è $F$-correlato a $X\in\mathcal{T}(M)$ se per ogni $P\in M$ si ha
+	\[Y_{F(P)}=\dif F_P(X_P)\]
+\end{definizione}
+\begin{osservazione}
+	Se $F$ è un diffeomorfismo, $F_*(X)$ è l'unico campo vettoriale su $N$ che è $F$-correlato a $X$.
+\end{osservazione}
+\begin{lemma}
+	Siano $F\colon M\to N$, $X,X_1,X_2\in\mathcal{T}(M)$ e $Y,Y_1,Y_2\in\mathcal{T}(N)$. Allora:
+	\begin{enumerate}
+		\item $Y$ è $F$-correlato a $X$ se e solo se
+		\[X(f\circ F)=Y(f)\circ F\]
+		per ogni funzione $f$ di classe $C^\infty$ in un aperto di $N$.
+		\item Se $Y_1$ è $F$-correlato a $X_1$ e $Y_2$ è $F$-correlato a $X_2$, allora $[Y_1,Y_2]$ è $F$-correlato a $[X_1,X_2]$.
+		\item Se $F$ è un diffeomorfismo, allora
+		\[[F_*(X_1),F_*(X_2)]=F_*([X_1,X_2])\]
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	Per provare 1., si ha
+	\[X(f\circ F)(P)=\dif F_P(X_P)(f)\]
+	\[(Y(f)\circ F)(P)=Y_{F(P)}(f)\]
+	Dunque $X(f\circ F)=Y(f)\circ F$ se e solo se
+	\[\dif F_P(X_P)=Y_{F(P)}\]
+	per ogni $P\in M$, ovvero se e solo se $Y$ è $F$-correlato a $X$. Dal punto 1. segue allora
+	\[X_1X_2(f\circ F)=X_1(Y_2(f)\circ F)=Y_1Y_2(f)\circ F\]
+	In maniera del tutto analoga si prova
+	\[X_2X_1(f\circ F)=Y_1Y_2(f)\circ F\]
+	Infine, sottraendo membro a membro si ottiene
+	\[[X_1,X_2](f\circ F)=[Y_1,Y_2](f)\circ F\]
+	E sempre per il punto 1. si ottiene la tesi 2.
+	
+	Se $F$ è un diffeomorfismo, siano $Y_1=F_*(X_1)$ e $Y_2=F_*(X_2)$ gli unici campi $F$-correlati rispettivamente a $X_1$ e $X_2$. Allora da 2. segue che $[Y_1,Y_2]$ è $F$-correlato a $[X_1,X_2]$. Ovviamente $[X_1,X_2]$ è correlato anche a $F_*([X_1,X_2])$, e quindi per unicità si conclude
+	\[F_*([X_1,X_2])=[Y_1,Y_2]\]
+\end{proof}
+\begin{definizione}
+	Sia $X$ un campo vettoriale su $M$. Un punto $P\in M$ è un punto singolare di $X$ se $X_P=0$. $P$ è un punto regolare se non è singolare.
+\end{definizione}
+\begin{proposizione}
+	\label{regular}
+	Sia $P$ un punto regolare di $X\in\mathcal{T}(M)$. Allora esiste una carta locale $(U,\varphi)$ centrata in $P$ tale che 
+	\[X_{|U}=\frac{\partial}{\partial x^1}\]
+\end{proposizione}
+\begin{proof}
+	Il problema è locale, quindi possiamo supporre che $M$ sia un aperto di $\R^n$ e $P=0$. Dato che $X_P\neq0$, possiamo supporre che la prima coordinata di $X$ non sia nulla in $P$ (a meno di permutare le coordinate). Vogliamo trovare una carta locale $(U,\varphi)$ tale che per ogni $Q\in U$ si abbia
+	\[X_Q=\dif(\varphi^{-1})_{\varphi(Q)}\left(\left.\frac{\partial}{\partial x^1}\right|_{\varphi(Q)}\right)\]
+	Sia $\Theta\colon\mathcal{U}\to\R^n$ il flusso locale di $X$ e siano $\varepsilon>0$ e $U_0$ un intorno aperto di $0\in\R^n$ tali che $(-\varepsilon,\varepsilon)\times U_0\subseteq\mathcal{U}$. Siano $S_0=U_0\cap\left\{x^1=0\right\}$ e  $S=\left\{x'\in\R^{n-1}:(0,x')\in S_0\right\}$. Definiamo $\psi\colon(-\varepsilon,\varepsilon)\times S\to\R^n$ ponendo $\psi(t,x')=\theta_t(0,x')=\Theta(t,(0,x'))$. Vogliamo mostrare che
+	\[\dif\psi\left(\frac{\partial}{\partial t}\right)=X\circ\psi\]
+	e che $\dif\psi(0,0)$ è invertibile. Allora per il teorema della funzione inversa $\psi$ è localmente invertibile. L'inversa locale $\varphi=\psi^{-1}$ sarà la carta locale cercata. Dati $(t_0,x'_0)\in(-\varepsilon,\varepsilon)\times S$ e $f\in C^\infty(\R^n)$, si ha
+	\[\dif\psi(t_0,x'_0)\left(\left.\frac{\partial}{\partial t}\right|_{(t_0,x'_0)}\right)=\frac{\partial}{\partial t}\left.(f\circ\psi)\right|_{(t_0,x'_0)}=\]
+	\[=\frac{\dif}{\dif t}\left.f(\theta_t(0,x'_0))\right|_{t=t_0}=X(f)(\psi(t_0,x'_0))\]
+	dove si è usato il teorema del flusso. Allora per arbitrarietà di $f$ si ha
+	\[\dif\psi\left(\frac{\partial}{\partial t}\right)=X\circ\psi\]
+	Dato che $\psi(0,x')=\theta_0(0,x')=(0,x')$ per ogni $x'\in S$, si ha
+	\[\dif\psi(0,0')\left(\frac{\partial}{\partial x^1}\right)=\left.\frac{\partial}{\partial x^1}\right|_{0}\]
+	Di conseguenza
+	\[X_0=\left.\frac{\partial}{\partial x^1}\right|_{0}\]
+	Allora $\dif\psi(0,0')$ trasforma la base
+	\[\left\{\frac{\partial}{\partial t},\frac{\partial}{\partial x^2},\dots,\frac{\partial}{\partial x^n}\right\}\]
+	di $T_{(0,0')}\R^n$ in una base di $T_PM=T_0\R^n$, e in particolare è invertibile.
+\end{proof}
+\begin{osservazione}
+	Intuitivamente, la proposizione precedente ci dice che se $P$ è regolare allora esiste una carta locale in cui l'asse $x^1$ punta nella direzione indicata dal campo $X$.
+\end{osservazione}
+\begin{proposizione}
+	Siano $X,Y\in\mathcal{T}(M)$. Indichiamo con $\Theta\colon\mathcal{U}\to M$ e $\Psi\colon\mathcal{V}\to M$ rispettivamente il flusso di $X$ e di $Y$. Sono proprietà equivalenti
+	\begin{enumerate}
+		\item $X$ e $Y$ commutano.
+		\item $Y$ è $X$-invariante.
+		\item $X$ è $Y$-invariante.
+		\item $\psi_s\circ\theta_t=\theta_t\circ\psi_s$ non appena uno dei due membri è definito (ovvero i flussi commutano).
+	\end{enumerate}
+\end{proposizione}
+\begin{proof}
+	Se $Y$ è $X$-invariante, allora $\lie{X}{Y}=0$, quindi per il teorema \ref{lie} si ha 2.$\Rightarrow$1. 
+	
+	Mostriamo ora 1.$\Rightarrow$ 2. e supponiamo quindi $[X,Y]=0$. Siano $P\in M$, $V\colon\mathcal{U}^P\to T_PM$ definita ponendo
+	\[V(t)=\dif(\theta_{-t})_{\theta_t(P)}(Y_{\theta_t(P)})\]
+	Per mostrare la tesi, è sufficiente mostrare che $V$ è costante. Si ha
+	\[\frac{\dif V}{\dif t}(t_0)=\frac{\dif}{\dif t}\left.\left(\dif(\theta_{-t})_{\theta_t(P)}(Y_{\theta_t(P)})\right)\right|_{t=t_0}=\frac{\dif}{\dif s}\left.\left(\dif(\theta_{-t_0-s})_{\theta_{t_0+s}(P)}(Y_{\theta_{t_0+s}(P)})\right)\right|_{s=0}=\]
+	\[=\frac{\dif}{\dif s}\left.\left(\dif(\theta_{-t_0})_{\theta_{t_0}(P)}\circ\dif(\theta_{-s})_{\theta_s(\theta_{t_0}(P))}Y_{\theta_{t_0+s}(P)}\right)\right|_{s=0}=\]
+	\[=\dif(\theta_{-t_0})_{\theta_{t_0}(P)}\left[\frac{\dif}{\dif s}\left.\left(\dif(\theta_{-s})_{\theta_s(\theta_{t_0}(P))}Y_{\theta_{t_0+s}(P)}\right)\right|_{s=0}\right]=\dif(\theta_{-t_0})_{\theta_{t_0}(P)}\left(\lie{X}{Y}\right)=0\]
+	In particolare $V(t)=V(0)=Y_P$, che è la tesi. 
+	
+	Ovviamente si dimostra 1.$\Leftrightarrow$3. allo stesso modo.
+	
+	Mostriamo 3.$\Rightarrow$4., siano $s\in\R$ e $P\in\mathcal{V}_s$. Consideriamo la curva $\sigma\colon I\to M$ definita ponendo $\sigma=\psi_s\circ\theta^P$, dove $I\subseteq\R$ è un opportuno intervallo contenente l'origine in cui $\sigma$ è definita. Per ogni $t\in I$ si ha
+	\[\sigma'(t)=(\psi_s\circ\theta^P)'(t)=\dif(\psi_s)_{\theta^P(t)}\left((\theta^P)'(t)\right)=\dif(\psi_s)_{\theta^P(t)}\left(X_{\theta^P(t)}\right)=X\left(\sigma(t)\right)\]
+	dove l'ultimo passaggio è giustificato dalla $Y$-invarianza di $X$. L'ultima uguaglianza ci dice che $\sigma$ è la curva integrale di $X$ uscente da $\psi_s(P)$, ovvero $\sigma(t)=\theta^{\psi_s(P)}(t)=\Theta(t,\psi_s(P))$. Di conseguenza
+	\[\psi_s\circ\theta_t(P)=\Psi(s,\Theta(t,P))=\psi_s\circ\theta^P(t)=\sigma(t)=\Theta(t,\psi_s(P))=\theta_t\circ\psi_s(P)\]
+	E per l'arbitrarietà di $P$ si ha la tesi.
+	
+	Infine mostriamo 4.$\Rightarrow$3. Si ha
+	\[\dif(\psi_s)_P(X_P)=\frac{\dif}{\dif t}\left.\left(\psi_s\circ\theta^P(t)\right)\right|_{t=0}=\frac{\dif}{\dif t}\left.\left(\psi_s\circ\theta_t(P)\right)\right|_{t=0}=\]
+	\[=\frac{\dif}{\dif t}\left.\left(\theta_t\circ\psi_s(P)\right)\right|_{t=0}=\left(\theta^{\psi_s(P)}\right)'(0)=X_{\psi_s(P)}\]
+	E dunque $X$ è $Y$-invariante.
+\end{proof}
+\begin{osservazione}
+	Questa proposizione ci permette di dire che il "quadrilatero" costruito con le parentesi di Lie è effettivamente chiuso, cioè non solo fino al secondo ordine, quando $X$ e $Y$ commutano.
+\end{osservazione}
+\begin{teorema}
+	\label{regular2}
+	Siano $X_1,\dots,X_k\in\mathcal{T}(M)$ campi vettoriali linearmente indipendenti in ogni punto di $M$. Allora le seguenti proprietà sono equivalenti:
+	\begin{enumerate}
+		\item Per ogni $P\in M$ esiste una carta locale $(U,\varphi)$ centrata in $P$ tale che 
+		\[\left.X_j\right|_{U}=\frac{\partial}{\partial x^j}\]
+		per ogni $j=1,\dots,k$.
+		\item $[X_i,X_j]=0$ per ogni $i,j=1,\dots,k$.
+	\end{enumerate}
+\end{teorema}
+\begin{proof}
+	1.$\Rightarrow$2. è ovvio.
+	
+		Supponiamo che valga 2. e, vista la natura locale del problema, che $M=\R^n$ e $P=0$. A meno di permutare le coordinate, possiamo completare $\left\{\left.X_1\right|_{P},\dots,\left.X_k\right|_{P}\right\}$ a una base
+		\[\left\{\left.X_1\right|_{P},\dots,\left.X_k\right|_{P},\left.\frac{\partial}{\partial x^{k+1}}\right|_{P},\dots,\left.\frac{\partial}{\partial x^{n}}\right|_{P}\right\}\]
+		di $T_PM$. Sia $\Theta_j$ il flusso di $X_j$. Per induzione su $k$, si mostra facilmente che esistono $\varepsilon>0$ e un intorno $W$ di $P=0$ tali che $(\theta_k)_{t_k}\circ\dots\circ(\theta_1)_{t_1}$ sia ben definita su $W$ per ogni $t_1,\dots,t_k\in(-\varepsilon,\varepsilon)$. Sia
+		\[S=\left\{(x^{k+1},\dots,x^n)\in\R^{n-k}:(\underbrace{0,\dots,0}_{k\textrm{ volte}},x^{k+1},\dots,x^n)\in W\right\}\]
+		e sia $\psi\colon(-\varepsilon,\varepsilon)^k\times S\to\R^n=M$ ponendo
+		\[\psi(t^1,\dots,t^k,x^{k+1},\dots,x^n)=(\theta_k)_{t^k}\circ\dots\circ(\theta_1)_{t^1}(0,\dots,0,x^{k+1},\dots,x^n)\]
+		In maniera analoga alla proposizione \ref{regular} si dimostra
+		\[\dif\psi\left(\frac{\partial}{\partial t^i}\right)=X_i\]
+		e inoltre si mostra che $\dif\psi_0$ è invertibile. Allora $\varphi=\psi^{-1}$ è la carta cercata.
+\end{proof}
+\begin{osservazione}
+	Se $X\in\mathcal{T}(M)$ è un campo mai nullo, dall'unicità delle curve integrali si deduce che $M$ si partiziona nell'unione disgiunta delle curve integrali di $X$. In particolare, se trascuriamo la parametrizzazione delle curve integrali, abbiamo selezionato in maniera $C^\infty$ un sottospazio di dimensione 1 di ogni spazio $T_PM$, per ogni $P\in M$. Inoltre, ogni punto $Q\in M$ è contenuto nell'immagine dell'immersione di una 1-varietà, che è tangente in ogni punti ai sottospazi selezionati. Tra poco dimostreremo una generalizzazione per sottospazi $k$-dimensionali di $T_PM$.
+\end{osservazione}
+\newpage
+
+\section{Distribuzioni, foliazioni, teoremi di Frobenius.}
+\begin{definizione}
+	Una distribuzione $k$-dimensionale su una varietà $M$ è un sottoinsieme $D\subseteq TM$ tale che $D_P=D\cap T_PM$ è un sottospazio $k$-dimensionale di $T_PM$ per ogni $P\in M$. Diremo che $D$ è liscia (o $C^\infty$) se per ogni $P\in M$ esiste un intorno aperto $U$ di $P$ e esistono $k$ campi vettoriali $Y_1,\dots,Y_k\in\mathcal{T}(U)$ tali che $D_P=\langle Y_1(P),\dots,Y_k(P)\rangle$ per ogni $P\in U$. La $k$-upla $(Y_1,\dots,Y_k)$ è detta un riferimento locale per $D$ su $U$.
+\end{definizione}
+\begin{definizione}
+	Una sezione locale di una distribuzione liscia $D$ su un aperto $U\subseteq M$ è un campo vettoriale $X\in\mathcal{T}(U)$ tale che $X_P\in D_P$ per ogni $P\in U$. Indichiamo con $\mathcal{T}_D(U)$ lo spazio delle sezioni locali di $D$ su $U$.
+\end{definizione}
+\begin{definizione}
+	Diciamo che $D$ è involutiva se $[X,Y]\in\mathcal{T}_D(U)$ per ogni $X,Y\in\mathcal{T}_D(U)$ e per ogni aperto $U\subseteq M$.
+\end{definizione}
+\begin{definizione}
+	Sia $D\subseteq TM$ una distribuzione liscia. Una sottovarietà integrale di $D$ è una sottovarietà immersa $S\hookrightarrow M$ tale che $T_PS=D_P$ per ogni $P\in S$. Diremo che $D$ è integrabile se ogni punto di $M$ è contenuto in una sottovarietà integrale di $D$.
+\end{definizione}
+\begin{osservazione}
+	Una sottovarietà di una distribuzione è l'analogo $k$-dimensionale di una curva integrale di un campo di vettori.
+\end{osservazione}
+\begin{proposizione}
+	Ogni distribuzione liscia integrabile è involutiva.
+\end{proposizione}
+\begin{proof}
+	Sia $D\subseteq TM$ una distribuzione liscia integrabile e siano $X,Y\in\mathcal{T}_D(U)$ due sezioni di $D$ su un qualche aperto $U$. Dato $P\in U$, sia $S$ una sottovarietà integrale di $D$ contenente $P$. Dato che $X$ e $Y$ sono sezioni di $D$, si ha $X_Q,Y_Q\in T_QS$ per ogni $Q\in S\cap U$. Allora $[X,Y]_P\in T_PS=D_P$, quindi per arbitrarietà di $P$ si ottiene $[X,Y]\in\mathcal{T}_D(U)$.
+\end{proof}
+\begin{definizione}
+	Sia $D\subseteq TM$ una distribuzione liscia di dimensione $k$ in una varietà $M$. Una carta locale $(U,\varphi)$ è piatta per $D$ se:
+	\begin{enumerate}
+		\item $\varphi(U)=V'\times V''$, con $V'$ aperto di $\R^k$ e $V$ aperto di $\R^{n-k}$.
+		\item L'insieme\[\left\{\frac{\partial}{\partial x^1},\dots,\frac{\partial}{\partial x^k}\right\}\]
+		è un riferimento locale per $D$ su $U$.
+	\end{enumerate}
+\end{definizione}
+\begin{definizione}
+	Siano $(U,\varphi)$ una carta locale piatta per $D$, $c_{k+1},\dots,c_n\in\R$. Gli insiemi
+	\[\left\{P\in U:x^{k+1}(P)=c_{k+1},\dots,x^n(P)=c_n\right\}\]
+	sono detti fette di $U$.
+\end{definizione}
+\begin{definizione}
+	Diciamo che $D$ è completamente integrabile se per ogni $P\in M$ esiste una carta locale $(U,\varphi)$, con $P\in U$, piatta per $D$.
+\end{definizione}
+\begin{lemma}
+	Ogni distribuzione liscia completamente integrabile è integrabile.
+\end{lemma}
+\begin{proof}
+	Basta osservare che se $(U,\varphi)$ è una carta locale piatta per $D$, allora le fette di $U$ sono delle sottovarietà integrali di $D$.
+\end{proof}
+\begin{teorema}[di Frobenius locale]
+	Ogni distribuzione liscia involutiva è completamente integrabile.
+\end{teorema}
+\begin{proof}
+		Sia $D\subseteq\mathcal{T}(M)$ una distribuzione $k$-dimensionale, liscia e involutiva. Per mostrare che $D$ è completamente integrabile, basta trovare un riferimento locale di $D$ costituito da campi vettoriali che commutano. La tesi segue allora dal teorema \ref{regular2}.
+		
+		Dato $P\in M$, scegliamo una carta locale $(U,\varphi)$ centrata in $P$ tale che esista un riferimento locale $\left\{X_1,\dots,X_k\right\}$ per $D$ su $U$. A meno di permutare le coordinate, supponiamo che
+		\[\left\{\left.X_1\right|_P,\dots,\left.X_k\right|_P,\left.\partial_{k+1}\right|_P,\dots,\left.\partial_n\right|_P\right\}\]
+		sia un riferimento locale per $TM$ e poniamo per semplicità di notazione $X_j=\partial _j$ per $j=k+1,\dots,n$.
+		Nel riferimento locale canonico di $TM$, si ha
+		\[X_i=a_i^j\partial_j\]
+		Chiaramente $A(P)=\left(a_i^j(P)\right)$ è invertibile, dato che è la matrice di un cambio di base, quindi $\det A(P)\neq0$. A meno di restringere $U$, posso supporre $A$ invertibile in ogni punto. Sia $B=A^{-1}$. Si ha
+		\[\partial_j=b_j^iX_i=\sum_{i=1}^{k}b_j^iX_i+\sum_{i=k+1}^{n}b_j^i\partial_i\]
+		Posto, per $j=1,\dots,k$,
+		\[Y_j=\sum_{i=1}^{k}b_j^iX_i\in\mathcal{T}_D(U)\]
+		ci basta mostrare che $\left\{Y_1,\dots,Y_k\right\}$ è un riferimento locale per $D$ costituito da campi vettoriali che commutano. Sia $F=\pi\circ\varphi$, dove $\pi\colon\R^n\to\R^k$ è la proiezione sulle prime $k$ coordinate. Allora per $j=1,\dots,k$ si ha
+		\[\left.\partial_j\right|_{F(Q)}=\dif F_Q(\partial_j)=\dif F_Q(Y_j)+\sum_{i=k+1}^{n}b^i_j(Q)\dif F_Q(\partial_i)=\dif F_Q(Y_j)\]
+		Quindi $F$ mappa $\left\{\left.Y_1\right|_Q,\dots,\left.Y_k\right|_Q\right\}$ in $\left\{\left.\partial_1\right|_{F(Q)},\dots,\left.\partial_k\right|_{F(Q)}\right\}$, che sono linearmente indipendenti. Allora gli $Y_j$ sono linearmente indipendenti in ogni punto di $U$, dunque formano un riferimento locale per $D$. Inoltre, ciò dimostra che $\left.\dif F_Q\right|_{D_Q}$ è iniettivo per ogni $Q\in U$. Infine
+		\[\dif F_Q([Y_i,Y_j])=\left.[\partial_i,\partial_j]\right|_Q=0\]
+		Questo fatto di per sé non implica $[Y_i,Y_j]=0$, dato che $\ker\dif F_Q$ non contiene in generale solo 0 ($\dif F_Q$ è un'applicazione lineare da $\R^n$ in $\R^k$ e $n\geq k$), però l'involutività di $D$ implica che $\left.[Y_i,Y_j]\right|_Q\in D_Q$ per ogni $Q\in U$. Allora per iniettività di $\left.\dif F\right|_{D_Q}$ si ha $\left.[Y_i,Y_j]\right|_Q=0$ per ogni $Q\in U$, ovvero i campi commutano.
+\end{proof}
+\begin{definizione}
+	Sia $M$ una varietà differenziabile di dimensione $n$. Una foliazione di dimensione $k$ di $M$ è una partizione $\mathcal{F}$ di $M$ in sottovarietà immerse, connesse e di dimensione $k$ (dette fogli della foliazione) tali che per ogni $P\in M$ esista una carta locale $(U,\varphi)$ in $P$ che soddisfa le seguenti condizioni:
+	\begin{enumerate}
+		\item $\varphi(U)=V'\times V''$, con $V'$ aperto di $\R^k$ e $V''$ aperto di $\R^{n-k}$.
+		\item Ogni foglio della foliazione interseca $U$ o nell'insieme vuoto o in un'unione disgiunta al più numerabile di fette $k$-dimensionali di $U$ della forma
+		\[\left\{x^{k+1}(Q)=c_{k+1},\dots,x^n=c_n\right\}\]
+	\end{enumerate}
+	Una tale carta locale è detta piatta per la foliazione $\mathcal{F}$.
+\end{definizione}
+\begin{osservazione}
+	L'unione degli spazi tangenti ai fogli di una foliazione $k$-dimensionale è una distribuzione liscia $k$-dimensionale involutiva.
+\end{osservazione}
+\begin{teorema}[di Frobenius globale]
+	Sia $D\subseteq TM$ una distribuzione liscia involutiva. Allora la collezione di tutte le sottovarietà integrali massimali di $D$ forma una foliazione di $M$.
+\end{teorema}
+\begin{esempio}
+	Sia $D\subseteq T\R^3$ la distribuzione bidimensionale generata dai campi di vettori
+	\[X_1=x\frac{\partial}{\partial x}+\frac{\partial}{\partial y}+x(y+1)\frac{\partial}{\partial z}=(x,1,x(y+1))\]
+	\[X_2=\frac{\partial}{\partial x}+y\frac{\partial}{\partial z}=(1,0,y)\]
+	A patto di fare tutti i conti si ottiene
+	\[[X_1,X_2]=-X_2\]
+	In particolare, $D$ è involutiva, dunque completamente integrabile. Vogliamo determinare una carta piatta in un intorno di qualche punto $P$. Non possiamo scegliere $\left\{X_1,X_2\right\}$, perchè non commutano. Possiamo però seguire la dimostrazione del teorema di Frobenius locale. Per ogni $Q\in\R^3$, $\left\{X_1,X_2,\partial_z\right\}$ è una base di $T_Q\R^3$. Si ha $X_i=a_i^j\partial_j$, dove $A=\left(a_i^j\right)$ è
+	\[A=\left(\begin{array}{c c c}
+	x&1&0\\
+	1&0&0\\
+	x(y+1)&y&1
+	\end{array}\right)\]
+	L'inversa $B=\left(b_j^i\right)$ di $A$ è
+	\[B=\left(\begin{array}{c c c}
+	0&1&0\\1&-x&0\\-y&-x&1
+	\end{array}\right)\]
+	Poniamo
+	\[Y_1=\sum_{i=1}^{2}b_1^iX_i=\partial_x+y\partial_z\]
+	\[Y_2=\sum_{i=1}^{2}b_2^iX_i=\partial_y+x\partial_z\]
+	$\left\{Y_1,Y_2\right\}$ forma un riferimento locale per $D$. Calcoliamo il flusso di $Y_1$, ossia cerchiamo una curva $\alpha_t(x_0,y_0,z_0)=(x(t,x_0,y_0,z_0),y(t,x_0,y_0,z_0),z(t,x_0,y_0,z_0))$ tale che
+	\[\left\{\begin{array}{l}
+	\alpha'=Y_1\\
+	\alpha(0)=(x_0,y_0,z_0)
+	\end{array}\right.\]
+	Si trova
+	\[\left\{\begin{array}{l}
+	x(t)=x_0+t\\
+	y(t)=y_0\\
+	z(t)=z_0+ty_0\\
+	\end{array}\right.\]
+	Ossia $\alpha_t(x,y,z)=(x+t,y,z+ty)$. Analogamente, per $Y_2$ si trova il flusso $\beta_t(x,y,z)=(x,y+t,z+tx)$. A questo punto, per trovare le sottovarietà integrali basta partire da un punto $P$ opportuno (in questo caso si può scegliere $P$ sull'asse $z$) e seguire i flussi di $Y_1$ e $Y_2$. Sia ad esempio $P=(0,0,w)$. La sottovarietà integrale passante per $P$ è la superficie parametrizzata da
+	\[\sigma_P(u,v)=\alpha_u\circ\beta_v(0,0,w)=\beta_v\circ\alpha_u(0,0,w)=(u,v,w+uv)\]
+	Una carta piatta per $D$ si ottiene invertendo $\sigma$. Si ottiene $u=x$, $v=y$, $w=z-xy$, ovvero $\sigma^{-1}$ mappa
+	\[(x,y,z)\mapsto(x,y,z-xy)\]
+	Ovvero le sottovarietà integrali di $D$ sono le curve di livello di $w(x,y,z)=z-xy$.
+\end{esempio}
+\begin{osservazione}
+	Vogliamo estendere la derivata di Lie ai campi tensoriali. Un tensore di tipo 0 è una funzione. Se $X\in\mathcal{T}(M)$, poniamo $\lie{X}{f}=X(f)$. 
+	
+	Sia ora $\omega\in A^1(M)=T_1(M)$ una sezione di $T^*M$ (ovvero una 1-forma). Dato $Y\in\mathcal{T}(M)=\mathcal{T}^1(M)$, si ottiene una funzione $C^\infty$, indicata con $\omega(Y)=\langle\omega,Y\rangle$, definita ponendo $\omega(Y)(P)=\omega_P(Y_P)$, dove $Y_P\in T_PM$ e $\omega_P\in T^*_PM=\hom(T_PM,\R)$. In coordinate locali, $Y=Y^j\frac{\partial}{\partial x^j}$ e $\omega=\omega_i\dif x^i$, quindi $\langle\omega,Y\rangle=\omega_kY^k$.
+	Possiamo quindi "definire" $\lie{X}{\omega}$ "forzando" la regola di Leibniz, ovvero facendo l'abuso \[\lie{X}{\langle\omega,Y\rangle}=(\lie{X}{\omega})(Y)+\omega\left(\lie{X}{Y}\right)\]
+	Da cui
+	\[(\lie{X}{\omega})(Y)=X(\omega(Y))-\omega\left(\lie{X}{Y}\right)=X(\omega(Y))-\omega([X,Y])\]
+	dove si è usato il teorema \ref{lie}.
+\end{osservazione}
+\begin{definizione}
+	Siano $t\in\mathcal{T}^p_q(M),Y_1,\dots,Y_q\in\T^1(M),\omega_1,\dots,\omega_p\in\T_1(M)$. Allora la valutazione
+	\[t(Y_1,\dots,Y_q,\omega_1,\dots,\omega_p)\]
+	definisce una funzione di classe $C^\infty$. Definiamo la derivata di Lie di un campo di tensori $\lie{X}{t}\in\T^p_q(M)$ imponendo che valga la regola di Leibniz, come segue:
+	\[X(t(Y_1,\dots,Y_q,\omega_1,\dots,\omega_p))=\lie{X}{\left(t(Y_1,\dots,Y_q,\omega_1,\dots,\omega_p)\right)}=\]\[=\left(\lie{X}{t}\right)\left(Y_1,\dots,Y_q,\omega_1,\dots,\omega_p\right)+t([X,Y_1],Y_2,\dots,Y_q,\omega_1,\dots,\omega_p)+\dots\]\[\dots+t(Y_1,\dots,Y_{q-1},[X,Y_q],\omega_1,\dots,\omega_p)+t(Y_1,\dots,Y_q,\lie{X}{\omega_1},\dots,\omega_p)+\dots\]
+	\[\dots+t(Y_1,\dots,Y_q,\omega_1,\dots,\lie{X}{\omega_p})\]
+	Da cui infine
+	\[\left(\lie{X}{t}\right)\left(Y_1,\dots,Y_q,\omega_1,\dots,\omega_p\right)=X(t(Y_1,\dots,Y_q,\omega_1,\dots,\omega_p))-\]\[-t([X,Y_1],Y_2,\dots,Y_q,\omega_1,\dots,\omega_p)-\dots\]\[\dots-t(Y_1,\dots,Y_{q-1},[X,Y_q],\omega_1,\dots,\omega_p)-\]\[-t(Y_1,\dots,Y_q,\lie{X}{\omega_1},\dots,\omega_p)-\dots-t(Y_1,\dots,Y_q,\omega_1,\dots,\lie{X}{\omega_p})\]
+\end{definizione}
+\newpage
+
+\section{Connessioni, derivate covarianti.}
+\begin{esempio}
+	Siano $U$ un aperto di $\R^n$, $X,Y\in\mathcal{T}(U)$. Dato che $T_P\R^n=\R^n$, $X$ e $Y$ possono essere pensati come funzioni da $U$ in $\R^n$. Allora, per $P\in U$, la derivata di $Y$ lungo $X$ non è altro che la derivata direzionale della funzione $Y\colon U\to\R^n$ nella direzione data da $X_P$, cioè
+	\[\left.\partial_X Y\right|_P=\left.\partial_{X_P}\left(Y\right)\right|_P\]
+\end{esempio}
+\begin{osservazione}
+	$\partial_X$ è una derivazione, quindi è $\R$-lineare
+	\[\partial_X\left(\alpha_1Y_1+\alpha_2Y_2\right)=\alpha_1\partial_XY_1+\alpha_2\partial_XY_2\]
+	e gode della proprietà di Leibniz
+	\[\partial_X\left(fY\right)=X(f)Y+f\partial_XY\]
+	con $f\in C^\infty(U)$. Inoltre, è anche $C^\infty(U)$-lineare rispetto a $X$, ovvero
+	\[\partial_{X_1+X_2}Y=\partial_{X_1}Y+\partial_{X_2}Y\]
+	\[\partial_{fX}Y=f\partial_XY\]
+	L'ultima proprietà non vale per la derivata di Lie. Infatti
+	\[\lie{fX}{Y}=[fX,Y]=-\lie{Y}{fX}=-Y(f)X-f\lie{Y}{X}=f\lie{X}{Y}-Y(f)X\]
+	Vogliamo ora estendere il concetto di derivata a fibrati vettoriali, cercando di mantenere le proprietà di $\partial_X$. Appare evidente che la derivata di Lie non è adatta a tale scopo, dato che non è $C^\infty(U)$-lineare.
+\end{osservazione}
+\begin{definizione}
+	Una connessione su un fibrato vettoriale $E$ è una funzione \[\nabla\colon\T(M)\times E(M)\to E(M)\]
+	\[(X,s)\mapsto\nabla_Xs\]
+	che gode delle seguenti proprietà:
+	\begin{enumerate}
+		\item per ogni $X_1,X_2\in\T(M)$, per ogni $f_1,f_2\in C^\infty(M)$ e per ogni $\sigma\in E(M)$ si ha
+		\[\nabla_{f_1X_1+f_2X_2}s=f_1\nabla_{X_1}s+f_2\nabla_{X_2}s\]
+		\item per ogni $X\in\T(M)$, per ogni $s_1,s_2\in E(M)$ e per ogni $a_1,a_2\in\R$ si ha
+		\[\nabla_X\left(a_1s_1+a_2s_2\right)=a_1\nabla_Xs_1+a_2\nabla_Xs_2\]
+		\item per ogni $X\in\T(M)$, per ogni $s\in E(M)$ e per ogni $f\in C^\infty(M)$ si ha
+		\[\nabla_X(fs)=f\nabla_Xs+X(f)s\]
+	\end{enumerate}
+	La sezione $\nabla_Xs$ è detta derivata covariante di $s$ lungo il campo vettoriale $X$.
+\end{definizione}
+\begin{definizione}
+	Una connessione lineare su $TM$ è detta connessione lineare di $M$.
+\end{definizione}
+\begin{osservazione}
+	Su un fibrato vettoriale globalmente triviale $E=M\times\R^r$ esiste una connessione definita in modo ovvio. Una sezione $s$ di $E$ è data da
+	\[s\colon P\mapsto(P,(s^1(P),\dots,s^r(P))\]
+	con $s^i\colon M\to\R$ funzioni di classe $C^\infty$. Se $X\in\T(M)$, definiamo $\nabla_Xs$ ponendo
+	\[\nabla_Xs(P)=(P,(Xs^1)(P),\dots,(Xs^r)(P))\]
+	La richiesta che $E$ sia globalmente triviale è fondamentale per non avere disastri sull'intersezione di domini di carte locali.
+\end{osservazione}
+\begin{teorema}
+	Sia $\pi\colon E\to M$ un fibrato vettoriale. Allora $E$ ammette una connessione.
+\end{teorema}
+\begin{proof}
+	Sia $\left\{U_{\alpha}\right\}$ un ricoprimento aperto di $M$ che trivializza il fibrato $E$. Se $X\in\T(U_{\alpha})$, sul fibrato triviale $U_{\alpha}\times\R^r$ c'è una connessione canonica $\nabla_X^0$ (definita in precedenza). La mappa biiettiva $\chi_{\alpha}\colon E_{|U_{\alpha}}\to U_{\alpha}\times\R^r$ permette di definire una connessione $\nabla^{\alpha}$ su $E_{|U_{\alpha}}$. Se $s$ è una sezione di $E_{|U_{\alpha}}$ e $X\in\T(U_{\alpha})$, poniamo
+	\[\nabla_X^{\alpha}s=\chi^{-1}_{\alpha}\left(\nabla_X^0(\chi_{\alpha}\circ s)\right)\]
+	Sia $\left\{\rho_{\alpha}\right\}$ una partizione dell'unità subordinata al ricoprimento $\left\{U_{\alpha}\right\}$. Dato che $\rho_{\alpha}\equiv0$ su $M\backslash U_{\alpha}$, $\rho_{\alpha}\nabla_X^{\alpha}$ è definita su tutta $M$. Siano allora $X\in\T(M)$ e $s$ una sezione di $E$ su $M$. Definiamo
+	\[\nabla_Xs=\sum_{\alpha}\rho_{\alpha}\nabla^{\alpha}_{X_{|U_{\alpha}}}\left(s_{|U_{\alpha}}\right)\]
+	Si verifica facilmente che $\nabla_X$ è ben definita, dato che in ogni punto la somma a secondo membro è finita, ed è una connessione. Mostriamo, ad esempio, la regola di Leibniz:
+	\[\nabla_X(fs)=\sum_{\alpha}\rho_{\alpha}\nabla^{\alpha}_{X_{|U_{\alpha}}}\left(fs_{|U_{\alpha}}\right)=\sum_{\alpha}\rho_{\alpha}\left(f\nabla^{\alpha}_{X_{|U_{\alpha}}}s_{|U_{\alpha}}+X(f)s_{|U_{\alpha}}\right)=\]
+	\[=\sum_{\alpha}\rho_{\alpha}f\nabla^{\alpha}_{X_{|U_{\alpha}}}s_{|U_{\alpha}}+\sum_{\alpha}\rho_{\alpha}X(f)s_{|U_{\alpha}}=f\nabla_Xs+X(f)s\sum_{\alpha}\rho_{\alpha}=f\nabla_Xs+X(f)s\]
+	dove si è usata la proprietà $\sum_{\alpha}\rho_{\alpha}=1$.
+\end{proof}
+\begin{lemma}
+	Siano $M$ una varietà, $E$ un fibrato vettoriale su $M$, $\nabla$ una connessione.
+	\begin{enumerate}
+		\item Sia $P\in M$ e siano $X,\tilde{X}\in\T(M)$, $s,\tilde{s}\in E(M)$ tali che $X_P=\tilde{X}_P$ e $s\equiv\tilde{s}$ in un intorno di $P$. Allora 
+		\[\left(\nabla_Xs\right)(P)=\left(\nabla_{\tilde{X}}\tilde{s}\right)(P)\]
+		\item Per ogni aperto $U\subseteq M$ esiste un'unica connessione
+		\[\nabla^U\colon\T(U)\times E(U)\to E(U)\]
+		su $E_{|U}$ tale che per ogni $X\in\T(M)$, per ogni $s\in E(M)$ e per ogni $P\in U$ si abbia
+		\[\left(\nabla^U_{X_{|U}}s_{|U}\right)(P)=\left(\nabla_Xs\right)(P)\]
+		\item Se per $P\in M$, $X\in\T(M)$ e $s,\tilde{s}\in E(M)$ esiste una curva $\gamma\colon(-\varepsilon,\varepsilon)\to M$ tale che $\gamma(0)=P$ e $\gamma'(0)=X_P$ e inoltre $s\circ\gamma=\tilde{s}\circ\gamma$, allora
+		\[\left(\nabla_Xs\right)(P)=\left(\nabla_X\tilde{s}\right)(P)\]
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	Dimostriamo che se $s\equiv0$ in un intorno $U$ di $P$, allora $\nabla_Xs(P)=0$ per ogni $X\in\T(M)$. Sia $g\in C^\infty(M)$ una funzione con supporto in $U$ tale che $g(P)=1$. Allora $gs\equiv0$, dunque
+	\[0=\left(\nabla_Xgs\right)(P)=g(P)\nabla_Xs(P)+(Xg)(P)s(P)=\nabla_Xs(P)\]
+	Quindi se $s=\tilde{s}$ in un intorno di $P$ si ha $\nabla_Xs(P)=\nabla_X\tilde{s}(P)$.
+	
+	Dimostriamo ora che se $X\equiv0$ in un intorno $U$ di $P$, allora $\nabla_Xs(P)=0$ per ogni $s\in E(M)$. Sia $g$ come prima. Dato che $gX\equiv0$, si ottiene
+	\[0=\nabla_{gX}s(P)=g(P)\nabla_Xs(P)=\nabla_Xs(P)\]
+	Allora se $X\equiv\tilde{X}$ in un intorno di $P$ si ha $\nabla_Xs(P)=\nabla_{\tilde{X}}s(P)$.
+	
+	Da ciò segue che se la connessione $\nabla^U$ del punto 2. esiste, allora essa è unica, dato che la proprietà precedente può essere usata per definire $\nabla^U$. Infatti, per ogni $P\in U$ possiamo scegliere una funzione $\chi_P\in C^\infty(M)$ tale che $\chi_P\equiv1$ in un intorno di $P$ e $\textrm{supp}\chi_P\subseteq P$. Allora, dato $X\in\T(U)$, il campo vettoriale $\chi_PX$, esteso a 0 fuori da $U$, è un campo in $\T(M)$ che coincide con $X$ in un intorno di $P$. Allo stesso modo, se $s\in E(U)$ allora la sezione "globale" $\chi_Ps$ coincide con $s$ in un intorno di $P$. Definiamo $\nabla^U\colon\T(U)\times E(U)\to E(U)$ ponendo $\nabla_X^Us(P)=\nabla_{\chi_PX}(\chi_Ps)(P)$. Questo dimostra il punto 2.
+	
+	Ritornando al punto 1., dobbiamo solamente mostrare che se $X_P=0$ allora $\nabla_Xs(P)=0$ per ogni $s\in E(M)$. Sia $(U,\varphi)$ una carta locale centrata in $P$. Allora
+	\[X_{|U}=X^j\frac{\partial}{\partial x^j}\]
+	con $X^j(P)=0$ per ogni $j$. In particolare
+	\[\nabla_Xs(P)=\nabla_{X^j\partial_j}s(P)=X^j(P)\nabla_{\partial_j}s(P)=0\]
+	
+	Per il punto 3. è sufficiente mostrare che se $s\circ\gamma\equiv0$ allora $\nabla_Xs(P)=0$. Sia $\left\{e_1,\dots,e_r\right\}$ un riferimento locale per $E$ su un intorno $U$ di $P$. Allora
+	\[s=s^je_j\]
+	Per ipotesi si ha $s^j(P)=0$ per ogni $j$. Allora
+	\[\nabla_Xs(P)=\nabla_Xs^je_j(P)=s^j(P)\nabla_Xe_j(P)+X_P(s^j)e_j(P)=\frac{\dif}{\dif t}\left.\left(s^j\circ\gamma\right)\right|_{t=0}e_j(P)=0\]
+\end{proof}
+\begin{osservazione}
+	Sia $(U,\varphi)$ una carta locale su $M$ che trivializza $E$, cioè $E_{|U}$ è diffeomorfo tramite $\chi$ a $U\times\R^r$. I vettori della base canonica di $\R^r$ determinano una base locale per $E_{|U}$, cioè delle sezioni $e_1,\dots,e_r\in E(U)$
+	\[e_j\colon U\to E_{|U}\]
+	\[P\mapsto\chi^{-1}(P,(0,\dots,1,\dots,0))\]
+	dove l'1 è nella $j$-esima coordinata, tali che $\left\{e_1(P),\dots,e_r(P)\right\}$ è una base della fibra $E_P$ per ogni $P\in U$. La carta locale $\varphi$ determina inoltre una base locale di $TM$, data da $\left\{\frac{\partial}{\partial x^i},\dots,\frac{\partial}{\partial x^n}\right\}$. Allora in generale si ha
+	\[\nabla_{\partial_j}e_h=\Gamma^k_{jh}e_k\]
+	con $j=1,\dots,n$, $h,k=1,\dots,r$, per opportune funzioni $\Gamma^k_{jh}\in C^\infty(U)$.
+\end{osservazione}
+\begin{definizione}
+	Se $E=TM$, le funzioni $\Gamma^k_{jh}$ sono dette simboli di Christoffel della connessione. Nel caso generale si possono chiamare coefficienti della connessione.
+\end{definizione}
+\begin{osservazione}
+	I coefficienti $\Gamma^k_{jh}$ determinano completamente la connessione. Se $X=X^j\partial_j\in\T(U)$ e $s=s^he_h\in E(U)$, si ha
+	\[\nabla_Xs=\nabla_{X^j\partial_j}s^he_h=X^js^h\nabla_{\partial_j}e_h+X(s^h)e_h=\]\[=X^js^h\Gamma^{k}_{jh}e_k+X(s^k)e_k=\left(\Gamma^k_{jh}X^js^h+X(s^k)\right)e_k\]
+	In forma compatta, se $s=\left(s^k\right)$ si ha
+	\[\nabla_X\left(s^k\right)=X(s^k)+\Gamma^k_{jh}X^js^h\]
+\end{osservazione}
+\begin{definizione}
+	Sia $\pi\colon E\to M$ un fibrato vettoriale su $M$ e sia $\sigma\colon I\to M$ una curva. Una sezione di $E$ lungo $\sigma$ è una funzione $s\colon I\to E$ di classe $C^\infty$ tale che $s(t)\in E_{\sigma(t)}$ per ogni $t\in I$. Indichiamo con $E(\sigma)$ lo spazio vettoriale delle sezioni di $E$ lungo $\sigma$. Diremo che $s\in E(\sigma)$ è estendibile se esistono un intorno $U$ dell'immagine di $\sigma$ e una sezione $\tilde{s}\in E(U)$ tale che $s=\tilde{s}\circ\sigma$.
+\end{definizione}
+\begin{proposizione}
+	Siano $\sigma\colon I\to M$ una curva e $\nabla$ una connessione su $E$. Allora esiste un unico operatore $D\colon E(\sigma)\to E(\sigma)$ tale che
+	\begin{enumerate}
+		\item Per ogni $a_1,a_2\in\R$ per ogni $s_1,s_1\in E(\sigma)$ si ha
+		\[D(a_1s_1+a_2s_2)=a_1D(s_1)+a_2D(s_2)\]
+		\item Per ogni $f\in C^\infty(I)$ e per ogni $s\in E(\sigma)$ si a
+		\[D(fs)=f's+fD(s)\]
+		\item Se $s\in E(\sigma)$ è estendibile e $\tilde{\sigma}$ è un'estensione di $s$ a un intorno aperto dell'immagine di $\sigma$, si ha
+		\[Ds(t)=\nabla_{\sigma'(t)}\tilde{s}\]
+	\end{enumerate}
+\end{proposizione}
+\begin{proof}
+	Vedi \textit{Geometria differenziale} di Abate-Tovena.
+\end{proof}
+\begin{definizione}
+	Sia $\nabla$ una connessione su $E$ e $\sigma\colon I\to M$ una curva. Una sezione $s\in E(\sigma)$ è detta parallela lungo $\sigma$ se $D\sigma\equiv0$.
+\end{definizione}
+\begin{osservazione}
+	In coordinate locali, $s$ è parallela lungo $\sigma$ se e solo se
+	\[0=X(s^k)+\Gamma^k_{jh}X^js^h=\frac{\dif s^k}{\dif t}\left(\sigma(t)\right)+\Gamma^k_{jh}\frac{\dif \sigma^j}{\dif t}(t)s^h\]
+	per $k=1,\dots,r$. Ciò significa che localmente la condizione $Ds\equiv0$ si traduce in un sistema di equazioni differenziali ordinarie. A questo punto ricordiamo:
+\end{osservazione}
+\begin{teorema}[di esistenza e unicità locale per sistemi di equazioni differenziali ordinarie]
+	\label{sistemi}
+	Siano $I\subseteq\R$ un intervallo, $k\geq1$, $t_0\in I$, $x_0,\dots,x_{k-1}\in\R^n$, $A\colon I\times\left(\R^n\right)^k\to\R^n$ una funzione di classe $C^\infty$, lineare rispetto alle variabili in $\left(\R^n\right)^k$. Allora il problema di Cauchy
+	\[\left\{\begin{array}{l}
+		\frac{\dif^k s}{\dif t^k}(t)=A\left(t,s(t),\dots,\frac{\dif^{k-1}s}{\dif t^{k-1}}(t)\right)\\
+		s(t_0)=x_0\\
+		\vdots\\
+		\frac{\dif^{k-1}s}{\dif t^{k-1}}(t_0)=x_{k-1}
+	\end{array}\right.\]
+	ammette un'unica soluzione $s\colon I\to\R^n$ di classe $C^\infty$.
+\end{teorema}
+\begin{lemma}
+	Sia $E$ un fibrato vettoriale su $M$, $\nabla$ una connessione e sia $\sigma\colon[a,b]\to M$ una curva. Posto $P=\sigma(a)$, per ogni $v\in E_p$ esiste un'unica sezione $V\in E(\sigma)$ parallela tale che $V(a)=v$.
+\end{lemma}
+\begin{proof}
+	L'intervallo $[a,b]$ è compatto, quindi esiste un numero finito di carte locali $(U_1,\varphi_1),\dots,(U_k,\varphi_k)$ che trivializzano $E$ e che ricoprono il sostegno di $\sigma$. Possiamo supporre se $\sigma([s_j,t_j])\subseteq\sigma([a,b])\cap U_j$ per $j=1,\dots,k$. Allora il teorema \ref{sistemi} ci fornisce un'unica sezione parallela $V_1$ lungo $\sigma_{|[s_1,t_1]}$ tale che $V_1(a)=v$. Siano $a=s_1<s_2<t_2<s_3<t_3<\dots<t_{k-1}<t_k=b$ in modo che $\sigma_{|[s_i,t_{i}]}$ e $\sigma_{|[s_{i+1},t_{i+1}]}$ si sovrappongano. L'unicità implica che $V_1=V_2$ in $[s_2,t_1]$. Continuando in questo modo si ottiene un'unica sezione $V$ parallela lungo $\sigma$ tale che $V(a)=v$.
+\end{proof}
+\begin{definizione}
+	Sia $\nabla$ una connessione su $E$ e sia $\sigma\colon[0,1]\to M$ una curva. Siano $P_0=\sigma(0)$ e $P_1=\sigma(1)$. Dato $v\in E_{P_0}$, l'unica sezione $V\in E(\sigma)$ parallela lungo $\sigma$ e tale che $V(0)=v\in E_{P_0}$ è detta estensione parallela di $v$ lungo $\sigma$. Il trasporto parallelo lungo $\sigma$ è la funzione
+	\[\tilde{\sigma}\colon E_{P_0}\to E_{P_1}\]
+	definita da $\tilde{\sigma}(v)=V(1)$.
+\end{definizione}
+\begin{lemma}
+	Il trasporto parallelo lungo $\sigma$ è un isomorfismo di spazi vettoriali tra $E_{P_0}$ e $E_{P_1}$.
+\end{lemma}
+\begin{proof}
+	La condizione $DV\equiv0$ equivale localmente a
+	\[\frac{\dif V^k}{\dif t}+\Gamma^k_{jh}\left(V^j\right)'s^h=0\]
+	per $k=1,\dots,r$, che è un sistema lineare di equazioni differenziali ordinarie. La linearità implica che la soluzione $V(t)$ dipende linearmente dalle condizioni iniziali. Sia $\sigma_{-}$ la parametrizzazione del sostegno di $\sigma$ percorso in verso opposto a $\sigma$, ovvero $\sigma_-(t)=\sigma(1-t)$. Sia $D^-$ la derivata covariante lungo $\sigma_-$. Per ogni sezione $V\in E(\sigma)$ poniamo $V^-(t)=V(1-t)$, in modo che $V^-\in E(\sigma_-)$. Si trova $D^-_tV^-=-D_{1-t}V$, quindi $V^-$ è una sezione parallela lungo $\sigma_-$ se e solo se $V$ è una curva parallela lungo $\sigma$. In particolare, se $V$ è l'estensione parallela di $v\in E_{P_0}$, $V^-$ è l'estensione parallela di $\tilde{\sigma}(v)\in E_{P_1}$ lungo la curva $\sigma_-$. Allora $\tilde{\sigma}_-=\tilde{\sigma}^{-1}$, da cui la tesi.
+\end{proof}
+\begin{osservazione}
+	Il trasporto parallelo può essere definito anche lungo curve $C^\infty$ a tratti, infatti è sufficiente trasportare un vettore nei singoli tratti.
+\end{osservazione}
+Vogliamo ora dare una definizione alternativa, ma del tutto equivalente a quella già data, di connessione tramite le forme differenziali.
+\begin{definizione}
+	Sia $E$ un fibrato vettoriale su $M$. Una $k$-forma differenziale a valori in $E$ è una sezione di $\Lambda^k T^*M\otimes E$. Lo spazio delle $k$-forme differenziali a valori in $E$ è indicato con $A^k(E)$.
+\end{definizione}
+\begin{osservazione}
+	In coordinate locali, un elemento di $A^k(E)$ è della forma
+	\[\sum_i\omega_i\otimes s_i\]
+	dove le $s_i\in E(M)=A^0(E)$ sono delle sezioni di $E$, mentre le $\omega_i\in A^k$ sono delle $k$-forme differenziali.
+\end{osservazione}
+\begin{definizione}
+	Una connessione su $E$ è un'operatore $\R$-lineare del tipo
+	\[\nabla\colon A^0(E)\to A^1(E)\]
+	tale che $\nabla(fs)=f\nabla s+\dif f\otimes s$ per ogni $f\in C^\infty(M)$ e ogni $s\in A^0(E)$.
+\end{definizione}
+\begin{osservazione}
+	Il legame con la definizione precedente è il seguente: se $X\in\T(M)$, si pone
+	\[\nabla_Xs=\langle\nabla s,X\rangle\]
+	La funzione $\langle\cdot,\cdot\rangle\colon A^1(E)\times\T(M)\to A^0(E)$ è definita come segue: se $\alpha=\sum_i\omega_i\otimes s_i\in A^1(E)$ e $X\in\T(M)$ si pone
+	\[\langle\alpha,X\rangle=\sum_i\omega_i(X)s_i\]
+	Sia $\nabla\colon A^0(E)\to A^1(E)$ una connessione su $E$. Se $\left\{e_1,\dots,e_r\right\}$ è un riferimento locale per $E$ su un aperto $U\subseteq M$, si avrà
+	\[\nabla e_j=\omega_j^k\otimes e_k\]
+	dove le $\omega_j^k$ sono delle 1-forme su $U$. A patto di restringere $U$, possiamo supporre che $(U,\varphi)$ sia una carta locale per $M$. Allora se $\left\{\dif x^1,\dots,\dif x^n\right\}$ sono una base locale di $T^*M$ si avrà
+	\[\omega_j^k=\Gamma^k_{ij}\dif x^i\]
+	per opportune funzioni $\Gamma^k_{ij}\in C^\infty(U)$. Se $X=\partial_i$ si ha
+	\[\nabla_Xe_j=\langle e_j,\partial_i\rangle=\langle\omega_j^k\otimes e_k,\partial_i\rangle=\]\[=\omega_j^k(\partial_i)e_k=\Gamma^k_{hj}\dif x^h(\partial_i)e_k=\Gamma^k_{hj}\delta^h_ie_k=\Gamma^k_{ij}e_k\]
+	ovvero i $\Gamma^k_{ij}$ sono effettivamente i coefficienti della connessione.
+\end{osservazione}
+\begin{definizione}
+	La matrice di 1-forme $\omega=\left(\omega_j^k\right)$, con $\omega_j^k=\Gamma^k_{ij}\dif x^i$, è detta la 1-forma della connessione (rispetto al riferimento locale assegnato).
+\end{definizione}
+\begin{osservazione}
+	Se $\left\{\tilde e_1,\dots,\tilde{e}_r\right\}$ è un altro riferimento locale per $E$ sull'aperto $U\subseteq M$, esiste una matrice invertibile $A=\left(a_h^k\right)$ di funzioni $a_h^k\in C^\infty(U)$ tale che
+	\[\tilde{e}_h=a_h^ke_k\]
+	Se $\tilde{\omega}=\left(\tilde{\omega}_i^h\right)$ è la 1-forma di connessione di $\nabla$ rispetto al riferimento locale $\left\{\tilde{e}_1,\dots,\tilde{e}_r\right\}$, si ha
+	\[\nabla\tilde{e}_i=\tilde{\omega}_i^h\otimes\tilde{e_h}=a_h^k\tilde{\omega}_i^h\otimes e_k\]
+	Inoltre
+	\[\nabla\tilde{e}_i=\nabla a_i^ke_k=a_i^k\nabla e_k+\dif a_i^k\otimes e_k=a_i^k\omega_k^l\otimes e_l+\dif a_i^k\otimes e_k\]
+	Quindi si deve avere
+	\[a_h^k\tilde\omega_i^h=a_i^j\omega_j^k+\dif a_i^k\]
+	In notazione matriciale si ha
+	\[A\tilde{\omega}=\omega A+\dif A\]
+	e infine
+	\[\tilde{\omega}=A^{-1}\omega A+A^{-1}\dif A\]
+\end{osservazione}
+\begin{proposizione}
+	Siano $M$ un varietà differenziabile, $\nabla$ una connessione su $TM$. Allora esiste un unico modo di definire una connessione $\nabla$ su $\T^p_qM$, per ogni $p$ e per ogni $q$, che soddisfa le seguenti proprietà:
+	\begin{enumerate}
+		\item Su $TM$, $\nabla$ coincide con la connessione data.
+		\item Su $T^0(M)=C^\infty(M)$, si ha $\nabla_Xf=X(f)$.
+		\item Se $t_j\in\T^{h_j}_{k_j}(M)$ per $j=1,2$ e $X\in\T(M)$, si ha
+		\[\nabla_X(t_1\otimes t_2)=\left(\nabla_Xt_1\right)\otimes t_2+t_1\otimes\left(\nabla_Xt_2\right)\]
+		\item $\nabla$ commuta con le contrazioni.
+	\end{enumerate}
+	Inoltre, se $\eta\in A^1(M)=\T_1(M)$ e $X,Y\in\T(M)$ si ha
+	\[\left(\nabla_X\eta\right)(Y)=X(\eta(Y))-\eta\left(\nabla_XY\right)\]
+\end{proposizione}
+\begin{proof}
+	Verifichiamo l'unicità. Se $\nabla$ soddisfa le quattro proprietà, allora data $\eta\in A^1(M)$ e dati $X,Y\in\T(M)$ si ha
+	\[X(\eta(Y))=\nabla_X(\eta(Y))=\left(\nabla_X\eta\right)(Y)+\eta\left(\nabla_XY\right)\]
+	Questo significa che la connessione su $T^*M$ è determinata in modo unico dalla connessione su $TM$. Inoltre, la proprietà (3) determina univocamente la connessione su tutti i fibrati tensoriali $\T^h_k(M)$. Si ha
+	\[\left(\nabla_Xt\right)(\omega^1,\dots,\omega^h,Y_1,\dots,Y_k)=X\left(t(\omega^1,\dots,\omega^h,Y_1,\dots,Y_k)\right)-\]\[-\sum_{r=1}^{h}t(\omega^1,\dots,\nabla_X\omega^r,\dots,\omega^h,Y_1,\dots,Y_k)-\sum_{s=1}^{k}t(\omega^1,\dots,\omega^h,Y_1,\dots,\nabla_XY_s,\dots,Y_k)\]
+	Per dimostrare l'esistenza, definiamo $\nabla$ su $T^*M$ come detto sopra. Si verifica subito che è una connessione. Usiamo la relazione precedente per definire $\nabla$ su $T^h_k$, e anche in questo caso si verifica che è una connessione.
+\end{proof}
+\begin{esempio}
+	Sia $\nabla$ una connessione su $TM$ e sia $(U,\varphi)$ una carta locale per $M$. Sia $\left\{\partial_1,\dots,\partial_n\right\}$ il riferimento locale per $TM$ su $U$. Introduciamo i simboli di Christoffel $\Gamma^h_{ij}$ definiti da
+	\[\nabla_{\partial_i}\partial_j=\Gamma^h_{ij}\partial_h\]
+	Vogliamo trovare delle formule per calcolare la derivata covariante di un tensore qualunque. Notiamo che se $Y=Y^j\partial_j\in\T(M)$, si ha
+	\[\nabla_{\partial_i}Y^h=\partial_i Y^h+\Gamma^h_{ij}Y^j\]
+	Se $\left\{\dif x^1,\dots,\dif x^n\right\}$ è il riferimento locale per $T^*M$ su $U$, poniamo
+	\[\nabla_{\partial_i}\dif x^j=\tilde{\Gamma}^j_{ih}\dif x^h\]
+	Ricordando $\langle\dif x^i,\partial_j\rangle=\delta^i_j$, si ottiene
+	\[0=\nabla_{\partial_i}\langle\dif x^j,\partial_k\rangle=\langle\nabla_{\partial_i}\dif x^j,\partial_k\rangle+\langle\dif x^j,\nabla_{\partial_i}\partial_k\rangle=\]\[=\langle\tilde{\Gamma}^j_{il}\dif x^l,\partial_k\rangle+\langle\dif x^j,\Gamma^l_{ik}\partial_l\rangle=\tilde{\Gamma}^j_{ik}+\Gamma^j_{ik}\]
+	\[\tilde{\Gamma}^j_{ik}=-\Gamma^j_{ik}\]
+	\[\nabla_{\partial_i}\dif x^h=-\Gamma^h_{ik}\dif x^k\]
+	Allora se $\omega=\omega_j\dif x^j$ è una 1-forma si ha
+	\[\nabla_{\partial_i}\omega_j=\partial_i\omega_h-\Gamma^j_{ih}\omega_j\]
+	Se $t=t^h_k\partial_h\otimes\dif x^k\in\T^1_1(M)$, con coefficienti $t^h_k\in C^\infty(U)$, si ha
+	\[\nabla_{\partial_i}t=\nabla_{\partial_i}\left(t^h_k\partial_h\otimes\dif x^k\right)=\left(\partial_it^h_k\right)\partial_h\otimes\dif x^k+t^h_k\left(\nabla_{\partial_i}\partial_h\right)\otimes\dif x^k+t^h_k\partial_h\otimes\left(\nabla_{\partial_i}\dif x^k\right)=\]	\[=\left(\partial_it^h_k\right)\partial_h\otimes\dif x^k+t^h_k\left(\Gamma^j_{ih}\partial_j\otimes\dif x^k-\Gamma^k_{ij}\partial_h\otimes\dif x^j\right)=\]\[=\left(\partial_it^h_k+t^l_k\Gamma^h_{il}-t^h_l\Gamma^l_{ik}\right)\partial_h\otimes\dif x^k\]
+	Che si può riscrivere come
+	\[\nabla_{\partial_i}t^h_k=\partial_it^h_k+t^l_k\Gamma^h_{il}-t^h_l\Gamma^l_{ik}\]
+	Allo stesso modo per un generico tensore di tipo $(p,q)$ si trova
+	\[\nabla_{\partial_i}\left(t^{h_1,\dots,h_p}_{k_1,\dots,k_q}\right)=\partial_it^{h_1,\dots,h_p}_{k_1,\dots,k_q}+\Gamma^{h_1}_{il}t^{l,h_2\dots,h_p}_{k_1,\dots,k_q}+\dots+\Gamma^{h_p}_{il}t^{h_1,\dots,h_{p-1},l}_{k_1,\dots,k_q}-\]\[-\Gamma^l_{ik_1}t^{h_1,\dots,h_p}_{l,k_2\dots,k_q}-\dots-\Gamma^{l}_{ik_q}t^{h_1,\dots,h_p}_{k_1,\dots,k_{q-1},l}\]
+\end{esempio}
+\begin{osservazione}
+	Spesso si usa la notazione $\partial_it=t,i$ e $\nabla_{\partial_i}t=t;i$
+	Ad esempio, per un campo di vettori $Y=Y^h\partial_h$ si ha
+	\[Y^h;i=Y^h,i+\Gamma^h_{ij}Y^j\]
+\end{osservazione}
+\begin{definizione}
+	Sia $\nabla$ una connessione lineare su $M$. Dato $t\in\T^h_k(M)$, il campo tensoriale $\nabla t\in\T^h_{k+1}(M)$ definito ponendo
+	\[\left(\nabla t\right)(\omega^1,\dots,\omega^h,Y_1,\dots,Y_k,Y_{k+1})=\left(\nabla_{Y_{k+1}}t\right)(\omega^1,\dots,\omega^h,Y_1,\dots,Y_k)\]
+	è detto derivata covariante totale di $t$. Se $\nabla t\equiv 0$, diremo che $t$ è parallelo.
+\end{definizione}
+\begin{definizione}
+	Sia $\nabla$ una connessione lineare su $M$ e sia $f\in C^\infty(M)$. Il campo tensoriale
+	\[\nabla\left(\nabla f\right)=\nabla\left(\dif f\right)\in\T_2(M)\]
+	è detto Hessiano di $f$.
+\end{definizione}
+\begin{definizione}
+	Sia $X\in\T(M)$ un campo vettoriale. Allora $\nabla X\in T^1_1(M)$. La funzione
+	\[\div\left(X\right)=C^1_1\left(\nabla X\right)\in C^\infty(M)\]
+	è detta divergenza di $X$.
+\end{definizione}
+\newpage
+\section{Varietà (pseudo-)Riemanniane, cenni di relatività generale}
+\begin{definizione}
+	Una metrica Riemanniana su una varietà $M$ è un campo tensoriale $g\in\T_2(M)$ simmetrico (cioè $g_P(w,v)=g_P(v,w)$ per ogni $P\in M$ e per ogni $v,w\in T_PM$) e definito posivito (cioè $g_P(v,v)\geq 0$ per ogni $P\in M$ e per ogni $v\in T_PM$, con l'uguaglianza se e solo se $v=0$).
+\end{definizione}
+\begin{definizione}
+	Indichiamo con $\norm{\cdot}_P$ la norma su $T_PM$ definita da $g_P$, ovvero
+	\[\norm{v}_P=\sqrt{g_P(v,v)}\]
+	per ogni $v\in T_PM$.
+\end{definizione}
+\begin{definizione}
+	Una coppia $(M,g)$, dove $M$ è una varietà e $g$ una metrica Riemanniana su $M$ è detta varietà Riemanniana.
+\end{definizione}
+\begin{definizione}
+	Una metrica pseudo-Riemanniana su $M$ è un campo tensoriale $g\in\T_2(M)$ simmetrico, non degenere (cioè tale che $g_P(v,w)=0$ per ogni $w\in T_PM$ $\Rightarrow$ $v=0$).
+\end{definizione}
+\begin{definizione}
+	Diremo che $g$ ha segnatura $(r,s)$ se $r$ è la massima dimensione di un sottospazio di $T_PM$ su cui $g$ è definito positivo e $s$ è la massima dimensione di un sottospazio di $T_PM$ su cui $g$ è definito negativo.
+\end{definizione}
+\begin{osservazione}
+	Si ha $r+s=\dim T_PM$ e per continuità la segnatura non dipende dal punto $P\in M$ (ovvero è costante sulle componenti connesse di $M$).
+\end{osservazione}
+\begin{definizione}
+	Una metrica pseudo-Riemanniana di segnatura $(1,n-1)$ (oppure $(n-1,1)$) è detta metrica di Lorentz.
+\end{definizione}
+\begin{osservazione}
+	In coordinate locali, si ha
+	\[g=g_{hk}\dif x^h\otimes\dif x^k\]
+	Dato che $g$ è simmetrico, si può anche scrivere
+	\[g=g_{hk}\dif x^h\odot\dif x^k\]
+	Spesso $\otimes$ e $\odot$ vengono direttamente omessi e si scrive semplicemente
+	\[g=g_{hk}\dif x^h\dif x^k\]
+	Inoltre, spesso si usa la notazione
+	\[\dif s^2=g_{hk}\dif x^h\dif x^k\]
+\end{osservazione}
+\begin{osservazione}
+	La matrice $\left(g_{hk}\right)$ è sempre invertibile. La matrice inversa è indicata con $\left(g^{ij}\right)$, dunque si ha
+	\[g_{ij}g^{jk}=\delta^k_i\]
+\end{osservazione}
+\begin{osservazione}
+	Una metrica su $M$ permette di identificare $TM$ con $T^*M$ nel modo seguente. Sia $g\in\T(M)$ il tensore metrico. Per ogni $P\in M$ si ha un isomorfismo
+	\[\flat_P\colon T_PM\to T^*_PM=\hom\left(T_PM,\R\right)\]
+	tale che $\left(\flat_P(v)\right)(w)=g_P(v,w)$
+	In coordinate locali, siano $g=g_{ij}\dif x^i\dif x^j$ e $X=X^h\partial_h$ una sezione locale di $TM$. Poniamo $\flat(X)=\alpha_j\dif x^j$. Dalla definizione di $\flat$ si ha
+	\[\left(\flat(X)\right)(\partial_k)=g(X,\partial_k)=g_{ij}X^h\dif x^i(\partial_h)\dif x^j(\partial_k)=g_{ij}X^h\delta^i_h\delta^j_k=g_{hk}X^h\]
+	Dunque si ha
+	\[\alpha_k=g_{hk}X^h\]
+	\[\flat\left(X^h\partial_h\right)=g_{hk}X^h\dif x^k\]
+	In forma compatta
+	\[\flat\left(X^h\right)=g_{hk}X^h=g_{kh}X^h\]
+	dove si è usata la simmetria di $g$. Brutalmente diciamo $\flat$ abbassa gli indici di un vettore tramite il tensore metrico. Poniamo $\#=\flat^{-1}$, e altrettanto brutalmente diciamo che $\#$ alza gli indici tramite il tensore metrico, ovvero
+	\[X^h=g^{hk}\alpha_k\]
+\end{osservazione}
+\begin{esempio}
+	Sia $f\in C^\infty(M)$. Il gradiente di $f$ è
+	\[\grad f=\#\left(\dif f\right)\]
+	Si può usare anche la notazione $\nabla f$, ma in tale ambito può essere ambigua. In coordinate locali si trova
+	\[\dif f=\frac{\partial f}{\partial x^j}\dif x^j\]
+	\[\grad f=g^{ij}\frac{\partial f}{\partial x^j}\frac{\partial}{\partial x^i}\]
+\end{esempio}
+\begin{osservazione}
+	Possiamo anche considerare, al posto di $g\in\T_2(M)$ simmetrico e non degenere, un tensore $\omega\in\T_2(M)$ antisimmetrico e non degenere. Se $\omega$ è chiusa, ossia se $\dif \omega=0$, allora $\omega$ è detta una forma simplettica e $(M,\omega)$ è una varietà simplettica. L'analogo dell'isomorfismo $\#\colon T^*M\to TM$ è l'isomorfismo
+	\[H\colon T^*M\to TM\]
+	\[a_j\mapsto X^i=\omega^{ij}\alpha_j\]
+	è detto isomorfismo Hamiltoniano. Se $f\in C^\infty(M)$, il campo di vettori $H(\dif f)$ è detto Hamiltoniano di $f$. Se $f,g\in C^\infty(M)$, si definiscono le parentesi di Poisson
+	\[\left\{f,g\right\}=\omega\left(H(\dif f),H(\dif g)\right)\]
+	Le parentesi di Poisson definiscono una struttura di algebra di Lie su $C^\infty(M)$.
+\end{osservazione}
+\begin{teorema}
+	Ogni varietà $M$ ammette una metrica Riemanniana.
+\end{teorema}
+\begin{proof}
+	Sia $\mathcal{A}=\left\{(U_{\alpha},\varphi_{\alpha})\right\}$ un atlante per $M$ e $\left\{\rho_{\alpha}\right\}$ una partizione dell'unità subordinata al ricoprimento $\left\{U_{\alpha}\right\}$. Tramite la parametrizzazione locale $\varphi_{\alpha}^{-1}$, la metrica euclidea su $\R^n$ induce una metrica su $U_{\alpha}$. Se in un riferimento locale $\left\{\partial_1,\dots,\partial_n\right\}$per $U_{\alpha}$ si ha $X=X^i\partial_i$ e $Y=Y^j\partial_j$, con $X,Y\in TM_{|U_{\alpha}}$, poniamo
+	\[g_P^{\alpha}(X,Y)=X^iY^jg^{\alpha}_P\left(\left.\frac{\partial}{\partial x^i}\right|_P,\left.\frac{\partial}{\partial x^j}\right|_P\right)=X^iY^j\delta_{ij}=\sum_{i=1}^{n}X^iY^i\]
+	Definiamo ora $g\in\T_2(M)$ tale che per ogni $P\in M$ si ha
+	\[g_P=\sum_{\alpha}\rho_{\alpha}(P)g^{\alpha}_P\]
+	Tale somma è ben definita, perchè in ogni punti ha solo un numero finito di termini non nullo. $g^{\alpha}_P$ è una forma bilineare simmetrica definita positiva e $\rho_{\alpha}(P)\geq0$ per ogni $P$ e per ogni $\alpha$, quindi $g$ è simmetrico e definito positivo.
+\end{proof}
+\begin{osservazione}
+	La dimostrazione precedente non funziona per costruire metriche pseudo-Riemanniane di segnatura $(r,s)$ qualunque.
+\end{osservazione}
+\begin{osservazione}[Cambio di coordinate]
+	Siano $(U,\varphi)$ e $(\tilde{U},\tilde{\varphi})$ due carte locali tali che $U\cap\tilde{U}\neq\emptyset$. Si ha
+	\[\dif\tilde{x}^h=\frac{\partial\tilde{x}^h}{\partial x^i}\dif x^i\]
+	Il tensore metrico è invece
+	\[g=g_{ij}\dif x^i\otimes\dif x^j=\tilde{g}_{hk}\dif\tilde{x}^h\otimes\dif\tilde{x}^k\]
+	Dunque si deve avere
+	\[g_{ij}=\tilde{g}_{hk}\frac{\partial\tilde{x}^h}{\partial x^i}\frac{\partial\tilde{x}^k}{\partial x^j}\]
+	e in notazione matriciale
+	\[\left(g_{ij}\right)=\left(\frac{\partial\tilde{x}}{\partial x}\right)^T\left(\tilde{g}_{hk}\right)\left(\frac{\partial\tilde{x}}{\partial x}\right)\]
+	In particolare si ha
+	\[\det\left(g_{ij}\right)=\det\left(\tilde{g}_{hk}\right)\left(\det\left(\frac{\partial \tilde{x}}{\partial x}\right)\right)^2\]
+\end{osservazione}
+\begin{definizione}
+	Sia $(M,g)$ una varietà (pseudo-)Riemanniana. Una connessione lineare $\nabla$ su $M$ è compatibile con la metrica $g$ se
+	\[\nabla_X\langle Y,Z\rangle=\langle\nabla_XY,Z\rangle+\langle Y,\nabla_XZ\rangle\]
+	per ogni $X,Y,Z\in\T(M)$, e dove si è posto $\langle Y,Z\rangle=g(Y,Z)$.
+\end{definizione}
+\begin{proposizione}
+	Sia $\nabla$ una connessione lineare su $(M,g)$. Le seguenti proprietà sono equivalenti:
+	\begin{enumerate}
+		\item $\nabla$ è compatibile con $g$.
+		\item $g$ è parallela rispetto a $\nabla$, ossia $\nabla g\equiv0$.
+		\item In un qualunque sistema di coordinate locali si ha
+		\[\frac{\partial g_{ij}}{\partial x^k}=g_{lj}\Gamma^{l}_{ki}+g_{il}\Gamma^{l}_{kj}\]
+		\item Per ogni coppia di campi di vettori $V$ e $W$ lungo una curva $\sigma$, si ha
+		\[\frac{\dif}{\dif t}\langle V,W\rangle=\langle DV,W\rangle+\langle V,DW\rangle\]
+		\item Per ogni coppia di vettori $V$ e $W$ paralleli lungo $\sigma$, il prodotto $\langle V,W\rangle$ è costante.
+		\item Il trasporto parallelo lungo una curva qualunque è un'isometria.
+	\end{enumerate}
+\end{proposizione}
+\begin{proof}
+	(1) $\Leftrightarrow$ (2). Per la definizione di derivata covariante totale, si ha
+	\[\left(\nabla g\right)(Y,Z,X)=\left(\nabla_X g\right)(Y,Z)=X\left(\langle Y,Z\rangle\right)-\langle\nabla_XY,Z\rangle-\langle Y,\nabla_XZ\rangle\]
+	e quindi $\nabla g=0$ se e solo se
+	\[X\left(\langle Y,Z\rangle\right)=\langle\nabla_XY,Z\rangle+\langle Y,\nabla_XZ\rangle\]
+	(2) $\Leftrightarrow$ (3). In coordinate locali si ha
+	\[\left(\nabla g\right)\left(\partial_i,\partial_j,\partial_k\right)=\partial_k\langle\partial_i,\partial_j\rangle-\langle\nabla_{\partial_k}\partial_i,\partial_j\rangle-\langle\partial_i,\nabla_{\partial_k}\partial_j\rangle=\]\[=\partial_kg_{ij}-\Gamma^l_{ki}g_{lj}-\Gamma^l_{kj}g_{il}\]
+	e quindi $\nabla g=0$ se e solo se
+	\[\partial_kg_{ij}=\Gamma^l_{ki}g_{lj}+\Gamma^l_{kj}g_{il}\]
+	(1) $\Rightarrow$ (4). Sia $\sigma=\sigma(t)$ la curva e $\sigma'$ il vettore tangente. Allora si ha
+	\[\frac{\dif}{\dif t}\langle V,W\rangle=\nabla_{\sigma'}\langle V,W\rangle=\langle\nabla_{\sigma'}V,W\rangle+\langle V,\nabla_{\sigma'}W\rangle=\langle DV,W\rangle+\langle V,DW\rangle\]
+	(4) $\Rightarrow$ (5). Se $V$ e $W$ sono paralleli lungo $\sigma$, allora $DV=DW=0$ e quindi
+	\[\frac{\dif}{\dif t}\langle V,W\rangle=0\]
+	(5) $\Rightarrow$ (6). La proprietà (5) afferma che il trasporto parallelo preserva tutti i prodotti scalari, quindi è un'isometria.
+	
+	\noindent (6) $\Rightarrow$ (1). Siano $P\in M$ e $\sigma$ una curva uscente da $P$ tale che $X_P=\sigma'(0)$. Fissiamo una base ortonormale $\left\{v_1,\dots,v_n\right\}$ di $T_PM$. Per (6) possiamo estendere ogni $v_j$ a un campo vettoriale $v_j(t)$ parallelo lungo $\sigma$, in modo che $\left\{v_1(t),\dots,v_n(t)\right\}$ sia una base ortonormale di $T_{\sigma(t)}M$ per ogni $t$. Siano $Y_{\sigma(t)}=Y^h(t)v_h(t)$ e $Z_{\sigma(t)}=Z^k(t)v_k(t)$. Si ha
+	\[\nabla_{X_P}\langle Y,Z\rangle=\frac{\dif}{\dif t}\left.\langle Y_{\sigma(t)},Z_{\sigma(t)}\rangle\right|_{t=0}=\frac{\dif}{\dif t}\left.\left(\sum_{h=1}^{n}Y^h(t)Z^h(t)\right)\right|_{t=0}=\]\[=\sum_{h=1}^{n}\left(\frac{\dif Y^h}{\dif t}(0)Z^h(0)+Y^h(0)\frac{\dif Z^h}{\dif t}(0)\right)=\left\langle\frac{\dif Y^h}{\dif t}(0)v_h,Z(0)\right\rangle+\left\langle Y(0),\frac{\dif Z^h}{\dif t}(0)v_h\right\rangle=\]\[=\langle D_0Y,Z\rangle+\langle Y,D_0Z\rangle=\langle\nabla_{X_P}Y,Z\rangle+\langle Y,\nabla_{X_P}Z\rangle\]
+	il che significa che $\nabla$ è compatibile con $g$.
+\end{proof}
+\begin{definizione}
+	Definiamo $\tau\colon\T(M)\times\T(M)\to\T(M)$ ponendo
+	\[\tau(X,Y)=\nabla_XY-\nabla_YX-[X,Y]\]
+\end{definizione}
+\begin{lemma}
+	$\tau$ è un campo tensoriale di tipo $(1,2)$, ossia $\tau\in\T^1_2(M)$.
+\end{lemma}
+\begin{proof}
+	Dato che $\tau(X,Y)=-\tau(Y,X)$, è sufficiente mostrare che $\tau$ è $C^\infty$-lineare nel primo argomento. Si ha
+	\[\tau(fX,Y)=\nabla_{fX}Y-\nabla_YfX-[fX,Y]=\]\[=f\nabla_XY-f\nabla_YX-Y(f)X-f[X,Y]+Y(f)X=f\tau(X,Y)\]
+\end{proof}
+\begin{definizione}
+	Il campo tensoriale $\tau$ è detto torsione della connessione lineare $\nabla$. $\nabla$ è detta simmetrica, o priva di torsione, se $\tau\equiv0$.
+\end{definizione}
+\begin{lemma}
+	Sia $\nabla$ una connessione lineare. Allora sono fatto equivalenti:
+	\begin{enumerate}
+		\item $\nabla$ è simmetrica.
+		\item I simboli di Christoffel in un qualsiasi sistema di coordinate locali sono simmetrici, ossia $\Gamma^h_{ij}=\Gamma^h_{ji}$
+		\item Per ogni $f\in C^\infty(M)$, l'Hessiano di $f$ è un tensore simmetrico.	
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	(1) $\Leftrightarrow$ (2). Fissate delle coordinate locali, siano $X=X^h\partial_h$, $Y=Y^k\partial_k$. Allora
+	\[\nabla_XY=\left(X(Y^k)+\Gamma^k_{jh}X^jY^h\right)\partial_k\]
+	Di conseguenza
+	\[\tau(X,Y)=\left(X(Y^k)+\Gamma^k_{jh}X^jY^h\right)\partial_k-\left(Y(X^k)+\Gamma^k_{jh}Y^jX^h\right)\partial_k-[X,Y]=\]\[=X^iY^j\left(\Gamma^k_{ij}-\Gamma^k_{ji}\right)\partial_k\]
+	Per cui $\tau(X,Y)=0$ per ogni $X,Y$ se e solo se $\Gamma^k_{ij}=\Gamma^k_{ji}$ per ogni $i,j,k$.
+	
+	\noindent (1) $\Leftrightarrow$ (3). Abbiamo già visto
+	\[\nabla\left(\nabla(f)\right)(X,Y)=Y(X(f))-\nabla_YX(f)\]
+	Dunque
+	\[\nabla\left(\nabla(f)\right)(X,Y)-\nabla\left(\nabla(f)\right)(Y,X)=\tau(X,Y)(f)\]
+	Quindi $\nabla\left(\nabla(f)\right)$ è simmetrico se e solo se $\tau\equiv0$.	
+\end{proof}
+\begin{teorema}[di Levi-Civita]
+	Su ogni varietà (pseudo-)Riemanniana $(M,g)$ esiste un'unica connessione $\nabla$ simmetrica e compatibile con la metrica. Inoltre, tale $\nabla$ soffisfa
+	\[2\langle\nabla_XY,Z\rangle=X\langle Y,Z\rangle+Y\langle Z,X\rangle-Z\langle X,Y\rangle+\langle[X,Y],Z\rangle-\langle[Y,Z],X\rangle+\langle[Z,X],Y\rangle\]
+	per ogni $X,Y,Z\in\T(M)$. In particolare, se $E_1,\dots,E_n$ è un riferimento locale ortonormale per $TM$, si h
+	\[2\langle\nabla_{E_i}E_j,E_k\rangle=\langle[E_i,E_j],E_k\rangle-\langle[E_j,E_k],E_i\rangle+\langle[E_k,E_i],E_j\rangle\]
+	Infine, i simboli di Christoffel sono dati da
+	\[\Gamma^{k}_{ij}=\frac{1}{2}g^{kl}\left(\frac{\partial g_{lj}}{\partial x^i}+\frac{\partial g_{il}}{\partial x^j}-\frac{\partial g_{ij}}{\partial x^l}\right)\]
+\end{teorema}
+\begin{proof}
+	Dimostriamo l'unicità. Se $\nabla$ è compatibile con $g$, si ha
+	\[X\langle Y,Z\rangle=\langle\nabla_XY,Z\rangle+\langle Y,\nabla_XZ\rangle\]
+	\[Y\langle Z,X\rangle=\langle\nabla_YZ,X\rangle+\langle Z,\nabla_YX\rangle\]
+	\[Z\langle X,ZY\rangle=\langle\nabla_ZX,Y\rangle+\langle X,\nabla_ZY\rangle\]
+	Sommando le prime due e sottraendo la terza si ottiene
+	\[X\langle Y,Z\rangle+Y\langle Z,X\rangle-Z\langle X,Y\rangle=\langle\nabla_XZ-\nabla_ZX,Y\rangle+\langle\nabla_YZ-\nabla_ZY,X\rangle+\langle\nabla_XY+\nabla_YX,Z\rangle\]
+	Se $\nabla$ è anche simmetrica, si ha
+	\[\nabla_XZ-\nabla_ZX=[X,Z]\]
+	\[\nabla_YZ-\nabla_ZY=[Y,Z]\]
+	\[\nabla_XY+\nabla_YX=2\nabla_XY-[X,Y]\]
+	Pertanto
+	\[X\langle Y,Z\rangle+Y\langle Z,X\rangle-Z\langle X,Y\rangle=-\langle[Z,X],Y\rangle+\langle[Y,Z],X\rangle+2\langle\nabla_XY,Z\rangle-\langle[X,Y],Z\rangle\]
+	Da cui la prima relazione, e l'unicità di $\nabla$. Per dimostrare l'esistenza, usiamo la relazione precedente per definire $\nabla_XY$ ponendo
+	\[\langle\nabla_XY,Z\rangle=\frac{1}{2}\left(X\langle Y,Z\rangle+Y\langle Z,X\rangle-Z\langle X,Y\rangle+\langle[X,Y],Z\rangle-\langle[Y,Z],X\rangle+\langle[Z,X],Y\rangle\right)\]
+	Mostriamo che il secondo membro è $C^\infty$-lineare in $Z$.
+	\[\langle\nabla_XY,fZ\rangle=\frac{1}{2}\left(X\langle Y,fZ\rangle+Y\langle fZ,X\rangle-fZ\langle X,Y\rangle+\langle[X,Y],fZ\rangle-\langle[Y,fZ],X\rangle+\langle[fZ,X],Y\rangle\right)=\]\[=\frac{1}{2}\left(X(f)\langle Y,Z\right)+fX\langle Y,Z\rangle+Y(f)\langle Z,X\rangle+fY\langle Z,X\rangle-fZ\langle X,Z\rangle+f\langle[X,Y],Z\rangle-\]\[-\langle Y(f)Z,X\rangle-\langle f[Y,Z],X\rangle+f\langle[Z,X]Y\rangle-\langle X(f)Z,Y\rangle)=f\langle\nabla_XY,Z\rangle\]
+	Quindi la funzione $Z\mapsto\langle\nabla_XY,Z\rangle$ è una 1-forma differenziale, dunque $\nabla_XY$ è un campo vettoriale. Abbiamo quindi definito
+	\[\nabla\colon\T(M)\times\T(M)\to\T(M)\]
+	\[(X,Y)\mapsto\nabla_XY\]
+	Con un calcolo analogo si mostra che $\nabla_XY$ è $C^\infty$-lineare in $X$, dunque $\nabla$ è una connessione. Verifichiamo che è compatibile con la metrica $g$. Con facili calcoli si ha
+	\[\langle\nabla_XY,Z\rangle+\langle Y,\nabla_XZ\rangle=X\langle Y,Z\rangle\]
+	Analogamente si verifica che $\nabla$ è simmetrica
+	\[\langle\nabla_XY,Z\rangle-\langle\nabla_YX,Z\rangle-\langle[X,Y],Z\rangle=0\]
+	Calcoliamo ora i simboli di Christoffel:
+	\[\langle\nabla_{\partial_i}\partial_j,\partial_l\rangle=\langle\Gamma^k_{ij}\partial_k,\partial_l\rangle=\Gamma^k_{ij}g_{kl}\]
+	D'altronde, per come è stata definita $\nabla$:
+	\[\langle\nabla_{\partial_i}\partial_j,\partial_l\rangle=\frac{1}{2}\left(\partial_i\langle\partial_j,\partial_l\rangle+\partial_j\langle\partial_l,\partial_i\rangle-\partial_l\langle\partial_i,\partial_j\rangle\right)=\frac{1}{2}\left(\partial_ig_{jl}+\partial_jg_{li}-\partial_lg_{ij}\right)\]
+	dove si è usato il fatto che $[\partial_h,\partial_k]=0$ per ogni $h,k$.
+	Si ha quindi
+	\[\Gamma^k_{ij}g_{kl}=\frac{1}{2}\left(\partial_ig_{jl}+\partial_jg_{li}-\partial_lg_{ij}\right)\]
+	\[\Gamma^k_{ij}=\Gamma^k_{ij}g_{kl}g^{kl}=\frac{1}{2}g^{kl}\left(\partial_ig_{jl}+\partial_jg_{li}-\partial_lg_{ij}\right)\]
+\end{proof}
+\begin{definizione}
+	Sia $(M,g)$ una varietà (pseudo-)Riemanniana. L'unica connessione lineare, simmetrica e compatibile con la metrica $g$ è detta connessione di Levi-Civita.
+\end{definizione}
+\begin{proposizione}
+	Sia $F\colon(M,g)\to(\tilde{M},\tilde{g})$ un'isometria tra due varietà (pseudo-)Riemanniane. Allora:
+	\begin{enumerate}
+		\item $F$ porta la connessione di Levi-Civita $\nabla$ di $M$ nella connessione di Levi-Civita $\tilde{\nabla}$ di $\tilde{M}$, ossia per ogni $X,Y\in\T(M)$ si ha
+		\[\dif F\left(\nabla_XY\right)=\tilde{\nabla}_{\dif F(X)}\dif F(Y)\]
+		\item Se $\sigma$ è una curva in $M$, si ha per ogni $V\in\T(\sigma)$
+		\[\dif\left(DV\right)=\tilde{D}\left(\dif F(V)\right)\]
+		dove $D$ e $\tilde{D}$ sono rispettivamente le derivate covarianti lungo $\sigma$ e $\tilde{\sigma}=F\circ\sigma$ indotte da $\nabla$ e $\tilde{\nabla}$.
+	\end{enumerate}
+\end{proposizione}
+\begin{proof}
+	Vedi \textit{Geometria differenziale} di Abate-Tovena.
+\end{proof}
+\begin{definizione}
+	Sia $V$ un $\R$-spazio di dimensione finita dotato di un prodotto scalare $\langle\cdot,\cdot\rangle$. Sia $S\colon V\times V\to\R$ una forma bilineare simmetrica. Sia $\hat{S}\colon V\to V$ l'unico endomorfismo simmetrico di $V$ tale che
+	\[\langle\hat{S}(v),w\rangle=S(v,w)\]
+	La traccia di $S$ è la traccia di $\hat{S}$.
+\end{definizione}
+\begin{osservazione}
+	Sia $\left\{v_1,\dots,v_n\right\}$ una base di $V$. Poniamo $g_{ij}=\langle v_i,v_j\rangle$. Data la forma bilineare $S\colon V\times V\to\R$ poniamo $s_{ij}=S(v_i,v_j)$. L'endomorfismo $\hat{S}\colon V\to V$ è dato da $\hat{S}(v_i)=s_{i}^hv_h$, con $s_i^h=s_{ij}g^{jh}$. Allora si ha
+	\[\textrm{tr}(S)=\textrm{tr}(\hat{S})=s^i_i=g^{ij}s_{ij}\]
+\end{osservazione}
+\begin{definizione}
+	Siano $(M,g)$ una varietà Riemanniana, $f\in C^\infty(M)$. Il Laplaciano di $f$ è la funzione
+	\[\triangle f=\tr\left(\nabla\left(\nabla(f)\right)\right)\in C^\infty(M)\]
+	dove $\nabla$ è la connessione di Levi-Civita di $M$. L'operatore $\triangle$ è detto operatore di Laplace-Beltrami.
+\end{definizione}
+\begin{osservazione}
+	In coordinate locali si ha
+	\[\nabla\left(\nabla(f)\right)(\partial_i,\partial_j)=\frac{\partial^2f}{\partial x^i\partial x^j}-\Gamma^k_{ji}\frac{\partial f}{\partial x^k}\]
+	Allora si ha
+	\[\triangle f=g^{ij}\frac{\partial^2 f}{\partial x^i\partial x^j}-g^{ij}\Gamma^k_{ji}\frac{\partial f}{\partial x^k}\]
+	Ad esempio, in $\R^n$ con la metrica euclidea si ha $\Gamma^{k}_{ji}=0$ per ogni $i,j,k$ e $g^{ij}=\delta^{ij}$, dunque
+	\[\triangle f=\sum_{i=1}^{n}\frac{\partial^2f}{\partial {x^i}^2}\]
+\end{osservazione}
+\begin{definizione}
+	Sia $\nabla$ una connessione lineare su $M$. Una geodetica per $\nabla$ è una curva $\sigma\colon I\to M$ tale che $D\left(\sigma'\right)\equiv0$, cioè $\sigma$ è una geodetica se e solo se il vettore tangente $\sigma'$ è parallelo lungo $\sigma$.
+\end{definizione}
+\begin{osservazione}
+	Il fatto di essere una geodetica dipende sia dal sostegno della curva che dalla parametrizzazione. Se $(U,\varphi)$ è una carta locale e $\varphi\circ\sigma=(\sigma^1,\dots,\sigma^n)$, $\sigma$ è una geodetica se e solo se le componenti $\sigma^k$ soddisfano l'equazione differenziale
+	\[\ddot{\sigma}^k+\left(\Gamma^k_{ij}\circ\sigma\right)\dot{\sigma}^i\dot{\sigma}^j=0\]
+\end{osservazione}
+\begin{osservazione}
+	Da un punto di vista fisico, le geodetiche sono le traiettorie di un punto che si muove in assenza di forze.
+\end{osservazione}
+\begin{proposizione}
+	Sia $\nabla$ una connessione locale lineare su $M$. Per ogni $P\in M$ e per ogni $v\in T_PM$ esistono un intervallo $I\subseteq\R$ contenente lo 0 e una geodetica $\sigma\colon I\to M$ tale che $\sigma(0)=P$ e $\dot{\sigma}(0)=v$. Se $\tilde{\sigma}\colon\tilde{I}\to M$ è un'altra geodetica che soddisfa le stesse condizioni, allora $\sigma=\tilde{\sigma}$ in $I\cap\tilde{I}$.
+\end{proposizione}
+\begin{definizione}
+	Siano $\nabla$ una connessione lineare su $M$ e $X,Y\in\T(M)$. Definiamo un operatore $R_{XY}\colon\T(M)\to\T(M)$ ponendo
+	\[R_{XY}=\nabla_X\nabla_Y-\nabla_Y\nabla_X-\nabla_{[X,Y]}\]
+	Si verifica con calcolo diretto che $R_{XY}(Z)$ è $C^\infty(M)$-lineare rispetto a tutte le variabili, dunque posto $R(X,Y,Z)=R_{XY}(Z)$ si ha $R\in\T^1_3(M)$. Il tensore $R$ è detto tensore di curvatura.
+\end{definizione}
+\begin{osservazione}
+	In un sistema di coordinate locali $(x^1,\dots,x^n)$ su un aperto $U$ di $M$, il tensore di curvatura è della forma
+	\[R=R_{ijh}^k\dif x^i\otimes\dif x^j\dif x^h\otimes\partial_k\]
+	Una notazione compatta è ovviamente
+	\[R=\left(R_{ijh}^k\right)\]
+\end{osservazione}
+\begin{proposizione}
+	Sia $R$ il tensore di curvatura di una connessione lineare simmetrica su $M$. Allora per ogni $X,Y,Z,W\in\T(M)$ si ha
+	\begin{enumerate}
+		\item $R_{XY}=-R_{YX}$, in particolare $R_{XX}=0$.
+		\item (prima identità di Bianchi) $R_{XY}Z+R_{YZ}X+R_{ZX}Y=0$
+	\end{enumerate}
+	Se inoltre $M$ è una varietà Riemanniana e $\nabla$ è la connessione di Levi-Civita, si ha anche
+	\begin{enumerate}[resume]
+		\item $\langle R_{XY}Z,W\rangle=-\langle Z,R_{XY}W\rangle$, in particolare $\langle R_{XY}Z,Z\rangle=0$.
+		\item  $\langle R_{XY}Z,W\rangle=\langle R_{ZW}X,Y\rangle$.
+	\end{enumerate}
+\end{proposizione}
+\begin{proof}
+	Vedi \textit{Geometria differenziale} di Abate-Tovena.
+\end{proof}
+\begin{osservazione}
+	In coordinate locali scriveremo $R_{\partial_i\partial_j}\partial_h=R_{ijh}^k\partial_k$. Si ha allora
+	\[R_{ijh}^k\partial_k=\nabla_{\partial_i}\left(\nabla_{\partial_j}\partial_h\right)-\nabla_{\partial_j}\left(\nabla_{\partial_i}\partial_h\right)-\nabla_{[\partial_i,\partial_j]}\partial_h=\nabla_{\partial_i}\left(\Gamma^l_{jh}\partial_l\right)-\nabla_{\partial_j}\left(\Gamma^l_{ih}\partial_l\right)=\]\[=\left(\partial_i\Gamma^k_{jh}-\partial_j\Gamma^k_{ih}+\Gamma^l_{jh}\Gamma^k_{il}-\Gamma^{l}_{ih}\Gamma^k_{jl}\right)\partial_k\]
+	E quindi, omettendo i vettori della base
+	\[R_{ijh}^k=\frac{\partial\Gamma^k_{jh}}{\partial x^i}-\frac{\partial\Gamma^k_{ih}}{\partial x^j}+\Gamma^l_{jh}\Gamma^k_{il}-\Gamma^{l}_{ih}\Gamma^k_{jl}\]
+	Inoltre, se siamo su una varietà Riemanniana possiamo definire per semplicità
+	\[R_{ijhk}=\langle R_{\partial_i\partial_j}\partial_h,\partial_k\rangle=R_{ijh}^lg_{lk}\]
+	La proposizione precedente è allora equivalente alle proprietà seguenti:
+	\begin{enumerate}
+		\item $R_{ijhk}=-R_{jihk}$
+		\item $R_{ijhk}+R_{jhik}+R_{hijk}=0$
+		\item $R_{ijhk}=-R_{ijkh}$
+		\item $R_{ijhk}=R_{hkij}$
+	\end{enumerate}
+\end{osservazione}
+\begin{definizione}
+	Il tensore di Ricci è il tensore ottenuto contraendo l'indice in alto del tensore di curvatura $R_{ijh}^k$ con il primo indice in basso, ossia
+	\[R_{ij}=R_{hij}^h\in\T^0_2(M)\]
+	In coordinate locali si ha
+	\[\ric=R_{ij}\dif x^i\otimes\dif x^j\]
+	Le proprietà di simmetria di $R$ hanno come conseguenza la simmetria di $\ric$:
+	\[R_{ij}=R_{hij}^h=R_{hijk}g^{kh}=R_{jkhi}g^{hk}=R_{ji}\]
+\end{definizione}
+\begin{definizione}
+	Sia $M$ una varietà Riemanniana con tensore di curvatura $R$. La curvatura di Ricci è la forma quadratica associata al tensore di Ricci:
+	\[\tilde{\ric}(X)=\ric(X,X)\]
+	La curvatura scalare $R\in C^\infty(M)$ è la traccia del tensore di Ricci, ossia
+	\[R=g^{ij}R_{ij}\]
+\end{definizione}
+\begin{osservazione}
+	Sia $(M,g)$ una varietà (pseudo-)Riemanniana di dimensione $n$. Allora $R_{ijhk}$ ha $n^4$ componenti, ma non tutte indipendenti. Queste ultime sono
+	\[\frac{n^2(n^2-1)}{12}\]
+\end{osservazione}
+\begin{definizione}
+	Una varietà differenziabile di dimensione 4, con una metrica pseudo-Riemanniana di segnatura $(1,3)$, è detta Universo o spazio-tempo. Nello spazio vuoto (in assenza di massa-energia) la metrica è
+	\[g_{\mu\nu}=\left(\begin{array}{c c c c}
+	-1&0&0&0\\
+	0&1&0&0\\
+	0&0&1&0\\
+	0&0&0&1
+	\end{array}\right)\]
+	con $\mu,\nu=0,\dots,3$. Le unità di misura sono state scelte in modo che $c=1$. In presenza di massa-energia la metrica si modifica. Einstein ha proposto le seguenti equazioni
+	\[R_{\mu\nu}-\frac{1}{2}Rg_{\mu\nu}=8\pi G T_{\mu\nu}\]
+	dove $R_{\mu\nu}$ è il tensore di Ricci, $R$ la curvatura scalare, $g_{\mu\nu}$ la metrica, $T_{\mu\nu}$ il tensore impulso-energia, $G$ la costante di gravitazione universale.
+	Tutti i tensori sono simmetrici, quindi ci sono 10 equazioni indipendenti (che sono equazioni differenziali non lineari del secondo ordine). Definiamo il tensore di Einstein $G_{\mu\nu}=R_{\mu\nu}-\frac{1}{2}Rg_{\mu\nu}$. Allora l'identità di Bianchi si scrive come
+	\[\nabla^\mu G_{\mu\nu}=0\]
+	dove si è posto $\nabla_{\mu}=\nabla_{\partial_\mu}$ e $\nabla^\mu=g^{\mu\nu}\nabla_\nu$
+	Queste quattro identità aggiuntive riducono a 6 il numero di equazioni effettivamente indipendenti. Nello spazio-tempo, gli oggetti (luce compresa) si muovono lungo le geodetiche.
+\end{definizione}
+\begin{osservazione}
+	Successivamente, Einstein ha proposto
+	\[R_{\mu\nu}-\frac{1}{2}Rg_{\mu\nu}+\Lambda g_{\mu\nu}=8\pi GT_{\mu\nu}\]
+	dove $\Lambda$ è la costante cosmologica. Nel vuoto si ottiene
+	\[R_{\mu\nu}-\frac{1}{2}Rg_{\mu\nu}=-\Lambda g_{\mu\nu}\]
+	Il termine $-\Lambda g_{\mu\nu}$ può essere interpretato come una densità di energia del vuoto, che contribuisce all'espansione dell'universo.
+\end{osservazione}
+\begin{esempio}[metrica di Schwarzschild]
+	Cerchiamo soluzioni a simmetria sferica, e scegliamo coordinate sferiche:
+	\[\left\{\begin{array}{l}
+	x^1=r\sin\theta\cos\phi\\x^2=r\sin\theta\sin\phi\\x^3=r\cos\theta
+	\end{array}\right.\]
+	Allora si ha
+	\[\dif s^2=\left(\dif x^1\right)^2+\left(\dif x^2\right)^2+\left(\dif x^3\right)^2=\dif r^2+r^2\dif\Omega^2\]
+	dove si è posto $\dif\Omega^2=\dif\theta^2+\sin^2\theta\dif\phi^2$. Usando le coordinate $(t,r,\theta,\phi)$ (scelte in modo che $c=1$) si può mostrare che la metrica si può scrivere nella forma
+	\[\dif s^2=m(t,r)\dif t^2+n(t,r)\dif r^2+r^2\dif\Omega^2\]
+	dove $m$ e $n$ sono due funzioni incognite nelle sole variabili $t$ e $r$. Il tensore metrico è
+	\[g_{\mu\nu}=\left(\begin{array}{c c c c}
+	m(t,r)&0&0&0\\0&n(t,r)&0&0\\0&0&r^2&0\\0&0&0&r^2\sin^2\theta
+	\end{array}\right)\]
+	Il suo inverso è
+	\[g^{\mu\nu}=\left(\begin{array}{c c c c}
+	\left(m(t,r)\right)^{-1}&0&0&0\\0&\left(n(t,r)\right)^{-1}&0&0\\0&0&r^{-2}&0\\0&0&0&r^{-2}\sin^{-2}\theta
+	\end{array}\right)\]
+	dove il $^{-1}$ in $m,n$ rappresentano rispettivamente $1/m$ e $1/n$, e non l'inversa.
+	I simboli di Christoffel sono, per il teorema di Levi-Civita,
+	\[\Gamma^{\sigma}_{\mu\nu}=\frac{1}{2}g^{\sigma\lambda}\left(\frac{\partial g_{\lambda\nu}}{\partial x^\mu}+\frac{\partial g_{\mu\lambda}}{\partial x^\nu}-\frac{\partial g_{\mu\nu}}{\partial x^\lambda}\right)\]
+	Se $\mu,\nu,\sigma$ sono tutti distinti allora è facile vedere che $\Gamma^\sigma_{\mu\nu}=0$, dato che $g_{\mu\nu}$ e $g^{\mu\nu}$ sono diagonali. Per gli altri casi, identificando una coordinata con il proprio indice (e considerando, ogni volta che compare $\mu$ come indice diverso da $t,r,\theta,\phi$), si trova
+	\[\Gamma^{t}_{tt}=0\]
+	\[\Gamma^{t}_{t\mu}=\frac{1}{2m}\frac{\partial m}{\partial r}\]
+	\[\Gamma^{r}_{tt}=\frac{1}{2n}\frac{\partial m}{\partial r}\]
+	\[\Gamma^{r}_{rr}=\frac{1}{2n}\frac{\partial n}{\partial r}\]
+	\[\Gamma^{r}_{\theta\theta}=-\frac{r}{n}\]
+	\[\Gamma^{r}_{\phi\phi}=-\frac{r}{n}\sin^2\theta\]
+	\[\Gamma^{\theta}_{tt}=0\]
+	\[\Gamma^{\theta}_{\mu\mu}=-\sin\theta\cos\theta\]
+	\[\Gamma^{\theta}_{r\theta}=\frac{1}{r}\]
+	\[\Gamma^{\theta}_{\theta\phi}=0\]
+	\[\Gamma^{\phi}_{\mu\mu}=0\]
+	\[\Gamma^{\phi}_{t\phi}=\frac{1}{r}\]
+	\[\Gamma^{\phi}_{\theta\phi}=\frac{1}{\tan\theta}\]
+	Ovviamente si ha anche $\Gamma^\sigma_{\mu\nu}=\Gamma^{\sigma}_{\nu\mu}$. Dopo un'altra caterva di conti si trova anche che il tensore di Ricci è diagonale, e in particolare è
+	\[R_{\mu\nu}=\left(\begin{array}{c c c c}
+	-\frac{m_{rr}}{2n}+\frac{m_rn_r}{4n^2}+\frac{m^2_r}{4mn}-\frac{m_r}{nr}&0&0&0\\0&\frac{m_{rr}}{2m}-\frac{m_r^2}{4m^2}-\frac{m_rn_r}{4mn}-\frac{n_r}{nr}&0&0\\
+	0&0&\frac{rm_r}{2mn}+\frac{1}{n}-\frac{n_rr}{2n^2}-1&0\\
+	0&0&0&R_{\theta\theta}\sin^2\theta
+	\end{array}\right)\]
+	dove $m_r=\partial m/\partial r$, e analogamente per $m_{rr},n_{r}$. La curvatura scalare è semplicemente
+	\[R=-\frac{m_{rr}}{mn}+\frac{m_rn_r}{2mn^2}+\frac{m_r^2}{2m^2n}-\frac{2m_r}{mnr}+\frac{2n_r}{n^2r}+\frac{2}{r^2}\left(1-\frac{1}{n}\right)\]
+	L'equazione di campo $R_{\mu\nu}-\frac{1}{2}Rg_{\mu\nu}=0$ è allora il set di equazioni:
+	\[-\frac{m_{rr}}{n}+\frac{m_rn_r}{2n^2}+\frac{m_r^2}{2mn}-\frac{2m_r}{nr}=-\frac{m_{rr}}{n}+\frac{m_rn_r}{2n^2}+\frac{m_r^2}{2mn}-\frac{2m_r}{nr}+\frac{2mn_r}{n^2r}+\frac{2m}{r^2}\left(1-\frac{1}{n}\right)\]
+	\[\frac{m_{rr}}{m}-\frac{m_r^2}{2m^2}-\frac{m_rn_r}{2mn}-\frac{2n_r}{nr}=-\frac{m_{rr}}{m}+\frac{m_rn_r}{2mn}+\frac{m_r^2}{2m^2}-\frac{2m_r}{mr}+\frac{2n_r}{nr}+\frac{2n}{r^2}\left(1-\frac{1}{n}\right)\]
+	\[\frac{rm_r}{mn}+\frac{2}{n}-\frac{n_rr}{n^2}-2=-\frac{m_{rr}r^2}{mn}+\frac{m_rn_rr^2}{2mn^2}+\frac{m_r^2r^2}{2m^2n}-\frac{2m_rr}{mn}+\frac{2n_rr}{n^2}+2\left(1-\frac{1}{n}\right)\]
+	\[\left(\frac{rm_r}{mn}+\frac{2}{n}-\frac{n_rr}{n^2}-2\right)\sin^2\theta=\left[-\frac{m_{rr}r^2}{mn}+\frac{m_rn_rr^2}{2mn^2}+\frac{m_r^2r^2}{2m^2n}-\frac{2m_rr}{mn}+\frac{2n_rr}{n^2}+2\left(1-\frac{1}{n}\right)\right]\sin^2\theta\]
+	Notiamo che la quarta equazione non è indipendente dalle altre. Inoltre, le prime due possono essere semplificate e si ha quindi
+	\[\frac{n_r}{n^2}+\frac{1}{r}\left(1-\frac{1}{n}\right)=0\]
+	\[-\frac{m_r}{mn}+\frac{1}{r}\left(1-\frac{1}{n}\right)=0\]
+	Si trova
+	\[\dif s^2=-\left(1-\frac{2GM}{r}\right)\dif t^2+\left(1-\frac{2GM}{r}\right)^{-1}\dif r^2+r^2\dif\Omega^2\]
+	dove $M$ è una costante, interpretata come la massa di un corpo puntiforme nell'origine che produce il campo gravitazionale.
+	Senza porre $c=1$, si trova
+	\[\dif s^2=-\left(1-\frac{2GM}{c^2r}\right)\dif t^2+\left(1-\frac{2GM}{c^2r}\right)^{-1}\dif r^2+r^2\dif\Omega^2\]
+	I valori problematici sono $r=0$ e \[r=\frac{2GM}{c^2}\]
+	La singolarità in $r=0$ è ovvia, dato che abbiamo risolto l'equazione nello spazio vuoto con una massa puntiforme nell'origine. L'altra singolarità, che è il noto raggio di Schwarschild, scompare effettuando un opportuno cambio di coordinate. 
+	
+	Nota la metrica, è ben possibile scrivere le equazioni per le geodetiche. Risolvendo tali equazioni, si trova che l'orbita di un pianeta attorno al Sole non è esattamente un'ellisse, come previsto dalla teoria di Newton.
+	
+	Il tempo proprio $\tau$, che non ha nulla a che fare con $t$ (che è solo una coordinata locale della nostra varietà), è dato da
+	\[\dif\tau^2=-\frac{\dif s^2}{c^2}=\left(1-\frac{2GM}{c^2r}\right)\frac{\dif t^2}{c^2}+\left(1-\frac{2GM}{c^2r}\right)^{-1}\frac{\dif r^2}{c^2}+r^2\frac{\dif\Omega^2}{c^2}\]
+	Notiamo che $\tau$ dipende da $M$. Ad esempio, per un satellite in orbita circolare intorno alla terra (supponendo la terra puntiforme e la massa del satellite trascurabile, in modo da poter usare la metrica di Schwarschild), la posizione del satellite in coordinate sferiche è 
+	\[\left\{\begin{array}{l}
+	r(t)=R\\\theta(t)=\frac{\pi}{2}\\\phi(t)=\omega t
+	\end{array}\right.\]
+	dove $\omega$ è la velocità angolare del satellite. Allora per un orologio sul satellite il tempo proprio è
+	\[\dif\tau^2=\left(1-\frac{2GM}{c^2R}-\frac{R^2\omega^2}{c^2}\right)\dif t^2\]
+	Ad esempio, per un satellite utilizzato per il GPS ($R\approx 2.7\cdot10^{3}$ km e $v\approx3.9$ km/s), un intervallo temporale a bordo del satellite è
+	\[\dif\tau_{\textrm{SAT}}\approx\left(1-0.249\cdot10^{-9}\right)\dif t\]
+	Per la terra si ha
+	\[\dif\tau_{Terra}\approx(1-0.696\cdot10^{-9})\dif t\]
+	Dunque il tempo a bordo del satellite trascorre più velocemente del tempo sulla terra, dato che
+	\[\dif\tau_{\textrm{SAT}}\approx\left(1+0.447\cdot10^{-9}\right)\dif\tau_{\textrm{Terra}}\]
+	Ciò significa che in un giorno si accumula un avanzo di circa $38.6$ $\mu$s.
+\end{esempio}
+
+\end{document}

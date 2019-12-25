@@ -1,0 +1,127 @@
+\begin{vares}
+  Si consideri lo spazio topologico $ \R $ dotato della topologia euclidea. Dimostrare che
+  \begin{enumerate}[label = (\roman*)]
+  \item Ogni aperto è unione di intervalli aperti disgiunti.
+  \item Ogni aperto è unione al più numerabile di intervalli aperti disgiunti.
+  \end{enumerate}
+\end{vares}
+%
+\begin{enumerate}[label = (\roman*)]
+\item Definiamo la seguente relazione di equivalenza su $ A $: dati $ x, y \in A $ diciamo che
+  \begin{equation*}
+    x \sim y \iff
+    \begin{cases}
+      [x, y] \subseteq A & \text{se $ x \leq y $} \\
+      [y, x] \subseteq A & \text{se $ x > y $}
+    \end{cases}
+  \end{equation*}
+  Infatti tale relazione è riflessiva ($ x \sim x $ in quanto $ [x, x] = \{x\} \subseteq A $), simmetrica (ovvio per definizione) e transitiva (se \emph{wlog} $ x \leq y \leq z $ si ha $ x \sim y \wedge y \sim z \iff [x, y] \subseteq A \wedge [y, z] \subseteq A \Rightarrow [x, z] = [x, y] \cup [y, z] \subseteq A \iff x \sim z $). Sia $ [x]_{\sim} = \{y \in A : [x, y] \subseteq A \vee [y, x] \subseteq A\} $ la classe di equivalenza di $ x $. Osserviamo che detti $ y_i = \inf_{y \in A}{\{ y \sim x\}} $ e $ y_s = \sup_{y \in A}{\{y \sim x\}} $ (che esistono per la completezza di $ \R $) abbiamo che $ [x]_{\sim} = (y_i, y_s) $: se $ z \in [x]_{\sim} $, da cui $ z \in A $, allora per definizione $ z \sim x $ e quindi $ y_i  < z < y_s $ ma non $ z = y_i $ (o $ z = y_s $) poiché $ A $ è aperto e per definizione di  $ \inf $, $ \forall r > 0, (y_i - r, y_i + r) \cap A^c \neq \emptyset $; se invece $ z \in (y_i, y_s) $ allora \emph{wlog} $ \exists y \in A :( y \sim x) \wedge (y_i < y \leq z < y_s) $ e quindi $ [y, z] \subseteq A $ da cui $ y \sim z $ e per la proprietà transitiva $ x \sim z $ ovvero $ z \in [x]_{\sim} $.\\
+  L'insieme delle classi di equivalenza definisce quindi in modo biunivoco una partizione di $ A $ e quindi $ A = \bigcup_{x \in A} [x]_{\sim} $ ovvero $ A $ è unione di intervalli aperti disgiunti.
+\item Poiché $ \Q $ è denso in $ \R $ è sufficiente prendere come rappresentanti delle classi di equivalenza i razionali in $ A $ che sono per definizione al più numerabili. Allora $ A = \bigcup_{q \in A \cap \Q} [q]_{\sim} $ e quindi $ A $ è unione numerabile di intervalli aperti disgiunti
+\end{enumerate}
+
+\begin{vares}
+  Sia $ (X, \tau) $ uno spazio topologico e $ E \subseteq X $ un sottoinsieme connesso
+  \begin{enumerate}[label = (\roman*)]
+  \item Dimostrare che $ \clo{E} $ è connesso.
+  \item $ \ouv{E} $ è connesso? Se sì dimostralo, se no mostrare un controesempio.
+  \end{enumerate}
+\end{vares}
+%
+\begin{enumerate}[label = (\roman*)]
+\item Supponiamo per assurdo che $ \clo{E} $ sia sconnesso, ovvero che \[\exists A, B \in \tau : (\clo{E} \subseteq A \cup B) \wedge (A \cap \clo{B} = \clo{A} \cap B = \emptyset)\]
+\item $ \ouv{E} $ è connesso? Se sì dimostralo, se no mostrare un controesempio.
+\end{enumerate}
+
+\begin{vares} \label{es:distanza_da_insieme}
+  Sia $ (X, d) $ uno spazio metrico, $ E \subseteq X $ non vuoto. Definiamo $ \mathrm{dist}_E(x) \colon X \to \R $, la distanza di $ x $ da $ E $, come \[\mathrm{dist}_E(x) = \inf_{z \in E}{d(x, z)}.\] Mostrare che
+  \begin{enumerate}[label = (\roman*)]
+  \item $ \clo{E} = \{x \in X : \mathrm{dist}_E(x) = 0\} $.
+  \item $ \mathrm{dist}_E(x) $ è Lipschitziana (e quindi uniformemente continua e continua).
+  \item $ \mathrm{dist}_E(x) \equiv \mathrm{dist}_{\clo{E}}(x) $.
+  \item Se $ M = \R^n $ e $ E $ è chiuso non vuoto, l'estremo inferiore è un minimo.
+  \end{enumerate}
+\end{vares}
+%
+\begin{enumerate}[label = (\roman*)]
+\item \texttt{Questa dimostrazione è sbagliata.} Mostriamo le due inclusioni. Se $ x \in \clo{E} $ allora $ \exists (x_n) \subseteq E : x_n \to x $ ovvero $ \lim_{n} d(x_n, x) = 0 $. Poiché il limite esiste deduciamo che $ \lim_{n} d(x_n, x) = \inf_{n} d(x_n, x) = 0 $ e quindi che $ \inf_{z \in E} d(z, x) = 0 $ ovvero $ x \in \{x \in X : \mathrm{dist}_E(x) = 0\} $. D'altra parte sia $ x \in \{x \in X : \mathrm{dist}_E(x) = 0\} $ allora dalla definizione di estremo inferiore sappiamo che
+  \[\inf_{z \in E} d(z, x) = 0 \iff
+    \begin{cases}
+      \forall z \in E, d(x, z) \geq 0 \\
+      \forall \epsilon \geq 0, \exists z_\epsilon \in E : d(z_{\epsilon}, x) \leq \epsilon
+    \end{cases}\]
+  Preso allora $ \epsilon = 1/n $ abbiamo possiamo costruire una successione $ (z_n) \subseteq E $ tale che $ \forall n \in \N, d(z_n, x) \leq 1/n $. Così $ \lim_n d(z_n, x) = 0 $ ovvero $ z_n \to x $ e $ x $ è aderente a $ E $ come volevamo.
+\item Dati $ x, y \in X $ vogliamo stimare $ \abs{\mathrm{dist}_E(x) - \mathrm{dist}_E(y)} $. Poiché $ \mathrm{dist}_E $ è definita come un estremo inferiore allora $ \forall z \in E, \mathrm{dist}_E(x) \leq d(x, z) $ (analogo per $ y $). Usando allora la disuguaglianza triangolare su $ d $ abbiamo che \[\abs{\mathrm{dist}_E(x) - \mathrm{dist}_E(y)} \leq \abs{d(x, z) - d(z, y)} \leq d(x, y)\] ovvero la funzione $ \mathrm{dist}_E $ è 1-Lipschitziana.
+\item
+\item Sia $ x \in M $ e $ \alpha = \mathrm{dist}_E(x) $. Fissato $ \epsilon $ sia $ \clo{B(x, \epsilon + \alpha)} = \{y \in M : \abs{x - y} \leq \alpha + \epsilon\} $ la palla chiusa di centro $ x $ e raggio $ \alpha + \epsilon $. Definiamo $ Y = A \cap \clo{B(x, \epsilon + \alpha)} $: $ Y $ è un sottoinsieme chiuso (intersezione di chiusi) e limitato (sottoinsieme di un limitato) di $ \R^n $ ed è pertanto un compatto. Dunque la funzione distanza $ \mathrm{dist}_E|_{Y} $ è continua in un compatto e quindi ammette minimo (Weierstrass) che deve quindi coincidere con l'estremo inferiore.
+\end{enumerate}
+
+\begin{vares}
+  Sia $ f \colon [0, 1] \to \R $ una funzione continua. Si dimostri che la funzione \[F(t) = \int_{0}^{1} f(x) e^{tx} \dif{x}\] è analitica su $ \R $.
+\end{vares}
+%
+Osserviamo che poiché la funzione $ L(x, t) = f(x) e^{tx} $ è continua e $ \od[]{L}{t} = x f(x) e^{tx} $ è continua siamo autorizzati a scambiare la derivata con l'integrale. Così \[F'(t) = \od[]{}{t} \left(\int_{0}^{1} L(x, t) \dif{x}\right) = \int_{0}^{1} \od[]{L}{t}  \dif{x} = \int_{0}^{1} x f(x) e^{tx} \dif{x}. \] Induttivamente troviamo $ \od[n]{L}{t} = x^n f(x) e^{tx} $ è continua con derivata $ \od[n +1]{L}{t} = x^{n + 1} f(x) e^{tx} $ continua. Dunque ad ogni passo possiamo scambiare integrale con derivata e ottenere \[F^{(n)}(t) = \int_{0}^{1} x^n f(x) e^{tx} \dif{x}\] che è una funzione continua. Dunque $ F $ è $ C^{\infty} $ e il resto di Lagrange di ordine $ n $ centrato in $ 0 $ si scrive come \[R_n(t, t_0) = \frac{F^{(n + 1)}(\xi)}{(n + 1)!} t^{n + 1} = \frac{t^{n + 1}}{(n + 1)!} \int_{0}^{1} x^n f(x) e^{\xi x} \dif{x}\] per qualche $ \xi $ con \emph{wlog} $ \xi \in (0, t) $. Essendo $ f $ continua su un compatto per il teorema di Weierstrass $ f $ è limitata e sia $ M = \max{\abs{f}} $, e d'altra parte $ x \leq 1 $. Così per $ n \to \infty $ si ha
+\begin{equation*}
+  \abs{R_n(t, t_0)} \leq \frac{{\abs{t}}^{n + 1}}{(n + 1)!} \int_{0}^{1} \abs{x^n f(x) e^{\xi x}} \dif{x} \leq M e^{\xi} \frac{{\abs{t}}^{n + 1}}{(n + 1)!} \to 0.
+\end{equation*}
+La convergenza puntuale a zero del resto dello sviluppo in serie di Taylor $ \forall t \in \R $ è sufficiente a garantire l'analiticità di $ F $ su $ \R $. Infatti puntualmente $ F $ coincide con il suo sviluppo in serie di Taylor nell'origine e uniformemente su ogni compatto.
+
+\begin{vares}
+  Si consideri il problema (non di Cauchy):
+  \[
+    \begin{cases}
+      y'(x) = y(x^2) \\
+      y(0) = 1
+    \end{cases}
+  \]
+  \begin{enumerate}[label = (\roman*)]
+  \item Si dimostri che per ogni $ r < 1 $ esiste un'unica soluzione definita su $ I = (-r, r) $ e si deduca che lo stesso vale per $ r = 1 $.
+  \item Si dimostri che la soluzione è rappresentabile come somma di una serie di potenze centrata in 0 e convergente sull'intervallo $ [-1, 1] $.
+  \end{enumerate}
+\end{vares}
+%
+\begin{enumerate}[label = (\roman*)]
+\item Consideriamo il funzionale $ F \colon C \left( [-\theta, \theta] \right) \rightarrow C \left( [-\theta, \theta] \right) $ così definito:
+  \[ F[y](x) = 1 + \int_{0}^{x} y(s^2) \dif s \]
+  La soluzione cercata deve essere un punto fisso di $ F $. Consideriamo quindi:
+  \[ \abs{ F[y](x) - F[g](x) } = \abs{ \int_{0}^{x} ( f(s^2) - g(s^2) ) \dif s } \leq \abs{ \int_{0}^{x} \abs{ f(s^2) - g(s^2) } \dif s } \leq \abs{x} \cdot \norm{f-g}_{\infty} \]
+  \[ \norm{F[f] - F[g]}_{\infty} \leq \theta \cdot \norm{f-g}_{\infty} \]
+  $ F $ è una contrazione se $ \theta < 1 $, quindi se $ x \in (-1,1) $ il sistema ammette soluzione unica per il teorema di Banach-Cacciopoli.
+\item Sia $ y(x) = \sum_{n=0}^{+\infty} a_n x^n $. Questa deve soddisfare:
+  \[ \sum_{n=0}^{+\infty} a_n x^{2n} = \sum_{n=0}^{+\infty} (n+1) a_{n+1} x^n \]
+  Il dato iniziale dà $ a_0 = 1 $. Esplicitiamo i primi termini delle somme:
+  \[ a_0 + a_1 x^2 + a_2 x^4 + a_3 x^6 + \cdots = a_1 + 2a_2 x + 3a_3 x^2 + 4a_4 x^3 + \cdots \]
+  Ponendo $ x = 0 $ si ricava $ a_1 = a_0 = 1 $; al primo membro ci sono solo potenze pari, per cui deve essere $ a_{2k} = 0 \quad \forall k \in \N^*$. Si verifica che:
+  \[ f(x) = \sum_{k=0}^{+\infty} \frac{1}{c_{k}} x^{2^k-1} \]
+  con:
+  \[ c_k = \begin{cases}
+      1 & k=0\\
+      \prod_{j=1}^{k} (2^j - 1) & k \ge 1
+    \end{cases} \]
+  Verifichiamo la convergenza in $ x = \pm 1 $. Le potenze sono tutte dispari, quindi basterà considerare il caso $ x = 1 $ (perché $ f(-1) = -f(1) $). Definitivamente vale che:
+  \[ \prod_{j=1}^k (2^j - 1) \ge 2^k-1 \ge k^2 \]
+  Da cui per confronto tra serie a termini positivi si conclude.
+
+\end{enumerate}
+
+
+\begin{vares}
+  Sia $ \vec{F} \colon \R^n \to \R^n $ un campo vettoriale continuo su $ \R^n \setminus \{0\} $, tale che per ogni $ \vec{x} \neq 0 $, $ \vec{F}(\vec{x}) $ è multiplo scalare di $ \vec{x} $. Per $ r > 0 $, indichiamo con $ \mathbb{S}_r $ la sfera di raggio $ r $ centrata in 0.
+  \begin{enumerate}[label = (\roman*)]
+  \item Si dimostri che, per ogni arco regolare $ \gamma $ con sostengo contenuto in una sfera $ \mathbb{S}_r $, si ha $ \int_{\gamma} \vec{F} = 0 $.
+  \item Si dimostri che, se tale campo $ \vec{F} $ è conservativo, allora $ \abs{\vec{F}(\vec{x})} $ è costante su ogni sfera $ \mathbb{S}_r $.
+  \end{enumerate}
+\end{vares}
+%
+\begin{enumerate}[label = (\roman*)]
+\item Sia $ \vec{\gamma} \colon [a, b] \to \mathbb{S}_r $ un arco regolare con sostegno sulla sfera e $ f \colon \R \to \R $ la funzione norma di quadra $ \vec{\gamma} $,  $ f(\vec{\gamma}(t)) = \abs{\vec{\gamma}(t)}^2 = \sum_{i = 0}^{n} (\gamma_i(t))^2 $. Osserviamo che $ f $ è costante pari a $ f(\vec{\gamma}(t)) = r^2 $ e che è derivabile. Così
+  \begin{equation*}
+    0 = (f(\vec{\gamma}(t)))' = \sum_{i = 0}^{n} 2 \gamma_i(t) \gamma_i'(t) = 2 \vec{\gamma}(t) \cdot \vec{\gamma}'(t)
+  \end{equation*}
+  per ogni arco regolare con sostegno sulla sfera. Scriviamo il campo vettoriale come $ \vec{F}(\vec{x}) = \lambda(\vec{x}) \ \vec{x} $ per una opportuna $ \lambda \colon \R^n \to \R $. Allora preso un arco $ \vec{\gamma} $ come prima si ha \[\int_{\gamma} \vec{F} = \int_{a}^{b} \vec{F}(\vec{\gamma}(t)) \cdot \vec{\gamma}'(t) \dif{t} = \int_{a}^{b} \lambda(\vec{\gamma}(t)) \  \vec{\gamma}(t) \cdot \vec{\gamma}'(t) \dif{t} = 0\] che è la tesi.
+\item Per ipotesi esiste un potenziale $ V \colon \R^n \to \R $ tale che $ \vec{F}(\vec{x}) = \nabla{V(\vec{x})} $. Così se $ \vec{\gamma} \colon [a, b] \to \mathbb{S}_r $ è un arco regolare con sostegno sulla sfera abbiamo
+  \begin{equation*}
+    0 = \int_{\gamma} \vec{F} = \int_{\gamma} \nabla{V} = \int_{a}^{b} \nabla{V}(\vec{\gamma}(t)) \cdot \vec{\gamma}'(t) \dif{t} = \int_{a}^{b} (V(\vec{\gamma}(t)))' \dif{t} = V(\vec{\gamma}(b)) - V(\vec{\gamma}(a)).
+  \end{equation*}
+  Questo ci dice che su ogni sfera il potenziale è costante, ovvero $ V $ è funzione solo del modulo di $ \vec{x} $ nel senso che esiste una funzione $ \phi \colon \R \to \R $ tale che $ V(\vec{x}) = \phi(\abs{\vec{x}}) $. Ma allora \[\pd[]{V(\vec{x})}{x_i} = \phi'(\abs{\vec{x}}) \pd[]{\abs{\vec{x}}}{x_i} = \phi'(\abs{\vec{x}}) \pd[]{}{x_i} \left(\sqrt{\sum_{i = 0}^{n} x_i^2}\right) = \frac{\phi'(\abs{\vec{x}})}{2 \abs{\vec{x}}} \pd[]{}{x_i} \left(\sum_{i = 0}^{n} x_i^2\right) = \frac{\phi'(\abs{\vec{x}})}{2 \abs{\vec{x}}} 2 x_i = \frac{\phi'(\abs{\vec{x}})}{\abs{\vec{x}}} x_i.\] Concludiamo quindi che \[\vec{F}(\vec{x}) = \nabla{V}(\vec{x}) = \frac{\phi'(\abs{\vec{x}})}{\abs{\vec{x}}} \vec{x}.\] Ciò implica che il modulo di $ \vec{F} $ è costante su ogni sfera $ \mathbb{S}_r $ in quanto \[\abs{\vec{F}(\vec{x})} = \abs{\frac{\phi'(\abs{\vec{x}})}{\abs{\vec{x}}} \vec{x}} = \frac{\abs{\phi'(\abs{\vec{x}})}}{\abs{\vec{x}}} \abs{\vec{x}} = \abs{\phi'(r)}.\]
+\end{enumerate}

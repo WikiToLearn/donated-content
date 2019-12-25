@@ -1,0 +1,86 @@
+############### TEXLA REPORT  ###############
+
+- NOT PARSED blocks:
+	- input : 1
+
+- NOT PARSED blocks details:
+.     ________________________________________
+#--->|ID : @
+.    |block_name : root-block
+.    |attributes: 
+.    |   - title : Complementi di Matematica - Esercitazioni
+.    |content : 
+.    .‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+.    .     ________________________________________
+.    #--->|ID : @-1us
+.    .    |block_name : section
+.    .    |attributes: 
+.    .    |   - section_name : section
+.    .    |   - title : Compitini ed esercizi vari
+.    .    |   - index_title : None
+.    .    |   - star : False
+.    .    |content : None
+.    .    .‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+.    .    .     ________________________________________
+.    .    #--->|ID : @-1us-1jb
+.    .    .    |block_name : default
+.    .    .    |attributes: 
+.    .    .    |   - type : input
+.    .    .    |content : \input{chapters/Misc}
+.    .    .    .‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+
+
+- NOT RENDERED blocks:
+	- maketitle : 1
+	- clearpage : 2
+	- appendix : 1
+
+- NOT RENDERED blocks details:
+.     ________________________________________
+#--->|ID : @
+.    |block_name : root-block
+.    |attributes: 
+.    |   - title : Complementi di Matematica - Esercitazioni
+.    |content : 
+.    .‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+.    .     ________________________________________
+.    #--->|ID : @-rv8
+.    .    |block_name : maketitle
+.    .    |attributes: 
+.    .    |   - title : Complementi di Matematica - Esercitazioni
+.    .    |   - author : Alessandro Piazza\thanks{alessandro.piazza@sns.it
+.    .    |   - date : 
+.    .    |content : 
+.    .    .‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+.    .     ________________________________________
+.    #--->|ID : @-bye
+.    .    |block_name : clearpage
+.    .    |attributes: 
+.    .    |content : 
+.    .    .‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+.    .     ________________________________________
+.    #--->|ID : @-zrv
+.    .    |block_name : clearpage
+.    .    |attributes: 
+.    .    |content : 
+.    .    .‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+.    .     ________________________________________
+.    #--->|ID : @-cpo
+.    .    |block_name : section
+.    .    |attributes: 
+.    .    |   - section_name : section
+.    .    |   - title : Equazioni differenziali e problemi di punto fisso
+.    .    |   - index_title : None
+.    .    |   - star : False
+.    .    |content : None
+.    .    .‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+.    .    .     ________________________________________
+.    .    #--->|ID : @-cpo-fxf
+.    .    .    |block_name : appendix
+.    .    .    |attributes: 
+.    .    .    |   - star : False
+.    .    .    |content : 
+.    .    .    .‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+
+
+- Missing labels details:

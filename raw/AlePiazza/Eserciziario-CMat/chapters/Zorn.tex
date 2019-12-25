@@ -1,0 +1,56 @@
+\begin{es}
+  Per un sottoinsieme $ X $ di un insieme parzialmente ordinato $ (S, \leq) $ si definisca cos'è un elemento \emph{minimale} e cosa sia il \emph{minimo}. Si trovino poi esempi di $ S $ ed $ X $ tali che
+  \begin{enumerate}
+  \item $ X $ sia limitato, abbia un solo elemento massimale, ma non abbiamo un massimo;
+  \item $ X $ abbia un massimo e 1000 elemento minimali;
+  \item $ X $ abbia 1000 elementi minimali e 1000 elementi massimali;
+  \item $ X $ abbia elementi massimali, ma non un massimo, e $ X $ abbia un estremo superiore;;
+  \item $ X $ abbia un estremo superiore, ma non abbia elementi massimali.
+  \end{enumerate}
+\end{es}
+Non ho voglia di trascriverlo.
+
+\begin{es}
+  Sia $ X $ una catena di un insieme parzialmente ordinato di $ (S, \leq) $. Si dimostri che
+  \begin{enumerate}
+  \item ogni sottoinsieme finito di $ X $ ha un massimo in $ X $;
+  \item un sottoinsieme infinito di $ X $ può avere sia non avere massimo e minimo.
+  \end{enumerate}
+\end{es}
+\begin{enumerate}
+\item Supponiamo per assurdo che $ A \subset X $, $ |A| < |\N| $ non abbia massimo, ovvero $ \forall m \in A, \exists a \in A : a > m $. Ma allora dato una $ a_0 \in A $ possiamo trovare un $ a_1 > a_0 $ e successivamente una $ a_2 > a_1 > a_0 $ e così via; in altre parole è possibile costruire una successione tale che $ \forall i \in \N, a_{i + 1} > a_i $. Tale successione costituisce un sottoinsieme di $ A $ che è numerabile, dunque $ |A| \geq |\N| $ che è assurdo. Concludiamo quindi che $ A $ ha un massimo.
+\item \textsf{Basta un esempio? - Preso $ \R $ con l'usuale ordinamento si ha che l'intervallo $ (a, b) $ (se $ a \neq b $) è un sottoinsieme infinito e non ha né minimo né massimo; se invece consideriamo l'intervallo $ [a, b] $ è sempre un sottoinsieme infinito che ha sia minimo sia massimo.}
+\end{enumerate}
+
+\begin{es}
+  Sia $ A $ un insieme e si consideri $ \mathcal{PO}(A) \subset \P(A \times A) $, l'insieme degli ordini parziali su $ A $. Si dimostri che $ \mathcal{PO}(A) $ è parzialmente ordinato secondo l'inclusione. Utilizzando il \textsc{Lemma di Zorn} e l'Esercizio 8, si mostri che dato un ordina parziale $ \leq $ su $ A $ esiste una sua estensione che sia un ordinamento totale.
+\end{es}
+Sia $ (\mathcal{PO}(A), \subseteq) $ l'insieme delle relazioni di ordine parziale con la relazione d'ordine di inclusione. Sia $ \mathscr{C} = \{C_i\}_{i \in I} $ una catena di $ \mathcal{PO}(A) $ e consideriamo $ \mathcal{C} = \bigcup_{i \in I} C_i $ l'unione di tutte queste relazioni. Si ha che
+\begin{itemize}
+\item $ \forall i \in I : C_i \subseteq \mathcal{C} $ per definizione di $ \mathcal{C} $;
+\item $ \mathcal{C} \in \mathcal{PO}(A) $, ovvero $ \mathcal{C} $ è ancora una relazione d'ordine infatti
+  \begin{itemize}
+  \item \emph{riflessiva}: $ (a, a) \in \mathcal{C} $ in quanto $ \forall i \in I, \forall a \in A : (a, a) \in C_i \subseteq \mathcal{C} $;
+  \item \emph{antisimmetrica}: siano $ a, b \in A : (a, b) \in \mathcal{C} \wedge (b, a) \in \mathcal{C} $, ovvero $ \exists i \in I : (a, b) \in C_i $ e $ \exists j \in I : (b, a) \in C_j $; poiché $ \mathscr{C} $ è una catena possiamo supporre \emph{wlog} $ C_i \subseteq C_j $, allora anche $ (a, b) \in C_j $, da cui deduciamo che $ a = b $ in quanto $ C_j \in \mathcal{PO}(A) $;
+  \item \emph{transitiva}: siano $ (a, b) \wedge (b, c) \in \mathcal{C} $; come in precedenza $ \exists i \in I : (a, b) \in C_i $ e $ \exists j \in I : (b, c) \in C_j $, da cui supposto \emph{wlog} $ C_i \subseteq C_j $ si ha $ (a, b) \wedge (b, c) \in C_j \Rightarrow (a, c) \in C_j $ che implica $ (a, c) \in \mathcal{C} $.
+  \end{itemize}
+\end{itemize}
+Concludiamo quindi che $ \mathscr{C} $ ammette maggiorante e dalla genericità di $ \mathscr{C} $ deduciamo che $ (\mathcal{PO}(A), \subseteq) $ è induttivo. Il \textsc{Lemma di Zorn} garantisce quindi l'esistenza di un elemento (relazione d'ordine) massimale $ \Rel' $ tale che $ \forall \Rel \in \mathcal{PO}(A), \Rel \subseteq \Rel' $. \\
+Supponiamo ora per assurdo che $ \Rel' $ non soia una relazione di ordine totale, ovvero esistono $ a, b \in A : (a, b) \notin \Rel' $: per quanto mostrato nell'Esercizio 8 possiamo estendere $ \Rel' $ a una relazione $ \Rel'' $ tale che $ \Rel' \subseteq \Rel'' $ e $ (a, b) \in \Rel'' $. Ciò è in contraddizione con la massimalità di $ \Rel' $ e concludiamo quindi che $ \Rel' $ è una relazione d'ordine totale su $ A $.
+
+\begin{es}[Basi di Hamel]
+  Sia $ V $ uno spazio vettoriale su $ K $. Un sottoinsieme  $ A $ di $ V $ si dice linearmente indipendente se per ogni sottoinsieme finito $ \{a_1, \dots, a_n\} \subseteq A $ risulta che non esistono $ k_i \in K $, dove almeno uno di essi è diverso da 0, tali che $ \sum_{i = 1}^{n}a_i k_i = 0 $. Una base vettoriale di $ V $ è un sottoinsieme linearmente indipendente che sia massimale secondo l'inclusione. Si dimostri che
+  \begin{enumerate}
+  \item $ B $ è una base di $ V $ se e solo se per ogni $ v \in V $ esistono $ n \in \N $, $ b_i \in B $ e $ k_i \in K \setminus\{0\} $ tali che \[v = k_1 b_1 + \dots k_n b_n\] e inoltre questa espressione risulta unica;
+  \item usando il \textsc{Lemma di Zorn} mostrare che ogni spazio vettoriale ammette una base.
+  \end{enumerate}
+\end{es}
+\begin{enumerate}
+\item Come a Geometria/Algebra Lineare.
+\item Sia $ X = \{A \subseteq V : A \; \text{è linermente indipendente}\} $ e consideriamo $ (X, \subseteq) $. Sia $ \mathscr{A} = \{A_i\}_{i \in I} $ una catena di $ X $ e sia $ \mathcal{A} = \bigcup_{i \in I} A_i $. Si ha che
+  \begin{itemize}
+  \item $ \forall i \in I : A_i \subseteq \mathcal{A} $ per definizione di $ \mathcal{A} $;
+  \item $ \mathcal{A} \in X $, ovvero $ \mathcal{A} $ è linearmente indipendente: se infatti $ \{v_1, \dots, v_n\} \in \mathcal{A} $ è un sottoinsieme finito di $ \mathcal{A} $, vuol dire che esistono dei $ A_{i_j} $ con $ j \in \{1, \dots, n\} $ tali che $ \forall j : v_j \in A_{i_j} $. Poiché $ \{A_{i_j}\} $ è un sottoinsieme finito di una catena $ \mathscr{A} $ per l'Esercizio 30.1 concludiamo che ha un massimo $ A_i^{*} $. Per la proprietà di catena ne consegue che $ \forall j \in I, v_j \in A_i^{*} $ e che quindi $ \{v_1, \dots, v_n\} $ sono linearmente indipendenti. Dalla genericità della scelta di $ \{v_1, \dots, v_n\} $ deduciamo che $ \mathcal{A} $ è linearmente indipendente.
+  \end{itemize}
+  Concludiamo quindi che $ (X, \subseteq) $ è un insieme induttivo ed il \textsc{Lemma di Zorn} garantisce l'esistenza di un elemento massimale, ovvero l'esistenza di una base di $ V $.
+\end{enumerate}

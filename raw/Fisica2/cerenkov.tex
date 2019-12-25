@@ -1,0 +1,251 @@
+\documentclass{article}
+	\usepackage{beppe_package}
+	\usepackage[a4paper, left=2.5cm, right=2.5cm, bottom=2.5cm]{geometry}
+	
+	\title{Radiazione Čerenkov, perdite collisionali e radiative}
+	\author{Giuseppe Bogna}
+	\date{31 luglio 2018}
+\begin{document}
+	\maketitle
+	\section{Radiazione Čerenkov}
+	La velocità di una qualunque particella -massiva o meno- non può essere superiore di $c$. Tuttavia, in un mezzo con indice di rifrazione $n$ la luce si propaga a velocità $c/n$\footnote{In realtà $c/n$ è la velocità di fase. Un pacchetto sufficientemente stretto si propaga alla velocità di gruppo.}, e se $n>1$ è ben possibile che una particella si muova a velocità $v>c/n$. Se ciò accade, e se la particella è carica, si assiste all'emissione di radiazione, detta radiazione Čerenkov. In particolare, la radiazione viene emessa sotto forma di onda d'urto, cioè si genera un cono con vertice nella posizione della particella e asse parallelo alla velocità di quest'ultima, all'interno del quale sono presenti i campi.
+	\subsection{Equazioni di Maxwell nei mezzi}
+	Supponiamo per semplicità di avere un mezzo lineare, omogeneo, isotropo, non dispersivo e non dissipativo. Come noto, le equazioni di Maxwell si scrivono nella forma
+	\begin{align*}
+		\nabla\cdot\vec{E}=&\frac{4\pi}{\varepsilon}\rho_f\\\nabla\times\vec{E}=&-\frac{1}{c}\pder{\vec{B}}{t}\\\nabla\cdot\vec{B}&=0\\\nabla\times\vec{B}&=\frac{4\pi\mu}{c}\vec{j}_f+\frac{n^2}{c}\pder{\vec{E}}{t}
+	\end{align*}
+	con $n^2=\varepsilon\mu$. Al solito, le equazioni omogenee permettono di introdurre i potenziali $\varphi$ e $\vec{A}$, in funzione dei quali si possono esprimere i campi
+	\begin{align*}
+		\vec{E}=&-\nabla\varphi-\frac{1}{c}\pder{\vec{A}}{t}\\
+		\vec{B}=&\nabla\times\vec{A}
+	\end{align*}
+	Se richiediamo inoltre che i potenziali soddisfino la condizione
+	\[\frac{n^2}{c}\pder{\varphi}{t}+\nabla\cdot\vec{A}=0\]
+	le equazioni disomogenee si riscrivono in termini dei potenziali come
+	\begin{align*}
+		\frac{n^2}{c^2}\pder[2]{\varphi}{t}-\lap\varphi=&\frac{4\pi}{\varepsilon}\rho_f\\\frac{n^2}{c^2}\pder[2]{\vec{A}}{t}-\lap\vec{A}=&\frac{4\pi\mu}{c}\vec{j}_f
+	\end{align*}
+	Cioè i potenziali soddisfano l'equazione delle onde disomogenea con velocità di propagazione $c/n$. Vediamo ora quali sono i potenziali e i campi generati da una carica $q$ che si muove di moto rettilineo uniforme. In tal caso i termini di sorgente sono
+	\begin{align*}
+		\rho&=q\delta^3(\vec{x}-\vec{v}t)\\\vec{j}&=\rho\vec{v}
+	\end{align*}
+	Di conseguenza, si avrà
+	\[\vec{A}=\frac{n^2}{c}\varphi\vec{v}\]
+	e i campi sono allora
+	\begin{align*}
+		\vec{E}&=-\nabla\varphi-\frac{n^2\vec{v}}{c^2}\pder{\varphi}{t}\\\vec{B}&=\frac{n^2}{c}\nabla\varphi\times\vec{v}=\frac{n^2}{c}\vec{v}\times\vec{E}
+	\end{align*}
+	Ci possiamo pertanto limitare a calcolare il potenziale scalare.
+	\subsection{Campi per $v<c/n$}
+	In questo caso, facendo le sostituzioni
+	\begin{align*}
+		c'&=\frac{c}{n}\\q'&=\frac{q}{\varepsilon}
+	\end{align*}
+	si trova che i potenziali soddisfano le stesse equazioni e condizioni che si hanno nel vuoto. Di conseguenza si avrà l'usuale soluzione ritardata
+	\[\varphi(\vec{x},t)=\frac{q}{\varepsilon}\int\frac{\delta^3(\vec{x}\,'-\vec{v}(t-|\vec{x}-\vec{x}\,'|/c'))}{|\vec{x}-\vec{x}\,'|}\d ^3x'\]
+	Supponendo che la velocità sia diretta lungo l'asse $\hat{z}$ e posto $r=\sqrt{x^2+y^2}$, il potenziale può essere scritto anche come
+	\[\varphi(z,r,t)=\frac{q}{\varepsilon}\frac{1}{\sqrt{(z-vt)^2+\left(1-\frac{n^2v^2}{c^2}\right)r^2}}\]
+	Da cui i campi
+	\begin{align*}
+		\vec{E}&=\frac{q}{\varepsilon}\left(1-\frac{n^2v^2}{c^2}\right)\frac{\vec{x}-\vec{v}t}{\left[(z-vt)^2+\left(1-\frac{n^2v^2}{c^2}\right)r^2\right]^{3/2}}\\
+		\vec{B}&=\frac{n^2}{c}\left(1-\frac{n^2v^2}{c^2}\right)\frac{\vec{v}\times(\vec{x}-\vec{v}t)}{\left[(z-vt)^2+\left(1-\frac{n^2v^2}{c^2}\right)r^2\right]^{3/2}}
+	\end{align*}
+	I campi decrescono per grandi $r$ come $r^{-2}$, e pertanto non sono radiativi.
+	\subsection{Campi per $v>c/n$}
+	In questo caso, le sostituzioni precedenti danno le stesse equazioni del vuoto, ma non abbiamo la condizione di velocità subluminali. Non possiamo pertanto trovare le soluzioni per i potenziali con semplici sostituzioni, quindi ricorriamo alle funzioni di Green. Si deve risolvere
+	\[\left(\frac{n^2}{c^2}\pder[2]{}{t}-\lap\right)G_n(t,\vec{x})=\frac{4\pi}{\varepsilon}\delta(t)\delta^3(\vec{x})\]
+	Facendo la sostituzione $t=n\tau$ e ricordando $\delta(n\tau)=\delta(\tau)/n$, si ottiene
+	\[\left(\frac{1}{c^2}\pder[2]{}{\tau}-\lap\right)G_n(n\tau,\vec{x})=\frac{4\pi }{n\varepsilon}\delta(\tau)\delta^3(\vec{x})\]
+	Di conseguenza, se $G$ è la funzione di Green nel vuoto si ha
+	\[G_n(t,\vec{x})=\frac{1}{n\varepsilon}G\left(\frac{t}{n},\vec{x}\right)=\frac{2}{cn\varepsilon}\theta(t)\delta\left(\frac{c^2t^2}{n^2}-|\vec{x}|^2\right)\]
+	Si noti che è fondamentale che sia $n>0$, ma stiamo già supponendo $n>1$. Trovata la funzione di Green, il potenziale è dato da
+	\begin{align*}
+		\varphi(\vec{x},t)&=\frac{2q}{cn\varepsilon}\int\theta(t-t')\delta\left(\frac{c^2(t-t')^2}{n^2}-|\vec{x}-\vec{x}\,'|^2\right)\delta^3(\vec{x}\,'-\vec{v}t')\d t'\d ^3x'=\\&=
+		\frac{2q}{cn\varepsilon}\int\theta(t-t')\delta\left(\frac{c^2(t-t')^2}{n^2}-|\vec{x}-\vec{v}t'|^2\right)\d t'
+	\end{align*}
+	Sia $f(t')$ l'argomento della $\delta$. Supponendo che abbia due zeri reali $t_\pm$, si ottiene ovviamente
+	\[\varphi(\vec{x},t)=\frac{2q}{cn\varepsilon}\left(\frac{\theta(t-t_+)}{|f'(t_+)|}+\frac{\theta(t-t_-)}{|f'(t_-)|}\right)\]
+	Analizziamo $f$. Posto come prima $\vec{x}=z\hat{z}+r\hat{r}$, con $r^2=x^2+y^2$, si ottiene con facili calcoli
+	\[t_\pm\left(v^2-\frac{c^2}{n^2}\right)=zv-\frac{c^2t}{n^2}\pm\frac{c}{n}\sqrt{(z-vt)^2-\left(\frac{v^2n^2}{c^2}-1\right)r^2}\]
+	Dunque due zeri reali e distinti esistono se e solo se
+	\[(z-vt)^2-\left(\frac{v^2n^2}{c^2}-1\right)r^2>0\]
+	Ossia se e solo se il punto $z\hat{z}+r\hat{r}$ si trova all'interno di un doppio cono con vertice nella posizione istantanea della particella, asse lungo $\hat{z}$ e semiapertura angolare $\alpha$ data da
+	\[\sin\alpha=\frac{c}{nv}\]
+	Se tale condizione è soddisfatta, si ha
+	\[|f'(t_\pm)|=\frac{2c}{n}\sqrt{(z-vt)^2-\left(\frac{n^2c^2}{v^2}-1\right)r^2}\]
+	Passiamo ora al potenziale. Se siamo all'esterno del cono $\varphi$ è nullo, e quindi sono nulli anche i campi. Se siamo all'interno del cono, si ha
+	\[t-t_\pm=\frac{n/c}{\frac{n^2v^2}{c^2}-1}\left[\frac{nv}{c}(vt-z)\mp\sqrt{(z-vt)^2-\left(\frac{n^2v^2}{c^2}-1\right)r^2}\right]\]
+	Tenuto conto che $v>c/n$, si deduce che $t-t_\pm$ è negativo per entrambe le radici se $z>vt$, positivo se $z<vt$. In altre parole, il potenziale è nullo anche nella parte del cono "davanti" alla particella, mentre "dietro" vale
+	\[\varphi(\vec{x},t)=\frac{2q}{n^2\varepsilon}\frac{1}{\sqrt{(z-vt)^2-\left(\frac{n^2v^2}{c^2}-1\right)r^2}}\]
+	Si noti che il potenziale diverge sul cono, e di conseguenza lo fanno anche i campi e il vettore di Poynting. Ciò significa che l'energia irradiata è infinita, ma questo problema è in realtà dovuto alla modelizzazione poco realistica di un mezzo non dispersivo. Nella prossima sezione vedremo come cambiano i risultati per un mezzo lineare, omogeneo, isotropo, non dissipativo e non magnetico, ma dispersivo.
+	\subsection{Radiazione Čerenkov nei mezzi dispersivi}
+	Come noto, nel caso di un mezzo dispersivo si devono studiare i campi frequenza per frequenza. Data una funzione del tempo $f$, usiamo per la trasformata di Fourier $\hat{f}$ la convenzione
+	\[\hat{f}(\omega)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{+\infty}f(t)e^{i\omega t}\d t\]Posto $n^2(\omega)=\varepsilon(\omega)$, si ricordi che per $\omega$ sufficientemente elevata $n$ ha l'andamento asintotico
+	\[n(\omega)\simeq1-\frac{\omega_p^2}{2\omega^2}\]
+	In particolare, si può avere $n>1$ solo in una regione limitata dello spettro. Le equazioni di Maxwell per campi monocromatici sono allora
+	\begin{align*}
+		\nabla\cdot\hat{\vec{E}}&=\frac{4\pi}{n^2(\omega)}\hat{\rho}\\\nabla\times\hat{\vec{E}}&=\frac{i\omega}{c}\hat{\vec{B}}\\\nabla\cdot\hat{\vec{B}}&=0\\\nabla\times\hat{\vec{B}}&=\frac{4\pi}{c}\hat{\vec{j}}-\frac{i\omega n^2(\omega)}{c}\hat{\vec{E}}
+	\end{align*}
+	In seguito, dove possibile senza ambiguità ometteremo i cappucci e le dipendenze da $\omega$ per brevità. Come nel caso non dispersivo, le equazioni omogenee sono risolte una volta introdotti i potenziali $\varphi$ e $\vec{A}$, che permettono di calcolare i campi
+	\begin{align*}
+		\vec{E}&=-\nabla\varphi+\frac{i\omega}{c}\vec{A}\\\vec{B}&=\nabla\times\vec{A}
+	\end{align*}
+Le trasformazioni di gauge si scrivono nella forma
+\begin{align*}
+	\varphi'&=\varphi+\frac{i\omega}{c}\psi\\\vec{A}'&=\vec{A}+\nabla\psi
+\end{align*}
+Richiediamo come condizione di gauge
+\[-\frac{in^2\omega}{c}\varphi+\nabla\cdot\vec{A}=0\]
+Sotto tale condizione, le equazioni disomogenee si riscrivono come
+\begin{align*}
+	-\left(\frac{n^2\omega^2}{c^2}+\lap\right)\varphi&=\frac{4\pi}{n^2}\rho\\
+	-\left(\frac{n^2\omega^2}{c^2}+\lap\right)\vec{A}&=\frac{4\pi}{c}\vec{j}
+\end{align*}
+Limitiamoci ora a una particella di carica $q$ in moto lungo l'asse $\hat{z}$ a velocità costante $v$. La densità di carica è allora
+\[\rho=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{+\infty}e^{i\omega t}q\delta^3(\vec{x}-\vec{v}t)\d t=\frac{q}{v\sqrt{2\pi}}e^{i\omega z/v}\delta^2(\vec{r})\]
+dove, al solito, $\vec{r}=x\hat{x}+y\hat{y}$. Per la densità di corrente si trova $\vec{j}=\rho\vec{v}$, quindi il potenziale vettore si può esprimere in termini di quello scalare come
+\[\vec{A}=\frac{n^2}{c}\varphi\vec{v}\]
+Risolviamo quindi solo la prima equazione. Limitandoci a funzioni a simmetria cilindrica, cerchiamo soluzioni della forma
+\[\varphi(\vec{x},\omega)=\frac{2q}{n^2v\sqrt{2\pi}}e^{i\omega z/v}f(r,\omega)\]
+In tal modo, esplicitando il laplaciano in coordinate cilindriche si ottiene
+\[\pder[2]{f}{r}+\frac{1}{r}\pder{f}{r}+\frac{\omega^2n^2}{c^2}\left(1-\frac{c^2}{n^2v^2}\right)f=-2\pi\delta^2(\vec{r})\]
+Definiamo adesso
+\begin{align*}
+	K(x)&=\int_{0}^{+\infty}e^{-x\cosh\xi}\d\xi\\L(x)&=-\frac{i}{2}\int_{0}^{2\pi}e^{-ix\sin \xi}\d \xi
+\end{align*}
+Si verifica tramite calcolo diretto che $K$ e $L$ risolvono le equazioni
+\begin{align*}
+	K''(x)+\frac{1}{x}K'(x)-K(x)=0\\L''(x)+\frac{1}{x}L'(x)+L(x)=0
+\end{align*}
+Dunque una soluzione per $f$ per $r\neq0$ è 
+\[f(r,\omega)=\theta\left(1-\frac{n(\omega)v}{c}\right)K\left(\frac{\sqrt{c^2-n^2(\omega)v^2}}{cv}\omega r\right)+\theta\left(\frac{n(\omega)v}{c}-1\right)L\left(\frac{\sqrt{n^2(\omega)v^2-c^2}}{cv}\omega r\right)\]
+Dato che $K$ e $L$ divergono logaritmicamente per $r\to0$, la soluzione è anche raccordata in $r=0$. Si può mostrare che questa è l'unica soluzione causale che non diverge esponenzialmente per $r\to+\infty$. Si può anche mostrare che per grandi $r$ il termine radiativo di $\varphi$ è
+\[\varphi(\vec{x},\omega)\simeq\frac{q}{n^2(\omega)[n^2(\omega)v^2/c^2-1]^{1/4}\sqrt{v\omega r}}\theta\left(\frac{n(\omega)v}{c}-1\right)\exp\left(i\frac{\omega z}{v}-i\frac{\pi}{4}-i\frac{\omega r\sqrt{n^2(\omega)v^2-c^2}}{cv}\right)\]
+Tenendo ulteriormente la sola componente radiativa per i campi si ottiene
+\begin{align*}
+	\vec{E}&=\frac{i\omega}{v}\varphi\sqrt{\frac{n^2(\omega)v^2}{c^2}-1}\left(\hat{r}+\hat{z}\sqrt{\frac{n^2(\omega)v^2}{c^2}-1}\right)\\\vec{B}&=-\frac{in^2(\omega)\omega}{c}\varphi\hat{\phi}\sqrt{\frac{n^2(\omega)v^2}{c^2}-1}
+\end{align*}
+con $\hat{\phi}$ il versore che rende la terna $(\hat{r},\hat{\phi},\hat{z})$ ortonormale destrorsa. Si noti come la radiazione emessa sia trasversale e polarizzata linearmente. Usando il lemma di Parseval si dimostra facilmente che l'energia irradiata per unità di lunghezza e di frequenza è
+\[\frac{\d ^2\mathcal{E}}{\d z\d \omega}=\frac{cr}{2}\hat{r}\cdot\left(\hat{\vec{E}}^*\times\hat{\vec{B}}(\omega)\right)\]
+Dunque si ottiene
+\[\frac{\d ^2\mathcal{E}}{\d z\d \omega}=\frac{q^2\omega}{c^2}\left(1-\frac{c^2}{n^2(\omega)v^2}\right)\theta\left(\frac{n(\omega)v}{c}-1\right)\]
+Tale relazione è nota come formula di Frank e Tamm. L'energia totale emessa per unità di lunghezza è allora
+\[\der{\mathcal{E}}{z}=\frac{q^2}{c^2}\int_{0}^{+\infty}\left(1-\frac{c^2}{n^2(\omega)v^2}\right)\theta\left(\frac{n(\omega)v}{c}-1\right)\d \omega\]
+Ricordando che la costante di struttura fine è $\alpha=e^2/(\hbar c)$, il numero di fotoni emessi per unità di lunghezza e frequenza è
+\[\frac{\d ^2N}{\d z\d \omega}=\frac{1}{\hbar\omega}\frac{\d ^2\mathcal{E}}{\d z\d \omega}=\frac{z^2\alpha}{c}\left(1-\frac{c^2}{n^2(\omega)v^2}\right)\theta\left(\frac{n(\omega)v}{c}-1\right)\]
+Il numero totale di fotoni emessi è
+\[\der{N}{z}=\frac{z^2\alpha}{c}\int_{0}^{+\infty}\left(1-\frac{c^2}{n^2(\omega)v^2}\right)\theta\left(\frac{n(\omega)v}{c}-1\right)\d \omega\]
+Per una certa lunghezza d'onda $\lambda$ si ottiene infine la stima
+\[\der{N}{z}\simeq\frac{z^2\alpha}{\lambda}\]
+\section{Perdite energetiche collisionali}
+\subsection{Urto coulombiano con elettrone libero e a riposo}
+Consideriamo una particella di massa $M$ e carica $ze$ che collide con un elettrone di un atomo. Dato che la massa dell'elettrone è molto minore della massa del nucleo, l'energia trasferita al primo è molto maggiore dell'energia trasferita al secondo, che quindi trascuriamo. Supponiamo che la velocità della particella sia molto maggiore della velocità orbitale tipica dell'elettrone, di modo che quest'ultimo sia considerabile libero e a riposo. Siano quindi $v$ la velocità di $M$ e $b$ il parametro di impatto. Supponiamo inoltre che il moto di $M$ sia in prima approssimazione rettilineo e uniforme. In tal modo, se l'elettrone si trova in $(0,b,0)$ e se a $t=0$ la particella si trova nell'origine con velocità $\vec{v}=v\hat{x}$, il campo agente sull'elettrone è
+\[\vec{E}(t)=ze\frac{-\gamma vt\hat{x}+b\hat{y}}{(\gamma^2v^2t^2+b^2)^{3/2}}\]
+L'impulso trasferito all'elettrone è dunque
+\[\Delta\vec{p}=-\int_{-\infty}^{+\infty}e\vec{E}(t)\d t=-\frac{2ze^2}{b v}\hat{y}\]
+Viste le assunzioni, deve essere $|\Delta\vec{p}|\ll p$. In tal caso, l'angolo di scattering di $M$ è
+\[\theta\simeq\frac{|\Delta\vec{p}|}{p}=\frac{2ze^2}{pvb}\]
+Mentre l'energia trasferita all'elettrone è
+\[\Delta \mathcal{E}=\frac{|\Delta\vec{p}|^2}{2m_e}=\frac{2z^2e^4}{m_eb^2v^2}\]
+Le approssimazioni fatte sono valide a patto che $|\Delta \vec{p}|\ll p$, ossia se
+\[\frac{\gamma Mbv^2}{2ze^2}\gg 1\]
+Si può equivalentemente richiedere che il parametro di impatto sia sufficientemente elevato, vale a dire
+\[b\geq b_\textrm{min}=\frac{ze^2}{\gamma Mv^2}\]
+Inoltre, la durata dell'interazione deve essere piccola rispetto al periodo orbitale. La prima è ragionevolmente
+\[\Delta t\sim\frac{b}{\gamma v}\]
+Infatti i campi sono "sensibilmente" diversi da 0 per $|t|\leq\Delta t$. Il periodo orbitale è $\omega^{-1}$, con $\omega$ frequenza angolare. Di conseguenza deve essere
+\[b\leq b_\textrm{max}=\frac{\gamma v}{\omega}\]
+Consideriamo ora un materiale con $N$ atomi per unità di volume, ciascuno con $Z$ elettroni. Per attraversare un tratto $\d x$, la particella interagisce con un numero $\d n$ di elettroni con parametro di impatto tra $b$ e $b+\d b$ pari a
+\[\d n=2\pi NZb\,\d b\,\d x\]
+Dunque l'energia persa per unità di lunghezza dovuta alle collisioni è
+\[\der{E_\textrm{coll}}{x}=2\pi NZ\int_{b_\textrm{min}}^{b_\textrm{max}}\Delta \mathcal{E} b\,\d b=\frac{4\pi NZz^2e^4}{m_ev^2}\ln\frac{b_\textrm{max}}{b_\textrm{min}}\simeq\frac{4\pi NZz^2e^4}{m_ev^2}\ln\frac{\gamma^2M v^3}{ze^2\omega}\]
+\subsection{Urto coulombiano con elettrone legato armonicamente}
+Cerchiamo adesso di capire cosa accade per alti valori di $b$. Il modello più semplice per l'energia di legame dell'elettrone consiste in un potenziale armonico, oltre a un termine di attrito viscoso. Supponiamo, come prima, che la traiettoria di $M$ sia pressochè rettilinea, e inoltre supponiamo che il moto dell'elettrone si mantenga non relativistico e di piccola ampiezza rispetto a $b$. Sotto tali ipotesi l'equazione del moto è
+\[m(\ddot{\vec{x}}+\gamma\dot{\vec{x}}+\omega_0^2\vec{x})=-e\vec{E}\]
+dove $\vec{E}$ è dato dall'espressione nella sezione precedente. L'energia trasferita all'elettrone è dunque
+\[\Delta\mathcal{E}=-e\int_{-\infty}^{+\infty}\dot{\vec{x}}(t)\cdot\vec{E}(t)\d t\]
+Introducendo le trasformate di Fourier $\vec{x}_\omega$ e $\vec{E}_\omega$, e usando ancora il lemma di Parseval si ottiene facilmente
+\[\Delta\mathcal{E}=-2e\Re\int_{0}^{+\infty}-i\omega\vec{x}_\omega\cdot\vec{E}^*_\omega\d\omega\]
+dove si è tenuto conto che la posizione dell'elettrone e il campo elettrico sono reali, dunque $\vec{x}_{-\omega}=\vec{x}^*_{\omega}$. A questo punto dall'equazione del moto si ottiene banalmente
+\[\vec{x}_\omega=\frac{-e\vec{E}_\omega}{m}\frac{1}{\omega_0^2-\omega^2-i\omega\gamma}\]
+e dunque
+\[\Delta\mathcal{E}={2e^2}{m}\int_{0}^{+\infty}\frac{\gamma\omega^2}{(\omega_0^2-\omega^2)^2+\gamma^2\omega^2}|\vec{E}_\omega|^2\d \omega\]
+Supponiamo $\gamma\ll\omega_0$ e che $|\vec{E}_\omega|$ dipenda debolmente da $\omega$. In tal caso si ottiene semplicemente
+\[\Delta\mathcal{E}\simeq\frac{\pi e^2|\vec{E}_{\omega_0}|^2}{m}\]
+Resta da calcolare $|\vec{E}_\omega|$. Si ottiene
+\begin{align*}\vec{E}_\omega&=\frac{ze}{(2\pi)^{1/2}}\int_{-\infty}^{+\infty}\frac{-\gamma vt\hat{x}+b\hat{y}}{(\gamma^2v^2t^2+b^2)^{3/2}}e^{i\omega t}\d t=\\&=\frac{ze}{(2\pi)^{3/2}\gamma bv}\int_{-\infty}^{+\infty}\frac{-\xi\hat{x}+\hat{y}}{(\xi^2+1)^{3/2}}\exp\left(\frac{i\omega b\xi}{\gamma v}\right)\d \xi=\\&=\frac{ze\omega}{\gamma v^2}\sqrt{\frac{2}{\pi}}\left(\hat{y}K_1\left(\frac{\omega b}{\gamma v}\right)-\frac{i\hat{x}}{\gamma}K_0\left(\frac{\omega b}{\gamma v}\right)\right)\end{align*}
+dove $K_{0,1}$ sono alcune funzioni di Bessel modificate, la cui rappresentazione integrale per $x$ complesso è
+\[K_n(x)=\int_{0}^{+\infty}e^{-x\cosh \zeta}\cosh(n\zeta)\d \zeta\]
+Si ottiene allora
+\[\Delta\mathcal{E}\simeq\frac{2z^2e^4\omega_0^2}{m\gamma^2v^4}\left(K_1^2\left(\frac{\omega_0 b}{\gamma v}\right)+\frac{1}{\gamma^2}K_0^2\left(\frac{\omega_0 b}{\gamma v}\right)\right)\]
+Supponiamo ora di avere un mezzo con $N$ atomi per unità di volume, ciascuno con $Z$ elettroni. Sia $f_j$ la frazione di questi elettroni con energia di legame $\hbar\omega_j$. Indichiamo con $\Delta\mathcal{E}_j$ la perdita di energia dovuta alla frequenza $\omega_j$. La perdita di energia totale della particella è allora
+\[\der{E}{x}=2\pi NZ\sum_{j}f_j\int_{b_\textrm{min}}^{+\infty}\Delta\mathcal{E}_j b\,\d b\]
+Non si è scelto un limite superiore al parametro di impatto perchè le funzioni di Bessel decrescono esponenzialmente quando il loro argomento tende a $+\infty$. Posto ora $\lambda_j=(\omega_jb_\textrm{min})/(\gamma v)$, si ottiene
+\[\der{E}{x}=\frac{4\pi z^2e^4NZ}{mv^2}\sum_{j}f_j\left[\lambda_jK_0(\lambda_j)K_1(\lambda_j)-\frac{v^2}{2c^2}\left(K_1^2(\lambda_j)-K_0^2(\lambda_j)\right)\right]\]
+Tipicamente $\lambda_j\ll1$, quindi si ottiene
+\[\der{E}{x}\simeq\frac{4\pi z^2e^4NZ}{mv^2}\left(\ln \frac{1.123\gamma v}{b_\textrm{min}\langle\omega\rangle}-\frac{v^2}{2c^3}\right)\]
+dove
+\[\langle\omega\rangle=\prod_j\omega_je^{f_j}\]
+\section{Perdite energetiche radiative}
+\subsection{Radiazione emessa in una collisione}
+In un urto, una particella viene generalmente accelerata. Se quindi la particella è carica, emette energia sotto forma di radiazione elettromagnetica. L'energia emessa per unità di frequenza e di angolo solido è
+\[\der{I_\omega}{\Omega}=\frac{q^2}{4\pi^2c}\left|\int_{-\infty}^{+\infty}\hat{n}\times(\hat{n}\times\dot{\vec\beta})\exp\left(i\omega t-\frac{i\omega\hat{n}\cdot\vec{r}}{c}\right)\right|^2\]
+Limitiamoci a un moto non relativistico, di modo che l'argomento dell'esponenziale sia ben approssimabile con $i\omega t$. Inoltre, detto $\tau$ il tempo tipico dell'urto, possiamo considerare due regimi caratteristici per le frequenze: se $\omega\tau\ll1$ (ossia a "basse" frequenze), si ha semplicemente
+\[\der{I_\omega}{\Omega}\simeq\frac{q^2}{4\pi^2 c}\left|\int\hat{n}\times(\hat{n}\times\dot{\vec\beta})\d t\right|=\frac{q^2|\Delta\vec{\beta}|^2}{4\pi^2 c}\sin^2\theta\]
+dove $\theta$ è l'angolo tra $\hat{n}$ e $\Delta\vec{\beta}$. Nel limite di "alte" frequenze, ossia per $\omega\tau\gg1$, si ha
+\[\der{I_\omega}{\Omega}\simeq0\]
+come conseguenza del lemma di Riemann-Lebesgue. Integrando sull'angolo solido, si ha in primissima approssimazione
+\[I_\omega=\begin{cases}
+\frac{2q^2}{3\pi c}|\Delta\vec{\beta}|^2&\textrm{ se }\omega\tau<1\\0&\textrm{ se }\omega\tau>1
+\end{cases}\]
+\subsection{Radiazione emessa in un urto coulombiano}
+Per un urto coulombiano non relativistico di una carica $ze$ con massa $m$ contro una carica $Ze$ fissa sappiamo che
+\[|\Delta\vec{v}|=\frac{2zZe^2}{mbv}\]
+Inoltre il tempo caratteristico di collisione è $\tau=b/v$. Di conseguenza si ottiene
+\[I_\omega=\begin{cases}
+\frac{8z^4Z^2e^6}{3\pi m^2v^2c^3}\frac{1}{b^2}&\textrm{ se }\omega<v/b\\0&\textrm{ se }\omega>b/v\end{cases}\]
+Definiamo ora la sezione d'urto di radiazione come
+\[\chi_\omega=2\pi\int_{b_\textrm{min}}^{b_\textrm{max}}I_\omega b\,\d b\]
+Dobbiamo ancora specificare gli estremi di integrazione. Per $b_\textrm{max}$ si ha semplicemente $b_\textrm{max}\simeq v/\omega$, mentre per l'estremo inferiore si ha, come in qualche sezione fa, $b_\textrm{min}\simeq(zZe^2)/(mv^2)$. Si ottiene allora
+\[\chi_\omega=\frac{16}{3}\frac{z^4Z^2e^6}{m^2v^2c^3}\ln\frac{\lambda mv^3}{zZe^2\omega}\]
+$\lambda$ è un opportuno parametro adimensionale dell'ordine dell'unità che tiene conto delle incertezze nella stima degli estremi di integrazione. Dato che la sezione d'urto di radiazione dipende da esso logaritmicamente, nella maggior parte dei casi può essere trascurato senza problemi. Si noti che questi calcoli sono validi se l'argomento del logaritmo è maggiore dell'unità, ossia se
+\[\omega\leq\omega_\textrm{max}=\frac{mv^3}{zZe^2}\]
+In genere, l'approssimazione è buona per particelle massive e lente. Per particelle leggere entrano in gioco diversi effetti quantistici e bisogna modificare gli estremi di integrazione. In particolare, l'estremo inferiore diventa
+\[b_\textrm{min}^q\simeq\frac{\hbar}{mv}\]
+Da cui si ottengono
+\begin{align*}
+	\chi_\omega^q&=\frac{16}{3}\frac{z^4Z^2e^6}{m^2v^2c^3}\ln\frac{\lambda mv^2}{\hbar\omega}\\\omega_\textrm{max}^q&=\frac{mv^2}{\hbar}=\frac{zZ\alpha}{\beta}\omega_\textrm{max}
+\end{align*}
+Il risultato classico è valido a patto che $zZ\alpha\beta\gg1$, dunque limitiamoci allo studio del caso quantitistico. Facciamo un'ultima modifica. Se vogliamo considerare anche il fatto che la velocità varia durante la collisione, possiamo in prima approssimazione usare i risultati ottenuti sostituendo $v$ con
+\[v=\frac{v_\textrm{i}+v_\textrm{f}}{2}=\frac{\sqrt{E}+\sqrt{E-\hbar\omega}}{\sqrt{2m}}\]
+La sezione d'urto di radiazione diventa allora
+\[\chi_\omega^q=\frac{16}{3}\frac{z^4Z^2e^6}{m^2v^2c^3}\ln\frac{2E-\hbar\omega-2E\sqrt{E-\hbar\omega}}{2\lambda^{-1}\hbar\omega}\]
+Infine, l'energia persa per unità di lunghezza si ottiene integrando l'espressione precedente moltiplicata per la densità di atomi $N$
+\[\der{E_\textrm{rad}}{x}=\frac{16}{3}\frac{NZ^2z^4e^4\alpha}{mc^2}\int_{0}^{1}\ln\frac{1+\sqrt{1-x}}{\sqrt{x}}\, \d x\]
+L'integrale è dell'ordine dell'unità, quindi se $\d E_\textrm{coll}/\d x$ è l'energia persa per unità di lunghezza a causa delle collisioni si può anche scrivere
+\[\der{E_\textrm{rad}}{x}=\frac{4\alpha Zz^2}{3\pi}\frac{m_e}{m}\beta^2\frac{1}{\ln B^q}\der{E_\textrm{coll}}{x}\]
+dove
+\[B^q=\frac{\gamma mv^2}{\hbar\langle\omega\rangle}\]
+\subsection{Bremsstrahlung relativistica}
+Trattiamo ora il caso in cui la particella incidente si muove a velocità iniziale relativistica. Poniamoci nel sistema in cui questa è inizialmente a riposo, e in cui vediamo il nucleo venirci incontro con velocità $-v$. In questo sistema la particella si mantiene non relativistica, quindi molti dei calcoli precedenti possono essere adattati senza particolari problemi. Una prima modifica si ha per $b_\textrm{max}$. A causa della dilatazione dei tempi, in questo caso abbiamo
+\[b^r_\textrm{max}=\frac{\gamma v}{\omega'}\]
+dove $\omega'$ è la frequenza misurata nel sistema in cui ci siamo posti. Per l'estremo inferiore invece si ha ancora
+\[b^r_\textrm{min}=\frac{\hbar}{mv}\]
+Fatte queste considerazioni, la sezione d'urto di radiazione nel sistema scelto è
+\[\chi'_{\omega'}=\frac{16}{3}\frac{z^4Z^2e^6}{m^2v^2c^3}\ln\frac{\lambda\gamma mv^2}{\hbar\omega'}\]
+Vediamo ora come trasforma $\chi_\omega$. Dato che è il prodotto di un'area trasversa (invariante di Lorentz), un'energia e l'inverso di una frequenza, si deduce che $\chi_\omega$ stessa è un invariante di Lorentz. Infine, si ha
+\[\omega=\gamma\omega'(1+\beta\cos\theta')\]
+La radiazione è prevalentemente emessa a $\theta'\simeq\pi /2$, dunque si ottiene
+\[\chi_\omega=\chi'_{\omega'}=\frac{16}{3}\frac{z^4Z^2e^6}{m^2v^2c^3}\ln\frac{\lambda\gamma^2 mv^2}{\hbar\omega}\]
+La conservazione dell'energia richiede poi $\hbar\omega<(\gamma-1)mc^2$, che assicura anche che l'argomento del logaritmo sia maggiore di 1.
+\subsection{Schermatura di Debye}
+In tutta la trattazione sulla Bremsstrahlung abbiamo trascurato gli elettroni. Il singolo elettrone dà un contributo $Z^{-1}$ volte più piccolo di quello del nucleo, ed è in genere trascurabile. Tuttavia, il potenziale del nucleo è schermato dagli elettroni ed è in realtà
+\[V=\frac{Ze}{r}e^{-r/a}\]
+dove
+\[a=1.4\frac{a_0}{Z^{1/3}}\]
+Possiamo quindi porre un ulteriore vincolo sul parametro di impatto massimo
+\[b_\textrm{max}=\min\left\{b_\textrm{max}^s=1.4\frac{a_0}{Z^{1/3}},b_\textrm{max}^r=\frac{\gamma v}{\omega}\right\}\]
+Si noti che
+\[b^s_\textrm{max}=\frac{192}{Z^{1/3}}\frac{\beta\hbar\omega}{\gamma^2 mv^2}b^r_\textrm{max}\]
+In particolare, $b_\textrm{max}=b^s_\textrm{max}$ se la frequenza è sufficientemente bassa.
+\end{document}

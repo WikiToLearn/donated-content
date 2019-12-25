@@ -1,0 +1,314 @@
+\documentclass[a4paper,11pt]{article}
+	 \usepackage[a4paper, left=2.5cm, bottom=2.5cm]{geometry}
+     \usepackage[italian]{babel}
+     \usepackage[utf8]{inputenc}
+     \usepackage{siunitx}
+     \usepackage{graphicx}
+     \usepackage{amsfonts}
+     \usepackage{enumitem}
+     \title{Informatica}
+     \author{Appunti vari}
+	\date{\today}	
+	
+\begin{document}
+	\maketitle
+	\tableofcontents
+	\newpage
+\section{Rappresentazione di interi e reali}
+\begin{enumerate}
+	\item La rappresentazione di un intero $N$ di $n$ cifre in base $b$ è
+	\[N=\sum_{j=0}^{n-1}c_jb^j\]
+	\item Se ho una base $b$ e $n$ cifre disponibili, posso rappresentare $b^n$ interi diversi. Ad esempio, posso rappresentare i naturali tra 0 e $b^n-1$. Tale intervallo è detto \textit{intervallo di rappresentazione}.
+	\item La cifra più a sinistra è la cifra più significativa, quella più a destra la meno significativa.
+	\item Svantaggi di un insieme finito di naturali rappresentabili: le operazioni non sono più chiuse, associative e commutative, e rischio l'overflow.
+	\item Per la rappresentazione degli interi, si usa la rappresentazione in \textit{modulo e segno} o la rappresentazione in \textit{complemento alla base}. Nel caso dell'informatica, si parla di rappresentazione in complemento a 2 per ovvi motivi.
+	\item \textbf{Modulo e segno:} si usa la cifra più significativa per indicare il segno dell'intero (0 positivo, 1 negativo), mentre il resto dei bit viene usato per rappresentare il modulo dell'intero. Con $n$ bit, l'intervallo di rappresentazione è $0,\cdots,2^{n-1}-1$.
+	\noindent Gli svantaggi di tale rappresentazione sono la doppia rappresentazione dello zero e la difficoltà negli algoritmi per fare le operazioni.
+	\item\textbf{Complemento a 2:} in questo caso, se ho un intero $m$ e $n$ cifre disponibili, allora la rappresentazione di $m$ è
+	\begin{itemize}
+		\item la rappresentazione di $|m|$, se $m\geq0$
+		\item la rappresentazione di $b^n-|m|$, se $m<0$
+	\end{itemize}
+	Ad esempio, con 4 cifre binarie 7 si rappresenta come 0111, -7 come 1001. Se $m<0$ e si conosce $|m|$, la rappresentazione di $m$ si ottiene ricopiando le cifre meno significative di $|m|$ fino alla prima cifra 1 (compresa) e scambiando quelle rimanenti. In base $b$ e con $n$ cifre, l'intervallo di rappresentazione è $[-b^n/2,b^n/2-1]$, ovvero se $b=2$ ho $[-2^{n-1}, 2^{n-1}-1]$.
+	\item Consideriamo la somma di due numeri rappresentati in complemento a 2. Se i riporti $r_{n-1}$ e $r_{n-2}$ della cifra più significativa e di quella immediatamente a destra sono diversi, si ha overflow.
+	\item Consideriamo un numero frazionario $N$ con parte intera nulla. La sua rappresentazione in base $b$ è
+	\[N=\sum_{j=1}^{n}c_{-j}b^{-j}\]
+	\item Anche i numeri frazionari rappresentabili sono finiti. La granularità, cioè l'errore commesso nella rappresentazione di un numero frazionario con $n$ cifre decimali, è sempre minore di $b^{-n}$.
+	\item Per trasformare un frazionario dalla base 10 alla base 2, lo si moltiplica per 2, la parte intera del risultato è la prima cifra dopo la virgola in base 2, poi si reitera il processo sulla parte frazionaria del risultato fino a che
+	\begin{itemize}
+		\item si ottiene una parte frazionaria nulla: in tal caso il numero scelto ha rappresentazione finita in base 2
+		\item si ottiene una parte frazionaria già ottenuta in precedenza: in tal caso il numero scelto è periodico in base 2
+	\end{itemize}
+	\item Per la rappresentazione dei reali esistono la rappresentazione in \textit{virgola fissa} e in \textit{virgola mobile}.
+	\item \textbf{Virgola fissa:} scelgo $m$ cifre per rappresentare la parte intera e $n$ cifre per la parte frazionaria, e tale numero è lo stesso per tutti i valori rappresentati. La precisione di rappresentazione è la stessa per tutti i numeri, quindi si introduce un errore relativo decisamente maggiore per i numeri più vicini a 0.
+	\item\textbf{Virgola mobile:} un reale $N$ in virgola mobile in base $b$ si rappresenta nella forma
+	\[N=mb^k\]
+	dove $m$, che si chiama mantissa, è un reale nell'intervallo $[\frac{1}{b},1)$ e $k$, che si chiama caratteristica, è un intero con segno. In base 2, se ho $j$ bit per la mantissa, allora essa è limitata nell'intervallo $0.1\leq m\leq0.11\cdots1$, dove ho utilizzato $j-1$ cifre 1. Allo stesso modo, se ho $h$ bit per la caratteristica essa è limitata in $-2^h\leq k\leq2^h-1$. Questi vincoli fissano il massimo e il minimo reale rappresentabili, ma comunque la rappresentazione dei numeri interni a tale intervallo rimane approssimata.
+	\item Gli errori possibili sono
+	\begin{itemize}
+		\item Errore di cancellazione: in prossimità dello zero, la mantissa potrebbe annullarsi
+		\item Errore di overflow: compio un'operazione il cui risultato non rientra nell'intervallo di rappresentazione
+		\item Errore di arrotondamento: perdo informazioni poichè vengono tralasciate cifre significative
+	\end{itemize}
+	\item Con 32 bit, generalmente si usa 1 bit per il segno (0 per i positivi, 1 per i negativi), 7 per la caratteristica (in complemento a 2) e 24 per la mantissa.
+\end{enumerate}
+\section{Tipi di dato in C}
+\begin{enumerate}[resume]
+	\item Per \textit{tipo di dato} si intende un insieme di valori rappresentabili e un insieme di operazioni che si possono compiere con tali valori. Ogni tipo di dato ha la sua specifica rappresentazione in memoria
+	\item In C, i tipi possono essere
+	\begin{itemize}
+		\item Tipi semplici: rappresentano semplici informazioni numeriche, come una lunghezza o una temperatura
+		\item Tipi strutturati: in cui l'informazione è rappresentata come aggregato di tipi semplici o di altri tipi strutturati, come una matrice	
+	\end{itemize}
+	\item In C sono presenti dei tipi predefiniti (\textit{built-in}) ed è possibile definirne altri (\textit{user-defined}).
+	\item \textbf{Built-in:} permettono la rappresentazione di interi (\textit{int}, \textit{long int}, \textit{short int}, \textit{unsigned}, \textit{signed}), di caratteri (\textit{char}, \textit{unsigned char}) e reali (\textit{double}, \textit{long double}, \textit{float}).
+	\item\textbf{User-defined:} tipi enumerati (\textit{enum}), tipi union, campi di bit.
+	\item La funzione \textit{sizeof()} restituisce un \textit{long unsigned} (placeholder \%lu), che indica la dimensione in byte di un tipo o di una variabile. In generale la lunghezza dipende dalla macchina, ma vale
+	\[\textit{sizeof(short)}\leq\textit{sizeof(int)}\leq\textit{sizeof(long)}\]
+	\item Il file \textit{limits.h} definisce i valori massimi e minimi rapprensentabili con i vari tipi.
+	\item Gli interi posso essere con segno (\textit{signed}, intervallo $[-2^{n-1},2^{n-1}-1]$) o senza segno (\textit{signed}, intervallo $[0, 2^{n}-1]$).
+	\item Gli operatori per gli interi (con o senza segno) sono +, -, *, /, \%, ==, !=, $<$, $<$=, $>$, $>$=
+	\item I placeholder variano a seconda della base in cui si vogliono visualizzare gli interi:
+	\begin{itemize}
+		\item \%u in decimale
+		\item \%o in ottale
+		\item \%x in esadecimale minuscolo
+		\item \%X in esadecimale maiuscolo
+	\end{itemize}
+	Per gli interi \textit{short}, si interpone una h tra \% e la lettera della rappresentazione, per gli interi \textit{long} si interpone una l.
+	\item I caratteri sono valori alfanumerici rappresentati su un singolo byte e sono interi a tutti gli effetti. Possono quindi essere di tipo \textit{signed} o \textit{unsigned}, possono essere sommati. I placeholder sono \%c, se si vuole stampare il carattere, \%d o \%u se si vuole stampare il valore.
+	\item \textit{c=getchar()} prende un carattere da standard input e lo restituisce come valore assegnato a $c$, \textit{putchar(c)} stampa $c$ come carattere su standard output.
+	\item I reali sono rappresentati come \textit{float}, \textit{double} o \textit{long double}, e vale
+	\[\textit{sizeof(float)}\leq\textit{sizeof(double)}\leq\textit{sizeof(long double)}\]
+	\item Gli operatori per gli interi (ad eccezione ovviamente di \%) sono utilizzabili anche con i reali.
+	\item I placeholder sono \%f, \%f e \%Lf per \textit{printf()} in virgola fissa, \%e, \%e, \%Le per \textit{printf()} in notazione esponenziale, mentre sono \%f, \%lf, \%Lf per \textit{scanf()} in virgola fissa e \%e, \%le, \%Le per \textit{scanf()} in notazione esponenziale.
+	\item La libreria \textit{math.h} fornisce le operazioni più comuni con i reali. Per compilare, bisogna aggiungere l'opzione \textit{-lm}.
+	\item Si possono convertire dei reali in interi e viceversa.
+	\item \textbf{Conversione implicita degli operandi:} quando in un'operazione compaiono tipi diversi, le variabili vengono convertite come segue
+	\begin{itemize}
+		\item \textit{char} e \textit{short} vengono convertiti in \textit{int}
+		\item Se dopo il passaggio precedente ci sono ancora operandi di tipo diverso, si segue la gerarchia \textit{int} $\to$ \textit{long} $\to$ \textit{float} $\to$ \textit{double} $\to$ \textit{long double}.
+	\end{itemize}
+	\item \textbf{Conversione implicita nell'assegnamento:} in un assegnamento del tipo $x=y$, il tipo di $x$ rimane quello dichiarato in precedenza. Si può quindi perdere informazione (ad esempio, se $x$ è un intero e $y=1.3$, $x=y$ assegna ad $x$ il valore 1).
+	\item \textbf{Conversioni esplicite:} si può indicare tra parentesi il tipo in cui si vuole convertire una variabile. Il cast esplicito può anche modificare la rappresentazione, ad esempio da \textit{short} a \textit{long} (dimensioni diverse) o da \textit{int} a \textit{float} (pur avendo la stessa dimensione.) Può anche cambiare solo l'interpretazione, come da \textit{int} a \textit{unsigned}.
+	\item Negli operatori booleani, si parla di valutazione lazy: se ho l'operatore \&\& e la prima espressione è falsa, la seconda non viene valutata. Analogamente, con || è sufficiente che la prima espressione sia vera per non valutare la seconda.
+	\item Gli operatori bit a bit lavorano sugli interi e sui caratteri (con o senza segno) con gli operatori \& (and), | (or), \textasciicircum (xor), \textasciitilde (complemento), $<<$ (lshift) e $>>$ (rshift).
+	\item $<<$ e $>>$ spostano verso destra o sinistra la rappresentazione binaria. Ad esempio, se $a=1$, con $a=a<<3$ trasformo la rappresentazione binaria di $a$, che ora è 1000. 
+\end{enumerate}
+\section{Funzioni}
+\begin{enumerate}[resume]
+	\item Una funzione può essere dichiarata (ad esempio \textit{int f(int x, double y)}, si chiama anche prototipo) o definita (ovvero \textit{int f(int x, double y)\{...\}}). Nel secondo caso, la riga prima del blocco viene detta intestazione. La lista tra parentesi è fatta da parametri formali. Nella chiamata di una funzione, i parametri attuali (cioè quelli forniti) vengono valutati prima di essere passati e non vengono modificati (quindi si parla di parametri passati per valore).
+	\item In un programma, vi è un'area dati che si espande verso lo \textit{stack}. L'area dati è divisa in dati globali, in cui ci sono le variabili globali e che non si espande, e in \textit{heap}, che contiene le variabili globali e locali allocate in fase di esecuzione e che si espande verso lo \textit{stack}.  Quando viene chiamata una funzione, una sua copia compare nello \textit{stack}, insieme a una copia dei parametri attuali e a un indirizzo di ritorno. La funzione fa quello che deve fare, il valore restituito viene aggiornato sullo \textit{heap} e poi la memoria occupata sullo \textit{stack} viene liberata.
+	\item Le variabili allocate all'inizio di un blocco sono dette locali o automatiche, sono allocate sullo \textit{stack} e sono visibili e accessibili solo all'interno di quel blocco. Quando si esce dal blocco, il loro valore può diventare casuale.
+	\item Le variabili globali sono dichiarate fuori dai blocchi, sono accessibili da tutte le funzioni, sono allocate nell'area dati e vengono deallocate alla fine del programma.
+	\item Le variabili static, introdotte dalla parola chiave \textit{static}, sono variabili locali che mantengono il proprio valore tra una chiamata e l'altra. Sono allocate nell'area dati come le globali. 
+	\item Il tipo \textit{void} permette di definire funzioni senza parametri o che non restituiscono valori.
+	\item Una funzione può anche richiamare sè stessa nel blocco che la definisce: si parla di funzione ricorsiva. In tal caso, si definisce un passo base e poi si definisce la ricorsione. Sullo stack la funzione viene ricopiata fino a che non viene raggiunto il passo base, poi le copie vengono progressivamente cancellate.
+\end{enumerate}
+\section{Puntatori}
+\begin{enumerate}[resume]
+	\item Ad ogni variabile $a$ è associata una posizione in memoria. L'indirizzo di tale posizione viene detto puntatore alla variabile ed è indicato con $\&a$.
+	\item Si possono dichiarare variabili di tipo puntatore, ad esempio \textit{int *a}. Il valore registrato in memoria all'indirizzio $a$ è *$a$, e si ottiene tramite *, detto operatore di dereferenziazione.
+	\item In \textit{stdio.h} è definita la costante \textit{NULL}, che corrisponde al puntatore non significativo.
+	\item Il nome di un array $a$ è di fatto un puntatore che punta ad $a[0]$. Ciò significa che $a[i]$ e *$(a+i)$ sono scritture equivalenti. 
+	\item I puntatori possono essere utilizzati per creare funzioni che restituiscono più di un valore, inserendo tra i parametri formali un puntatore al tipo di valore che voglio che mi venga restituito. L'utilizzo di un puntatore è fondamentale, perchè quando una funzione fa \textit{return} viene cancellata la memoria allocata sullo \textit{stack}.
+	\item I puntatori permettono di passare array unidimensionali a funzioni, passando come parametri il puntatore al primo elemento e la lunghezza dell'array.
+	\item Per passare array multidimensionali, occorre definire come macro le lunghezze lungo tutte le direzioni (ad eccezione della prima, che può essere passata come parametro in maniera analoga al caso di array unidimensionali). Tutto ciò è parecchio scomodo, quindi si può far collare l'array multidimensionale in uno unidimensionale, oppure definirlo globalmente.
+\end{enumerate}
+\section{Stringhe}
+\begin{enumerate}[resume]
+	\item Una stringa è un array non modificabile di caratteri, terminata dal carattere '\textbackslash n' (quindi bisogna sempre allocare un carattere in più di quelli necessari).
+	\item Il placeholder è \%s.
+	\item La libreria \textit{string.h} contiene tante belle funzioni per le stringhe, ad esempio
+	\begin{itemize}
+		\item \textit{strlen(char *s)} restituisce la lunghezza della stringa (senza il terminatore)
+		\item \textit{char * strncpy(char *s, char *p)} copia la stringa $p$ nella stringa $s$ e ritorna $s$
+		\item \textit{int strncmp(char *s, char *p)} confronta lessicograficamente $p$ e $s$ e restituisce 0 se sono uguali, $n<0$ se $s<p$ e $n>0$ altrimenti
+		\item \textit{char * strcat(char *s, char *p)} concatena $p$ a $s$ e ritorna $s$ (modificata)
+		\item \textit{char * strstr(char *s, char *p)} cerca la prima occorrenza di $p$ in $s$ e restituisce un puntatore a tale occorrenza (se esiste, altrimenti ritorna \textit{NULL})
+	\end{itemize}
+	\item Quando si usano queste funzioni, bisogna sempre assicurarsi che le stringhe siano sufficientemente lunghe e che siano sempre terminate dal carattere terminatore, altrimenti si può andare in buffer overrun (segnalato come segmentation fault).
+	\item Ci sono volendo della funzioni più controllate, ad esempio \textit{strncpy (char *s, char *p, size\_t n)} permette di copiare al più $n$ caratteri (ma bisogna sempre assicurarsi la presenza di '\textbackslash n').
+	\item Per leggere una stringa la funzione più sicura è \textit{char * fgets(char *p, int sz, FILE *stream)}, che legge dallo $stream$ al più $sz-1$ caratteri fino al primo '\textbackslash n', copia tutto in $p$, aggiunge il carattere terminatore e restituisce il puntatore a $p$ (o \textit{NULL} in caso di \textit{EOF}).
+	\item Se i caratteri di una stringa sono tutti numeri, si può convertire in base 10 tramite le funzioni \textit{atoi} (per gli interi), \textit{atol} (per i \textit{long}), \textit{atof} (per i \textit{double}).
+	\item \textit{long strtol(char *p, char **endp, int base)} e \textit{double strtod(char *p, char **endp)} permettono di convertire in interi o reali, restituiscono il valore convertito e $endp$ punta al primo carattere non convertito (eventualmente \textit{NULL}). In caso di errore, ritorna 0 e $endp$ punta a $p$.
+	\item \textit{void * memcpy(void *s, const void *p, size\_t n)} copia il contenuto nell'area da $p$ a $p+n$ (quindi $n$ byte) nell'area da $s$ a $s+n$ e restituisce un puntatore a $s$.
+\end{enumerate}
+\section{Compilazione separata}
+\begin{enumerate}[resume]
+	\item Un singolo programma può essere suddiviso su più file. Posso quindi scegliere tra
+	\begin{itemize}
+		\item Inclusione diretta di un file e compilazione unica
+		\item Inclusione di un header e compilazione separata
+		\item Inclusione di librerie
+	\end{itemize}
+	\item\textbf{Inclusione diretta:} utilizzo \textit{\#include "file.c"}. Questo comando dice al preprocessore di inserire qui una copia di \textit{file.c} prima della compilazione, che può essere fatta in maniera usuale. Gli svantaggi sono il fatto che devo avere una copia di tutti i file da includere e che ogni file viene compilato ogni volta, anche se non è stato modificato.
+	\item\textbf{Inclusione di un header:} utilizzo \textit{\#include "file.h"}. In questo caso basta avere il precompilato di \textit{file.c}, creabile con \textit{gcc -c file.c}. Questo comando crea il precompilato \textit{file.o}. Per compilare il file principale, si deve utilizzare \textit{gcc main.c file.o -o exe} In particolare, l'header permette di copiare in \textit{main.c} solo i prototipi delle funzioni contenute in \textit{file.c}. Il vantaggio è il fatto che non devo possedere tutti i file \textit{.c}, ma bastano gli header con tipi e prototipi, inoltre non devo ricompilare tutto il codice ogni volta. Lo svantaggio è che nella compilazione devo inserire i nomi di tutti gli header, se ne sto usando più di uno.
+	\item\textbf{Inclusione di libreria:} in questo caso, creo il modulo oggetto \textit{file.o} come in precedenza, poi con il comando \textit{ar r libFile.a file1.o file2.o} raggruppo i vari file in un'unica libreria. Compilo poi con \textit{gcc main.c  -L. -lFile}. Tutte le librerie iniziano il nome con \textit{lib} e terminano con \textit{.a}.
+\end{enumerate}
+\section{Allocazione dinamica}
+\begin{enumerate}[resume]
+	\item L'allocazione dinamica permette di utilizzare array di lunghezza ignota a tempo di compilazione, o di "allungare" un array in caso di necessità. Posso ricorrere principalmente ai VLA, alle funzioni di allocazione o a liste e alberi.
+	\item \textbf{Variable Lenght Array (VLA):} sono array di lunghezza nota a tempo di esecuzione, ma una volta allocati la loro lunghezza non può essere modificata. Possono solo essere dichiarati all'inizio di un blocco come variabili locali. Quindi, vengono allocati sullo \textit{stack} e sono deallocati automaticamente una volta usciti dal blocco. Si sconsigliano VLA troppo grandi, per evitare di saturare lo \textit{stack}. 
+	\item\textbf{Funzioni di allocazione:} nella libreria \textit{stdlib.h} sono presenti tre funzioni che permettono di allocare dinamicamente sullo \textit{heap}. In particolare, sono
+	\begin{itemize}
+		\item la funzione \textit{void * malloc(size\_t size)} alloca memoria sullo \textit{heap} e restituisce un puntatore alla memoria allocata. La memoria non è inizializzata, quindi contiene valori casuali. \textit{size} indica il numero di byte da allocare (e tendenzialmente si usa \textit{sizeof()}). Se non c'è più spazio nello \textit{heap}, il puntatore restituito punta a \textit{NULL}. In questo caso bisogna gestire adeguatamente l'errore. Come con i VLA, \textit{malloc()} è utile se si conosce la lunghezza dell'array da allocare a tempo di esecuzione. La differenza sta nel fatto che se si usa \textit{malloc()} si deve esplicitamente liberare la memoria una volta che l'array non è più necessario, tramite la funzione \textit{void free(void *p)}. Questa funzione dice semplicemente che si può sovrascrivere la memoria occupata in precedenza, ma di fatto non cancella l'array, che è ancora accedibile tramite $p$ (ma con risultati casuali).
+		\item la funzione \textit{void * calloc(size\_t size)} funziona come \textit{malloc()}, ma inizializza gli elementi allocati a 0. Anche qui, non bisogna dimenticare la gestione dell'errore e \textit{free()}.
+		\item la funzione \textit{void * realloc(void *p, size\_t size)} permette di ampliare o diminuire un'area allocata in precedenza. In particolare, alloca $size$ byte a partire da $p$ (se c'è abbastanza spazio contiguo) oppure alloca un nuovo array lungo $size$ sullo \textit{heap}. Anche qui servono gestione errore e \textit{free()}.
+	\end{itemize}
+	Tali funzioni andrebbero utilizzate solo se necessario, dato che sono molto costose (chiamano in causa il sistema operativo) e vanno deallocate esplicitamente.
+	\item Una rappresentazione efficace di una matrice è tramite un array di puntatori a righe. Una matrice $n\times m$ può essere rappresentata come un array lungo $n$ in cui ogni elemento è un puntatore a un array lungo $m$. Al solito, gestione errore e \textit{free()}.
+\end{enumerate}
+\section{stdio.h}
+\begin{enumerate}[resume]
+	\item I file e i dispositivi di input/output sono visti come un flusso di caratteri (\textit{stream}). Un programma interagisce con l'esterno tramite standard input, standard output e standard error
+	\item La libreria \textit{stdio.h} contiene costanti legate all'I/O, come ad esempio \textit{EOF}. 
+	\item \textit{FILE} è una struttura, il cui formato dipende dal sistema, che contiene un indicatore di posizione, un indicatore di errore e un indicatore di fine file.
+	\item Per interagire con un file, questo va aperto con la funzione \textit{fopen} (in cui va anche indicato se il file è in lettura \textit{"r"}, scrittura \textit{"w"} o un misto), va allocato con un puntatore a file del tipo \textit{FILE *p} (e manco a dirlo, va fatta una gestione dell'errore). Una volta terminate le operazioni di interesse, il file va chiuso con la funzione \textit{fclose()}, che dealloca anche le strutture allocate in precedenza.
+	\item Se c'è qualche problema con \textit{fopen()} (ad esempio, file inesistente o permessi non posseduti), questa restituisce un puntatore a \textit{NULL} e mette nella variabile globale \textit{errno} un numero associato al tipo di errore. Con la funzione di libreria \textit{perror()} si può stampare sullo standard output il messaggio di errore appropriato, ma bisogna tener conto che \textit{errno} può essere sovrascritta durante l'esecuzione. Quindi \textit{perror()} va usata immediatamente.
+	\item Di fatto, \textit{printf()} è equivalente a \textit{fprintf(sdtin, )} e \textit{scanf()} è equivalente a \textit{fscanf(stdout, )}
+	\item La funzione \textit{int fseek(FILE *p, long offset, int place)} permette di spostarsi di \textit{offset} byte a partire da \textit{place} all'interno del file puntato da \textit{p}. In particolare, per \textit{place} è possibile utilizzare le macro \textit{SEEK\_SET}, \textit{SEEK\_CUR} e \textit{SEEK\_END}, con ovvi significati.
+	\item La funzione \textit{void rewind(FILE *p)} riporta l'indicatore all'inizio di \textit{p}, quindi è equivalente a \textit{fseek(FILE *p, 0, SEEK\_SET)}.
+	\item La funzione \textit{int feof(FILE *p)} restituisce 0 se l'indicatore di fine file è attivo, un valore non nullo altrimenti.
+	\item Tipicamente l'output viene bufferizzato fino al primo '\textbackslash n'. Si possono svuotare i buffer relativi al file \textit{p} con la funzione \textit{int fflush(FILE *p)}, che viene comunque chiamata automaticamente da \textit{fclose()}. \textit{fflush(NULL)} svuota tutti i buffer. 
+\end{enumerate}
+\section{Tipi definiti dall'utente}
+\begin{enumerate}[resume]
+	\item Si possono definire nuovi nomi per tipi preesistenti, ad esempio \textit{typedef int anno\_t;}.
+	\item I tipi enumerati possono assumere solo un insieme finito di valori. A ogni valore possibile è associato un identificatore costante, che di default parte da 0 e internamente è rappresentato a tutti gli effetti come un intero. Ad esempio, \textit{typedef enum\{VEN, SAB, DOM\} week\_end\_t;} definisce il tipo \textit{week\_end\_t}, i cui elementi sono \textit{VEN} (valore 0), \textit{SAB} (valore 1), \textit{DOM} (valore 2). I valori possono essere definiti anche dall'utente, ad esempio in \textit{typedef enum\{true = 1, false = 1\} bool\_t;}. Gli elementi di un tipo enumerato possono essere utilizzati in uno switch o per indicizzare un array e con essi si possono utilizzare (con attenzione) le operazioni fra interi.
+	\item Una struttura è un aggregato di variabili (possibilmente diverse). Si può definire ad esempio la struttura \textit{typedef struct complex\{ double re; double im;\} complex\_t;}, utile per lavorare con i complessi.
+	\item In una struttura, i vari elementi si chiamano campi. Si può accedere al valore di un campo tramite l'operatore punto. Ad esempio, se \textit{x} è del tipo \textit{complex\_t} precedente e rappresenta $1+2i$, si ha \textit{x.real==1} e \textit{x.im==2}.
+	\item Se ho un puntatore a una struttura, posso sostituire il punto con l'operatore freccia -$>$. Ciò è preferibile perchè il punto ha la precedenza rispetto all'operatore di dereferenziazione.
+	\item Le strutture possono essere passate a una funzione, e come al solito vengono copiate integralmente sullo \textit{stack}. Ciò potrebbe creare problemi se uno dei campi è abbastanza grande (ad esempio un array). Una struttura può anche essere passata, in maniera più efficiente, per puntatori, cioè utilizzando un puntatore alla struttura come parametro formale.
+	\item I nomi dei campi devono essere univoci all'interno di una singola struttura, ma lo stesso nome può essere utilizzato in strutture diverse o anche come variabile.
+	\item I campi possono essere tipi semplici, tipi definiti, puntatori o altre strutture. Una struttura non può avere sè stessa in uno dei campi, ma può avere uno o più puntatori a sè stessa (e in tal caso si parla di liste e alberi).
+\end{enumerate}
+\section{Liste}
+\begin{enumerate}[resume]
+	\item Gli array sono un tipo particolare di struttura dati, ovvero di un oggetto in grado di organizzare altri oggetti, contenenti o rappresentati altri dati. Esistono atlre strutture, con i propri vantaggi e svantaggi, tra cui le liste e gli alberi.
+	\item Una lista concatenata è una sequenza lineari di elementi (o nodi) in cui ogni elemento contiene un valore di riferimento e un puntatore all'elemento successivo nella lista. Il puntatore al primo elemento della lista viene detto testa, mentre l'ultimo elemento (il cui puntatore punta a \textit{NULL}) viene detto coda della lista.
+	\item Una lista è una struttura con due campi. Il primo campo si occupa dell'informazione del nodo (ad esempio può essere un array, un puntatore o un double), mentre il secondo è un puntatore alla lista, ad esempio
+	
+	\noindent\textit{typedef struct lista\{}
+		
+	\noindent \textit{double val;}
+	
+	\noindent \textit{struct lista * next;}
+	
+	\noindent \textit{\} lista\_t;}
+	\item Ricordati di deallocare una lista! Dato che tendenzialmente i nodi sono allocati con \textit{malloc()}, devi deallocarli o intasi l'\textit{heap}.
+	\item I vantaggi di una lista sono la possibilità di aggiungere elementi senza dover copiare ogni volta quelli già presenti e la possibilità di inserirli in testa, in mezzo o in coda a nostra discrezione. Gli svantaggi sono la maggiore difficoltà di programmazione, la deallocazione non automatica e, rispetto ad un array, la difficoltà ad accedere ad un elemento della lista.	
+\end{enumerate}
+\section{Alberi}
+\begin{enumerate}[resume]
+	\item Un albero generalizza una lista: ogni nodo può puntare a più di un valore successivo, creando una struttura altamente ramificata.
+	\item I successori sono detti figli, i predecessori padri. Se un nodo non ha figli, viene detto foglia, se non ha padre, viene detto radice, se ha figli viene detto nodo interno.
+	\item Un cammino è una qualunque sequenza in cui ogni nodo è figlio del nodo che lo precede nella sequenza.
+	\item Il livello di un nodo è il numero di nodi da attraversare a partire dalla radice per giungere ad esso (quindi la radice ha sempre livello 0).
+	\item Il livello $j$-esimo è l'insieme di tutti e soli i nodi di livello $j$.
+	\item L'altezza dell'albero è il massimo livello di un nodo.
+	\item Ogni nodo è di fatto la radice di un sottoalbero.
+	\item Un albero è detto binario se ogni nodo interno ha esattamente due figli, detti figlio destro e figlio sinistro.
+	\item Un esempio di albero binario a valori interi è
+	
+	\noindent\textit{typedef struct albero\{}
+	
+	\noindent \textit{int val;}
+	
+	\noindent \textit{struct lista * left;}
+	
+	\noindent \textit{struct lista * right;}
+	
+	\noindent \textit{\} albero\_t;}
+	\item Va da sè che i puntatori di una foglia sono entrambi a \textit{NULL}.
+	\item In una funzione che agisce sui valori di un albero può essere rilevante l'ordine in cui si visitano i vari nodi. Consideriamo ad esempio un albero binario su cui agisce una funzione. L'albero può essere visitato tramite visite \textit{depth-first} (in cui si visita interamente un sottoalbero) e visite \textit{breadth-first} (in cui si visita interamente un livello). In particolare, le visite \textit{depth-first} si dividono ulteriormente in
+	\begin{itemize}
+		\item visita anticipata: analizzo la radice, poi i due sottoalberi (prima sinistro, poi destro)
+		\item visita simmetrica: analizzo il sottoalbero sinistro, poi la radice, poi il sottoalbero destro
+		\item visita posticipicata: analizzo i due sottoalberi (prima sinistro, poi destro), poi la radice
+	\end{itemize} 
+\end{enumerate}
+\section{Algoritmi di ordinamento}
+\begin{enumerate}[resume]
+	\item Siamo interessati a un algoritmo in grado di ordinare gli elementi di un array e, in particolare, alla complessità computazionale dell'algoritmo (i.e. al numero di passi richiesto per ordinare un array lungo $n$). Ci sono diverse possibilità:
+	\item\textbf{Selection sort:} l'algoritmo più stupido che ti venga in mente. Ricorsivamente, si sceglie al $j$-esimo passo l'elemento minimo dell'array tra quelli compresi tra il $j$-esimo e l'$n$-esimo, lo si sposta al posto $j$-esimo e si ripete sull'array tra $j+1$ e $n$. Dato che ogni elemento viene potenzialmente confrontato con tutti i successivi, il costo di questo algoritmo è dell'ordine di $n^2$.
+	\item\textbf{Bubble sort:} anche questo algoritmo non è efficiente, dato che ha complessità dell'ordine di $n^2$. Si fa un ciclo in cui si comincia a scorrere l'array dalla testa con un indice $i$. Per ogni $i$, un indice $j$ scorre dalla coda fino alla posizione $i$ e se trova due elementi consecutivi con ordine invertito li scambia.
+	\item\textbf{Merge sort:} utilizza uno schema \textit{divide et impera}, ovvero divide il problema in sottoproblemi più semplici, che risolve singolarmente, per poi ricompattarli per ottenere la soluzione. In particolare, \textit{merge sort} divide l'array in due sottoarray di lunghezza simile, che vengono poi ordinati ricorsivamente, e in seguito ricombinati. Il costo per arrivare ad array di lunghezza 1 è circa $\log n$ e ogni chiamata costa circa $n$, per una complessità computazionale di circa $n\log n$. Il vero svantaggio di \textit{merge sort} è la necessità di un vettore di appoggio, che lo rende poco efficiente dal punto di vista della memoria occupata.
+	\item\textbf{Quick sort:} anche questo algoritmo si basa sul \textit{divide et impera}. In particolare, si sceglie un elemento a caso dell'array (detto pivot), poi si divide quest'ultimo in due sottoarray, che contengono rispettivamente i valori minori e maggiori pivot. Si ordinano poi i due sottoarray ricorsivamente. Anche per \textit{quick sort} il costo computazionale è dell'ordine di $n\log n$.
+\end{enumerate}
+\section{Seminari}
+\begin{enumerate}[resume]
+	\item\textbf{Seminario sugli errori:} 
+	\item\textbf{Seminario sui sistemi operativi:} un sistema operativo è l'intermediario tra la macchina fisica (hardware) e i programmi applicativi (con cui interagiscono gli utenti) ed è utilizzato per facilitare l'uso del sistema di elaborazione e garantirne la massima efficienza. Il sistema operativo è quindi un insieme di programmi che costituiscono una vera e propria macchina virtuale, che deve facilitare la programmazione, gestire le risorse e garantire le risorse e l'informazione.
+	
+	\noindent In particolare, un SO facilita la programmazione tramite
+	\begin{enumerate}
+		\item utilizzo di risorse fisiche tramite chiamate di sistema (cioè nascondendo i dettagli sul funzionamento dei dispositivi fisici)
+		\item realizzazione e utilizzo di risorse logiche (ad esempio archivi) tramite chiamate di sistema
+		\item indipendenza del software applicativo dall'hardware, che garantisce una maggiore portabilità
+	\end{enumerate}
+
+	\noindent Gestisce le risorse tramite
+	\begin{enumerate}
+		\item la risoluzione di conflitti tra più programmi (ad esempio, processore, archivi, memoria, dispositivi)
+		\item realizzazione di politiche per l'assegnazione delle risorse
+	\end{enumerate} 
+
+	\noindent Infine, protegge le risorse e l'informazione tramite
+	\begin{enumerate}
+		\item protezione contro utilizzi errati o maliziosi di altri programmi e/o utenti
+		\item protezione di un utente rispetto agli altri utenti
+		\item riservatezza dei dati
+		\item individuazione dei guasti e ripristino del corretto funzionamento
+	\end{enumerate}
+	
+	\noindent L'interfaccia del SO verso gli utenti è costituita dalle chiamate di sistema, che sono l'unico modo con cui questi ultimi possono interagire con il SO.
+	
+	\noindent Ci sono vari tipi di SO:
+	\begin{enumerate}
+		\item \textit{sistemi monoprogrammati:} nella memoria centrale contengono il SO e al più un altro programma applicativo. Rappresentano un uso inefficiente del processore, poichè se più applicativi devono essere eseguiti ne viene eseguito uno completamente prima di passare al successivo, anche se il programma in esecuzione si ferma temporaneamente (ad esempio per leggere dati da file). 
+		\item\textit{sistemi batch multiprogrammati:} in questo caso ci sono più programmi in simultanea caricati in memoria e si ottimizzano lo spool (i "tempi morti") e l'uso delle risorse, anche a discapito del tempo di risposta del singolo programma.
+		\item\textit{sistemi a partizione di tempo (o time-sharing):} in questo caso è ottimizzato il tempo di completamento (in modo da soddisfare al meglio utenti diversi) e si basa sull'assegnamento ciclico di un intervallo di tempo (\textit{quantum}) ai vari programmi caricati in memoria.
+	\end{enumerate}
+
+	\noindent Le componenti principali di un SO sono
+	\begin{enumerate}
+		\item gestore del processore
+		\item gestori della memoria principale e secondaria
+		\item gestore dei dispositivi I/O
+		\item Gestore degli archivi (\textit{file system})
+		\item Sistema di protezione
+		\item Gestore della comunicazione tra sistemi remoti
+		\item Interfaccia con i programmi applicativi
+	\end{enumerate}
+	
+	\noindent A seconda del modo in cui interagiscono le varie componenti, si parla di
+	\begin{enumerate}
+		\item\textit{sistemi monolitici (modulari o a livelli):} il SO è un solo programma che contiene diverse procedure che realizzano le varie componenti. Le applicazioni che richiedono il SO attivano le corrispondenti componenti con un chiamata di sistema (ad esempio, in C \textit{fprintf()} o \textit{fscanf()}), che instaura lo stato di supervisione (o modo kernel) del processore.
+		\item\textit{sistemi a microkernel} 
+		\item\textit{sistemi client-server} 
+	\end{enumerate}
+
+	\noindent Si definisce processo come un'attività controllata da un programma che si svolge sul processore. Informalmente, un processo è un programma in esecuzione. Quindi, il programma rappresenta il flusso di di operazioni da eseguire, mentre il processo l'attività (possibilmente discontinua) di esecuzione. Ci possono essere processi diversi (ad esempio, in tempi o con dati diversi) per uno stesso programma. In particolare, se ho dei file sorgente \textit{S\_1}, \textit{S\_2}, li posso tradurre (tramite interpretazione o compilazione) in file oggetto \textit{O\_1}, \textit{O\_2}. Viene poi creato un eseguibile in cui sono collegati i file oggetto e le librerie necessarie, e questo file interagisce poi con \textit{heap} e \textit{stack}. Il processo può essere in tre stati:
+	\begin{enumerate}
+		\item pronto: il processo può iniziare delle azioni (e quindi va in esecuzione) assegnando le unità di elaborazione
+		\item esecuzione: il processo sta elaborando dei dati e può bloccarsi (tramite sospensione) o andare in pronto (revocando le unità di elaborazione)
+		\item bloccato: il processo non fa nulla e tramite riattivazione può andare in pronto
+	\end{enumerate}
+	
+	\noindent E' pure possibile un modello ad ambiente locale in cui ci sono diversi processi separati, ciascuno con la propria area dati, \textit{heap} e \textit{stack}. All'interno di un singolo processo, si possono creare diversi flussi di esecuzione (\textit{thread}), che condividono (anche solo in parte) risorse e spazio di indirizzamento. Quando il SO realizza \textit{thread} multipli si parla di \textit{multithreading}. Ad esempio, con un editor di testo il processo possiede le risorse (memoria, dispositivi I/O), mentre i thread rappresentano i vari flussi di esecuzione (ad esempio inserimento da tastiera, mouse, visualizzazione su terminale, salvataggi automatici periodici). Il vantaggio del multithreading rispetto all'avere più processi in parallelo sta nel fatto che i primi sono più leggeri, l'interazione tra essi è più semplice e la generazione e terminazione non implicano una ridistribuzione delle risorse. Al contrario, i processi consentono di avere spazi separati (e quindi protetti), mentre le interazioni avvengono per chiamata e la generazione e terminazione di processi possono portare a un riassegnamento o a un rilascio delle risorse.
+	\item\textbf{Seminario sugli algoritmi:} vabbè, cose a caso su cardinalità (esempio: le sequenze finite sono numerabili, mentre $\{0,1\}^{\mathbb{N}}$ non lo è). 
+	
+	\noindent Non esiste un algoritmo $A$ che ci può dire se un altro algoritmo $B$ termini oppure no. Supponiamo per assurdo che esista, ovvero che esista $A$ tale che, se $B$ è un algoritmo e $d$ un set di dati, si abbia $A(B,d)=$true se $B$ termina con i dati $d$, $A(B,d)$=false altrimenti. Sia ora $P(B)$ definito da 
+	\[\textrm{while}(A(B,B)=\textrm{true}) \textrm{ nulla}\]
+	\[\textrm{else return 'ciao'}\]
+	Ora, $P(P)$ termina se e solo se $P(P)$ non termina, assurdo. L'indecidibilità di tale affermazione è parecchio devastante, poichè se esistesse un tale $A$ potrei dimostrare facilmente più o meno qualunque congettura su interi.
+	
+	\noindent La complessità di un problema è il numero di azioni elementari necessarie per risolverlo. Un algoritmo di complessità polinomiale ($\sim cn^\alpha$) è risolvibile piuttosto facilmente, dato che con una macchina $k$ volte più veloce riesco a compiere $k^{1/\alpha}n$ azioni nello stesso tempo. Viceversa, se il problema è esponenziale ($\sim ab^n$) il vantaggio con una macchina $k$ volte più potente è irrisorio, dato che nello stesso tempo compio $n+\log_bk$ azioni. Definiamo quindi la classe di complessità $P$ come la classe di problemi risolvibili in tempo polinomiale, mentre definiamo la classe $NP$ come la classe di problemi la cui soluzione è verificabile in tempo polinomiale, ma la cui risoluzione avviene in tempo esponenziale. Tale distinzione è alla base della crittografia, che usa funzioni \textit{one-way}, cioè calcolabili facilmente, ma schifosamente brutte da invertire.
+	Ad esempio, consideriamo la curva definita da
+	\[y^2=x^3+ax+b\]
+	Consideriamo due punti $P,Q$ a coordinate intere sulla curva. Tracciamo la secante per $P$ e $Q$, che interseca sempre la curva in un terzo punto $R$. Simmetrizziamo $R$ rispetto all'asse $x$ ottenendo il punto $S$. Diciamo che $S=P+Q$. Tale procedimento permette anche di moltiplicare un punto per sè stesso. Ad esempio, per trovare $2P$ tracciamo la tangente in $P$, e poi proseguiamo come sopra trovando $R$ e poi $S$. Si dimostra che se $S=kP$, da $k$ e $P$ si risale abbastanza facilmente a $S$, mentre se si conoscono $S$ e $P$ si risale a $k$ in tempo esponenziale. In tal modo, se abbiamo due persone, diciamo Alice e Bob, i due possono scegliere una curva ellittica e un punto $P$ su di essa, e tali informazioni possono essere condivise anche con esterni. A quel punto Alice sceglie (segretamente) un intero $\alpha$ e comunica (anche pubblicamente) $\alpha P$ a Bob, e questo a sua volta sceglie un intero $\beta$ e comunica ad Alice $\beta P$. I due hanno una chiave comune che è $K=\alpha\beta P$, che è rintracciabile da esterni solo in tempo esponenziale.
+	
+	\noindent Definiamo casuale una sequenza di interi che non può essere descritta tramite una legge che la descrive (ovvero un algoritmo di generazione) più breve della sequenza stessa. Definiamo complessità algoritmica $K(S)$ di una sequenza $S$ come la lunghezza del programma più corto in grado di generare $S$, e quindi diciamo che $S$ è casuale se $K(S)\geq|S|$. Appare evidente che la casualità di una sequenza non dipende affatto dalla sorgente stessa della sequenza, pertanto un processo effettivamente casuale può in linea teorica produrre anche sequenze non casuali. Stabilire se una sequenza è casuale è un altro problema indecidibile. Dato un set di dati $S$, diciamo che un algoritmo $K$ è una compressione di $S$ se $|K|<|S|$ e $K$ genera $S$. Per definizione, le sequenze casuali non possono essere compresse.
+\end{enumerate}
+\end{document}

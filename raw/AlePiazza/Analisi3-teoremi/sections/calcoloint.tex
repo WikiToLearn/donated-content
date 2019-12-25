@@ -1,0 +1,642 @@
+% 	CALCOLO INTEGRALE IN PIU' VARIABILI
+
+\subsection{Integrali doppi}
+
+\begin{definition}[funzione integrabile su $ \R^2 $ alla Darboux "unrestricted"]
+	Sia $ f \colon \R^2 \to \R $ una funzione
+	\begin{enumerate}[label = (\roman*)]
+		\item limitata
+		\item nulla al di fuori di un limitato 
+	\end{enumerate}
+	Procediamo per passi successivi:
+	\begin{enumerate}
+		\item \emph{Caso banale}. Sia $ R \coloneqq [a, b] \times [c, d] $ un rettangolo e $ \lambda \in \R $. Supponiamo che 
+		\begin{equation*}
+			f(x, y) \coloneqq \lambda \varphi_{R}(x, y) = 
+			\begin{cases}
+				\lambda & \text{se $ (x, y) \in R $} \\
+				0 & \text{se $ (x, y) \notin R $}
+			\end{cases}
+		\end{equation*}
+		Poniamo allora 
+		\begin{equation}
+			\iint_{\R^2} f(x, y) \dif{x} \dif{y} \coloneqq \lambda (b - a) (d - c)
+		\end{equation}
+		
+		\item \emph{Caso semi-banale}. $ f $ è una \emph{step-function}, cioè
+		\begin{equation*}
+			f(x, y) \coloneqq \sum_{i = 1}^{n} \lambda_i \varphi_{R_i}(x, y)
+		\end{equation*}
+		dove $ \lambda_i \in \R $ e $ R_i \coloneqq [a_i, b_i] \times [c_i, d_i] $. Poniamo allora 
+		\begin{equation}
+			\iint_{\R^2} f(x, y) \dif{x} \dif{y} \coloneqq \sum_{i = 1}^{n} \lambda_i (b_i - a_i) (d_i - c_i)
+		\end{equation}
+		\textbf{Fatto 1}. Se la stessa funzione si scrive in due modi diversi come combinazione di caratteristiche, allora l'integrale definito nei due modi diversi coincide. \\
+		\textbf{Fatto 2}. Ogni \emph{step-function} può essere pensata come definita come combinazione lineare di caratteristiche di rettangoli senza parti interne in comune. 
+		
+		\item \emph{Caso generale}. $ f $ è una funzione qualunque che soddisfa le ipotesi. Definiamo l'integrale superiore e inferiore di $ f $ come 
+		\begin{gather*}
+			I^+(f) \coloneqq \inf{\left\{\iint_{\R^2} \varphi(x, y) \dif{x} \dif{y} : \varphi \text{ è una \emph{step-function} e } \forall (x, y) \in \R^2, \ \varphi(x, y) \geq f(x, y)\right\}} \\
+			I^-(f) \coloneqq \sup{\left\{\iint_{\R^2} \psi(x, y) \dif{x} \dif{y} : \psi \text{ è una \emph{step-function} e } \forall (x, y) \in \R^2, \ \psi(x, y) \leq f(x, y)\right\}}
+		\end{gather*}
+		\textbf{Fatto 1}. $ I^+(f) $ e $ I^-(f) $ esistono sempre e vale la relazione $ I^-(f) \leq I^+(f) $\\
+		\textbf{Fatto 2}. Se $ \varphi_1 $ e $ \varphi_2 $ sono due \emph{step-functions} tali che $ \forall (x, y) \in \R^2 : \varphi_1(x, y ) \leq \varphi_2(x, y) $ allora $ \iint_{\R^2} \varphi_1(x, y) \dif{x} \dif{y} \leq \iint_{\R^2} \varphi_2(x, y) \dif{x} \dif{y} $ \\ \\
+		Diciamo che $ f $ è integrabile su $ \R^2 $ (secondo Darboux "unrestricted") se 
+		\begin{equation*}
+			I^-(f) = I^+(f) = I(f)
+		\end{equation*}
+		e in tale caso poniamo 
+		\begin{equation}
+			\iint_{\R^2} f(x, y) \dif{x} \dif{y} \coloneqq I(f)
+		\end{equation}
+	\end{enumerate}
+	Se $ A \subset \R^2 $ è un insieme limitato e $ f \colon A \to \R $ è limitata, possiamo estendere $ f $ a una funzione $ \hat{f} \colon \R^2 \to \R $ come 
+	\begin{equation*}
+		\hat{f}(x, y) \coloneqq 
+		\begin{cases}
+			f(x, y) & \text{se $ (x, y) \in A$} \\
+			0 & \text{se $ (x, y) \notin A $}
+		\end{cases}
+	\end{equation*}
+	Se $ \hat{f} $ è integrabile allora poniamo 
+	\begin{equation*}
+		\iint_{A} f(x, y) \dif{x} \dif{y} \coloneqq \iint_{\R^2} \hat{f}(x, y) \dif{x} \dif{y}
+	\end{equation*}
+\end{definition}
+
+\begin{prop}[criterio di integrabilità] \label{prop:criterioint}
+	Una funzione $ f \colon \R^2 \to \R $ limitata e nulla al di fuori di un limitato è integrabile se e solo se $ \forall \epsilon > 0 $ esistono due \emph{step-functions} $ \psi $ e $ \varphi $ definite a partire dalla stessa partizione tali che $ \forall (x, y) \in \R^2, \psi(x, y) \leq f(x, y) \leq \varphi(x, y) $ e 
+	\begin{equation*}
+		\iint_{\R^2} \left[\varphi(x, y) - \psi(x, y)\right] \dif{x} \dif{y} \leq \epsilon
+	\end{equation*}
+\end{prop}
+%
+\begin{proof}
+	Fissato $ \epsilon > 0 $, se esiste una partizione di $ \R^2 $ e le due funzioni $ \psi $ e $ \varphi $ date dall'enunciato, allora $ \iint_{\R^2}  \varphi \geq I^+(f) $ e $ \iint_{\R^2} \psi \leq I^-(f) $, così
+	\[
+		I^+(f) - I^-(f) \leq \iint_{\R^2} \varphi(x, y) \dif{x} \dif{y} -  \iint_{\R^2} \psi(x, y) \dif{x} \dif{y} = \iint_{\R^2} \left[\varphi(x, y) - \psi(x, y)\right] \dif{x} \dif{y} \leq \epsilon
+	\]
+	Per arbitrarietà di $ \epsilon $, concludiamo che $ I^+(f) = I^-(f) $ e quindi $ f $ è integrabile. \\
+	D'altra parte se $ f $ è integrabile, $ I^+(f) = I^-(f) = I(f) $ e quindi per definizione di $ \inf $ e $ \sup $, fissato $ \epsilon > 0 $, esistono due \emph{step-functions} $ \psi $ e $ \varphi $ che possiamo pensare definite dalla stessa partizione tali che $ \forall (x, y) \in \R^2, \ \psi(x, y) \leq f(x, y) \leq \varphi(x, y) $ e 
+	\[
+		I(f) \leq \iint_{\R^2} \psi(x, y) \dif{x} \dif{y} + \frac{\epsilon}{2} \qquad I(f) \geq \iint_{\R^2} \varphi(x, y) \dif{x} \dif{y} - \frac{\epsilon}{2}
+	\]
+	così
+	\[
+		\iint_{\R^2} \left[\varphi(x, y) - \psi(x, y)\right] \dif{x} \dif{y} = \iint_{\R^2} \varphi(x, y) \dif{x} \dif{y} - \iint_{\R^2} \psi(x, y) \dif{x} \dif{y} \leq I(f) + \frac{\epsilon}{2} - I(f) + \frac{\epsilon}{2} = \epsilon.
+	\]
+\end{proof}
+
+\begin{prop}[proprietà dell'integrale doppio]
+	L'integrale gode delle seguenti proprietà.
+	\begin{enumerate}[label = (\arabic*)]
+		\item \emph{Linearità}: l'insieme delle funzioni integrabili è uno spazio vettoriale e l'integrale è un'applicazione lineare.
+		\item \emph{Monotonia}: se $ f $ e $ g $ sono integrabili e $ \forall (x, y) \in \R^2, \ f(x, y) \leq g(x, y) $ allora 
+		\[
+			\iint_{\R^2} f(x, y) \dif{x}\dif{y} \leq \iint_{\R^2} g(x, y) \dif{x}\dif{y}.
+		\]
+		\item \emph{Continuità}: se $ f $ è integrabile allora $ \abs{f} $ è integrabile e vale 
+		\[
+			\abs{\iint_{\R^2} f(x, y) \dif{x}\dif{y}} \leq \iint_{\R^2} \abs{f(x, y)} \dif{x}\dif{y}.
+		\]
+		\item \emph{Prodotto}: se $ f $ e $ g $ sono integrabili, allora anche $ f \cdot g $ è integrabile 
+		\item \emph{Additività}: se $ A, B \subseteq \R^2 $, $ A \cap B = \emptyset $ e $ f $ è integrabile su $ A $ e su $ B $ allora $ f $ è integrabile su $ A \cup B $ e vale 
+		\[
+			\iint_{A \cup B} f(x, y) \dif{x}\dif{y} = \iint_{A} f(x, y) \dif{x}\dif{y} + \iint_{B} f(x, y) \dif{x}\dif{y}.
+		\]
+	\end{enumerate}
+\end{prop}
+
+\begin{thm}[Fubini-Tonelli]
+	Sia $ f \colon \R^2 \to \R $ una funzione limitata e nulla al di fuori di un limitato. Allora 
+	\begin{equation} \label{eqn:fubinitonelli}
+		\iint_{*} f(x, y) \dif{x} \dif{y} \leq \int_{*} \dif{x}\left(\int_{*} f(x, y) \dif{y}\right) \leq \int^{*} \dif{x}\left(\int^{*} f(x, y) \dif{y}\right) \leq \iint^{*} f(x, y) \dif{x} \dif{y}
+	\end{equation}
+\end{thm}
+%
+\begin{proof}
+	Procediamo per passi successivi. 
+	\begin{enumerate}
+		\item \emph{Caso banale}. $ f $ è la caratteristica di un rettangolo $ f(x, y) \coloneqq \varphi_{R}(x, y) $ dove $ R \coloneqq [a, b] \times [c, d] $. In questo caso la formula vale con le uguaglianze e con integrali veri. Infatti ai lati abbiamo per definizione  $ (b - a)(d - c) $. Per i termini al centro, fissato $ x \in \R $ considero la funzione $ y \mapsto \varphi_{R}(x, y) $ che è non nulla se $ (x, y) \in R $ e per la quale vale 
+		\[
+			\int_{\R} \varphi_{R}(x, y) \dif{y} =
+			\begin{cases}
+				0 & \text{se $ x \notin [a, b] $} \\
+				(d - c) & \text{se $ x \in [a, b] $} 
+			\end{cases}
+		\]
+		Possiamo allora considerare la funzione $ x \mapsto \int_{\R} \varphi_{R}(x, y) \dif{y} $ per la quale vale
+		\[
+			\int_{\R} \left(\int_{\R} \varphi_{R}(x, y) \dif{y}\right) \dif{x} = \int_{[a, b]} (d - c) \dif{x} = (b - a)(d - c)
+		\]
+		\item \emph{Caso semi-banale}. $ f $ è combinazione lineare di caratteristiche di rettangoli (\emph{step-function}). Anche in questo caso la formula vale con le uguaglianze e con integrali veri. Le applicazioni lineari 
+		\[
+			f \mapsto \iint_{\R^2} f(x, y) \dif{x} \dif{y} \qquad f \mapsto \int_{\R} \left(\int_{\R} f(x, y) \dif{y}\right) \dif{x}
+		\]
+		definite sullo spazio delle \emph{step-functions} a valori in $ \R $ coincidono su una base (le caratteristiche dei rettangoli) e sono pertanto la stessa applicazione lineare. 
+		\item \emph{Caso generale}. Dobbiamo dimostrare 3 disuguaglianze. Quella centrale è immediata. Mostriamo quella di destra (quella di sinistra si fa allo stesso modo). Sia $ \varphi(x, y) $ una \emph{step-function} con $ f(x, y) \leq \varphi(x, y) $ su $ \R^2 $. Poiché la retrizione di $ \varphi(x, y) $ a $ x $ costante è una \emph{step-function} in una variabile che maggiora la restrizione di $ f(x, y) $ a $ x $ costante si ha
+		\[
+			\int^{*} f(x, y) \dif{y} \leq \int_{\R} \varphi(x, y) \dif{y} \quad \forall x \in \R.
+		\]
+		Pertanto il RHS è sua volta una \emph{step-function} nella variabile $ x $ che maggiora la funzione della variabile $ x $ al LHS, così per quanto detto nel punto precedente
+		\[
+			\int^{*} \left(\int^{*} f(x, y) \dif{y}\right) \dif{x} \leq \int_{\R} \left(\int_{\R} \varphi(x, y) \dif{y}\right) \dif{x} = \iint_{\R^2} \varphi(x, y) \dif{x} \dif{y}. 
+		\]
+		Poiché tale disuguaglianza vale per ogni \emph{step-function} $ \varphi $ che maggiora $ f $, passando all'estremo inferiore sul RHS otteniamo la disuguaglianza voluta 
+		\[
+			\int^{*} \left(\int^{*} f(x, y) \dif{y}\right) \dif{x} \leq \iint^{*} f(x, y) \dif{x} \dif{y}. \qedhere
+		\]
+	\end{enumerate}
+\end{proof}
+
+\begin{corollary}[formula di riduzione]
+	Sia $ f \colon \R^2 \to \R $ una funzione limitata e nulla al di fuori di un limitato. Supponiamo che 
+	\begin{enumerate}[label = (\roman*)]
+		\item $ f $ sia integrabile su $ \R^2 $ 
+		\item $ \forall x \in \R $ la funzione $ y \mapsto f(x, y) $ è integrabile su $ \R $
+	\end{enumerate}
+	Allora la funzione $ x \mapsto \int_{\R} f(x, y) \dif{y} $ è integrabile su $ \R $ e vale la relazione
+	\begin{equation}
+		\iint_{\R^2} f(x, y) \dif{x} \dif{y} = \int_{\R} \dif{x} \left( \int_{\R} f(x, y) \dif{y}\right)
+	\end{equation}
+\end{corollary}
+%
+\begin{proof}
+	Dalla formula \eqref{eqn:fubinitonelli}, essendo $ f $ integrabile su $ \R^2 $ abbiamo $ RHS = LHS $ con al RHS e LHS integrali veri e quindi sono tutte uguaglianze. Inoltre per la (ii), $ \int^{*} f(x, y) \dif{y} = \int_{*} f(x, y) \dif{y} = \int_{\R} f(x, y) \dif{y} $, così
+	\[
+		\iint_{\R^2} f(x, y) \dif{x} \dif{y} = \int_{*} \dif{x}\left(\int_{\R} f(x, y) \dif{y}\right) = \int^{*} \dif{x}\left(\int_{\R} f(x, y) \dif{y}\right) = \iint_{\R^2} f(x, y) \dif{x} \dif{y}.
+	\]
+	Quindi $ \int_{\R} f(x, y) \dif{y} $ è integrabile su $ \R $ come funzione di $ x $ e vale l'uguaglianza della tesi. 
+\end{proof}
+
+\begin{prop}[formula di riduzione sui rettangoli]
+	Supponiamo $ R \coloneqq [a, b] \times [c, d] $ e $ f \colon R \to \R $ integrabile. Allora 
+	\begin{equation}
+		\iint_{R} f(x, y) \dif{x} \dif{y} = \int_{a}^{b} \dif{x} \int_{c}^{d} f(x, y) \dif{y}  = \int_{c}^{d} \dif{y} \int_{a}^{b} f(x, y) \dif{x} 
+	\end{equation}
+\end{prop}
+
+\begin{definition}[insieme normale in $ \R^2 $]
+	Sia $ A \subseteq \R^2 $. Diciamo che
+	\begin{itemize}
+		\item $ A $ è un insieme normale rispetto all'asse $ x $ se 
+		\begin{equation}
+			A \coloneqq \{(x, y) \in \R^2 : x \in [a, b], \varphi(x) \leq y \leq \psi(x)\}
+		\end{equation}
+		\item $ A $ è un insieme normale rispetto all'asse $ y $ se 
+		\begin{equation}
+			A \coloneqq \{(x, y) \in \R^2 : y \in [c, d], \varphi(y) \leq x \leq \psi(y)\}
+		\end{equation}
+	\end{itemize}
+\end{definition}
+
+\begin{prop}[formula di riduzione sugli insiemi normali]
+	Sia $ A \subseteq \R^2 $ e $ f \colon R \to \R $ integrabile. 
+	\begin{itemize}
+		\item Se $ A $ è un insieme normale rispetto all'asse $ x $ allora
+		\begin{equation}
+			\iint_{R} f(x, y) \dif{x} \dif{y} = \int_{a}^{b} \dif{x} \int_{\varphi(x)}^{\psi(x)} f(x, y) \dif{y}
+		\end{equation}
+		
+		\item Se $ A $ è un insieme normale rispetto all'asse $ y $ allora
+		\begin{equation}
+			\iint_{R} f(x, y) \dif{x} \dif{y} = \int_{c}^{d} \dif{y} \int_{\varphi(y)}^{\psi(y)} f(x, y) \dif{x}
+		\end{equation}
+	\end{itemize}
+\end{prop}
+
+\begin{definition}[insieme misurabile secondo Peano-Jordan]
+	Un sottoinsieme $ A \subseteq \R^2 $ si dice misurabile se la sua funzione caratteristica è integrabile. In tale caso la misura o area di $ A $ è  
+	\begin{equation}
+		\meas{(A)} \coloneqq \mathrm{area}(A) = \iint_{A} \dif{x} \dif{y}
+	\end{equation}
+\end{definition}
+
+\begin{prop}[criterio di misurabilità]
+	Un sottoinsieme $ A \subseteq \R^2 $ è misurabile se e solo se $ \forall \epsilon > 0 $ esistono due plurirettangoli (unioni finite di rettangoli senza parti interne in comune) $ P_{\epsilon} $ e $ Q_{\epsilon} $ tali che $ P_{\epsilon} \subseteq A \subseteq Q_{\epsilon} $ tali che $ \meas{(Q_\epsilon)} - \meas{(P_\epsilon)} \leq \epsilon $. 
+\end{prop}
+
+\begin{prop}
+	Un segmento in $ \R^2 $ ha misura nulla. 
+\end{prop}
+%
+\begin{proof}
+	Supponiamo \emph{wlog} che il segmento si descritto dall'insieme $ S \coloneqq \{(0, y) \in \R^2 : y \in [0, 1]\} $. La caratteristica di $ S $ è quindi la funzione $ f_S \colon \R^2 \to \R $ data da 
+	\[
+		f_S(x, y) \coloneqq 
+		\begin{cases}
+			1 & \text{se $ x = 0 $ e $ y \in [0, 1] $} \\
+			0 & \text{altrimenti}
+		\end{cases}
+	\]
+	Fissato $ \epsilon > 0 $, consideriamo come \emph{step-function} dal basso la funzione nulla $ \psi(x, y) \equiv 0 $ e come \emph{step-function} dall'alto la caratteristica $ \varphi_{\epsilon} $ di $ [-\epsilon/2, \epsilon/2] \times [0, 1] $. Allora risulta 
+	\[
+		\iint_{\R^2} \left[\varphi_{\epsilon}(x, y) - \psi(x, y)\right] \dif{x} \dif{y} = \epsilon \cdot 1 - 0 = \epsilon
+	\]
+	da cui $ f_S $ è integrabile. Inoltre risulta $ \iint_{\R^2} \psi(x, y) \dif{x} \dif{y} = 0 $ e 
+	\[
+		\iint_{\R^2} \varphi_{\epsilon}(x, y) \dif{x} \dif{y} = \epsilon \quad \Rightarrow \quad \inf{\left\{\iint_{\R^2} \varphi_{\epsilon}(x, y) \dif{x} \dif{y} : \epsilon > 0\right\}} = 0.
+	\] 
+	Dunque $ I^+(f_S) = I^-(f_S) = 0 $, da cui $ \meas{(S)} = \iint_{\R^2} f_S(x, y) \dif{x} \dif{y} = 0 $. 
+\end{proof}
+
+\begin{thm}[integrabilità delle funzioni continue]
+	Sia $ A \subseteq \R^2 $ un insieme misurabile e compatto e $ f \colon A \to \R $ continua. Allora $ f $ è integrabile su $ A $.
+\end{thm}
+%
+\begin{proof}
+	Fissiamo $ \epsilon > 0 $. Essendo $ A $ compatto e $ f $ continua per Weierstrass esiste $ M \in \R : \forall (x, y) \in A, \ \abs{f(x, y)} \leq M $. Inoltre essendo $ f $ continua su un compatto per Heine-Cantor, $ f $ è uniformemente continua. Essendo $ A $ misurabile, esistono due plurirettangoli $ P_\epsilon $ e $ Q_\epsilon $ con $ P_\epsilon \subseteq A \subseteq Q_\epsilon $ tali che $ \meas{(Q_\epsilon)} - \meas{(P_\epsilon)} \leq \epsilon / 4M $. Sia $ \delta > 0 $ dato dall'uniforme continuità corrispondente a $ \epsilon / 2 \meas{(P_\epsilon)} $ e consideriamo una suddivisione di $ P_\epsilon $ e $ Q_\epsilon $ abbastanza fine in modo che tutti i rettangoli abbiano diametro $ \leq \delta $ (in tale modo dentro $ P_\epsilon $ si ha $ \max f - \min f \leq \epsilon / 2 \meas{(P_\epsilon)} $). \\	
+	Ora definiamo $ \varphi_\epsilon, \psi_\epsilon \colon \R^2 \to \R $ come
+	\[
+		\varphi_\epsilon(x, y) \coloneqq 
+		\begin{cases}
+			0 & \text{se $ (x, y) \in \R^2 \setminus Q_\epsilon $} \\
+			M & \text{se $ (x, y) \in Q_\epsilon \setminus P_\epsilon $} \\
+			\max f & \text{se $ (x, y) \in P_\epsilon $}
+		\end{cases}
+		\qquad
+		\psi_\epsilon(x, y) \coloneqq 
+		\begin{cases}
+			0 & \text{se $ (x, y) \in \R^2 \setminus Q_\epsilon $} \\
+			- M & \text{se $ (x, y) \in Q_\epsilon \setminus P_\epsilon $} \\
+			\min f & \text{se $ (x, y) \in P_\epsilon $}
+		\end{cases}
+	\]
+	Se $ \hat{f} $ è l'estensione di $ f $ a $ \R^2 $, abbiamo che 
+	\[
+		\psi(x, y) \leq \hat{f}(x, y) \leq \varphi_\epsilon(x, y) \quad \forall (x, y) \in \R^2
+	\]
+	e inoltre
+	\begin{align*}
+		\iint_{\R^2} \left[\varphi_\epsilon - \psi_\epsilon\right] \dif{x} \dif{y} & = \iint_{P_{\epsilon}} \left[\varphi_\epsilon - \psi_\epsilon\right] \dif{x} \dif{y} + \iint_{Q_\epsilon \setminus P_\epsilon} \left[\varphi_\epsilon - \psi_\epsilon\right] \dif{x} \dif{y} + \iint_{\R^2\setminus Q_\epsilon} \left[\varphi_\epsilon - \psi_\epsilon\right] \dif{x} \dif{y} \\
+		& \leq \frac{\epsilon}{2 \meas{(P_\epsilon)}} \meas{(P_\epsilon)} + 2 M (\meas{(Q_\epsilon)} - \meas{(P_\epsilon)}) + 0 \\
+		& \leq \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon
+	\end{align*}
+	Dunque per la Proposizione \ref{prop:criterioint}, $ f $ è integrabile su $ A $.
+ \end{proof}
+
+\begin{prop}[misurabilità degli insiemi normali]
+	Sia $ A $ un insieme normale rispetto all'asse $ x $, cioè $ A \coloneqq \{(x, y) \in \R^2 : x \in [a, b], \varphi(x) \leq y \leq \psi(x)\} $. Se $ \varphi $ e $ \psi $ sono integrabili in $ [a, b] $ allora $ A $ è misurabile on $ \R^2 $
+\end{prop}
+
+
+
+\subsection{Integrali tripli}
+
+\begin{definition}[funzione integrabile su $ \R^3 $ alla Darboux "unrestricted"]
+	Sia $ f \colon \R^3 \to \R $ una funzione
+	\begin{enumerate}[label = (\roman*)]
+		\item limitata
+		\item nulla al di fuori di un limitato 
+	\end{enumerate}
+	Procediamo per passi successivi:
+	\begin{enumerate}
+		\item \emph{Caso banale}. Sia $ R \coloneqq [a_1, b_1] \times [a_2, c_2] \times [a_3, b_3] $ un rettangolo e $ \lambda \in \R $. Supponiamo che 
+		\begin{equation*}
+			f(x, y, z) \coloneqq \lambda \varphi_{R}(x, y, z) = 
+			\begin{cases}
+			\lambda & \text{se $ (x, y, z) \in R $} \\
+			0 & \text{se $ (x, y, z) \notin R $}
+			\end{cases}
+		\end{equation*}
+		Poniamo allora 
+		\begin{equation}
+			\iiint_{\R^3} f(x, y, z) \dif{x} \dif{y} \dif{z} \coloneqq \lambda \prod_{i = 1}^{3} (b_i - a_i)
+		\end{equation}
+		
+		\item \emph{Caso semi-banale}. $ f $ è una \emph{step-function}.
+		
+		\item \emph{Caso generale}. $ f $ è una funzione qualunque che soddisfa le ipotesi. Definiamo come al solito l'integrale superiore e inferiore di $ f $, $ I^+(f) $ e $ I^-(f) $, e se coincidono diciamo che $ f $ è integrabile su $ \R^3 $ (secondo Darboux "unrestricted") e detto $ I(f) $ il valore comune poniamo
+		\begin{equation}
+			\iiint_{\R^3} f(x, y, z) \dif{x} \dif{y} \dif{z} \coloneqq I(f)
+		\end{equation}
+	\end{enumerate}
+	Se $ A \subset \R^3 $ è un insieme limitato e $ f \colon A \to \R $ è limitata, possiamo estendere $ f $ a una funzione $ \hat{f} \colon \R^3 \to \R $ come 
+	\begin{equation*}
+		\hat{f}(x, y, z) \coloneqq 
+		\begin{cases}
+		f(x, y, z) & \text{se $ (x, y, z) \in A$} \\
+		0 & \text{se $ (x, y, z) \notin A $}
+		\end{cases}
+	\end{equation*}
+	Se $ \hat{f} $ è integrabile allora poniamo 
+	\begin{equation*}
+		\iiint_{A} f(x, y, z) \dif{x} \dif{y} \dif{z} \coloneqq \iiint_{\R^3} \hat{f}(x, y, z) \dif{x} \dif{y} \dif{z}
+	\end{equation*}
+\end{definition}
+
+\begin{definition}[insieme misurabile secondo Peano-Jordan]
+	Un sottoinsieme $ A \subseteq \R^3 $ si dice misurabile se la sua funzione caratteristica è integrabile. In tale caso la misura o volume di $ A $ è  
+	\begin{equation}
+	\meas{A} \coloneqq \mathrm{vol}(A) = \iiint_{A} \dif{x} \dif{y} \dif{z}
+	\end{equation}
+\end{definition}
+
+\begin{thm}[integrabilità delle funzioni continue]
+	Sia $ A \subseteq \R^3 $ un insieme misurabile e compatto e $ f \colon A \to \R $ continua. Allora $ f $ è integrabile su $ A $.
+\end{thm}
+
+\begin{definition}[formula di riduzione sui parallelepipedi]
+	Supponiamo $ R \coloneqq [a_1, b_1] \times [a_2, b_2] \times [a_3, b_3] $ e $ f \colon R \to \R $ integrabile. Allora 
+	\begin{equation}
+		\iiint_{R} f(x, y) \dif{x} \dif{y} = \int_{a_1}^{b_1} \dif{x} \int_{a_2}^{b_2} \dif{y} \int_{a_3}^{b_3} \dif{z} \, f(x, y, z) 
+	\end{equation}
+\end{definition}
+
+\begin{definition}[insieme normale]
+	Un sottoinsieme $ A \subseteq \R^3 $ si dice normale rispetto al piano $ xy $ è della forma
+	\begin{equation}
+		A \coloneqq \{(x, y, z) \in \R^3 : (x, y) \in \Omega, \ \varphi(x, y) \leq z \leq \psi(x, y)\}
+	\end{equation}
+	dove $ \Omega \subseteq \R^2 $ e $ \varphi, \psi \colon \Omega \to \R $. Analogamente si definiscono gli insiemi normali rispetto ai piani $ yz $ e $ xz $.
+\end{definition}
+
+\begin{prop}[misurabilità degli insiemi normali]
+	Sia $ A $ normale come sopra. Se $ \Omega \subseteq \R^2 $ è misurabile e $ \varphi $ e $ \psi $ sono integrabili allora $ A \subseteq \R^3 $ è misurabile.
+\end{prop}
+
+\begin{prop}[formula di riduzione per colonne]
+	Sia $ A \subseteq \R^3 $ un insieme normale rispetto al piano $ xy $ e $ f \colon A \to \R $ integrabile allora
+	\begin{equation}
+		\iiint_{A}f(x, y, z) \dif{x} \dif{y} \dif{z} = \iint_{\Omega} \dif{x} \dif{y} \int_{\varphi(x, y)}^{\psi(x, y)} \dif{z} \, f(x, y, z)
+	\end{equation}
+\end{prop}
+
+\begin{prop}[formula di riduzione per colonne] \label{prop:intpercolonne}
+	Sia $ A \subseteq \R^3 $ un insieme della forma $ A \coloneqq \{(x, y, z) \in \R^3 : z \in [a, b], \ (x, y) \in S_z\} $ con $ S_z \subseteq \R^2 $ e $ f \colon A \to \R $ integrabile allora
+	\begin{equation}
+	\iiint_{A}f(x, y, z) \dif{x} \dif{y} \dif{z} = \int_{a}^{b} \dif{z} \iint_{S_z} \dif{x} \dif{y} \, f(x, y, z)
+	\end{equation}
+\end{prop}
+
+\begin{definition}[baricentro]
+	Sia $ A \subseteq \R^2 $ misurabile . Il baricentro di $ A $ è il punto $ (x_G, y_G) \in \R^2 $ di coordinate
+	\begin{equation}
+		x_G \coloneqq \frac{1}{\mathrm{area}(A)} \iint_{A} x \dif{x} \dif{y} \qquad y_G \coloneqq \frac{1}{\mathrm{area}(A)} \iint_{A} y \dif{x} \dif{y}
+	\end{equation}
+\end{definition}
+
+\begin{thm}[volume di un solido di rotazione e Guldino 1]
+	Sia $ S $ un solido di rotazione attorno all'asse $ z $, ovvero un sottoinsieme di $ \R^3 $ descritto in coordinate cilindriche come $ S \coloneqq \{\theta \in [0, 2\pi], (\rho, z) \in F\} $ con $ F \subseteq \R^2 $ (che pensiamo nel piano $ yz $). Allora
+	\begin{equation}
+		\mathrm{vol}(S) = 2\pi \iint_F y \dif{y} \dif{z} = \mathrm{area}(F) \cdot 2\pi y_G
+	\end{equation}
+\end{thm}
+\begin{center}
+	%
+\begin{proof}
+	L'insieme $ S $ nelle variabili polari $ (\theta, \rho, z) $ è definito per sezioni come nella Proposizione \ref{prop:intpercolonne}, così
+	\[
+		\mathrm{vol}(S) = \iiint_S \dif{x} \dif{y} \dif{z} = \iiint_S \rho \dif{\rho} \dif{\theta} \dif{z} = \int_{0}^{2\pi} \dif{\theta} \iint_{F} \rho \dif{\rho} \dif{z} = 2\pi \iint_F y \dif{y} \dif{z}.
+	\]
+	Il Teorema di Guldino 1 si ottiene ponendo $ y_G \coloneqq \frac{1}{\mathrm{area}(F)} \iint_F y \dif{y} \dif{z} $
+	\[
+		\mathrm{vol}(S) =	\mathrm{area}(F) \cdot 2\pi \frac{\iint_F y \dif{y} \dif{z}}{\mathrm{area}(F)}. \qedhere
+	\]
+\end{proof}
+
+\end{center}
+\subsection{Cambio di variabile negli integrali multipli}
+
+\begin{definition}[diffeomorfismo]
+	Siano $ A, B \subseteq \R^n $ aperti. Diciamo che $ \varphi \colon A \to B $ è un diffeomorfismo se è di classe $ C^1 $ e ammette inversa di classe $ C^1 $. \\
+	Detta $ \psi $ l'inversa, per il differenziale della funzione composta $ \forall x \in A $ vale $ \jac{\psi}(\varphi(x)) \, \jac{\varphi(x)} = \Id $.
+\end{definition}
+
+\begin{thm}
+	Siano $ A, B \subseteq \R^n $ aperti, $ \varphi \colon A \to B $ un diffeomorfismo e $ \psi $ la sua inversa. Supponiamo che $ \jac{\varphi} $ e $ \jac{\psi} $ siano uniformemente continui in $ A $ e $ B $ rispettivamente. Sia $ f \colon A \to \R $ una funzione limitata e a supporto compatto. Allora vale 
+	\begin{equation}
+		\int_{B}^{*} f(y) \dif{y} = \int_{A}^{*} f(\varphi(x)) \, \abs{\det{\jac{\varphi}(x)}} \dif{x}
+	\end{equation}
+	e lo stesso per gli integrali inferiori.
+\end{thm}
+
+\begin{corollary}[formula di cambio di variabile]
+	Nelle stesse ipotesi del teorema precedente, se $ f $ è integrabile allora anche il RHS è integrabile e vale 
+	\begin{equation}
+	\int_{B} f(y) \dif{y} = \int_{A} f(\varphi(x)) \, \abs{\det{\jac{\varphi}(x)}} \dif{x}
+	\end{equation}
+\end{corollary}
+
+\subsection{Integrali multipli impropri}
+
+\begin{definition}[integrale su $ \R^2 $ di funzione positiva]
+	Sia $ f \colon \R^2 \to \R $ una funzione limitata, positiva e integrabile sulle palle. Allora si pone (se esiste)
+	\begin{equation}
+		\iint_{\R^2} f(x, y) \dif{x} \dif{y} \coloneqq \lim_{R \to +\infty} \iint_{B_R(0)} f(x, y) \dif{x} \dif{y}
+	\end{equation}
+\end{definition}
+
+\begin{prop}[indipendenza da come si invade $ \R^2 $]
+	Sia $ f \colon \R^2 \to \R $ una funzione limitata, positiva e integrabile sulle palle. Sia $ A_n $ una successione di sottoinsiemi di $ \R^2 $ tali che
+	\begin{enumerate}[label = (\roman*)]
+		\item $ A_n $ è misurabile e limitato
+		\item $ \forall R > 0, \ \exists n_0 : \forall n \geq n_0, \ B_{R}(0) \subseteq A_n $
+	\end{enumerate}
+	Allora 
+	\begin{equation*}
+		\lim_{n \to +\infty} \iint_{A_n} f(x, y) \dif{x} \dif{y} = \lim_{R \to +\infty} \iint_{B_R(0)} f(x, y) \dif{x} \dif{y}
+	\end{equation*}
+\end{prop}
+%
+\begin{proof}
+	L'integrale al LHS è ben definito $ \forall n \in \N $ perché $ A_n $ è limitato e misurabile e $ f $ è integrabile sulle palle. Il limite al RHS esiste in $ L \in [0, +\infty] $ perché $ f \geq 0 $ e quindi l'integrale è crescente con il raggio. Dobbiamo dividere in due casi, facciamo quello in cui $ L \in \R $. Essendo $ A_n $ limitato, $ \forall n \in \N, \ \exists R_n > 0 : A_n \subseteq B_{R_n}(0) $ e quindi 
+	\[
+		\iint_{A_n} f(x, y) \dif{x} \dif{y} \leq \iint_{B_{R_n}(0)} f(x, y) \dif{x} \dif{y} \leq L.
+	\]
+	D'altra parte, fissato $ \epsilon > 0 $ per definizione di limite $ \exists R_0 > 0 : \forall R \geq R_0, \ \iint_{B_R(0)} f(x, y) \dif{x} \dif{y} \geq L - \epsilon $. Così, essendo $ f $ positiva, $ \forall n \geq n_0 $ dato dalla (ii) abbiamo
+	\[
+		\iint_{A_n} f(x, y) \dif{x} \dif{y} \geq \iint_{B_{R_0}(0)} f(x, y) \dif{x} \dif{y} \geq L - \epsilon. \qedhere
+	\]
+\end{proof}
+
+\begin{definition}[integrale su $ \R^2 $ di funzione positiva con problema in un punto]
+	Sia $ f \colon B_R(0)\setminus\{0\} \to \R $ una funzione limitata, positiva e integrabile sulle corone circolari $ C_\epsilon \coloneqq \{(x, y) \in \R^2 : \epsilon^2 \leq x^2 + y^2 \leq R^2\} $. Allora si pone (se esiste)
+	\begin{equation}
+	\iint_{B_R(0)} f(x, y) \dif{x} \dif{y} \coloneqq \lim_{\epsilon \to 0^+} \iint_{C_\epsilon} f(x, y) \dif{x} \dif{y}
+	\end{equation}
+\end{definition}
+
+\begin{definition}[integrale su $ \R^2 $ di funzione a segno variabile] 
+	Data $ f \colon \R^2 \to \R $ poniamo $ f_+ \colon \R^2 \to [0, +\infty) $ come $ f_+(x, y) \coloneqq \max{\{f(x, y), 0\}} $ e $ f_- \colon \R^2 \to [0, +\infty) $ come $ f_-(x, y) \coloneqq - \min{\{f(x, y), 0\}} $. Poniamo allora 
+	\[
+		\iint_{\R^2} f(x, y) \dif{x} \dif{y} = \iint_{\R^2} f_+(x, y) \dif{x} \dif{y} - \iint_{\R^2} f_-(x, y) \dif{x} \dif{y}
+	\]
+	tranne nel caso $ +\infty - \infty $. 
+\end{definition}
+
+\begin{thm}
+	Sia $ f \colon \R^2 \to \R $ una funzione. Allora $ f $ è integrabile  su $ \R^2 $ e ha integrale finito se e solo se $ \abs{f} $ è integrabile su $ \R^2 $ e ha integrale finito. 
+\end{thm}
+%
+\begin{proof}
+	Nel linguaggio della definizione precedente si ha $ f(x, y) = f_+(x, y) - f_-(x, y) $ e $ \abs{f(x, y)} = f_+(x, y) + f_-(x, y) $ per ogni $ (x, y) \in \R^2 $. \\
+	Se $ \iint_{\R^2} f = \iint_{\R^2} f_+ - \iint_{\R^2} f_- $ è finito allora necessariamente $ \iint_{\R^2} f_+ $ e $ \iint_{\R^2} f_- $ sono finiti e quindi $ \iint_{\R^2} \abs{f} = \iint_{\R^2} f_+ + \iint_{\R^2} f_- $ è finito e $ \abs{f} $ è integrabile. \\
+	Viceversa se $ \iint_{\R^2} \abs{f} = \iint_{\R^2} f_+ + \iint_{\R^2} f_- $ è finito allora necessariamente $ \iint_{\R^2} f_+ $ e $ \iint_{\R^2} f_- $ sono finiti e quindi $ \iint_{\R^2} f = \iint_{\R^2} f_+ - \iint_{\R^2} f_- $ è finito e $ \abs{f} $ è integrabile. \\
+\end{proof}
+
+
+\subsection{Integrali dipendenti da parametro}
+Sia $ \Omega \subseteq \R^n $ un insieme misurabile, $ (t_1, t_2) \subseteq \R $ un intervallo e $ f \colon (t_1, t_2) \times \Omega \to \R $ una funzione. Possiamo allora definire la funzione $ \varphi \colon (t_1, t_2) \to \R $ come 
+\begin{equation}
+	\varphi(t) \coloneqq \int_{\Omega} f(t, x) \dif{x}
+\end{equation}
+
+\begin{thm}[continuità di $ \varphi $]
+	Supponiamo che 
+	\begin{enumerate}[label = (\roman*)]
+		\item $ \Omega $ sia misurabile e limitato
+		\item $ f(t, x) $ sia continua in $ t $ uniformemente rispetto a $ x $ in $ (t_1, t_2) \times \Omega $
+	\end{enumerate}
+	Allora $ \varphi(t) $ è continua in $ (t_1, t_2) $.
+\end{thm}
+%
+\begin{proof}
+	Fissiamo $ t_0 \in (t_1, t_2) $ e $ \epsilon > 0 $. Dalla continuità di $ f $ in $ t_0 $ uniforme in $ x $ considero il $ \delta > 0 $ (indipendente da $ x $) corrispondente a $ \epsilon / \meas{(\Omega)} $ tale che
+	\[
+		\forall (t, x) \in (t_1, t_2) \times \Omega : \norm{(t, x) - (t_0, x)} \leq \delta, \ \  \abs{f(t, x) - f(t_0, x)} \leq \frac{\epsilon}{\meas{(\Omega)}}.
+	\]
+	Così
+	\[
+		\abs{\varphi(t) - \varphi(t_0)} = \abs{\int_{\Omega} \left(f(t, x) - f(t_0, x)\right) \dif{x}} \leq \int_{\Omega} \abs{f(t, x) - f(t_0, x)} \dif{x} \leq \frac{\epsilon}{\meas{(\Omega)}} \meas{(\Omega)} = \epsilon. \qedhere
+	\]
+\end{proof}
+
+\begin{thm}[derivabilità di $ \varphi $: scambio derivata-integrale] \label{thm:scabioderivataintegrale}
+	Supponiamo che 
+	\begin{enumerate}[label = (\roman*)]
+		\item $ \Omega $ sia misurabile e limitato
+		\item $ f(t, x) $ sia derivabile rispetto a $ t $ in $ (t_1, t_2) \times \Omega $ con $ f_t(t, x) $ continua in $ t $ uniformemente rispetto a $ x $ in $ (t_1, t_2) \times \Omega $
+	\end{enumerate}
+	Allora $ \varphi(t) $ è derivabile in $ (t_1, t_2) $ e vale
+	\begin{equation}
+		\varphi'(t) = \int_{\Omega} f_t(t, x) \dif{x} \qquad \forall t \in (t_1, t_2)
+	\end{equation}
+\end{thm}
+%
+\begin{proof}
+	Fissiamo $ t_0 \in (t_1, t_2) $ e $ \epsilon > 0 $. dalla continuità di $ f_t $ in $ t_0 $ uniforme in $ x $ considero il $ \delta > 0 $ (indipendente da $ x $) corrispondente a $ \epsilon / \meas{(\Omega)} $ tale che
+	\[
+		\norm{(t_0 + h, x) - (t_0, x)} \leq \delta \quad \Rightarrow \quad  \abs{f_t(t_0 + h, x) - f_t(t_0, x)} \leq \frac{\epsilon}{\meas{(\Omega)}} \ \ \forall x \in \Omega.
+	\]
+	Così quando $ \abs{h} \leq \delta $ otteniamo
+	\begin{align*}
+		\abs{\frac{\varphi(t_0 + h) - \varphi(t_0)}{h} - \int_{\Omega} f_t(t, x) \dif{x}} & = \abs{\int_{\Omega} \left(\frac{f(t_0 + h, x) - f(t_0, x)}{h} - f_t(t, x)\right) \dif{x}} \\
+		& \leq \int_{\Omega} \abs{\frac{f(t_0 + h, x) - f(t_0, x)}{h} - f_t(t, x)} \dif{x} \\
+		& = \int_{\Omega} \abs{f_t(t + c(x, h), x) - f_t(t, x)} \dif{x} \\
+		& \leq \frac{\epsilon}{\meas{(\Omega)}} \meas{(\Omega)} = \epsilon.
+	\end{align*}
+	Nel terzo passaggio abbiamo usato il Teorema di Lagrange direzionale su $ f $, mentre l'ultima disuguaglianza segue dalla continuità $ f_t $ essendo $ 0 < \abs{c(x, h)} < \abs{h} \leq \delta $ sempre per il Teorema di Lagrange. 
+\end{proof}
+
+\begin{prop}
+	Siano $ A, B \colon [a, b] \to \R $ due funzioni derivabili e $ f \colon (t_1, t_2) \times \Omega $ dove $ \Omega $ contiene l'immagine di $ A $ e $ B $. Sia $ \varphi(t) \coloneqq \int_{A(t)}^{B(t)} f(t, x) \dif{x} $. Allora vale
+	\[
+		\varphi'(t) = f(t, B(t)) \, B'(t) - f(t, A(t)) \, A'(t) + \int_{A(t)}^{B(t)} f_t(t, x) \dif{x}.
+	\]
+\end{prop}
+%
+\begin{proof}
+	Consideriamo la funzione di tre variabili
+	\[
+		G(A, B, t) \coloneqq \int_{A}^{B} f_t(t, x) \dif{x}.
+	\]
+	da cui $ \varphi(t) = G(A(t), B(t), t) $. Per la \emph{chain rule} si ha
+	\[
+		\varphi'(t) = G_A(A(t), B(t), t) \, A'(t) + G_B(A(t), B(t), t) \, B'(t) + G_t(A(t), B(t), t) \cdot 1. 
+	\]
+	Ora per il teorema fondamentale del calcolo
+	\[
+		G_A(A, B, t) = - f(t, A) \qquad G_B(A, B, t) = f(t, B) 
+	\]
+	mentre per il Teorema \ref{thm:scabioderivataintegrale} si ha 
+	\[
+		G_t(A, B, t) = \int_{A}^{B} f_t(t, x).
+	\]
+	Sostituendo nella derivata di $ \varphi $ troviamo la formula voluta. 
+\end{proof}
+
+\begin{prop}[Integrale di Dirichlet]
+	\[ \int_0^{+\infty} \frac{\sin x}{x} \dif{x} = \frac{\pi}{2} \]
+\end{prop}
+
+\begin{proof}
+	Consideriamo l'integrale dipendente da parametro:
+	\[ F(\lambda) = \int_0^{+\infty} \frac{\sin x}{x} e^{-\lambda x} \dif{x} \qquad \forall\lambda \geq 0 \]
+	Questo converge per ogni $ \lambda \geq 0 $, infatti possiamo spezzare l'insieme di integrazione riscrivendo l'integrale come $ \int_{0}^{1} + \int_{1}^{+\infty} $;
+	per il primo integrale vale la stima
+	\[ 0 \leq \int_{0}^{1} \frac{\sin x}{x} e^{-\lambda x} \dif{x} \leq \int_{0}^{1} 1 \dif{x} = 1 \qquad \forall\lambda\geq 0 \]
+	e dunque converge; per il secondo
+	\[ 0 \leq \int_{1}^{+\infty} \frac{\sin x}{x} e^{-\lambda x} \dif{x} \leq \int_{1}^{+\infty} e^{-\lambda x} \dif{x} < +\infty \qquad \forall\lambda > 0 \]
+	Per $ \lambda = 0 $, invece, l'integrale $ \int_{1}^{+\infty} \frac{\sin x}{x} \dif{x} $ converge per il criterio di Dirichlet-Abel\footnote{ Sia $ f(x) $ una funzione derivabile con derivata assolutamente integrabile (in senso improprio), e $ g(x) $ una funzione continua con primitiva limitata. Allora $\int_{a}^{+\infty} f(x)g(x) \dif{x} < +\infty $. }.
+	Calcoliamo la derivata di $ F(\lambda) $:
+	\[ F'(\lambda) = \od{}{\lambda} \int_0^{+\infty} \frac{\sin x}{x} e^{-\lambda x} \dif{x} = \int_{0}^{+\infty} \frac{\sin x}{x} \pd{}{\lambda} \left( e^{-\lambda x} \right) \dif{x} = - \int_0^{+\infty}e^{-\lambda x} \sin x \dif{x} \]
+	Integrando per parti due volte otteniamo:
+	\[ F'(\lambda) = -\frac{1}{1+\lambda^2} \]
+	e pertanto:
+	\[ F(\lambda) = c - \arctan\lambda \]
+	Per determinare la costante di integrazione consideriamo:
+	\[ \lim_{\lambda\to+\infty} F(\lambda) = \int_{0}^{+\infty} \frac{\sin x}{x} \left( \lim_{\lambda\to+\infty} e^{-\lambda x} \right) \dif{x} = 0 \]
+	\[ \lim_{\lambda\to+\infty} F(\lambda) = \lim_{\lambda\to+\infty} (c - \arctan\lambda) = c - \frac{\pi}{2}\]
+	Da cui segue che $ c = \frac{\pi}{2} $. L'integrale di Dirichlet è infine:
+	\[ F(0) = \int_0^{+\infty} \frac{\sin x}{x} \dif{x} = \frac{\pi}{2} \qedhere \] 
+\end{proof}
+
+\subsection{Stime di integrali vettoriali}
+
+\begin{definition}[integrale di una funzione a valori in $ \R^m $]
+	Sia $ \Omega \subseteq \R^n $ misurabile e $ f \colon \Omega \to \R^m $ con $ m \geq 1 $ di componenti $ f(x) \coloneqq \left(f_1(x), \ldots, f_m(x)\right) $. Definiamo 
+	\begin{equation}
+		\int_{\Omega} f(x) \dif{x} \coloneqq \left(\int_{\Omega}f_1(x) \dif{x}, \ldots, \int_{\Omega}f_m(x) \dif{x}\right)
+	\end{equation} 
+\end{definition}
+
+\begin{prop} \label{prop:leqintegrale}
+	Sia $ \Omega \subseteq \R^n $ misurabile e $ f \colon \Omega \to \R^m $. Allora 
+	\begin{equation}
+		\norm{\int_{\Omega} f(x) \dif{x}} \leq \int_{\Omega} \norm{f(x)} \dif{x}
+	\end{equation}
+\end{prop}
+%
+\begin{proof}
+	Dato un qualunque $ v \in \R^n $ abbiamo
+	\[
+		\sp{v}{\int_{\Omega} f(x) \dif{x}} = \sum_{i = 1}^{m} v_i \int_{\Omega} f_i(x) \dif{x} = \int_{\Omega} \left(\sum_{i = 1}^{m} v_i f_i(x)\right) \dif{x} = \int_{\Omega} \sp{v}{f(x)} \dif{x}
+	\]
+	Essendo $ \sp{v}{f(x)} $ una funzione a valori in $ \R $, per la disuguaglianza integrale e per la disuguaglianza di Cauchy-Schwarz abbiamo
+	\[
+		\abs{\sp{v}{\int_{\Omega} f(x) \dif{x}}} = \abs{\int_{\Omega} \sp{v}{f(x)} \dif{x}} \leq \int_{\Omega} \abs{\sp{v}{f(x)}}\dif{x} \leq \int_{\Omega} \norm{v} \cdot \norm{f(x)} \dif{x} = \norm{v} \int_{\Omega} \norm{f(x)} \dif{x}
+	\]
+	Distinguiamo quindi due casi. Se $ \int_{\Omega} f(x) \dif{x} = 0 $ allora non c'è niente da dimostrare. Se $ \int_{\Omega} f(x) \dif{x} = w \neq 0 $ allora poniamo $ v \coloneqq \frac{w}{\norm{w}} $ così
+	\[
+		\norm{\int_{\Omega} f(x) \dif{x}} = \frac{\sp{\int_{\Omega} f(x) \dif{x}}{\int_{\Omega} f(x) \dif{x}}}{\norm{\int_{\Omega} f(x) \dif{x}}} \leq \int_{\Omega} \norm{f(x)} \dif{x} \qedhere
+	\]
+\end{proof}
+
+\begin{prop} \label{prop:geqintegrale}
+	Sia $ \Omega \subseteq \R^n $ misurabile e $ f \colon \Omega \to \R^m $. Allora per ogni $ x_0 \in \Omega $
+	\begin{equation}
+		\norm{\int_{\Omega} f(x) \dif{x}} \geq \int_{\Omega} \norm{f(x)} \dif{x} - 2 \int_{\Omega} \norm{f(x) - f(x_0)} \dif{x}
+	\end{equation}
+\end{prop}
+%
+\begin{proof}
+	Osserviamo che 
+	\[
+		f(x) = f(x_0) + (f(x) - f(x_0)) \quad \Rightarrow \quad \int_{\Omega} f(x) \dif{x} = \meas{(\Omega)} f(x_0) + \int_{\Omega} (f(x) - f(x_0)) \dif{x}.
+	\]
+	Passando alle norme, usando la disuguaglianza triangolare e la proposizione precedente
+	\[
+		\norm{\int_{\Omega} f(x) \dif{x}} \geq \meas{(\Omega)} \norm{f(x_0)} - \norm{\int_{\Omega} (f(x) - f(x_0)) \dif{x}} \geq \meas{(\Omega)} \norm{f(x_0)} - \int_{\Omega} \norm{f(x) - f(x_0)} \dif{x}
+	\]
+	D'altra parte invertendo l'ordine delle operazioni
+	\[
+		f(x) = f(x_0) + (f(x) - f(x_0)) \quad \Rightarrow \quad \norm{f(x)} \leq \norm{f(x_0)} + \norm{f(x) - f(x_0)}
+	\]
+	da cui
+	\begin{gather*}
+		\int_{\Omega} \norm{f(x)} \dif{x} \leq \meas{(\Omega)} \norm{f(x_0)} + \int_{\Omega} \norm{f(x) - f(x_0)} \dif{x} \\
+		\quad \Rightarrow \quad \meas{(\Omega)} \norm{f(x_0)} \geq \int_{\Omega} \norm{f(x)} \dif{x} - \int_{\Omega} \norm{f(x) - f(x_0)} \dif{x}.
+	\end{gather*}
+	Sostituendo nella disuguaglianza trovata in precedenza ritroviamo la tesi. 
+\end{proof}

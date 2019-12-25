@@ -1,0 +1,481 @@
+\documentclass[a4paper,11pt]{article}
+	 \usepackage[a4paper, left=2.5cm, bottom=2.5cm]{geometry}
+     \usepackage[italian]{babel}
+     \usepackage[utf8]{inputenc}
+     \usepackage{amsmath}
+     \usepackage{siunitx}
+     \usepackage{enumitem}
+     \usepackage{graphicx}
+     \usepackage{amsfonts}
+     \newcommand{\defi}{\textbf{Def.: }}
+     \newcommand{\trm}[1]{\textbf{Teorema #1:}}
+     \newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+     \newcommand{\Sc}{\mathfrak{S}}
+	 \title{Teoremi di Analisi 3}
+	 
+\begin{document}
+\maketitle
+\begin{enumerate}
+	\item Spazi normati, $\mathbb{R}^n$ come spazio di Banach, Cauchy-Schwarz, topologia euclidea.
+	\item Limiti in più variabili.
+	\item Derivate parziali e direzionali, differenziabilità: sia $A$ un aperto di $\mathbb{R}^n$, $f\colon A\to\mathbb{R}$. Si definisce derivata direzionale in $x$ rispetto al vettore $v$ la quantità
+	\[\partial_vf(x)=\lim\limits_{h\to 0}\frac{f(x+hv)-f(x)}{h}\]
+	Se poi $v$ è il vettore $e_i$ della base canonica, tale derivata si chiama derivata parziale rispetto a $x_i$.
+	
+	Se $f\colon A\to\mathbb{R}^k$, si dice che $f$ è differenziabile in $x$ se esiste un'applicazione lineare $L\colon\mathbb{R}^n\to\mathbb{R}^k$ tale che
+	\[f(x+h)=f(x)+Lh+o(|h|)\]
+	Se $f$ è differenziabile in $x$, allora è continua ed esistono tutte le derivate direzionali, e in particolare $\partial_vf(x)=Lv$. $L$ è univocamente determinata da
+	\[L_{ij}=\frac{\partial f_i}{\partial x_j}\]
+	Se $k=1$, si usa la notazione $L=\nabla f$.
+	\item \textbf{Teorema del differenziale totale:} \textit{sia $A$ un aperto di $\mathbb{R}^n$, $f\colon A\to\mathbb{R}$, $\tilde{x}\in A$ tale che in suo intorno esistano le derivate parziali di $f$ e siano continue in $\tilde{x}$. Allora $f$ è differenziabile in $\tilde{x}$.}
+	
+	\textbf{Dimostrazione:} posto $\tilde{x}=(\tilde{x}_1,\cdots,\tilde{x}_n)$, risulta
+	\[f(x_1,\cdots,x_n)-f(\tilde{x}_1,\cdots,\tilde{x}_n)=\sum_{i=1}^{n}f(\tilde{x}_1,\cdots,\tilde{x}_{i-1},\tilde{x}_i,x_{i+1},\cdots,x_n)-\]
+	\[-f(\tilde{x}_1,\cdots,\tilde{x}_{i-1},x_i,x_{i+1},\cdots,x_n)=\]
+	\[=\sum_{i=1}^{n}\frac{\partial f}{\partial x_i}(\tilde{x}_1,\cdots,\tilde{x}_{i-1},\xi_i,x_{i+1},\cdots,x_n)(x_i-\tilde{x}_i)\]
+	
+	Dove si è usato il teorema di Lagrange. Fissato $\varepsilon>0$, esiste un intorno $U$ di $\tilde{x}$ tale che $\left|\partial_{e_i}f(x)-\partial_{e_i}f(\tilde{x})\right|<\varepsilon/n$ per ogni $i$ e per ogni $x\in U$. Allora
+	\[\left|f(x)-f(\tilde{x})-\nabla f(\tilde{x})\cdot(x-\tilde{x})\right|\leq\sum_{i=1}^{n}\left|\partial_{e_i}f(\hat{\xi}_i)-\partial_{e_i}f(\tilde{x})\right|\left|x_i-\tilde{x}_i\right|\leq\varepsilon\]
+	
+	\item \textbf{Chain Rule:} \textit{siano $A$ un aperto di $\mathbb{R}^n$, $\gamma$ una curva di classe $C^1$ con sostegno in $A$, $f\colon A\to\mathbb{R}$ differenziabile. Allora $g=f\circ\gamma$ è di classe $C^1$ e $g'(t)=\nabla f(\gamma(t))\cdot\gamma'(t)$.}
+	
+	\textbf{Dimostrazione:} Per ipotesi si ha
+	\[f(x+k)=f(x)+\nabla f(x)\cdot k+o(|k|)\]
+	\[\gamma(t+h)=\gamma(t)+\gamma'(t)h+o(h)\]
+	E dunque
+	\[f(\gamma(t+h))=f(\gamma(t))+\nabla f(\gamma(t))\cdot\gamma'(t)h+o(|\gamma'(t)h+o(h)\]
+	E la tesi è dimostrata notando che il termine nell'ultima parentesi è $\mathcal{O}(h)$ e $o(\mathcal{O}(h))=o(h)$.
+	
+	\item Ogni applicazione lineare da $\mathbb{R}^k$ in $\mathbb{R}^n$ è limitata.
+	
+	\textbf{Dimostrazione:} poichè siamo in dimensione finita, esiste $M\in\mathcal{M}_{n,k}(\mathbb{R})$ tale che $f(x)=Mx$. Allora
+	\[\norm{f(x)}=\sqrt{\sum_{i=1}^{n}\left(\sum_{j=1}^{n}M_{ij}x_j\right)^2}\leq\norm{x}\norm{M}\]
+	Da cui $\norm{f}\leq\norm{M}$.
+	\item \textbf{Teorema di Schwarz:} \textit{sia $f\colon\mathbb{R}^n\to\mathbb{R}$ e sia $x\in\mathbb{R}^n$ tale che in un suo intorno esistano $\frac{\partial^2f}{\partial x_i\partial x_j}$ e $\frac{\partial^2f}{\partial x_j\partial x_i}$. Se almeno una delle due derivate miste è continua in $x$, allora esse coincidono.}
+	
+	\textbf{Dimostrazione:} wlog $n=2$ e supponiamo che $\frac{\partial^2f}{\partial x_1\partial x_2}$ sia continua in $\tilde{x}=(\tilde{x}_1,\tilde{x}_2)$. Per $h_1,h_2>0$ sia
+	\[R(h_1,h_2)=\frac{f(\tilde{x}_1+h_1,\tilde{x}_2+h_2)-f(\tilde{x}_1+h_1,\tilde{x}_2)-f(\tilde{x}_1,\tilde{x}_2+h_2)+f(\tilde{x}_1,\tilde{x}_2)}{h_1h_2}\]
+	Per Lagrange, esiste $\theta_2\in(0,1)$ tale che
+	\[R(h_1,h_2)=\frac{1}{h_1}\left(\frac{\partial f}{\partial x_2}(\tilde{x}_1+h_1,\tilde{x}_2+\theta_2h_2)-\frac{\partial f}{\partial x_2}(\tilde{x}_1,\tilde{x}_2+\theta_2h_2)\right)\]
+	Di nuovo per Lagrange esiste $\theta_1\in(0,1)$ tale che 
+	\[R(h_1,h_2)=\frac{\partial^2f}{\partial x_1\partial x_2}(\tilde{x}_1+\theta_1h_1,\tilde{x}_2+\theta_2h_2)\]
+	E dunque, quando $(h_1,h_2)\to(0,0)$, per continuità ho
+	\[R(h_1,h_2)=\frac{\partial^2f}{\partial x_1\partial x_2}(\tilde{x}_1,\tilde{x}_2)+o(1)\]
+	Riscrivo ora
+	\[R(h_1,h_2)=\frac{1}{h_2}\left(\frac{\partial f}{\partial x_1}(\tilde{x}_1+\theta'_1h_1,\tilde{x}_2+h_2)-\frac{\partial f}{\partial x_1}(\tilde{x}_1+\theta'_1h_1,\tilde{x}_2)\right)\]
+	E per $h_1\to 0$ ho
+	\[R(h_1,h_2)=\frac{1}{h_2}\left(\frac{\partial f}{\partial x_1}(\tilde{x}_1,\tilde{x}_2+h_2)-\frac{\partial f}{\partial x_1}(\tilde{x}_1,\tilde{x}_2)\right)\]
+	Che tende a $\frac{\partial^2f}{\partial x_2\partial x_1}(\tilde{x}_1,\tilde{x}_2)$ quando $h_2\to0$.
+	\item Multi-indici, matrice Hessiana: sia $p\in\mathbb{N}^n$. Allora se $p=(p_1,\cdots,p_n),$ si pone
+	\[D^p=\prod_{i=1}^{n}\partial^{p_i}_{e_i}\]
+	\[p!=\prod_{i=1}^{n}p_i!\]
+	\[|p|=\sum_{i=1}^{n}p_i\]
+	E se $h=(h_1,\cdots,h_n)\in\mathbb{R}^n$
+	\[h^p=(h_1^{p_1},\cdots,h_n^{p_n})\]
+	Si indica con $\textrm{Hess}f(x)$ la matrice
+	\[\textrm{Hess}f(x)_{ij}=\frac{\partial^2 f}{\partial x_i\partial x_j}(x)\]
+	\item\textbf{Sviluppo di Taylor con resto di Lagrange:} \textit{sia $f\colon\mathbb{R}^n\to\mathbb{R}$ tale che esistono tutte le derivate fino all'ordine $k+1$ in un intorno di $x$. Allora si ha
+	\[f(x+h)=\sum_{|p|\leq k}\frac{D^pf(x)}{p!}h^p+\sum_{|p|=k+1}\frac{D^pf(\xi)}{p!}h^p\]}
+
+	\textbf{Dimostrazione:} lo dimostro nel caso $n=2$, $x=0$, essendo essenzialmente identica per $n>2$, $x\neq0$. Sia $g(t)=f(tx,ty)$. Allora si ha
+	\[g(t)=\sum_{i=0}^{k}\frac{g^{(i)}(0)}{i!}t^i+\frac{g^{(k+1)}(\tau)}{(k+1)!}t^{k+1}\]
+	Ora dimostro per induzione che si ha
+	\[g^{(i)}(t)=\sum_{j=0}^{i}\binom{i}{j}x^{j}y^{i-j}\partial^j_xf(tx,ty)\partial^{i-j}_yf(tx,ty)\]
+	Il caso $i=1$ è immediato:
+	\[g'(t)=f_x(tx,ty)x+f_y(tx,ty)y\]
+	Il passo induttivo è allora
+	\[g^{(i+1)}(t)=\sum_{j=1}^{i}\binom{i}{j}x^jy^{i-j}\left(x\partial^{j+1}_xf(tx,ty)\partial^{i-j}_yf(tx,ty)+y\partial^{j}_xf(tx,ty)\partial^{i-j+1}_yf(tx,ty)\right)=\]
+	\[=\sum_{j=0}^{i}\binom{i}{j}x^{j+1}y^{i-j}\partial^{j+1}_xf(tx,ty)\partial^{i-j}_yf(tx,ty)+\sum_{j=0}^{i}\binom{i}{j}x^{j}y^{i-j+1}\partial^{j}_xf(tx,ty)\partial^{i-j+1}_yf(tx,ty)=\]
+	\[\sum_{j=1}^{i+1}\binom{i}{j-1}x^{j}y^{i-j+1}\partial^{j}_xf(tx,ty)\partial^{i-j+1}_yf(tx,ty)+\sum_{j=0}^{i}\binom{i}{j}x^{j}y^{i-j+1}\partial^{j}_xf(tx,ty)\partial^{i-j+1}_yf(tx,ty)\]
+	Usando ora
+	\[\binom{i+1}{j}=\binom{i}{j}+\binom{i}{j-1}\]
+	Risulta
+	\[g^{(i+1)}(t)=\sum_{j=1}^{i+1}\binom{i+1}{j}x^{j}y^{i-j+1}\partial^{j}_xf(tx,ty)\partial^{i-j+1}_yf(tx,ty)-\]
+	\[-\sum_{j=1}^{i+1}\binom{i}{j}x^{j}y^{i-j+1}\partial^{j}_xf(tx,ty)\partial^{i-j+1}_yf(tx,ty)+\sum_{j=0}^{i}\binom{i}{j}x^{j}y^{i-j+1}\partial^{j}_xf(tx,ty)\partial^{i-j+1}_yf(tx,ty)=\]
+	\[=\sum_{j=0}^{i+1}\binom{i+1}{j}x^{j}y^{i+1-j}\partial^{j}_xf(tx,ty)\partial^{i+1-j}_yf(tx,ty)\]
+	L'ultima relazione scritta con i multi-indici diventa
+	\[g^{(i)}(t)=\sum_{|p|=i}\frac{i!}{p!}D^pf(tx,ty)(x,y)^p\]
+	E pertanto
+	\[g(t)=\sum_{i=0}^{k}\sum_{|p|=i}\frac{D^pf(0,0)}{p!}(x,y)^pt^i+\sum_{|p|=k+1}\frac{D^pf(0,0)}{p!}(x,y)^pt^{k+1}\]
+	Che è la tesi, una volta notato che $g(1)=f(x,y)$.
+	\item\textbf{Sviluppo di Taylor con resto di Peano:} \textit{sia $f\colon\mathbb{R}^n\to\mathbb{R}$ tale che esistono tutte le derivate fino all'ordine $k-1$ in un intorno di $x$ e sono differenziabili in $x$. Allora si ha
+		\[f(x+h)=\sum_{|p|\leq k}\frac{D^pf(x)}{p!}h^p+o(|h|^{k})\]}
+	
+	\textbf{Dimostrazione:} sia
+	\[g(h)=f(x+h)-\sum_{|p|\leq k}\frac{D^pf(x)}{p!}h^p\]
+	Per induzione, è immediato vedere che $g$ ha derivate tutte nulle fino all'ordine $k$. Dico che se $h\colon\mathbb{R}^n\to\mathbb{R}$ ha derivate tutte nulle fino all'ordine $j$, allora $h(x)=o(|x|^j)$ quando $x\to0$. Per induzione, i passi $j=0,j=1$ sono ovvi. Supponiamo la tesi vera, in particolare ho $D^p f(x)=o(|x|^{j})$ quando $|p|=1$, e dunque $\nabla f(x)=o(|x|^j)=|x|^j\omega(x)$, con $\omega(x)\to0$ quando $x\to0$. Allora si ha
+	\[|f(x)-f(0)|=|\nabla f(\xi)\cdot x|\leq|\nabla f(\xi)||x|=|\xi|^j|x|\omega(\xi)\leq|x|^{j+1}\omega(\xi)=o(|x|^{j+1})\]
+	E la tesi è immediata.
+	\item Sviluppo esplicito al secondo ordine: si ha
+	\[f(x+h)=f(x)+\nabla f(x)\cdot h+\frac{1}{2}h^t\textrm{Hess}f(x)h+o(|h|^2)\]
+	\item Massimi e minimi vincolati, punti di sella, autovalori, segnatura, Sylvester:
+	Sia $A$ un compatto di $\mathbb{R}^n$, $f\colon B\to\mathbb{R}$, $B\supseteq A$. Allora i punti di massimo e di minimo di $f$ in $A$ possono essere:
+	\begin{itemize}
+		\item in $A^\circ$, e in tal caso annullano il gradiente
+		\item su $\partial A$.
+	\end{itemize}
+	Nel primo caso, studio l'Hessiana: se infatti in $x\in A^\circ$ ho $\nabla f(x)=0$, allora
+	\[f(x+h)=f(x)+\frac{1}{2}h^t\textrm{Hess}f(x)h+o(|h|^2)\]
+	In particolare, se l'Hessiana ha tutti autovalori positivi (risp. negativi) allora $x$ è un minimo (risp. un massimo), se è indefinita (i.e. ha almeno due autovalori non nulli di segno discorde) allora $x$ è un punto di sella, se è semidefinita bestemmia.
+	Infatti, se $M$ è una matrice simmetrica definita positiva, allora per il teorema spettrale si diagonalizza tramite una matrice ortogonale $O$, ovvero $D=O^tMO$. Poichè $\norm{Ox}=\norm{x}$, è sufficiente mostrare che se una matrice è diagonale con tutti autovalori positivi strettamente positivi, allora esiste $\alpha>0$ tale che $x^tDx\geq\alpha \norm{x}^2$. La tesi è immediata scegliendo $\alpha$ uguale al più piccolo autovalore. Analogamente, se $M$ è definita negativa esiste $\beta>0$ tale che $x^tMx\leq -\beta\norm{x}^2$.
+	Nel caso di massimi sul bordo (che si dicono vincolati), si può procedere in due modi. Supponiamo che $\partial A$ sia esprimibile come una funzione del parametro scalare $t$, ovvero esiste $g\colon[a,b]\to\mathbb{R}^n$ tale che $g([a,b])=\partial A$. Allora, posto $h=f\circ g\colon[a,b]\to\mathbb{R}$, basta trovare i massimi e i minimi di $h$. Altrimenti, si può procedere con i moltiplicatori di Lagrange: supponiamo che $\partial A=\{x\in\mathbb{R}^n:\phi(x)=0\}$ per una certa $\phi$ sufficientemente regolare. Allora se $x$ è un massimo o minimo vincolato esiste $\lambda$ tale che $\nabla f(x)=\lambda \nabla\phi(x)$. Lo dimostro solo nel caso $n=2$, essendo la dimostrazione in dimensione superiore analoga. Supponiamo ad esempio che $\nabla\phi\neq0$ in $\partial A$. Allora $\phi(x,y)=0$ se e solo se $y=g(x)$, per il teorema della funzione implicita. Studiando $f(x,g(x))$, per avere un massimo o un minimo deve essere \[0=f_x(x,g(x))+g'(x)f_y(x,g(x))=f_x(x,g(x))-\frac{\phi_x(x,g(x))}{\phi_y(x,g(x))}f_y(x,g(x))\]
+	Posto $\lambda=\frac{f_y(x,g(x))}{\phi_y(x,g(x))}$, risulta $\nabla f(x,g(x))=\lambda\nabla \phi(x,g(x))$.
+	\item Curve: regolari, regolari a tratti, chiuse, semplici, equivalenti, rettificabili: una curva è un'applicazione continua $\gamma\colon[a,b]\to\mathbb{R}^n$. Posto $\gamma'(t)=(\gamma'_1(t),\cdots,\gamma'_n(t))$, se $\gamma'(t)\neq0$ per ogni $t$, $\gamma$ si dice regolare. Se $[a,b]$ si può partizionare in un numero finito di intervalli in cui $\gamma$ è regolare, $\gamma$ è regolare a tratti. Se $\gamma(a)=\gamma(b)$, la curva è chiusa. Se, ad eccezione dei due estremi, $\gamma$ è iniettiva, allora $\gamma$ è semplice. Se $\gamma\colon[a,b]\to\mathbb{R}^n$ e $\delta\colon[c,d]\to\mathbb{R}^n$ e esiste $\varphi\colon[a,b]\to[c,d]$ di classe $C^1$, biettiva, con derivata mai nulla tale che $\gamma=\delta\circ\varphi$, allora $\gamma$ e $\varphi$ si dicono equivalenti. Infine, si definisce la lunghezza di $\gamma$ come
+	\[l(\gamma)=\sup\left\{\sum_{i=0}^{n}\norm{\gamma(t_{i+1})-\gamma(t_{i})}:a=t_0<t_1<\cdots<t_{n+1}=b\right\}\]
+	e se $l(\gamma)<+\infty$ si dice che $\gamma$ è rettificabile.
+	\item\textbf{Lunghezza di una curva $C^1$:} \textit{sia $\gamma\colon[a,b]\to\mathbb{R}^n$ una curva di classe $C^1$. Allora
+	\[l(\gamma)=\int_{a}^{b}\norm{\gamma'(t)}\mathrm{d}t\]}
+
+	\textbf{Dimostrazione:} prima della dimostrazione enuncio un lemma: sia $f\colon B\to\mathbb{R}^m$, con $B\subseteq\mathbb{R}^n$, se $A\subset B$ è misurabile e $x_0\in A$ qualunque, si ha
+	\[\int_A\norm{f(x)}\mathrm{d}x-2\int_A\norm{f(x)-f(x_0)}\mathrm{d}x\leq\norm{\int_Af(x)\mathrm{d}x}\leq\int_A\norm{f(x)}\mathrm{d}x\]
+	Per la prima disuguaglianza, noto che se $v\in\mathbb{R}^m$ ho
+	\[v\cdot\int_Af(x)\mathrm{d}x=\sum_{i=1}^{m}v_i\int_Af_i(x)\mathrm{d}x=\int_A\sum_{i=1}^{m}v_if_i(x)\mathrm{d}x=\int_Av\cdot f(x)\mathrm{d}x\]
+	In particolare
+	\[\left|v\cdot\int_A f(x)\mathrm{d}x\right|=\left|\int_Av\cdot f(x)\mathrm{d}x\right|\leq\int_A\left|v\cdot f(x)\right|\mathrm{d}x\leq\norm{v}\int_A\norm{f(x)}\mathrm{d}x\]
+	E la tesi segue scegliendo $v=\int_Af(x)\mathrm{d}x$.
+	Per la seconda, fissato $x_0\in A$ ho
+	\[\norm{\int_Af(x)\mathrm{d}x}\geq\norm{\int_Af(x_0)\mathrm{d}x}-\norm{\int_A\left(f(x)-f(x_0)\right)\mathrm{d}x}\geq m(A)\norm{f(x_0)}-\int_A\norm{f(x)-f(x_0)}\mathrm{d}x\]
+	Ora ho $\norm{f(x_0)}\geq\norm{f(x)}-\norm{f(x)-f(x_0)}$, quindi integrando di nuovo su $A$ si ottiene la tesi.
+	
+	Si fissi ora una partizione di $[a,b]$, si ha
+	\[\sum_{i=0}^{n}\norm{\gamma(t_{i+1}-\gamma(t_i))}=\sum_{i=0}^{n}\norm{\int_{t_i}^{t_{i+1}}\gamma'(t)\mathrm{d}t}\leq\sum_{i=0}^{n}\int_{t_i}^{t_{i+1}}\norm{\gamma'(t)}\mathrm{d}t=\int_{a}^{b}\norm{\gamma'(t)}\mathrm{d}t\]
+	E passando all'estremo superiore a primo membro $l(\gamma)\leq\int_{a}^{b}\norm{\gamma'(t)}\mathrm{d}t$. Dato che $\gamma'$ è uniformemente continua in $[a,b]$ per il teorema di Heine-Cantor, si scelga la partizione in modo tale che $t_{i+1}-t_i<\delta$, con il $\delta$ tale che $\norm{\gamma'(t)-\gamma'(t')}<\varepsilon$. Allora si ha
+	\[l(\gamma)\geq\sum_{i=0}^{n}\norm{\int_{t_i}^{t_{i+1}}\gamma'(t)\mathrm{d}t}\geq\sum_{i=0}^{n}\left(\int_{t_i}^{t_i+1}\norm{\gamma'(t)}\mathrm{d}t-2\int_{t_i}^{t_{i+1}}\norm{\gamma'(t)-\gamma'(\tau_i)}\mathrm{d}t\right)=\]
+	\[=\int_{a}^{b}\norm{\gamma'(t)}\mathrm{d}t-2\sum_{i=0}^{n}\int_{t_i}^{t_{i+1}}\norm{\gamma'(t)-\gamma'(\tau_i)}\mathrm{d}t\geq\int_{a}^{b}\norm{\gamma'(t)}\mathrm{d}t-2\varepsilon(b-a)\]
+	E per arbitrarietà di $\varepsilon$ risulta $l(\gamma)\geq\int_{a}^{b}\norm{\gamma'(t)}\mathrm{d}t$.
+	
+	\item Integrale di una funzione lungo una curva, indipendenza dal verso e dalla parametrizzazione. Se $f\colon A\to\mathbb{R}$, $A\subseteq\mathbb{R}^n$, $\gamma:\colon[a,b]\to A$, si pone
+	\[\int_{\gamma}f\mathrm{d}s=\int_{a}^{b}f(\gamma(t))\norm{\gamma'(t)}\mathrm{d}t\]
+	Tale integrale è indipendente dal verso di percorrenza e dalla parametrizzazione del sostegno di $\gamma$: se $\eta\colon[-b,-a]\to A$ è definito da $\eta(t)=\gamma(-t)$, si ha 
+	\[\int_{\eta}f\mathrm{d}s=\int_{-b}^{-a}f(\gamma(-t))\norm{-\gamma'(-t)}\mathrm{d}t=\int_{\gamma}f\mathrm{d}s\]
+	Analogamente, se $\delta:[c,d]\to A$ è equivalente a $\gamma$ tramite $\psi\colon[a,b]\to[c,d]$, ho
+	\[\int_{\delta}f\mathrm{d}s=\int_{c}^{d}f(\delta(t))\norm{\delta'(t)}\mathrm{d}t=\int_{a}^{b}f(\gamma(\tau))\norm{\gamma(\tau)}\mathrm{d}\tau\]
+	dove si è posto $t=\psi(\tau)$.
+	\item Parametrizzazione per lunghezza d'arco: sia $\gamma\colon[a,b]\to\mathbb{R}^n$ una curva $C^1$, e sia $\lambda\colon[a,b]\to[0,l(\gamma)]$ definita da
+	\[\lambda(x)=\int_{a}^{x}\norm{\gamma'(t)}\mathrm{d}t\]
+	Allora $\lambda$ è biettiva, di classe $C^1$ e con derivata strettamente positiva. La curva $\delta=\gamma\circ\lambda^{-1}$ è equivalente a $\gamma$, si dice parametrizzata per lunghezza d'arco ed è tale che $\norm{\delta'(t)}=1$ per ogni $t$.
+	\item Forme differenziali, forme viste come applicazioni in $\mathbb{R}^{n*}$, integrale di una forma lungo una curva: una forma differenziale su $A\subseteq\mathbb{R}^n$ è un oggetto del tipo
+	\[\omega(x)=\sum_{i=1}^{n}\omega_i(x)\mathrm{d}x_i\]
+	Formalmente, $\omega$ è un'applicazione da $\mathbb{R}^n$ in $\mathbb{R}^{n*}$, se si intende $\mathrm{d}x_i$ come la proiezione su $e_i$. Se $\gamma\colon[a,b]\to\mathbb{R}^n$ è una curva con sostegno in $A$, si pone
+	\[\int_{\gamma}\omega=\int_{a}^{b}\sum_{i}^{n}\omega_i(\gamma(t))\gamma'_i(t)\mathrm{d}t\]
+	\item Forme esatte: $\omega$ si dice esatta su $A$ se esiste $F\colon A\to\mathbb{R}$ tale che $\omega_i=\partial_{e_i}F$. Sono fatti equivalenti
+	\begin{enumerate}
+		\item $\omega$ è esatta
+		\item $\int_{\gamma}\omega=0$ se $\gamma$ è chiusa
+		\item $\int_{\gamma_1}\omega=\int_{\gamma_2}\omega$ se $\gamma_1$ e $\gamma_2$ hanno stessi estremi
+	\end{enumerate}
+	\textbf{Dimostrazione:} 
+	
+	(a)$\Rightarrow$ (b): per una qualunque curva $\gamma$ si ha
+	\[\int_{\gamma}\omega=\int_{a}^{b}\sum_{i=1}^{n}\frac{\partial F}{\partial x_i}(\gamma(t))\gamma'_i(t)\mathrm{d}t=\int_{a}^{b}\frac{\mathrm{d}}{\mathrm{d}t}(F\circ\gamma)(t)\mathrm{d}t=F(\gamma(b))-F(\gamma(a))\]
+	e in particolare l'integrale è nullo se $\gamma$ è chiusa.
+	
+	(b)$\Rightarrow$ (c): immediato.
+	
+	(c)$\Rightarrow$ (a): sia $x_0\in A$ qualsiasi, $\gamma$ una qualsiasi curva che congiunga $x_0$ a $x$. Si ponga
+	\[F(x)=\int_{\gamma}\omega\]
+	$F$ è ben definita, dato che per (c) il suo valore non dipende dalla particolare $\gamma$. Da ciò segue anche che, se $x$ e $x+he_i$ sono in $A$, vale $F(x+he_i)-F(x)=\int_{\gamma}\omega$, con $\gamma\colon[0,1]\to A$ tale che $\gamma(t)=x+the_i$. In particolare allora si ha
+	\[\frac{F(x+he_i)-F(x)}{h}=\int_{0}^{1}\omega_i(x+the_i)\mathrm{d}t=\omega_i(x+\theta e_i)\]
+	Con $\theta\in(0,1)$ dato dal teorema della media integrale. Usando la continuità di $\omega$, quando $h\to0$ si ha
+	$\omega_i(x)=\partial_{e_i}F(x)$.
+	
+	\item La solita forma su $\mathbb{R}^2\backslash\{(0,0)\}$
+	\[\omega(x,y)=-\frac{y}{x^2+y^2}\mathrm{d}x+\frac{x}{x^2+y^2}\mathrm{d}y\]
+	\item Forme chiuse: $\omega$ si dice chiusa se per ogni $i,j\leq n$ si ha
+	\[\frac{\partial \omega_i}{\partial x_j}=\frac{\partial \omega_j}{\partial x_i}\]
+	In particolare, se $n=3$ una forma è chiusa se e solo se il campo vettoriale $\vec{F}$ definito da $\vec{F}=(\omega_1,\omega_2,\omega_3)$ è irrotazionale.
+	\item Le forme chiuse su aperti stelllati e aperti semplicemente connessi sono esatte.
+	
+	\textbf{Dimostrazione:} lo dimostro per una forma definita su un semplicemente connesso. Sia $A$ il nostro insieme $\omega$ forma differenziale su $A$, $\gamma$ una curva $C^1$. Sia $G(\lambda,t)$ l'omotopia tale che $G(0,t)$ è un punto, $G(1,t)=\gamma(t)$. Posto $\gamma_\lambda(t)=G(\lambda,t)$ e $I(\lambda)=\int_{\gamma_\lambda}\omega$, si ha
+	\[I(\lambda)=\int_{a}^{b}\sum_{i=1}^{n}\omega_i(G(\lambda,t))\frac{\partial G_i}{\partial t}(\lambda,t)\mathrm{d}t\]
+	Derivando e usando il teorema di derivazione sotto il segno di integrale ho
+	\[I'(\lambda)=\int_{a}^{b}\left[\sum_{i,j=1}^{n}\frac{\partial \omega_i}{\partial x_j}(G(\lambda,t))\frac{\partial G_j}{\partial \lambda}(\lambda,t)\frac{\partial G_i}{\partial t}(\lambda,t)+\sum_{i=1}^{n}\omega_i(\lambda,t)\frac{\partial^2G_i}{\partial\lambda\partial t}(\lambda,t)\right]\mathrm{d}t\]
+	Utilizzando il fatto che $\omega$ è chiusa e integrando per parti la prima somma si trova
+	\[I'(\lambda)=\int_{a,b}\sum_{i=1}^{n}\omega_i(\lambda,t)\left(\frac{\partial^2G_i}{\partial\lambda\partial t}(\lambda,t)-\frac{\partial^2G_i}{\partial t\partial \lambda}(\lambda,t)\right)\mathrm{d}t+\left[\sum_{j=1}^{n}\omega_j(G(\lambda,t))\frac{\partial G_j}{\partial \lambda}(\lambda,t)\right]_{a}^b=0\]
+	Per il teorema di Schwarz e perchè $G$ è omotopia. In particolare, $I(\lambda)$ è costante e quindi $0=I(0)=I(1)=\int_{\gamma}\omega$.
+	
+	\item Compattezza.
+	\item \textbf{Teorema di Heine-Borel:} \textit{i sottoinsiemi compatti di $\mathbb{R}^n$ sono tutti e soli i sottoinsiemi chiusi e limitati.}
+	
+	\textbf{Dimostrazione:} in generale, in un qualunque spazio metrico $(X,d)$ un sottoinsieme $A\subseteq X$ compatto è chiuso e limitato. Se non è chiuso, allora $X\backslash A$ non è aperto, quindi esistono $\overline{x}\in X\backslash A$ e una successione $(x_n)\subseteq A$ tali che $x_n\to\overline{x}$. Qualunque sottosuccessione estratta da $(x_n)$ continua a convergere a $\overline{x}$, quindi $A$ non è compatto. Se non è limitato, allora esiste $(x_n)\subseteq A$ tale che $d(x_n,0)\to+\infty$. Si può scegliere $(x_n)$ in modo che per ogni $n$ $d(x_{n+1},d_n)\geq1$, e quindi da una tale successione non può essere estratta una sottosuccessione convergente.
+	
+	Sia ora $A\subseteq\mathbb{R}^n$ chiuso e limitato. Una successione $(x_n)\subseteq A$ è anch'essa limitata, in particolare per Bolzano-Weierstrass ammette una sottosuccessione $(x_{n_k})$ convergente a $\tilde{x}$. Per la chiusura di $A$, $\tilde{x}\in A$, quindi è compatto.
+	
+	\item \textbf{Teorema di Weierstrass:} \textit{sia $f$ una funzione continua su $A$ compatto di $\mathbb{R}^n$ a valori reali. Allora $f$ ammette massimo e minimo in $A$.}
+	
+	\textbf{Dimostrazione:} sia $(y_n)\subseteq f(A)$ una successione che tende a $s=\sup f(A)$, e sia $(x_n)\subseteq A$ tale che $f(x_n)=y_n$ per ogni $n$. Se $(x_{n_k})$ converge a $\tilde{x}$, allora per continuità $(y_{n_k})$ converge a $f(\tilde{x})$, e quindi $s=f(\tilde{x})$ è un massimo. Il caso del minimo è analogo.
+	
+	\item \textbf{Teorema della funzione implicita:} \textit{sia $A$ un aperto di $\mathbb{R}^n$, $f\colon A\to\mathbb{R}$ continua e si supponga che in un intorno di $x=(\tilde{x},x_n)$, $\tilde{x}\in\mathbb{R}^{n-1}$ esista $\partial_{e_n}f$ e che sia continua e non nulla in $x$. Allora la curva di livello $f(x)$ può essere espressa localmente come il grafico $x_n=g(\tilde{x})$, con $g\colon U\to\mathbb{R}$, $U\subseteq R^{n-1}$, $g$ continua. Se poi $f$ è di classe $C^1$, anche $g$ lo è e}
+		\[\frac{\partial g}{\partial x_i}=-\frac{f_{x_i}}{f_{x_n}}\]
+		
+	\textit{In codimensione più alta, sia $f\colon\mathbb{R}^n\to\mathbb{R}^k$, con $k<n$. Supponiamo che $f$ sia continua, nulla in $(\tilde{x},\tilde{y})$ (con $\tilde{x}\in\mathbb{R}^{n-k}$, $\tilde y\in\mathbb{R}^k$), e che, posto}
+	\[Jf(x)=\left[J_xf(x)|J_yf(x)\right]\]
+	\textit{con $J_yf(x)$ matrice quadrata di ordine $k$ invertibile in un intorno di $(\tilde{x},\tilde{y})$ e continua in $(\tilde{x},\tilde{y})$. Allora esistono $\varepsilon,\delta>0$ e $\phi\colon B_\varepsilon(\tilde{x})\to B_\delta(\tilde{y})$ continua tale che $f(x,y)=0$ se e solo se $y=\phi(x)$ per ogni $(x,y)\in B_\varepsilon(\tilde{x})\times B_\delta(\tilde{y})$. Se poi $f$ è di classe $C^k$, anche $\phi$ lo è, e in particolare
+	\[J\phi(x)=-[J_y(x,\phi(x))]^{-1}J_x(x,\phi(x))\] }
+	
+
+	\textbf{Dimostrazione:} lo dimostro nel caso $n=2$, $k=1$, il caso $n>2$ è del tutto analogo e quello $k>1$ non mi interessa. Senza perdita di generalità, supponiamo $f(x_0,y_0)=0$ e $f_y(x_0,y_0)>0$. Sia $I\times J=[x_0-\delta_1,x_0+\delta_1]\times[y_0-\delta_2,y_0+\delta_2]$ tale che $f_y>0$ in $I\times J$. In particolare, si ha $f(x_0,y_0-\delta_2)<0<f(x_0,y_0+\delta_2)$. Per continuità di $f$, esiste $\varepsilon<\delta_1$ tale che $f(x,y_0-\delta_2)<0<f(x,y_0+\delta_2)$ per ogni $x\in I'=(x_0-\varepsilon,x_0+\varepsilon)$. Allora per ogni $x\in I'$ esiste unico $y\in J$ tale che $f(x,y)=0$, dato che $f_y>0$ anche in $I'\times J$. Pongo $y=g(x)$. Supponiamo ora per assurdo che $g$ non sia continua in un certo $x$, quindi esiste una successione $(x_n,z_n)$ tale che $x_n\to x$, $z_n=g(x_n)$ $|g(x)-z_n|>\epsilon$ per ogni $n$. La successione è a valori in $I\times J$, che è compatto. Sia $(x_{n_k},z_{n_k})$ convergente a $(\tilde{x},\tilde{z})$. Allora $\tilde{x}=x$ e $\tilde{z}\neq g(x)$. D'altro canto, per continuità di $f$ ho \[f(x,\tilde{z})=\lim\limits_{n\to+\infty}f(x_n,z_n)=0\]
+	E questo è assurdo per l'unicità di $g(x)$.
+	
+	Supponiamo $f\in C^1$. Se $x\in I'$, ho
+	\[f(x,g(x))-f(x_0,y_0)-\nabla f(x_0,y_0)\cdot(x-x_0,g(x)-y_0)+o(\sqrt{(x-x_0)^2+(g(x)-y_0)^2})=0\]
+	Notando che $f$ è nulla in tali punti, ho
+	\[\frac{g(x)-y_0}{x-x_0}=-\frac{f_x(x_0,y_0)}{f_y(x_0,y_0)}+o\left(1+\left|\frac{g(x)-y_0}{x-x_0}\right|\right)\]
+	Supponiamo che il rapporto a primo membro non sia limitato quando $x\to x_0$. Sia $x_n$ tendente a $x_0$ tale che tale rapporto tende a $\infty$. Allora dividendo ambo i membri e facendo il limite ottengo $1=0$, assurdo. Quindi il rapporto è limitato e facendo tendere $x$ a $x_0$ si ha la tesi.
+	
+	
+	\item Integrale secondo Riemann, misura di Peano-Jordan, il sottografico di una funzione integrabile è un insieme misurabile: sia $(R_i)_{1\leq i\leq n}$ una famiglia finita di rettangoli $R_i=[a_i,b_i]\times[c_i,d_i]$. Una funzione semplice è un'applicazione $\varphi\colon\mathbb{R}^2\to\mathbb{R}$ della forma
+	\[\varphi(x,y)=\sum_{i=1}^{n}\lambda_i\chi_{R_i}(x,y)\]
+	Se $\varphi$ è una funzione semplice, pongo
+	\[\iint_{\mathbb{R}^2}\varphi(x,y)\mathrm{d}x\mathrm{d}y=\sum_{i=1}^{n}\lambda_i(b_i-a_i)(d_i-c_i)\]
+	Supponiamo ora $f\colon A\to\mathbb{R}$, con $A\subseteq\mathbb{R}^2$ limitato e $f$ limitata su $A$. Per semplicità, definisco
+	\[\iint_{\mathbb{R}^2}f(x,y)\mathrm{d}x\mathrm{d}y\]
+	e se $B$ è un generico sottoinsieme di $\mathbb{R}^2$ pongo 
+	\[\iint_Bf(x,y)\mathrm{d}x\mathrm{d}y=\iint_{\mathbb{R}^2}f(x,y)\chi_B(x,y)\mathrm{d}x\mathrm{d}y\]
+	Definisco ora gli integrali inferiori e superiori di $f$:
+	\[\iint_{\mathbb{R}^2*}f(x,y)\mathrm{d}x\mathrm{d}y=\sup\left\{\iint_{\mathbb{R}^2}\varphi(x,y)\mathrm{d}x\mathrm{d}y:\textrm{ $\varphi$ è una funzione semplice, }\varphi(x,y)\leq f(x,y)\right\}\]
+	\[\iint_{\mathbb{R}^2}^*f(x,y)\mathrm{d}x\mathrm{d}y=\inf\left\{\iint_{\mathbb{R}^2}\varphi(x,y)\mathrm{d}x\mathrm{d}y:\textrm{ $\varphi$ è una funzione semplice, }\varphi(x,y)\geq f(x,y)\right\}\]
+	Se questi due valori coincidono, allora dico che $f$ è integrabile secondo Riemann e il suo integrale è il valore comune.
+	Al solito, $f$ è integrabile se e solo se per ogni $\varepsilon>0$ esistono $\varphi_\varepsilon$ e $\psi_\varepsilon$ semplici tali che $\varphi_\varepsilon(x,y)\leq f(x,y)\leq\psi_\varepsilon(x,y)$ per ogni $(x,y)\in\mathbb{R}^2$ e
+	\[\iint_{\mathbb{R}^2}(\psi_\varepsilon(x,y)-\varphi_\varepsilon(x,y))\mathrm{d}x\mathrm{d}y<\varepsilon\]
+	Varie proprietà delle funzioni integrabili:
+	\begin{itemize}
+		\item\textit{Linearità:} segue banalmente dalla linearità per funzioni semplici, che è ovvia.
+		\item\textit{Monotonia:} vedi sopra.
+		\item\textit{Valore assoluto:} se $f$ è integrabile, $|f|$ è integrabile e risulta
+		\[\left|\iint_{\mathbb{R}^2}f(x,y)\mathrm{d}x\mathrm{d}y\right|\leq\iint_{\mathbb{R}^2}\left|f(x,y)\right|\mathrm{d}x\mathrm{d}y\]
+		Infatti, fissato $\varepsilon$ siano $\varphi,\psi$ le due solite funzioni semplici, che posso assumere per semplicità definite sugli stessi rettangoli (tanto i plurirettangoli con l'inclusione sono filtranti). Fissato $R$ rettangolo, costruisco $\tilde{\varphi},\tilde{\psi}$ semplici definite come
+		\begin{enumerate}
+			\item $\tilde\varphi=\varphi$, $\tilde{\psi}=\psi$ se $f$ è positiva in $R$,
+			\item $\tilde{\varphi}=-\psi$, $\tilde{\psi}=-\varphi$ se $f$ è negativa su $R$,
+			\item $\tilde{\varphi}=0$, $\tilde{\psi}=\max\{\psi,-\phi\}$ se $f$ ha segno variabile su $R$.
+		\end{enumerate}
+		Allora $\tilde{\varphi}\leq f\leq\tilde{\psi}$ e i due integrali differiscono meno di $\varepsilon$ per confronto.
+	\end{itemize}
+	$A$ si dice misurabile secondo Peano-Jordan se $\chi_A$ è integrabile secondo Riemann. 
+	Alcune proprietà:
+	\begin{itemize}
+		\item $A$ è misurabile se e solo se per ogni $\varepsilon$ esistono $B_\varepsilon$, $C_\varepsilon$ plurirettangoli tali che $B_\varepsilon\subseteq A\subseteq C_\varepsilon$ e $m(C_\varepsilon)-m(B_\varepsilon)<\varepsilon$. Infatti, $A$ è misurabile se e solo se per ogni $\varepsilon>0$ esistono $\varphi_\varepsilon$, $\psi_\varepsilon$ semplici tali che $\varphi_\varepsilon\leq \chi_A\leq\psi_\varepsilon$. Posto $B_\varepsilon=\varphi_\varepsilon^{-1}(1)$, $C_\varepsilon=\psi_\varepsilon^{-1}(1)$ si ha la tesi.
+		\item $A$ è misurabile se e solo se $m(\partial A)=0$. Infatti, $m$ è banalmente crescente, e se $B_\varepsilon$, $C_\varepsilon$ sono gli insiemi del lemma precedente si ha $m(C_\varepsilon\backslash B_\varepsilon)=m(C_\varepsilon)-m(B_\varepsilon)<\varepsilon$ e $\emptyset\subseteq\partial A\subseteq C_\varepsilon\backslash B_\varepsilon$.
+		\item Se $A$ è normale e delimitato da funzioni Riemann-integrabili, $A$ è misurabile: se 
+		\[A=\left\{(x,y)\in\mathbb{R}^2:x\in[a,b], g(x)\leq y\leq f(x)\right\}\]
+		e fissato $\varepsilon>0$, $\varphi_\varepsilon^{(g)}$, $\psi_\varepsilon^{(g)},\varphi_\varepsilon^{(f)}$, $\psi_\varepsilon^{(f)}$ sono le solite step function, posto
+		\[B_\varepsilon=A\cap\left\{(x,y)\in\mathbb{R}^2:\psi_\varepsilon^{(g)}\leq y\leq \varphi_\varepsilon^{(f)}\right\}\]
+		\[C_\varepsilon=A\cap\left\{(x,y)\in\mathbb{R}^2:\varphi_\varepsilon^{(g)}\leq y\leq \psi_\varepsilon^{(f)}\right\}\]
+		risulta $B_\varepsilon\subseteq A\subseteq C_\varepsilon$ e $m(C_\varepsilon)-m(B_\varepsilon)<2\varepsilon$.
+	\end{itemize}
+	Sia $A\subseteq\mathbb{R}^2$ limitato e misurabile, $f\colon A\to\mathbb{R}$ limitata e continua, allora $f$ è integrabile: posto $\hat{f}(x,y)=f(x,y)\chi_A(x,y)$, e fissato $\varepsilon>0$, siano $B_\varepsilon,C_\varepsilon$ come sopra. Siano 
+	\[M=\sup_{(x,y)\in A}f(x,y)\textrm{,  }\varphi_\varepsilon=-M\chi_{C_\varepsilon\backslash B_\varepsilon}\textrm{,  }\psi_\varepsilon=M\chi_{C_\varepsilon\backslash B_\varepsilon}\]
+	Allora \[\iint_{\mathbb{R}^2}\left[\psi_\varepsilon(x,y)-\varphi_\varepsilon(x,y)\right]\mathrm{d}x\mathrm{d}y<2M\varepsilon\]
+	Sia $B=\bigcup_{i=1}^{n}R_i$ unione di rettangoli compatti tale che $B\subseteq A$. $f$ è uniformemente continua su $B$, e se $n$ è sufficientemente grande ho $\max f(R_i)-\min f(R_i)<\varepsilon$. Siano \[\tilde{\varphi}_\varepsilon(x,y)=\sum_{i=1}^{n}\min_{(x,y)\in R_i}f(x,y)\chi_{R_i}(x,y)\]
+	\[\tilde{\psi}_\varepsilon(x,y)=\sum_{i=1}^{n}\max{(x,y)\in R_i}f(x,y)\chi_{R_i}(x,y)\]
+	Allora
+	\[\iint_{\mathbb{R}^2}\left[\tilde{\psi}_\varepsilon(x,y)-\tilde{\varphi}_\varepsilon(x,y)\right]\mathrm{d}x\mathrm{d}y<\varepsilon m(B)\]
+	Posto $\hat{\psi}_\varepsilon=\chi_{C_\varepsilon\backslash A_\varepsilon}\psi_\varepsilon+\chi_B\tilde{\psi}_\varepsilon$, e analogamente $\tilde{\varphi}_\varepsilon$, si ha la tesi.
+	\item \textbf{Teorema di Fubini-Tonelli:} \textit{sia $f\colon\mathbb{R}^2\to\mathbb{R}$. Allora
+	\[\iint_{\mathbb{R}^2*}f(x,y)\mathrm{d}x\mathrm{d}y\leq\int_{\mathbb{R}*}\mathrm{d}x\int_{\mathbb{R}*}f(y)\mathrm{d}y\leq\int_{\mathbb{R}}^{*}\mathrm{d}x\int_{\mathbb{R}}^{*}f(y)\mathrm{d}y\leq\iint_{\mathbb{R}^2}^{*}f(x,y)\mathrm{d}x\mathrm{d}y\]}
+
+	\textbf{Dimostrazione:} se $f$ è una funzione semplice su un plurirettangolo vale l'uguaglianza ovunque. Allora vale anche se $f$ è semplice su un insieme qualunque limitato (dato che può essere ricoperto da un plurirettangolo). Sia ora $f$ qualunque, $\varphi,\psi$ semplici tali che $\varphi(x,y)\leq f(x,y)\leq\psi(x,y)$. Allora ho
+	\[\int_{\mathbb{R}}^{*}f(x,y)\mathrm{d}y\leq\int_{\mathbb{R}}\psi(x,y)\mathrm{d}y\]
+	\[\int_{\mathbb{R}}^{*}\mathrm{d}x\int_{\mathbb{R}}^{*}f(x,y)\mathrm{d}y\leq\int_{\mathbb{R}}^{*}\mathrm{d}x\int_{\mathbb{R}}\psi(x,y)\mathrm{d}y=\iint_{\mathbb{R}^2}f(x,y)\mathrm{d}x\mathrm{d}y\]
+	E prendendo l'estremo inferiore a secondo membro risulta
+	\[\int_{\mathbb{R}}^{*}\mathrm{d}x\int_{\mathbb{R}}^{*}f(x,y)\mathrm{d}y\leq\iint_{\mathbb{R}^2}^{*}f(x,y)\mathrm{d}x\mathrm{d}y\]
+	In modo analogo si dimostra
+	\[\iint_{\mathbb{R}^2*}f(x,y)\mathrm{d}x\mathrm{d}y\leq\int_{\mathbb{R}*}\mathrm{d}x\int_{\mathbb{R}*}f(y)\mathrm{d}y\]
+	Ora si ha
+	\[\int_{\mathbb{R}*}\mathrm{d}x\int_{\mathbb{R}*}f(x,y)\mathrm{d}y\leq\int_{\mathbb{R}}^{*}\mathrm{d}x\int_{\mathbb{R}*}f(x,y)\mathrm{d}y\leq\int_{\mathbb{R}}^{*}\mathrm{d}x\int_{\mathbb{R}}^{*}f(x,y)\mathrm{d}y\]
+	Da cui la tesi.
+	
+	In particolare, se $f$ è integrabile su $\mathbb{R}^2$ e, fissato $x\in\mathbb{R}$, $f(x,\cdot)$ è integrabile su $\mathbb{R}$ (risp. con $x$ e $y$ invertiti) vale la formula di riduzione:
+	\[\iint_{\mathbb{R}^2}f(x,y)\mathrm{d}x\mathrm{d}y=\int_{\mathbb{R}}\mathrm{d}x\int_{\mathbb{R}}f(x,y)\mathrm{d}y=\int_{\mathbb{R}}\mathrm{d}y\int_{\mathbb{R}}f(x,y)\mathrm{d}x\]
+	
+	\item Insiemi normali, integrali tripli per fili e sezioni.
+	Un sottoinsieme $A$ di $\mathbb{R}^2$ si dice normale rispetto all'asse $x$ se è della forma
+	\[A=\left\{(x,y)\in\mathbb{R}^2:a\leq x\leq b, g(x)\leq y\leq f(x)\right\}\]
+	Per qualche funzione $g,f$. La definizione di insieme normale rispetto all'asse $y$ è analoga. In $\mathbb{R}^3$ si possono avere insiemi normali rispetto a un piano, ovvero del tipo
+	\[B=\left\{(x,y,z)\in\mathbb{R}^3:a\leq x\leq b,c\leq y\leq d, g(x,y)\leq z\leq f(x,y)\right\}\]
+	Oppure rispetto a un asse, ovvero del tipo
+	\[C=\left\{(x,y,z)\in\mathbb{R}^3:a\leq x\leq b, g_1(x)\leq y\leq f_1(x), g_2(x)\leq z\leq f_2(x)\right\}\]
+	La formula di riduzione per un dominio normale in $\mathbb{R}^2$ diventa
+	\[\iint_Af(x,y)\mathrm{d}x\mathrm{d}y=\int_{a}^{b}\mathrm{d}x\int_{h(x)}^{g(x)}f(x,y)\mathrm{d}y\]
+	E in $\mathbb{R}^3$ posso integrare per fili
+	\[\iiint_Af(x,y,z)\mathrm{d}x\mathrm{d}y\mathrm{d}z=\iint_{\Omega}\mathrm{d}x\mathrm{d}y\int_{h(x,y)}^{g(x,y)}f(x,y,z)\mathrm{d}z\]
+	E per sezioni
+	\[\iiint_Af(x,y,z)\mathrm{d}x\mathrm{d}y\mathrm{d}z=\int_{a}^{b}\mathrm{d}z\iint_{\Omega}f(x,y,z)\mathrm{d}x\mathrm{d}y\]
+	Oltre allo spezzamento in tre.
+	\item Formula per il cambio di variabili, coordinate sferiche e cilindriche.
+	Sia $(x,y)=\Phi(u,v)$, con $\Phi$ diffeomorfismo tra $A'$ e $A$, si ha
+	\[\iint_Af(x,y)\mathrm{d}x\mathrm{d}y=\iint_{A'}f(x(u,v),y(u,v))\left|\det J\Phi(u,v)\right|\mathrm{d}u\mathrm{d}v\]
+	E analogo per integrali tripli.
+	In particolare, per le coordinate polari e cilindriche ho $\mathrm{d}x\mathrm{d}y=r\mathrm{d}r\mathrm{d}\theta$, per le coordinate sferiche ho $\mathrm{d}x\mathrm{d}y\mathrm{d}z=r^2\sin\theta\mathrm{d}r\mathrm{d}\theta\mathrm{d}\phi$.
+	\item \textbf{Formula di Gauss-Green per forme differenziali:} \textit{sia $\omega(x,y)=A(x,y)\mathrm{d}x+B(x,y)\mathrm{d}y$ una forma differenziale di classe $C^1$ su $\mathbb{R}^2$. Allora se $\gamma$ è una curva chiusa semplice orientata positivamente che è bordo di $\Omega\subseteq\mathbb{R}^2$ si ha
+	\[\int_{\gamma}\omega=\int_{+\partial \Omega}A(x,y)\mathrm{d}x+B(x,y)\mathrm{d}y=\iint_{\Omega}\left(\frac{\partial B}{\partial x}-\frac{\partial A}{\partial y}\right)\mathrm{d}x\mathrm{d}y\]}
+		
+	\textbf{Dimostrazione:} dimostro separatamente
+	\[\int_{+\partial\Omega}A(x,y)\mathrm{d}x=-\iint_\Omega\frac{\partial A}{\partial y}(x,y)\mathrm{d}x\mathrm{d}y\]
+	\[\int_{+\partial\Omega}B(x,y)\mathrm{d}y=\iint_\Omega\frac{\partial B}{\partial x}(x,y)\mathrm{d}x\mathrm{d}y[\]
+	Nell'ipotesi ulteriore che $\Omega$ sia normale rispetto a $x$:
+	\[\Omega=\left\{(x,y)\in\mathbb{R}^2:a\leq x\leq b, \alpha(x)\leq y\leq \beta(x)\right\}\]
+	Allora si ha
+	\[\int_{+\partial\Omega}A(x,y)\mathrm{d}x=\int_{a}^{b}A(x,\alpha(x))\mathrm{d}x-\int_{a}^{b}A(x,\beta(x))\mathrm{d}x=\]\[=-\int_{a}^{b}\left(A(x,\beta(x))-A(x,\alpha(x))\right)\mathrm{d}x=-\iint_\Omega\frac{\partial A}{\partial y}(x,y)\mathrm{d}y\mathrm{d}x\]
+	E la prima formula è dimostrata. Per la seconda, si ha
+	\[\int_{+\partial\Omega}B(x,y)\mathrm{d}y=\int_{a}^{b}B(x,\alpha(x))\alpha'(x)\mathrm{d}x+\int_{\alpha(b)}^{\beta(b)}B(b,y)\mathrm{d}y-\]\[-\int_{a}^{b}B(x,\beta(x))\beta'(x)\mathrm{d}x-\int_{\alpha(a)}^{\beta(a)}B(a,y)\mathrm{d}y\]
+	La tesi si ha notando che
+	\[\frac{\mathrm{d}}{\mathrm{d}x}\int_{\alpha(x)}^{\beta(x)}B(x,y)\mathrm{d}y=\int_{\alpha(x)}^{\beta(x)}\frac{\partial B}{\partial x}(x,y)\mathrm{d}y+\beta'(x)B(x,\beta(x))-\alpha'(x)B(x,\alpha(x))\]
+	E quindi 
+	\[\int_{a}^{b}\left[B(x,\alpha(x))-B(x,\beta(x))\right]\mathrm{d}x=\iint_\Omega\frac{\partial B}{\partial x}\mathrm{d}x\mathrm{d}y-\int_{a}^{b}\frac{\mathrm{d}}{\mathrm{d}x}\int_{\alpha(x)}^{\beta(x)}B(x,y)\mathrm{d}y\mathrm{d}x\]
+	
+	Se $A\subseteq\mathbb{R}^n$, diciamo che $\partial A$ è di classe $C^k$ se per ogni $x\in\partial A$ esistono $U$ intorno di $x$, $g$ funzione di classe $C^k$ di $n-1$ variabili il cui grafico è $U\cap\partial A$ e il cui sottografico interseca $U$ in $U\cap A$.
+	In generale, se $\Omega$ è un aperto limitato e $\partial\Omega$ è di classe $C^1$ allora $\overline{\Omega}=\bigcup_{i=1}^{n}N_i$ con $N_i$ insiemi normali con parti interne a due a due disgiunte. Infatti, $\partial\Omega$ è chiuso e limitato, dunque compatto. In particolare, si può ricoprire con $R=\bigcup_{j=1}^{n} U_j$, con $U_j$ rettangolo compatto. $R$ e $\Omega\backslash R$ sono ovviamente plurirettangoli, quindi sono unione di altri rettangoli, che sono normali, privi di punti interni comuni.	
+	\item Gauss-Green come flusso, calcolo delle aree tramite integrali di linea. Gauss-Green su domini visti come unione di domini normali, teorema della divergenza in due dimensioni per domini normali: 
+	Noto che
+	\[m(A)=\iint_A\mathrm{d}x\mathrm{d}y=-\int_{+\partial A}y\mathrm{d}x=\int_{+\partial A}x\mathrm{d}y\]
+	se $\vec{n}(x,y)=(n_x(x,y),n_y(x,y)$ è il versore normale a $\partial \Omega$ nel punto $(x,y)$, si ha
+	\[\int_{\partial \Omega}fn_y\mathrm{d}s=-\int_{+\partial\Omega}f\mathrm{d}x\]
+	\[\int_{\partial\Omega}fn_x\mathrm{d}s=\int_{+\partial\Omega}f\mathrm{d}y\]
+	Infatti, se $\gamma$ è una parametrizzazione di $\partial\Omega$, si ha
+	\[\mathrm{d}s=\sqrt{x'^2(t)+y'^2(t)}\mathrm{d}t\]
+	\[n_x(t)=\frac{y'(t)}{\sqrt{x'^2(t)+y'^2(t)}}\]
+	\[n_y(t)=-\frac{x'(t)}{\sqrt{x'^2(t)+y'^2(t)}}\]
+	Da cui si ottengono le relazioni precedenti. Sia ora $\vec{F}(x,y)=(A(x,y),B(x,y))$ un campo vettoriale su $B\supset\Omega$. Il flusso di $\vec{F}$ lungo $\partial\Omega$ è
+	\[\int_{\partial\Omega}\vec{F}\cdot\vec{n}\mathrm{d}s=\int_{\partial\Omega}\left(F_xn_x+F_yn_y\right)\mathrm{d}s=\iint_{\Omega}\left(\frac{\partial F_x}{\partial x}(x,y)+\frac{\partial F_y}{\partial y}(x,y)\right)\mathrm{d}x\mathrm{d}y=\iint_\Omega\vec{\nabla}\cdot\vec{F}(x,y)\mathrm{d}x\mathrm{d}y\]
+	\item Superfici parametrizzate e area della sfera: una superficie regolare di classe $C^k$ è un'applicazione $\sigma\colon A\to\mathbb{R}^n$, con $A$ connesso di $\mathbb{R}^2$, tale che $J\sigma$ ha rango 2 in ogni punto di $A$. $\sigma$ è semplice se $\sigma_{|A^\circ}$ è iniettiva. Il piano tangente in $(u_0,v_0)$ ha equazione $x=\sigma(u_0,v_0)+t\partial_u\sigma(u_0,v_0)+s\partial_v\sigma(u_0,v_0)$, che è ben definito grazie alla condizione sul rango. L'area di una superficie è definita come
+	\[\int_{\Sigma}\mathrm{d}S=\iint_A\norm{\frac{\partial \sigma}{\partial u}\times\frac{\partial \sigma}{\partial v}}\mathrm{d}v\mathrm{d}u\]
+	Il vettore normale a una superficie è uno dei due vettori 
+	\[\vec{n}(u,v)=\pm\frac{\partial \sigma}{\partial u}(u,v)\times\frac{\partial \sigma}{\partial v}(u,v)\]
+	Scelto uno dei due segni, e posto $\vec{\nu}=\vec{n}/\norm{\vec{n}}$, una superficie $\Sigma$ si dice orientabile se per ogni curva chiusa continua $\gamma$ con sostegno in $\Sigma$ il versore normale calcolato nei due estremi coincide.
+	Infine, $\Sigma$ è una superficie con bordo se $\Sigma=i\Sigma\cup b\Sigma$, con $i\Sigma$ e $b\Sigma$ entrambi non vuoti e definiti da
+	\begin{itemize}
+		\item $i\Sigma$, ovvero l'interno della superficie, come l'insieme dei punti $x\in\Sigma$ tali che esistono $U$ intorno di $x$, $r>0$, $\eta\colon U\cap\Sigma\to B_r(0)$ diffeomorfismo tale che $\eta(x)=0$, $B_r(0)\subseteq\mathbb{R}^2$,
+		\item $b\Sigma$, ovvero il bordo della superficie, come l'insieme dei punti $x\in\Sigma$ tali che esistono $U$ intorno di $x$, $r>0$, $\eta\colon U\cap\Sigma\to B_r(0)\cap\left\{(x,y)\in\mathbb{R}^2:y\geq0\right\}$ diffeomorfismo tale che $\eta(x)=0$ e tale che $\eta(x')\in\left\{(x,y)\in\mathbb{R}^2:y>0\right\}$ se $x'\in U\cap i\Sigma$.
+	\end{itemize}
+	Se $\Sigma$ è compatta e senza bordo, $\Sigma$ si dice chiusa.
+	Se $\vec{n}$,$\vec{\tau}$ sono i versori normale e tangente, la loro orientazione si dice coerente se $(\vec\tau\times\vec{n},\vec{\tau},\vec{n})$ è orientata come la base canonica.
+	\item Integrale di una funzione lungo una superficie: si pone
+	\[\int_{\Sigma}f\mathrm{d}S=\iint_Af(x(u,v))\norm{\frac{\partial \sigma}{\partial u}\times\frac{\partial \sigma}{\partial v}}\mathrm{d}v\mathrm{d}u\]
+	\item \textbf{Formula di Stokes:} \textit{sia $A$ un aperto connesso limitato con frontiera $C^1$ di $\mathbb{R}^2$, $T=\overline{A}$, $\Sigma=\sigma(T)$ una superficie semplice, regolare e orientabile. Se le orientazioni del versore normale a $\Sigma$ $\vec{n}$ e del versore tangente a $b\Sigma$ $\vec{\tau}$ sono coerenti e $\vec{F}$ è un campo vettoriale di classe $C^1$ su $B\supseteq T$ a valori in $\mathbb{R}^3$, si ha
+	\[\int_{\Sigma}\vec{\nabla}\times F\cdot\vec{n}\mathrm{d}S=\int_{b\Sigma}\vec{F}\cdot\vec{\tau}\mathrm{d}s=\int_{+b\Sigma}\omega\]
+	Dove si è posto
+	\[\omega(x,y)=F_x(x,y)\mathrm{d}x+F_y(x,y)\mathrm{d}y+F_z(x,y)\mathrm{d}z\]}
+	
+	\textbf{Dimostrazione:} introduco delle ipotesi aggiuntive che poi toglierò: supponiamo $\sigma\in C^2$ e $\sigma(\partial T)=b\Sigma$. Allora, se $\gamma(t)=(\xi(t),\eta(t))$ parametrizza $\partial T$, $\sigma\circ\gamma$ parametrizza $b\Sigma$. Se $\gamma$ è percorsa in senso antiorario e $\vec{t},\vec\nu$ sono i versori tangente e normale, si ha
+	\[\vec{t}=\left(\frac{\xi'}{\sqrt{\xi'^2+\eta'^2}},\frac{\eta'}{\sqrt{xi'^2+\eta'^2}}\right)\]
+	\[\vec{\nu}=\left(-\frac{\eta'}{\sqrt{\xi'^2+\eta'^2}},\frac{\xi'}{\sqrt{xi'^2+\eta'^2}}\right)=A\vec{t}\]
+	Dove si è posto
+	\[A=\left(\begin{array}{c c}
+	0 & 1 \\
+	-1 & 0 
+	\end{array}\right)\]
+	Che tra l'altro è ortogonale, dato che le sue colonne sono una base ortonormale per $\mathbb{R}^2$. Inoltre, se $G$ è una funzione indico $\overline{G}=G\circ\sigma$.
+	
+	Fatte queste premesse, e posto $\vec{F}=(P,Q,R)$, si ha
+	\[\int_{b\Sigma}\vec{F}\cdot\vec{\tau}\mathrm{d}s=\int_{a}^{b}(\overline{\vec{F}}\circ\gamma)(t)\cdot(\sigma\circ\gamma)'(t)\mathrm{d}t=\int_{a}^{b}(\overline{\vec{F}}\circ\gamma)(t)\cdot[(J\sigma)\circ\gamma)]\gamma'(t)\mathrm{d}t=\]
+	\[=\int_{a}^{b}([(J\sigma)^t\circ\gamma]\overline{\vec{F}}\circ\gamma)(t)\cdot\gamma'(t)\mathrm{d}t=\int_{\partial T}[(J\sigma)^t\circ\gamma]\overline{\vec{F}}\cdot\vec{t}\mathrm{d}s=\int_{\partial T}[(J\sigma)^t\circ\gamma]\overline{\vec{F}}\cdot\vec{A^{-1}\nu}\mathrm{d}s=\]\[\int_{\partial T}A[(J\sigma)^t\circ\gamma]\overline{\vec{F}}\cdot\vec{\nu}\mathrm{d}s=\iint_T\vec{\nabla}\cdot\left(A[J\sigma]^t\overline{\vec{F}}\right)\mathrm{d}u\mathrm{d}v\]
+	Ora si ha
+	\[\vec{\nabla}\cdot\left(A[J\sigma]^t\overline{\vec{F}}\right)=\vec{\nabla}\cdot\left[\left(\begin{array}{c c}
+	0 & 1 \\
+	-1 & 0
+	\end{array}\right)\left(\begin{array}{c c c}
+	x_u & y_u & z_u \\
+	x_v & y_v & z_v
+	\end{array}\right)\left(\begin{array}{c}
+	\overline{P} \\
+	\overline{Q} \\
+	\overline{R}
+	\end{array}\right)\right]=\]
+	\[\vec{\nabla}\cdot\left[\left(\begin{array}{c c c}
+	x_v & y_v & z_z \\
+	-x_u & -y_u & -z_u
+	\end{array}\right)\left(\begin{array}{c}
+	\overline{P} \\
+	\overline{Q} \\
+	\overline{R}
+	\end{array}\right)\right]=\frac{\partial (\sigma_v\cdot\overline{\vec{F}})}{\partial u}-\frac{\partial(\sigma_u\cdot\overline{\vec{F}})}{\partial v}=\]
+	\[=\sigma_{uv}\cdot\overline{\vec{F}}-\sigma_v\cdot(\overline{J\vec{F}})\sigma_u-\sigma_{vu}\cdot\overline{\vec{F}}-\sigma_u\cdot(\overline{J\vec{F}})\sigma_v=[(\overline{J\vec{F}}-\overline{J\vec{F}})^t\sigma_u]\cdot\sigma_v\]
+	D'altro canto
+	\[J\vec{F}-J\vec{F}^t=\left(\begin{array}{c c c}
+	P_x & P_y & P_z \\
+	Q_x & Q_y & Q_z \\
+	R_x & R_y & R_z
+	\end{array}\right)-\left(\begin{array}{c c c}
+	P_x & Q_x & R_x \\
+	P_y & Q_y & R_y \\
+	P_z & Q_z & R_z
+	\end{array}\right)=\]
+	\[=\left(\begin{array}{c c c}
+	0 & P_y-Q_x & P_z-R_x \\
+	Q_x-P_y & 0 & Q_z-R_y \\
+	R_x-P_z & R_y-Q_z & 0
+	\end{array}\right)\]
+	Allora si ha
+	\[[(\overline{J\vec{F}}-\overline{J\vec{F}})^t\sigma_u]\cdot\sigma_v=\left(\begin{array}{c}\left(\overline{P}_y-\overline{Q}_x\right)y_u+\left(\overline{P}_z-\overline{R}_x\right)z_u \\
+	\left(\overline{Q}_x-\overline{P}_y\right)x_u+\left(\overline{Q}_z-\overline{R}_y\right)z_u \\
+	\left(\overline{R}_x-\overline{P}_z\right)x_u+\left(\overline{R}_y-\overline{Q}_z\right)y_u
+	\end{array}\right)^t\left(\begin{array}{c}
+	x_v\\
+	y_v\\
+	z_v\end{array}\right)=\overline{\vec{\nabla}\times\vec{F}}\cdot(\sigma_u\times\sigma_v)\]
+	Allora
+	\[\iint_T\vec{\nabla}\cdot\left(A[J\sigma]^t\overline{\vec{F}}\right)\mathrm{d}u\mathrm{d}v=\iint_T\overline{\vec{\nabla}\times\vec{F}}\cdot(\sigma_u\times\sigma_v)\mathrm{d}u\mathrm{d}v=\int_{\Sigma}\vec{\nabla}\times\vec{F}\cdot\vec{n}\mathrm{d}S\]
+	Nel caso in cui $\sigma$ sia solo $C^1$, basta osservare che le superfici $C^2$ sono dense in quelle $C^1$ con la norma $\norm{\cdot}_\infty$, e quindi si conclude costruendo un'opportuna successione $(\sigma_n)_{n\in\mathbb{N}}$ di superfici $C^2$ che converge in norma a $\sigma$. Per rimuovere la seconda ipotesi aggiuntiva, parametrizzo $b\Sigma$ come unione finita (dato che $\Sigma$ è compatta) di diffeomorfismi, per i quali vale il teorema di Stokes nel caso speciale.
+		
+	\item Campi solenoidali e loro caratterizzazione: un campo vettoriale $\vec{F}$ di classe $C^1$ a valori in un aperto connesso $A\subseteq\mathbb{R}^3$ si dice solenoidale se per ogni superficie chiusa e regolare a tratti $\Sigma\subseteq A$ si ha
+	\[\int_{\Sigma}\vec{F}\cdot\vec{n}\mathrm{d}S=0\]
+	Un campo solenoidale è indivergente, infatti si ha
+	\[0=\int_{\Sigma}\vec{F}\cdot\vec{n}\mathrm{d}S=\iiint_V\vec{\nabla}\cdot\vec{F}\mathrm{d}x\mathrm{d}y\mathrm{d}z\]
+	Se per assurdo esiste $x$ tale che $\vec{\nabla}\cdot\vec{F}>0$, allora esiste $r>0$ tale che $\vec{\nabla}\cdot\vec{F}>0$ in $B_r(x)$, e quindi
+	\[\iiint_{B_r(x)}\vec{\nabla}\cdot\vec{F}\mathrm{d}x\mathrm{d}y\mathrm{d}z>0\]
+	che è assurdo. Il viceversa è vero se $A$ è superficialmente connesso, ovvero se ogni superficie chiusa è omotopa a una costante. In tal caso basta usare il teorema della divergenza per avere la tesi.
+	
+	Diciamo che $\vec{G}$ è un potenziale vettore per $\vec{u}$ se $\vec{u}=\vec{\nabla}\times\vec{G}$. Un tale $\vec{u}$ è indivergente e solenoidale. Infatti $\vec{\nabla}\cdot(\vec{\nabla}\times\vec{G})=0$ per calcolo diretto, e d'altro canto se $\Sigma$ è chiusa e regolare, $\gamma$ è una curva semplice e chiusa contenuta in $\Sigma$ che divide ques'ultima in $\Sigma_1$ e $\Sigma_2$ si ha
+	\[\int_{\Sigma}\vec{u}\cdot\vec{n}\mathrm{d}S=\int_{\Sigma_1}\vec{u}\cdot\vec{n}\mathrm{d}S+\int_{\Sigma_2}\vec{u}\cdot\vec{n}\mathrm{d}S=\int_{+\gamma}\vec{G}\cdot\tau\mathrm{d}s+\int_{-\gamma}\vec{G}\cdot\tau\mathrm{d}s=0\]
+	Vale anche l'inverso, se $A$ è superficialmente e semplicemente connesso. In tal caso, se $\vec{u}$ è solenoidale, allora esiste $\vec{G}$ di classe $C^2$ tale che $\vec{u}=\vec{\nabla}\times\vec{G}$. $\vec{G}$ non è unico, ma è definito a meno del gradiente di una funzione scalare di classe $C^3$.
+	
+	Supponiamo per semplicità che $A$ sia un parallelepipedo aperto, e posto $\vec{G}=(X,Y,Z),\vec{u}=(M,N,P)$, ho
+	\[\left\{\begin{array}{l}
+	Z_y-Y_z=M \\
+	X_z-Z_x=N \\
+	Y_x-X_y=P
+	\end{array}\right.\]
+	Cerchiamo una soluzione particolare che soddisfi anche $Z=0, Y(\cdot,\cdot,z_0)=0$ e $X(\cdot,y_0,z_0)=0$. Allora si ha
+	\[\left\{\begin{array}{l}
+	Y_z=-M \\
+	X_z=N\\
+	X_y=P-Y_x
+	\end{array}\right.\]
+	Ovvero
+	\[Y(x,y,z)=-\int_{z_0}^{z}M(x,y,t)\mathrm{d}t\textrm{,  }X(x,y,z)=\int_{z_0}^{z}N(x,y,t)\mathrm{d}t+\psi(x,y)\]
+	Con $\psi$ arbitraria funzione $C^2$ tale che $\psi(x,y_0)=0$. Sostituendo nell'ultima, e ricordando che $\vec{u}$ è indivergente, si ha
+	\[\psi_y(x,y)=-P(x,y,z_0)\]
+	E in definitiva
+	\[\vec{G}(x,y,z)=\left(\int_{z_0}^{z}N(x,y,y)\mathrm{d}t-\int_{y_0}^{y}P(x,t,z_0)\mathrm{d}t,-\int_{z_0}^{z}M(x,y,t)\mathrm{d}t,0\right)\]
+	che è definito su $A$, dato che questo è un parallelepipedo.
+	\item Integrali impropri e assoluta integrabilità: si parla di integrali impropri se si integrano funzioni non limitate o funzioni su insiemi non limitati (o entrambi). Ponendo $f^{\pm}(x)=\max\{\pm f(x),0\}$, ci si può limitare al caso di funzioni positive ponendo
+	\[\int_Af(x)\mathrm{d}x=\int_Af^+(x)\mathrm{d}x-\int_Af^-(x)\mathrm{d}x\]
+	Supponiamo $A$ limitato, $f$ non limitata in $x_0\in A$, allora si definisce
+	\[\int_Af(x)\mathrm{d}x=\lim\limits_{\varepsilon\to0}\int_{A\backslash B_\varepsilon(x_0)}f(x)\mathrm{d}x\]
+	Supponiamo invece $f\colon\mathbb{R}^2\to\mathbb{R}^+$, allora si definisce
+	\[\iint_{\mathbb{R}^2}f(x,y)\mathrm{d}x\mathrm{d}y=\lim\limits_{R\to+\infty}\iint_{B_R(0)}f(x,y)\mathrm{d}x\mathrm{d}y\]
+	Il valore dell'integrale in realtà non dipende dal modo in cui si invade la zona di integrazione:
+	
+	\textbf{Lemma:} \textit{sia $(A_k)$ una successione di sottoinsiemi limitati e misurabili di $\mathbb{R}^2$ tali che per ogni $R>0$ esiste $k\in\mathbb{N}$ tale che $A_k\supseteq B_R(0)$. Allora
+	\[\lim\limits_{k\to+\infty}\iint_{A_k}f(x,y)\mathrm{d}x\mathrm{d}y=\iint_{\mathbb{R}^2}f(x,y)\mathrm{d}x\mathrm{d}y\]}
+	\textbf{Dimostrazione:} supponiamo $L=\iint_{\mathbb{R}^2}f(x,y)\mathrm{d}x\mathrm{d}y<+\infty$ (il caso in cui è $+\infty$ è analogo). Poniamo $s=\lim\limits_{k\to+\infty}\iint_{A_k}f(x,y)\mathrm{d}x\mathrm{d}y$. Dato che $f$ è positiva, si ha
+	\[L=\lim\limits_{R\to+\infty}\iint_{B_R(0)}f(x,y)\mathrm{d}x\mathrm{d}y=\sup_{R\in\mathbb{R}}\iint_{B_R(0)}f(x,y)\mathrm{d}x\mathrm{d}y\]
+	Per ipotesi, per ogni $k\in\mathbb{N}$ esiste $R_k$ tale che $A_k\subseteq B_{R_k}(0)$, e dunque
+	\[\iint_{A_k}f(x,y)\mathrm{d}x\mathrm{d}y\leq\iint_{B_{R_k}(0)}f(x,y)\mathrm{d}x\mathrm{d}y\leq L\]
+	e passando al limite in $k$ si ha $s\leq L$.
+	D'altro canto, fissato $\varepsilon>0$ esistono $R>0$ e $k\in\mathbb{N}$ tali che
+	\[L-\varepsilon\leq\iint_{B_R(0)}f(x,y)\mathrm{d}x\mathrm{d}y\leq\iint_{A_k}f(x,y)\mathrm{d}x\mathrm{d}y\]
+	E di nuovo passando al limite in $k$ $L-\varepsilon\leq s$. Allora per arbitrarietà di $\varepsilon$ si ha $s=L$.
+	\item Calcolo dell'integrale gaussiano e di $\Gamma\left(\frac{1}{2}\right)$: poniamo $I=\int_{\mathbb{R}}e^{-x^2}\mathrm{d}x$, e si consideri l'integrale
+	\[\iint_{\mathbb{R}^2}e^{-(x^2+y^2)}\mathrm{d}x\mathrm{d}y\]
+	Passando in coordinate polari si ha
+	\[\iint_{\mathbb{R}^2}e^{-(x^2+y^2)}\mathrm{d}x\mathrm{d}y=2\pi\int_{0}^{+\infty}\rho e^{-\rho^2}\mathrm{d}\rho=\pi\]
+	D'altro canto si ha 
+	\[\iint_{\mathbb{R}^2}e^{-(x^2+y^2)}\mathrm{d}x\mathrm{d}y=\lim\limits_{n\to+\infty}\int_{-n}^{n}e^{-x^2}\mathrm{d}x\int_{-n}^{n}e^{-y^2}\mathrm{d}y=\lim\limits_{n\to+\infty}\left(\int_{-n}^{n}e^{-x^2}\mathrm{d}x\right)^2=I^2\]
+	E quindi $I=\sqrt{\pi}$.
+	Inoltre, si ha
+	\[\Gamma\left(\frac{1}{2}\right)=\int_{0}^{+\infty}\frac{1}{\sqrt{t}}e^{-t}\mathrm{d}t=2\int_{0}^{+\infty}e^{-u^2}\mathrm{d}u=\sqrt{\pi}\]
+\end{enumerate}
+\end{document}

@@ -1,0 +1,164 @@
+\begin{es}
+  Sia $ f(z) = \sum_{n = 0}^{+\infty} a_n z^n $ una serie di potenze con $ z \in \C $ e $ (a_n) \subseteq \C $. Consideriamo allora $ \tilde{f}(t) = \sum_{n = 0}^{+\infty } \abs{a_n} t^n $ con $ t \in [0, +\infty) $ che definisce una funzione positiva, crescente e convessa $ \tilde{f} \colon [0, +\infty) \to [0, +\infty) $. Si mostri che $ f $ e $ \tilde{f} $ hanno lo stesso raggio di convergenza e che questo coincide con l'estremo superiore dei $ t \geq 0 $ per cui $ \tilde{f} < +\infty $.
+\end{es}
+%
+Siano
+\begin{gather*}
+  E_f = \{\abs{z}, z \in \C : f(z) \text{ converge}\} \qquad R_f = \sup{E_f} \\
+  E_{\tilde{f}} = \{\abs{z}, z \in \C : \tilde{f}(\abs{z}) \text{ converge}\} \qquad R_{\tilde{f}} = \sup{E_{\tilde{f}}}
+\end{gather*}
+Chiaramente si ha $ R_f = R_{\tilde{f}} = \limsup_n \sqrt[n]{\abs{a_n}} $. Sicuramente si ha $ \tilde{t} \leq R_{\tilde{f}} $. Se per assurdo fosse $ R_{\tilde{f}} > \tilde{t} $, allora esisterebbe $ \alpha \in \R : R_{\tilde{f}} > \alpha > \tilde{t} $. Così $ \exists z \in \C : \abs{z} = \alpha $ e $ \sum_{n = 0}^{+\infty} \abs{a_n} z^n $ converge. Inoltre poiché $ \alpha < R_{\tilde{f}} $ si ha convergenza assoluta e quindi $ \tilde{f}(\abs{z}) = \tilde{f}(\alpha) < +\infty $ contro l'ipotesi $ \alpha > \tilde{t} $.
+
+\begin{es}
+  Siano $ b \in \R $ e $ \alpha \in \N $. Supponendo che $ f(x) = \sum_{k = 0}^{+\infty} a_k x^k  $ sia una serie di potenze con raggio di convergenza $ R $ positivo e $ x \in (-R, R) $ si determinino i coefficienti $ a_k $ in modo da soddisfare le seguenti equazioni differenziali.
+  \begin{enumerate}[label = (\roman*)]
+  \item $ f'(x) = f(x) $ e $ f(0) = b $;
+  \item $ f'(x) = x^2 f(x) $ e $ f(0) = b $;
+  \item $ f''(x) = x^2 f(x) $ e $ f(0) = b, f'(0) = 0 $;
+  \item $ x f''(x) + f'(x) + x f(x) = 0 $ e $ f(0) = b, f'(0) = 0 $;
+  \item $ x^2 f''(x) + x f'(x) + (x^2 - \alpha^2) f(x) = 0 $ e $ f(0) = b, f'(0) = 0 $;
+  \end{enumerate}
+\end{es}
+%
+Poiché $ f $ è analitica per $ x \in (-R, R) $, la derivata della serie di potenze è la serie di potenze delle derivate dei singoli termini, ovvero \[f'(x) = \sum_{k = 1}^{+\infty} k a_k x^{k - 1} = \sum_{k = 0}^{+\infty} (k + 1) a_{k + 1} x^k \qquad f''(x) = \sum_{k = 0}^{+\infty} (k + 2)(k + 1) a_{k + 2} x^k.\]
+\begin{enumerate}[label = (\roman*)]
+\item Per ogni $ x \in (-R, R) $ deve valere
+  \begin{equation*}
+    \sum_{k = 0}^{+\infty} (k + 1) a_{k + 1} x^k = \sum_{k = 0}^{+\infty} a_k x^k \quad \Rightarrow \quad \sum_{k = 0}^{+\infty} [(k + 1) a_{k + 1} - a_k] x^{k} = 0
+  \end{equation*}
+  L'unica possibilità è che si abbia $ \forall k \in \N, \ (k + 1) a_{k + 1} = a_k $ che vuol dire \[a_{k + 1} = \frac{1}{k + 1} a_k = \frac{1}{k + 1} \frac{1}{k} a_{k  - 1} = \cdots = \frac{1}{(k + 1)!} a_0 = \frac{1}{(k + 1)!} f(0) = \frac{b}{(k + 1)!}.\] Concludiamo quindi che la serie di potenze \[f(x) = b \sum_{k = 0}^{+\infty} \frac{x^k}{k!} = b e^x\] è soluzione dell'equazione differenziale.
+\item Pre ogni $ x \in (-R, R) $ deve valere
+  \begin{gather*}
+    \sum_{k = 0}^{+\infty} (k + 1) a_{k + 1} x^k = x^2 \sum_{k = 0}^{+\infty} a_k x^k = \sum_{k = 0}^{+\infty} a_k x^{k + 2} = \sum_{k = 2} a_{k - 2} x^k \\
+    a_1  + 2 a_2 x^2 + \sum_{k = 2}^{+\infty} (k + 1) a_{k + 1} x^k = \sum_{k = 2}^{+\infty} a_{k - 2} x^k \\
+    a_1  + 2 a_2 x^2 + \sum_{k = 2}^{+\infty} \left[(k + 1) a_{k + 1} - a_{k - 2}\right] x^k = 0 \\
+  \end{gather*}
+  Dunque i coefficienti devono soddisfare
+  \begin{equation*}
+    \begin{cases}
+      a_0 = f(0) = b, \ a_1 = 0, \ a_2 = 0 \\
+      (k + 1) a_{k + 1} = a_{k - 2} & k \geq 2 \\
+    \end{cases}
+  \end{equation*}
+  Riscriviamo l'ultima relazione come $ a_k = a_{k - 3} / k $ valida per $ k \geq 3 $. Se $ k = 3n $ troviamo $ a_{3n} = \frac{a_{3(n - 1)}}{3n} $, così deduciamo che
+  \begin{equation*}
+    a_k =
+    \begin{cases}
+      \frac{b}{3^{n} n!} & k = 3n \\
+      0 & \text{altrimenti} \\
+    \end{cases}
+  \end{equation*}
+  Concludiamo quindi che la funzione \[f(x) = b \sum_{n = 0}^{+\infty}\frac{1}{3^n n!} x^{3n} = b \sum_{n = 0}^{+\infty}\frac{1}{n!} \left(\frac{x^3}{3}\right)^{n} = b e^{\frac{x^3}{3}}\] è soluzione dell'equazione differenziale.
+\item Per ogni $ x \in (-R, R) $ deve valere
+  \begin{gather*}
+    \sum_{k = 0}^{+\infty} (k + 2)(k + 1) a_{k + 2} x^{k} = x^2 \sum_{k = 0}^{+\infty} a_k x^k = \sum_{k = 0}^{+\infty} a_k x^{k + 2} = \sum_{k = 2}^{+\infty} a_{k - 2} x^k \\
+    2 a_2 + 6 a_3 x + \sum_{k = 2}^{+\infty} (k + 2)(k + 1) a_{k + 2} x^{k} = \sum_{k = 2}^{+\infty} a_{k - 2} x^k \\
+    2 a_2 + 6 a_3 x + \sum_{k = 2}^{+\infty} \left[(k + 2)(k + 1) a_{k + 2} - a_{k - 2}\right] x^{k} = 0
+  \end{gather*}
+  Dunque i coefficienti devono soddisfare la relazione ricorsiva
+  \begin{equation*}
+    \begin{cases}
+      a_0 = f(0) = b, \ a_1 = f'(0) = 0, \ a_2 = 0, \ a_3 = 0 \\
+      (k + 2) (k + 1) a_{k + 2} = a_{k - 2} & k \geq 2 \\
+    \end{cases}
+  \end{equation*}
+  Riscriviamo l'ultima relazione come $ a_k = \frac{a_{k - 4}}{k (k - 1)} $ valida per $ k \geq 4 $. Se $ k = 4n $ troviamo $ a_{4n} = \frac{a_{4(n - 1)}}{4 n (4n - 1)} $, così deduciamo la seguente formula per i coefficienti
+  \begin{equation*}
+    a_k =
+    \begin{cases}
+      \frac{b}{4^{n} n! \prod_{j = 0}^{n} (4j - 1)} & k = 4n \\
+      0 & \text{altrimenti} \\
+    \end{cases}
+  \end{equation*}
+\item Per ogni $ x \in (-R, R) $ deve valere
+  \begin{gather*}
+    x \sum_{k = 0}^{+\infty} (k + 2)(k + 1) a_{k + 2} x^{k} + \sum_{k = 0}^{+\infty} (k + 1) a_{k +1 } x^k + x \sum_{k = 0}^{+\infty} a_k x^k = 0 \\
+    \sum_{k = 0}^{+\infty} (k + 2)(k + 1) a_{k + 2} x^{k + 1} + \sum_{k = 0}^{+\infty} (k + 1) a_{k +1 } x^k + \sum_{k = 0}^{+\infty} a_k x^{k + 1} = 0 \\
+    \sum_{k = 1}^{+\infty} (k + 1)k a_{k + 1} x^{k} + a_1 + \sum_{k = 1}^{+\infty} (k + 1) a_{k +1 } x^k + \sum_{k = 1}^{+\infty} a_{k - 1} x^{k} = 0 \\
+    a_1 + \sum_{k = 1}^{+\infty} \left[(k + 1)k a_{k + 1} + (k + 1) a_{k + 1} + a_{k - 1}\right] x^{k}
+  \end{gather*}
+  Dunque i coefficienti devono soddisfare la relazione ricorsiva
+  \begin{equation*}
+    \begin{cases}
+      a_0 = f(0) = b, \ a_1 = f'(0) = 0 \\
+      (k + 1)^2 a_{k + 1} = - a_{k - 1} & k \geq 1 \\
+    \end{cases}
+  \end{equation*}
+  Riscriviamo l'ultima relazione come $ a_k = - \frac{a_{k - 2}}{k^2} $ valida per $ k \geq 2 $. Se $ k = 2n $ troviamo $ a_{2n} = - \frac{a_{2(n - 1)}}{4 n^2} $, così deduciamo la seguente formula per i coefficienti
+  \begin{equation*}
+    a_k =
+    \begin{cases}
+      \frac{(-1)^n b}{4^{n} (n!)^2} & k = 2n \\
+      0 & \text{altrimenti} \\
+    \end{cases}
+  \end{equation*}
+\item \emph{Non funziona il metodo normale, ma bisogna provare con $ f(x) = \sum_{k = 0}^{+\infty} a_k x^{k + r} $ con $ a_k $ e $ r \in \N $ da determinare \footnote{Si veda \url{http://www.iitg.ac.in/shyamashree/Slides-29.pdf}.}. Si trova $ r = \alpha $ e }
+  \begin{equation*}
+    a_k =
+    \begin{cases}
+      \frac{(-1)^n b}{4^n n! (n + \alpha)!} & k = 2n \\
+      0 & \text{altrimenti} \\
+    \end{cases}
+  \end{equation*}
+\end{enumerate}
+
+\begin{es} \label{es:prodotto_cauchy}
+  Siano $ f(x) = \sum_{n = 0}^{+\infty} a_n x^n $ e $ g(x) = \sum_{m = 0}^{+\infty} b_m x^m $ due serie di potenze di raggio di convergenza rispettivamente $ R_f $ e $ R_g $  non nulli. Si mostri che il prodotto $ h(x) = f(x) g(x) $ si può esprimere come serie di potenze $ h(x) = \sum_{k = 0}^{+\infty} c_k x^k $ dove $ c_k = \sum_{j = 0}^{k} a_j b_{k - j} $ con raggio di convergenza $ R_h \geq \min{R_f, R_g} $.
+\end{es}
+Siano $ \tilde f(x) = \sum_{n=0}^{+\infty} \abs{a_n} x^n $ e $ \tilde g(x) = \sum_{n=0}^{+\infty} \abs{b_n} x^n $, dove abbiamo supposto senza perdere di generalità $ x>0 $. Allora:
+\[ \tilde h(x) = \tilde f(x) \tilde g(x) = \sum_{m,n=0}^{+\infty} \abs{a_n} \cdot \abs{b_n} x^{n+m} = \sum_{k=0}^{+\infty} x^k \sum_{n+m=k} \abs{a_n} \cdot \abs{b_n} = \sum_{k=0}^{+\infty} \tilde c_k x^k \]
+Per $ x < \min\{R_f, R_g \} $ $ f(x) $ e $ g(x) $ convergono assolutamente, dunque converge il prodotto $ \tilde h(x) $. Quindi $ R_{\tilde h} \ge \min\{ R_f, R_g\} $. Sia ora $ c_k = \sum_{i+j=k} a_i b_j $. Per la disuguaglianza triangolare $ \abs{c_k} \le \tilde c_k $; per confronto si ha infine che $ h(x) = \sum_{k=0}^{+\infty} c_k $ converge assolutamente (e semplicemente) quando $ x < R_{\tilde h} $.
+
+\begin{es}
+  Sia $ f(z) = \sum_{n = 0}^{+\infty} a_n z^n $ una serie di potenze di raggio di convergenza $ R_f $. Trovare l'espressione di $ g(x) = (f(x))^k $ come serie di potenze con $ k \in \N $. Qual è il suo raggio di convergenza?
+\end{es}
+%
+Mostriamo per induzione su $ k $ che si ha
+\begin{equation*}
+  g(x) = (f(x))^k = \sum_{n = 0}^{+\infty} \left(\sum_{i_1 + \ldots + i_k = n} a_{i_1} \cdots a_{i_k}\right) z^n.
+\end{equation*}
+Per $ k = 1 $ otteniamo da un lato $ g(x) = f(x) $ e dall'altro $ \sum_{n = 0}^{+\infty} \left(\sum_{i_1= n} a_{i_1}\right) z^n = \sum_{n = 0}^{+\infty} a_n z^n $. Per $ k = 2 $ otteniamo $ g(x) = (f(x))^2 = f(x) \cdot f(x) $ e dall'altro $ \sum_{n = 0}^{+\infty} \left(\sum_{i_1 + i_2 = n} a_{i_1} a_{i_2}\right) z^n $ in accordo con quanto mostrato nell'Esercizio \ref{es:prodotto_cauchy}. Supponiamo che la formula valga per $ k $. Allora
+\begin{align*}
+  g(x) & = (f(x))^{k + 1} = (f(x))^k \cdot f(x) = \\
+       & \overset{P(k)}{=} \left(\sum_{n = 0}^{+\infty} \left(\sum_{i_1 + \ldots + i_k = n} a_{i_1} \cdots a_{i_k}\right) z^n\right) \left(\sum_{i_{k + 1} = 0}^{+\infty} a_{i_{k + 1}} z^{i_{k + 1}}\right) = \\
+       & \overset{P(2)}{=} \sum_{m = 0}^{+\infty} \left(\sum_{n + i_{k + 1} = m} \left(\sum_{i_1 + \ldots + i_k = n} a_{i_1} \cdots a_{i_k} a_{i_{k + 1}}\right)\right) z^m \\
+       & = \sum_{m = 0}^{+\infty} \left(\sum_{i_1 + \ldots + i_k + i_{k + 1} = m} a_{i_1} \cdots a_{i_k} a_{i_{k + 1}}\right) z^m
+\end{align*}
+che è la tesi.
+
+\begin{es}
+  Sia $ I \subseteq \R $ intervallo aperto non vuoto e $ f \colon I \to \R $ di classe $ C^{\infty} $ tale che $ \forall x \in I, \forall k \in \N $ si ha $ f^{(k)}(x) \geq 0 $. Si mostri che $ f $ è analitica.
+\end{es}
+%
+Sia $ x_0 \in I $. Sia $ z \ge x_0 $ con $ z \in I $ e $ y = (x_0 + z)/2 \in I $. Mostriamo che la serie di Taylor centrata in $ x_0 $ converge a $ f(y) $ (per $ z \leq x_0 $ la dimostrazione è analoga). Possiamo scrivere lo sviluppo in serie di Taylor di $ f(z) $ centrato in $ y $ di ordine $ n $ con resto di Lagrange
+\begin{equation*}
+  f(z) = \sum_{k = 0}^{n} \frac{f^{(k)}(y)}{k!}(z - y)^k + \frac{f^{(n + 1)}(\xi)}{(n + 1)!}(z - y)^{n + 1}
+\end{equation*}
+con $ \xi \in (y, z) $. Ora per ipotesi $ f^{(n + 1)}(\xi) \geq 0 $ quindi
+\begin{equation*}
+  f(z) \geq \sum_{k = 0}^{n} \frac{f^{(k)}(y)}{k!}(z - y)^k.
+\end{equation*}
+Inoltre $ \forall k, f^{(k)}(y) \geq 0 $ e $ (z - y) \geq 0 $ quindi la serie $ \sum_{k = 0}^{+\infty} \frac{f^{(k)}(y)}{k!}(z - y)^k $ converge in quanto serie a termini positivi limitata da $ f(z) $. Dunque il termine $ k $-esimo della serie è infinitesimo, ossia
+\begin{equation*}
+  \lim_{k \to +\infty} \frac{f^{(k)}(y)}{k!}(z - y)^k = 0.
+\end{equation*}
+Scriviamo ora lo sviluppo in serie di Taylor di $ f(y) $ centrato in $ x_0 $ di ordine $ n $ con resto di Lagrange
+\begin{equation*}
+  f(y) = \sum_{k = 0}^{n} \frac{f^{(k)}(x_0)}{k!}(y - x_0)^k + \frac{f^{(n + 1)}(\eta)}{(n + 1)!}(y - x_0)^{n + 1}
+\end{equation*}
+con $ \eta \in (x_0, y) $. Poiché $ f^{(n + 2)} \geq 0 $, $ f^{(n + 1)} $ è crescente e quindi essendo $ \eta < y $ otteniamo $ f^{(n + 1)}(\eta) \leq f^{(n + 1)}(y) $. Essendo $ y $ punto medio di $ x_0 $ e $ z $ abbiamo $ (y - x_0)^{n + 1} = (z - y)^{n + 1} $ così
+\begin{equation*}
+  0 \leq \frac{f^{(n + 1)}(\eta)}{(n + 1)!}(y - x_0)^{n + 1} \leq \frac{f^{(n + 1)}(y)}{(n + 1)!}(z - y)^{n + 1} \quad \Rightarrow  \quad \lim_{k \to +\infty} \frac{f^{(n + 1)}(\eta)}{(n + 1)!}(y - x_0)^{n + 1} = 0
+\end{equation*}
+ovvero il resto di Lagrange tende a zero. Ciò è sufficiente a garantire l'analiticità di $ f $ per $ z \geq x_0 $.
+
+\begin{es}
+  Si mostri che $ f(x) = \frac{1}{1 + x^2} $ è analitica su tutto $ \R $ e il suo sviluppo centrato in $ x_0 $ ha raggio di convergenza $ \sqrt{1 + x_0^2} $.
+\end{es}
+%
+Guardiamo la funzione $ f(z) = \frac{1}{1 + z^2} = \frac{1}{z + i} \frac{1}{z - i} $ definita sui complessi a valori complessi. Tale funzione presenza due singolarità in $ z = \pm i $ e pertanto il suo sviluppo centrato in $ x_0 \in \R $ non può avere raggio di convergenza maggiore della distanza di $ x_0 $ da $ \pm i $, ovvero $ R \leq \sqrt{1 + x_0^2} $. Consideriamo ora la funzione complessa $ g_{\pm}(z) = \frac{1}{z \pm i} $. Fissati $ z \in \C $ e $ x_0 \in \R $ poniamo $ x = z - x_0 $ e $ w = \frac{x}{x_0 \pm i} $ così risulta
+\begin{equation*}
+  g_{\pm}(x) = \frac{1}{x + x_0 \pm i} = \frac{1}{x_0 \pm i} \frac{1}{1 + w} = \frac{1}{x_0 \pm i} \sum_{k = 0}^{+\infty}(-1)^k w^k.
+\end{equation*}
+Tale serie converge solo se $ \abs{w} < 1 \Rightarrow \abs{x} < \abs{x_0 \pm i} = \sqrt{1 + x_0^2} $. Concludiamo quindi che la funzione $ g_{\pm} $ è analitica su tutto $ \R $ e il raggio di convergenza dello sviluppo in $ x_0 $ di $ g_{\pm} $ è $ R_{\pm} = \sqrt{1 + x_0^2} $. \\
+Abbiamo quindi mostrato che $ f(z) $ è esprimibile come prodotto di due funzioni che $ \forall x \in \R $ coincidono con una serie di potenze centrata in $ x_0 $ e di raggio di convergenza $ R_{\pm} $. Per quanto visto nell'Esercizio \ref{es:prodotto_cauchy} possiamo concludere che anche $ f $ ammette uno sviluppo come serie di potenze $ \forall x \in \R $ di raggio di convergenza maggiore o uguale al minimo tra $ R_+ $ e $ R_- $. Dunque il suo sviluppo centrato in $ x_0 $ ha raggio di convergenza $ \sqrt{1 + x_0^2} $.

@@ -1,0 +1,181 @@
+\begin{es}
+  Si dimostrino le seguenti affermazioni per induzione (eventualmente estesa):
+  \begin{enumerate}
+  \item $ \sum_{k = 1}^{n} k = \frac{n(n + 1)}{2} $;
+  \item $ \sum_{k = 1}^{n} k^2 = \frac{n(n + 1)(2n + 1)}{6} $;
+  \item $ \sum_{k = 0}^{n} \binom{n}{k} = 2^n $;
+  \item $ \sum_{k = 1}^{n} \binom{n}{k} k = n 2^{n-1} $;
+  \item Ogni numero naturale $ \geq 2 $ è esprimibile come prodotto finito di numeri primi;
+  \item (*) Per ogni $ x_1, \dots, x_n \geq 0 $ si ha $ \sum_{i = 1}^{n} x_i \geq n(x_1 x_2 \dots x_n)^{1/n} $.
+  \end{enumerate}
+\end{es}
+
+\begin{enumerate}
+\item -
+\item -
+\item Induzione su $ n $.
+  \begin{pbase}
+    $ \sum_{k = 0}^{0} \binom{0}{k} = \binom{0}{0} = 2^0 = 1 $.
+  \end{pbase}
+  \begin{pind}
+    Assumiamo vera $ P(n) $. Ricordando l'identità binomiale $ \binom{n + 1}{k} = \binom{n}{k} + \binom{n}{k - 1} $ si ha
+    \begin{align*}
+      \sum_{k = 0}^{n + 1} \binom{n + 1}{k} & = \sum_{k = 0}^{n + 1} \binom{n}{k} + \sum_{k = 0}^{n + 1} \binom{n}{k - 1} = \\
+                                            & = \sum_{k = 0}^{n} \binom{n}{k} + \binom{n + 1}{n + 1} + \sum_{k = 0}^{n} \binom{n}{k - 1} + \binom{n}{n} = \\
+                                            & = \sum_{k = 0}^{n} \binom{n}{k} + \sum_{k = 0}^{n} \binom{n}{k - 1} + \binom{n + 1}{n + 1} = \\
+                                            & = \sum_{k = 0}^{n} \binom{n}{k} + \sum_{k = 0}^{n} \binom{n}{k} - 1 + 1 = 2 \sum_{k = 0}^{n} \binom{n}{k}
+    \end{align*}
+    Dunque per ipotesi induttiva deduciamo che $ \sum_{k = 0}^{n + 1} \binom{n + 1}{k} = 2 \cdot 2^{n} = 2^{n + 1} $.
+  \end{pind}
+\item Usando quanto dimostrato nel punto precedente si ha
+  \[\sum_{k = 1}^{n} \binom{n}{k} k = \sum_{k = 1}^{n} \frac{n (n - 1)!}{k (k - 1)! (n - 1 - k + 1)} k = n \sum_{k = 1}^{n} \binom{n - 1}{k - 1} = n \sum_{k = 0}^{n - 1} \binom{n - 1}{k} = n \cdot 2^{n - 1}\]
+\item Dimostriamola per induzione estesa.
+  \begin{pbase}
+    $ P(2) $ è vera in quanto $ 2 \geq 2 $ e $ 2 $ è un numero primo
+  \end{pbase}
+  \begin{pind}
+    Supponiamo che $ P(n) $ sia vera $ \forall \, 2 \leq n < m $ e mostriamo che ciò implica $ P(m) $. Distinguiamo in due casi: se $ m $ è primo $ P(m) $ è vera per definizione; se $ m $ non è primo allora possiamo scomporlo come $ m = m_1 \cdot m_2 $ con $ 2 \leq m_1, m_2 < m $ e quindi per ipotesi induttiva $ m_1 $ ed $ m_2 $ sono esprimibili come prodotto di un numero finito di numeri primi, dunque $ m $ è scomponibile come prodotto di finito di numeri primi.
+  \end{pind}
+\item \begin{pbase}
+    $ P(1) : x_1 \geq x_1 $ è vera automaticamente. \\
+    $ P(2) $ è vera, infatti $ (\sqrt{x_1} - \sqrt{x_2})^2 \geq 0 \Rightarrow x_1 + x_2 - 2 \sqrt{x_1 x_2} \Rightarrow \frac{x_1 + x_2}{2} \geq \sqrt{x_1 x_2} $.
+  \end{pbase}
+  \begin{pind}
+    Prima di tutto mostriamo che $ P(2^{n}) \Rightarrow P(2^{n + 1}) $. Si ha infatti
+    \begin{align*}
+      \frac{x_1 + \dots + x_{2^{n}} + x_{2^{n} + 1} + \dots x_{2^{n + 1}}}{2^{n + 1}} & = \frac{1}{2}\left(\frac{x_1 + \dots + x_{2^{n}}}{2^{n}} + \frac{x_{2^{n} + 1} + \dots x_{2^{n + 1}}}{2^{n}} \right) \\
+                                                                                      & \overset{P(2^{n})}{\geq} \frac{(x_1 \cdots x_{2^{n}})^\frac{1}{2^{n}} + (x_{2^n + 1} \cdots x_{2^{n + 1}})^\frac{1}{2^{n}}}{2} \\
+                                                                                      & \overset{P(2)}{\geq} \left((x_1 \cdots x_{2^{n}})^\frac{1}{2^{n}} (x_{2^n + 1} \cdots x_{2^{n + 1}})^\frac{1}{2^{n}}\right)^\frac{1}{2} \\
+                                                                                      & = (x_1 \cdots x_{2^{n + 1}})^\frac{1}{2^{n + 1}}.
+    \end{align*}
+    Mostriamo ora che se $ P(n) $ è vera allora $ \forall m < n $ anche $ P(m) $ è vera. Ciò concluderà la dimostrazione: dato un $ m $ per quanto dimostrato in precedenza posso trovare la più piccola potenza di 2 maggiore di $ m $ tale che $ P(n = 2^k) $ è vera e poi procedere all'indietro con quanto dimostreremo di seguito. Indichiamo con $ S = \frac{x_1 + \dots + x_m}{m} $ e dato $ n > m $ prendiamo $ y_1, \dots, y_n $ tali che $ y_1 = x_1 $,$ \dots $, $ y_m = x_m $, $ y_{m + 1} = \dots = y_n = S $ in modo tale che si abbia \[\frac{y_1 + \dots + y_n}{n} = \frac{x_1 + \dots + x_m + (n - m) S}{n} = \frac{m S + (n - m) S}{n} = S.\] Usando allora l'ipotesi induttiva si ha
+    \begin{gather*}
+      S = \frac{y_1 + \dots + y_n}{n} \overset{P(n)}{\geq} (y_1 \cdots y_n)^\frac{1}{n} = (x_1 \cdots x_m \cdot \underset{n - m}{\underbrace{S \cdots S}})^\frac{1}{n} \\
+      S \geq (x_1 \cdots x_m)^\frac{1}{n} S^\frac{n - m}{n} \\
+      S^\frac{m}{n} \geq (x_1 \cdots x_m)^\frac{1}{n} \\
+      S \geq (x_1 \cdots x_m)^\frac{1}{n}
+    \end{gather*}
+    ovvero $ \frac{x_1 + \dots + x_m}{m} \geq (x_1 \cdots x_m)^\frac{1}{n} $ che è la tesi.
+  \end{pind}
+\end{enumerate}
+
+\begin{es}
+  Siano $ (X, \leq_X) $ e $ (Y, \leq_Y) $ due insiemi totalmente ordinati. Si definisca su $ X \times Y $ l'ordinamento lessicografico: \[(x, y) \leq (x', y') \liff (x <_X x') \vel (x =_X x' \wedge y <_Y y').\] Si dimostri che
+  \begin{enumerate}
+  \item $ (X \times Y, \leq) $ è un ordinamento totale.
+  \item Se $ (X, \leq_X) $ e $ (Y, \leq_Y) $ sono buoni ordinamenti, allora anche $ (X \times Y, \leq) $ è un buon ordinamento.
+  \item Generalizzando la costruzione, definire un ordinamento su $ X^k $. Posso anche definire un ordinamento su $ \N[x] $, i polinomi a coefficienti naturali (volendolo "approssimativamente" come unione $ \bigcup_{k} N^k $)? Esso è un buon ordinamento? Mostrare che $ p \leq q $ con questo ordinamento è equivalente a dire $ p(k) \leq q(k) $ definitivamente.
+  \end{enumerate}
+\end{es}
+
+Dovremmo prima di tutto mostrare che la relazione di $ \leq $ su $ X \times Y $ è una relazione d'ordine. Ci sono molti casi da fare e non ho voglia di riportarli qui.
+\begin{enumerate}
+\item Consideriamo due coppie $ (x, y), (x', y') \in X \times Y $. Poiché $ (X, \leq_X) $ e $ (Y, \leq_Y) $ sono insiemi totalmente ordinati $ x $ è confrontabile con $ x' $ e $ y $ è confrontabile con $ y' $. Supponendo \emph{wlog} $ x \leq_X x' $ e $ y \leq_Y y' $ distinguiamo in casi: se $ x <_X x' $ allora $ (x, y) \leq (x', y') $; se $ x = x' \wedge y <_Y y' $ allora $ (x, y) \leq (x', y') $, se $ x =_X x' \wedge y =_Y y' $ allora $ (x, y) = (x', y') $. Dalla generalità della scelta di $ (x, y) $ e $ (x', y') $ deduciamo che dati due elementi di $ X \times Y $ essi risultano confrontabili secondo $ \leq $. Pertanto $ (X \times Y, \leq) $ è un ordinamento totale.
+\item Siano $ A \subseteq X $ e $ B \subseteq Y $, da cui $ A \times B \subseteq X \times Y $. Poiché $ (X, \leq_X) $ e $ (Y, \leq_Y) $ sono buoni ordinamenti, vuol dire che $ A $ e $ B $ hanno elemento minimo; siano quindi $ a = \min A $ e $ b = \min B $, ovvero $ a \in A \wedge \forall x \in A : a \leq x $ e $ b \in B \wedge \forall y \in B : b \leq y $. Allora anche $ A \times B $ ammette minimo $ (a, b) = \min A \times B $: $ (a, b) \in A \times B $ e $ \forall (x, y) \in A \times B : (a, b) \leq (x, y) $ infatti
+  \begin{align*}
+    & \text{se} \; a < x \Rightarrow (a, b) \leq (x, y) \\
+    & \text{se} \; a = x \wedge b < y \Rightarrow (a, b) \leq (x, y) \\
+    & \text{se} \; a= x \wedge b = y \Rightarrow (a, b) = (x, y)
+  \end{align*}
+  dalla generalità della scelta di $ A $ e di $ B $ concludiamo che ogni sottoinsieme di $ X \times Y $ ammette minimo, ovvero anche $ (X \times Y, \leq) $ è un buon ordinamento.
+\item Sia $ (X, \leq_X) $ un insieme totalmente ordinato. Fissato un $ n \in \N $ definiamo su $ X^n $ la relazione d'ordine lessicografico generalizzata definita come
+  \[(x_1, \dots, x_n) \preceq (x_1', \dots, x_n') \liff \exists k \leq n : (\forall 0 \leq i < k : x_i =_X x_i') \wedge x_k <_X x_k'.\]
+  Sia $ \N_n[x] $ l'insieme dei polinomi di grado $ n $ a coefficienti naturali. A ogni polinomio possiamo associare una $ (n + 1) $-upla (e viceversa) in modo biunivoco nel seguente modo
+  \begin{alignat*}{3}
+    f \colon & \N^{n+1} && \to \N_n[x] \\
+    & (n, a_n, \dots, a_1, a_0)  && \mapsto a_n x^n + \dots + a_1 x + a_0
+  \end{alignat*}
+  Allora se mettiamo su $ \N^{n + 1} $ l'ordinamento lessicografico sopra descritto ($ \N $ è un insieme totalmente ordinato con l'usuale relazione d'ordine), $ f $ induce sull'insieme dei polinomi una relazione d'ordine totale ereditata in modo biunivoco dall'ordinamento lessicografico. ?? \\
+\end{enumerate}
+
+\textcolor{red}{Hint Bindini -  La parte iniziale è ok, magari al compitino chiedete se è necessario verificare le proprietà della relazione d'ordine (riflessiva, transitiva, antisimmetrica) o solo il fatto che l'ordinamento sia totale. \\
+  Per i polinomi, in effetti la costruzione è incompleta: non hai definito bene quando è che $ p \leq q $, e credo che la tua idea (giusta) sia: $ p \leq q $ se e solo se [$ \deg(p) < \deg(q) $ oppure $ \deg(p) = \deg(q) $ e confronto le $ n $-uple come nel punto 2]}
+
+\begin{es}[Teorema di Goodstein debole]
+  Sia $ m $ un numero naturale. Per ogni $ k \in \N $ con $ k \geq 2 $, si definisca la trasformazione $ T_k(m) $ nel seguente modo: si consideri la rappresentazione in base $ k $ di $ m $. quindi $ m = (\underline{a_r a_{r-1} \dots a_0})_k = a_r k^r + a_{r-1} k^{r-1} + \dots a_1 k + a_0 $. Allora $ T_k(m) $ è la lettura delle stesse cifre ma in base $ k + 1 $, cioè $ T_k(m) = (\underline{a_r a_{r-1} \dots a_0})_{k+1} = a_r (k + 1)^r + a_{r-1} (k + 1)^{r-1} + \dots a_1 (k + 1) + a_0 $. Dato $ n $ numero naturale, si definisca la successione
+  \[\begin{cases*}
+      x_1 = n \\
+      x_k = T_k(x_{k-1}) - 1 \quad \forall k \geq 2 \\
+    \end{cases*}\]
+  Si dimostri che esiste $ k_0 $ tale che $ x_{k_0} = 0. $
+\end{es}
+
+\begin{enumerate}
+\item Disuguaglianza di Bernoulli: mostrare che per ogni $ n \in \N $ e per ogni $ x > -1 $ si ha $ (1 + x)^n \geq 1 + nx $. \\
+
+  Per induzione su $ n $.
+  \begin{pbase}
+    $ \forall x $, e in particolare per $ x > -1 $ si ha $ (1 + x)^0 \geq 1 + 0 \cdot x $, ovvero $ 1 \geq 1 $.
+  \end{pbase}
+  \begin{pind}
+    Assumiamo vera $ P(n) $ e mostriamo che ciò implica $ P(n + 1) $. Infatti \[(1 + x)^{n + 1} = (1 + x) (1 + x)^n \overset{P(n)}{\geq} (1 + x)(1 + nx) = 1 + (n + 1)x + n x^2 \geq 1 + (n + 1)x\] dove l'ultimo passaggio è giustificato dal fatto che $ x > -1 \Rightarrow nx^2 > n \geq 0 $.
+  \end{pind}
+\item Sia $ n! = 1 \cdot 2 \cdots (n - 1) \cdot n $ il prodotto dei primi $ n $ numeri naturali numeri naturali diversi da 0 (per convenzione so pone $ 0! = 1 $). Dimostrare che per ogni $ n \in \N $ si ha $ n! \leq \left(\frac{n + 1}{2}\right)^n $. \\
+
+  Applicando $ AM - GM $ all'insieme $ \{1, 2, \dots, n - 1, n\} $ si ha
+  \begin{gather*}
+    (1 \cdot 2 \cdots (n - 1) \cdot n)^\frac{1}{n} \leq \frac{1 + 2 + \dots + (n - 1) + n}{n} \\
+    (n!)^\frac{1}{n} \leq \frac{n (n + 1)}{2n} \\
+    n! \leq \left(\frac{n + 1}{2}\right)^n.
+  \end{gather*}
+\item Disuguaglianza di Bernoulli (razionale): mostrare che per ogni $ r \in \Q $, $ r \geq 1 $ e per ogni $ x > -1 $ si ha $ (1 + x)^r \geq 1 + rx $. Quando si ha l'uguaglianza? \\
+
+  Poniamo $ r = \frac{p}{q} $ con $ p, q \in \N $ e $ p \geq q \geq 1 $ e dimostramo la disuguaglianza per induzione su $ p $.
+  \begin{pbase}
+    Per $ p = 1 $ l'unica possibilità è $ q = 1 $, ovvero $ r = 1 $ e si ha pertanto $ (1      + x)^1 \geq 1 + x $ per ogni $ x > -1 $.
+  \end{pbase}
+  \begin{pind}
+    Supponiamo vera $ P(p) $ e mostriamo che ciò implica $ P(p + 1) $. Per ipotesi induttiva abbiamo che \[(1 + x)^\frac{p + 1}{q} = (1 + x)^\frac{p}{q} (1 + x)^\frac{1}{q} \overset{P(p)}{\geq} \left(1 + \frac{p}{q}x\right)(1 + x)^\frac{1}{q}\]
+    Applicando $ AM - GM $ al'insieme $ \{\underset{q - 1}{\underbrace{1, \dots, 1}}, y + 1\} $ con $ y \geq -1 $ otteniamo la seguente disuguaglianza \[(1 \cdots 1 \cdot (y + 1))^\frac{1}{q} \leq \frac{1 + \dots 1 + (y + 1)}{q} = \frac{q + y}{q} \quad \Rightarrow \quad \left(\frac{1}{1 + y}\right)^\frac{1}{q} \geq \frac{q}{q + y}.\] Posto allora $ 1 + x = \frac{1}{1 + y} $, ovvero $ y = -\frac{x}{x + 1} \geq -1 $ otteniamo $ (1 + x)^\frac{1}{q} \geq \frac{q}{q - \frac{x}{x + 1}} $. Ci basterebbe allora mostrare che
+    \begin{gather*}
+      \left(1 + \frac{p}{q}x\right)\left(\frac{q}{q - \frac{x}{x + 1}}\right) \geq 1 + \frac{p + 1}{q}x \\
+      1 + \frac{p}{q} \geq \left(1 + \frac{p + 1}{q}x\right)\left(1 - \frac{x}{q(x + 1)}\right) \\
+      1 + \frac{p}{q}x \geq 1 + \frac{p}{q}x + \frac{x}{q} - \frac{x}{q(x + 1)} - \frac{(p + 1)x^2}{q^2(x + 1)} \\
+      \frac{(p + 1)x^2}{q^2(x + 1)} \geq \frac{x}{q} - \frac{x}{q(x + 1)} \\
+      \frac{p + 1}{q^2} \frac{x^2}{x + 1} \geq \frac{1}{q} \frac{x^2}{x + 1} \\
+      p + 1 \geq q
+    \end{gather*}
+    che è sempre verificata in quanto $ p \geq q $ per ipotesi.
+  \end{pind}
+\item (applicazione di Bernoulli) Dimostrare che se $ m > n $ allora $ \forall x > -n $ si ha $ \left(1 + \frac{x}{m}\right)^m > \left(1 + \frac{x}{n}\right)^n $.\\
+
+  Poiché si ha $ m > n \geq 1 $, allora $ \frac{m}{n} \geq 1 $ e $ x > -n > -m \Rightarrow \frac{x}{m} \geq -1 $. Usando allora Bernoulli sui razionali si ha \[\left(1 + \frac{x}{m}\right)^m = \left(1 + \frac{x}{m}\right)^{\frac{m}{n} n} \leq \left(1 + \frac{m}{n}\frac{x}{m}\right)^n = \left(1 + \frac{x}{n}\right)^n.\] L'uguaglianza si ha solo nel caso in cui $ m = n $ che è escluso per ipotesi. Concludiamo quindi che $ \left(1 + \frac{x}{m}\right)^m > \left(1 + \frac{x}{n}\right)^n $.
+\item \textsf{disuguaglianza sugli interi}
+\item \textsf{disuguaglianza sugli interi}
+\item (\emph{Teorema della scelta finita}) Data una famiglia di $ n $ insiemi $ \{A_k\}_{k \in \N} $ tali che $ A_k \neq \emptyset $, mostrare che $ \prod_{k = 1}^{n} A_k \neq \emptyset $ per ogni $ n \in \N $. \\
+
+  Induzione su $ n $.
+  \begin{pbase}
+    $ P(1) $ è ovvio in quanto $ A_1 \neq \emptyset $ per ipotesi. Mostriamo che anche $ P(2) $ è vera. Per ipotesi $ A_1 \neq \emptyset $ e $ A_2 \neq \emptyset $ ovvero
+    \begin{align*}
+      \exists x_1 : (x_1 \in A_1) \wedge \exists x_2 : (x_2 \in A_2) & \iff \exists x_1, \exists x_2 : (x_1 \in A_1) \wedge (x_2 \in A_2) \iff \\
+                                                                     & \iff \exists x_1, x_2 : (x_1 \in A_1) \wedge (x_2 \in A_2) \Rightarrow \\
+                                                                     & \Rightarrow \exists \alpha : \alpha = (x_1, x_2) \wedge x_1 \in A_1 \wedge x_2 \in A_2 \iff \\
+                                                                     & \iff \exists \alpha : \alpha \in A_1 \times A_2
+    \end{align*}
+    Dunque $ \prod_{k = 1}^{2} A_k = A_1 \times A_2 \neq \emptyset $.
+  \end{pbase}
+  \begin{pind}
+    Per ipotesi induttiva sappiamo che $ \prod_{k = 1}^{n} A_k \neq \emptyset $ ovvero che, per definizione di prodotto cartesiano su più di due insiemi, esiste una funzione \[f_n \colon \{1, \dots, n\} \to \bigcup_{k = 1}^{n} A_k \; : \forall k \in \{1, \dots, n\} \Rightarrow f_n(k) \in A_k.\] Poiché inoltre per ipotesi $ \forall k \in \{1, \dots, n , n + 1\} $ $ A_k \neq \emptyset $ in particolare $ A_{n + 1} \neq \emptyset $, ovvero $ \exists \alpha : \alpha \in \nolinebreak A_{n + 1} $. Possiamo allora definire $ f_{n + 1} \colon \{1, \dots, n + 1\} \to \bigcup_{k = 1}^{n + 1} A_k $ come segue
+    \[
+      f_{n + 1}(k) =
+      \begin{cases*}
+        f_{n}(k) & $ \forall k \in \{1, \dots, n\} $ \\
+        \alpha & $ k = n + 1 $
+      \end{cases*}\]
+    La funzione così definita è tale che $ \forall k \in \{1, \dots, n + 1\} : f(k) \in A_k $, ovvero $ \prod_{k = 1}^{n + 1} A_k \neq \emptyset $.
+  \end{pind}
+\item \textsf{regioni in cui viene diviso il piano da $ n $ rette}
+\item \textsf{regioni in cui viene diviso la superficie di una sfera da $ n $ circonferenze}
+\item \textsf{divisione euclidea}
+\item \textsf{Fibonacci}
+  \begin{itemize}
+  \item
+  \item
+  \item
+  \item
+  \item
+  \item
+  \item \textsf{formula di Binet}
+  \end{itemize}
+\end{enumerate}

@@ -1,0 +1,411 @@
+% CURVE E 1-FORME DIFFERENZIALI
+
+\begin{definition}[curva, sostegno, curva chiusa e curva semplice]
+	Una curva a valori in $ \R^n $ è una funzione $ \gamma \colon [a, b] \to \R^n $ dove $ [a, b] \subseteq \R $ è un intervallo chiuso e limitato. \\
+	Si dice sostegno di una curva $ \gamma $ l'immagine della curva, cioè $ \mathrm{sostegno}(\gamma) \coloneqq \{\gamma(t) : t \in [a, b]\} \subseteq \R^n $. \\
+	Una curva $ \gamma \colon [a, b] \to \R^n $ si dice \emph{chiusa} se $ \gamma(a) = \gamma(b) $. Una curva $ \gamma \colon [a, b] \to \R^n $ si dice \emph{semplice} se è iniettiva al più nei due estremi, cioè se $ \gamma(t) = \gamma(s) \Rightarrow t = s \vee \{a, b\} = \{t, s\} $.
+\end{definition}
+
+\begin{definition}[velocity, speed, retta tangente]
+	Sia $ \gamma \colon [a, b] \to \R^n $ una curva derivabile di componenti $ \gamma(t) \coloneqq (\gamma_1(t), \ldots, \gamma_n(t)) $. Dato $ t_0 \in [a, b] $ definiamo
+	\begin{itemize}
+		\item \emph{velocity} il vettore $ \dot{\gamma}(t_0) \coloneqq (\gamma_1'(t_0), \ldots, \gamma_n'(t_0)) $
+		\item \emph{speed} il numero $ \norm{\dot{\gamma}(t_0)} $
+		\item \emph{retta tangente} in $ t_0 $ la retta di equazione parametrica $ t \mapsto \gamma(t_0) + t \dot{\gamma}(t_0) $ (se $ \dot{\gamma}(t_0) \neq 0 $)
+	\end{itemize}
+\end{definition}
+
+\begin{definition}[lunghezza di una curva]
+	Sia $ \gamma \colon [a, b] \to \R^n $ una curva continua. Si definisce lunghezza di $ \gamma $ l'estremo superiore delle lunghezze delle poligonali inscritte, cioè
+	\begin{equation}
+		\mathrm{lung}(\gamma) \coloneqq \sup{\left\{\sum_{k = 1}^{m} \norm{\gamma(t_k) - \gamma(t_{k - 1})} : a = t_0 < t_1 < \cdots < t_m = b\right\}}
+	\end{equation}
+	Se $ \mathrm{lung}(\gamma) \in \R $ la curva si dice rettificabile.
+\end{definition}
+
+\begin{prop}[lunghezza di una curva lipschitziana]
+	Sia $ \gamma \colon [a, b] \to \R^n $ una curva $ L $-lipschitziana, allora $ \mathrm{lung}(\gamma) \leq L (b - a) $.
+\end{prop}
+
+\begin{thm}[lunghezza di una curva $ C^1 $] \label{thm:lungcurvaC1}
+	Sia $ \gamma \colon [a, b] \to \R^n $ una curva di classe $ C^1 $, allora
+	\begin{equation}
+		\mathrm{lung}(\gamma) = \int_{a}^{b} \norm{\dot{\gamma}(t)} \dif{t}
+	\end{equation}
+\end{thm}
+%
+\begin{proof}
+	Mostriamo le due disuguaglianze.
+	\begin{enumerate}
+		\item[$ \leq $] Fissata una partizione $ a = t_0 < t_1 < \ldots < t_m = b $ osservo che per il Teorema fondamentale del calcolo
+		\[
+			\gamma(t_k) - \gamma(t_{k - 1}) = \int_{t_{k - 1}}^{t_k} \dot{\gamma}(t) \dif{t}
+		\]
+		Così per la Proposizione \ref{prop:leqintegrale} si ha
+		\[
+			\sum_{k = 1}^{m} \norm{\gamma(t_k) - \gamma(t_{k - 1})} = \sum_{k = 1}^{m} \norm{\int_{t_{k - 1}}^{t_k} \dot{\gamma}(t) \dif{t}} \leq \sum_{k = 1}^{m} \int_{t_{k - 1}}^{t_k} \norm{\dot{\gamma}(t)} \dif{t} = \int_{a}^{b} \norm{\dot{\gamma}(t)} \dif{t}.
+		\]
+		Passando all'estremo superiore al LHS otteniamo $ \mathrm{lung}(\gamma) \leq \int_{a}^{b} \norm{\dot{\gamma}(t)} \dif{t} $.
+		\item[$ \geq $] Fissato $ \epsilon > 0 $ consideriamo il $ \delta > 0 $ dato dall'uniforme continuità di $ \dot{\gamma} $ corrispondente a $ \epsilon / 2(b - a) $ e consideriamo una partizione fatta di intervalli di lunghezza $ \leq \delta $. Per la Proposizione \ref{prop:geqintegrale}  e per l'uniforme continuità si ha
+		\begin{align*}
+			\norm{\gamma(t_k) - \gamma(t_{k - 1})} & = \norm{\int_{t_{k - 1}}^{t_k} \dot{\gamma}(t) \dif{t}} \geq \int_{t_{k - 1}}^{t_k} \norm{\dot{\gamma}(t)} \dif{t} - 2 \int_{t_{k - 1}}^{t_k} \norm{\dot{\gamma}(t) - \dot{\gamma}(t_k)}\dif{t} \\
+			& \geq \int_{t_{k - 1}}^{t_k} \norm{\dot{\gamma}(t)} \dif{t} - \frac{\epsilon}{b - a} (t_k - t_{k - 1}).
+		\end{align*}
+		Così sommando su $ k $ otteniamo
+		\[
+			\sum_{k = 1}^{m} \norm{\gamma(t_k) - \gamma(t_{k - 1})} \geq \sum_{k = 1}^{m} \int_{t_{k - 1}}^{t_k} \norm{\dot{\gamma}(t)} \dif{t} - \frac{\epsilon}{b - a} \sum_{k = 1}^{m}(t_k - t_{k - 1}) \geq \int_{a}^{b} \norm{\dot{\gamma}(t)} \dif{t} - \epsilon
+		\]
+		da cui $ \forall \epsilon > 0, \ \mathrm{lung}(\gamma) \geq \int_{a}^{b} \norm{\dot{\gamma}(t)} \dif{t} - \epsilon $. \qedhere
+	\end{enumerate}
+\end{proof}
+
+
+\begin{thm}[riparametrizzazione $ C^1 $]
+	Sia $ \gamma_1 \colon [a, b] \to \R^n $ una curva di classe $ C^1 $. Sia $ \psi \colon [c, d] \to [a, b] $ una funzione di classe $ C^1 $ monotona e suriettiva e $ \gamma_2 \colon [c, d] \to \R^n $ data da $ \gamma_2(t) \coloneqq \gamma_1(\psi(t)) $ per ogni $ t \in [c, d] $. Allora $ \mathrm{lung}(\gamma_1) = \mathrm{lung}(\gamma_2) $.
+\end{thm}
+%
+\begin{proof}
+	Essendo $ \gamma_1 $ e $ \gamma_2 $ di classe $ C^1 $ possiamo usare la formula data dal Teorema \ref{thm:lungcurvaC1}. Per la \emph{chain rule} $ \dot{\gamma}_2(t) = \dot{\gamma}_1(\psi(t)) \cdot \psi'(t) $, così posto $ s = \psi(t) $ e supponendo $ \psi $ crescente ($ \psi'(t) \geq 0 $, $ c = \psi^{-1}(a) $ e $ d = \psi^{-1}(b) $) si ha
+	\[
+		\mathrm{lung}(\gamma_2) = \int_{c}^{d} \norm{\dot{\gamma}_2(t)} \dif{t} = \int_{c}^{d} \norm{\dot{\gamma}_1(t)} \abs{\psi'(t)} \dif{t} = \int_{c}^{d} \norm{\dot{\gamma}_1(t)} \psi'(t) \dif{t} = \int_{a}^{b} \norm{\dot{\gamma}_1(s)} \dif{s} = \mathrm{lung}(\gamma_1).
+	\]
+	Se invece $ \psi $ è decrescente ($ \psi'(t) \leq 0 $, $ d = \psi^{-1}(a) $ e $ c = \psi^{-1}(b) $) si ha
+	\[
+		\mathrm{lung}(\gamma_2) = - \int_{c}^{d} \norm{\dot{\gamma}_1(t)} \psi'(t) \dif{t} = - \int_{b}^{a} \norm{\dot{\gamma}_1(s)} \dif{s} = \int_{a}^{b} \norm{\dot{\gamma}_1(s)} \dif{s} = \mathrm{lung}(\gamma_1). \qedhere
+	\]
+\end{proof}
+
+
+\begin{definition}[integrale curvilineo]
+	Sia $ \gamma \colon [a, b] \to \R^n $ una curva continua, $ \Omega \subseteq \R^n $ contenente almeno il sostegno di $ \gamma $ e $ f \colon \Omega \to \R $ una finzione limitata. \\
+	Sia $ P $ una partizione finita di $ [a, b] $, cioè $ P \coloneqq \{a = t_0 < t_1 < \cdots < t_m = b\} $, poniamo
+	\begin{gather*}
+		I^+_{\gamma}(f, P) \coloneqq \sum_{k = 1}^{m} \mathrm{lung}\left(\gamma \lvert_{[t_{k - 1}, t_k]}\right) \cdot \sup{\{f(\gamma(t)) : t \in [t_{k - 1}, t_k]\}} \\
+		I^-_{\gamma}(f, P) \coloneqq \sum_{k = 1}^{m} \mathrm{lung}\left(\gamma \lvert_{[t_{k - 1}, t_k]}\right) \cdot \inf{\{f(\gamma(t)) : t \in [t_{k - 1}, t_k]\}}
+	\end{gather*}
+	Definiamo ora l'integrale superiore e inferiore di $ f $ su $ \gamma $ come
+	\begin{gather*}
+		I^+_{\gamma}(f) \coloneqq \inf{\{I^+_{\gamma}(f, P) : \text{$ P $ è una partizione finita di $ [a, b] $}\}} \\
+		I^-_{\gamma}(f) \coloneqq \sup{\{I^-_{\gamma}(f, P) : \text{$ P $ è una partizione finita di $ [a, b] $}\}}
+	\end{gather*}
+	Se $ I^+_{\gamma}(f) = I^-_{\gamma}(f) = I_{\gamma}(f) $ diciamo che $ f $ è integrabile lungo $ \gamma $ e poniamo
+	\begin{equation}
+		\int_{\gamma} f(x) \dif{s} \coloneqq I_{\gamma}(f)
+	\end{equation}
+\end{definition}
+
+\begin{thm}
+	Sia $ \gamma \colon [a, b] \to \R^n $ una curva di classe $ C^1 $, $ \Omega \subseteq \R^n $ contenente almeno il sostegno di $ \gamma $ e $ f \colon \Omega \to \R $ una finzione limitata, continua e integrabile su $ \gamma $. Allora
+	\begin{equation} \label{eqn:intcurvilineo}
+		\int_{\gamma} f(x) \dif{s} = \int_{a}^{b} f(\gamma(t)) \norm{\dot{\gamma}(t)} \dif{t}
+	\end{equation}
+	Osserviamo che allora l'integrale curvilineo non dipende dalla parametrizzazione di $ \gamma $, cioè se $ \psi \colon [c, d] \to [a, b] $ è una funzione di classe $ C^1 $ monotona e suriettiva e $ \delta \colon [c, d] \to \R^n $ data da $ \delta(t) \coloneqq \gamma(\psi(t)) $ per ogni $ t \in [c, d] $ allora
+	\begin{equation}
+		\int_{\gamma} f(x) \dif{s} = \int_{\delta} f(x) \dif{s}
+	\end{equation}
+\end{thm}
+%
+\begin{proof}
+	(indipendenza dalla riparametrizzazione)
+	Essendo $ \gamma $ e $ \delta $ di classe $ C^1 $ possiamo usare la formula \eqref{eqn:intcurvilineo}. Per la \emph{chain rule} $ \dot{\delta}(t) = \dot{\gamma}(\psi(t)) \cdot \psi'(t) $, così posto $ y = \psi(t) $ e supponendo $ \psi $ crescente ($ \psi'(t) \geq 0 $, $ c = \psi^{-1}(a) $ e $ d = \psi^{-1}(b) $) si ha
+	\begin{align*}
+		\int_{\delta} f(x) \dif{s} & = \int_{c}^{d} f(\delta(t))\norm{\dot{\delta}(t)} \dif{t} = \int_{c}^{d} f(\gamma{(\psi(t))}) \norm{\dot{\gamma}(t)} \abs{\psi'(t)} \dif{t} = \int_{c}^{d} f(\gamma{(\psi(t))}) \norm{\dot{\gamma}(t)} \psi'(t) \dif{t} \\
+		& = \int_{a}^{b} f(\gamma(y)) \norm{\dot{\gamma}(y)} \dif{y} = \int_{\gamma} f(x) \dif{s}.
+	\end{align*}
+	Se invece $ \psi $ è decrescente ($ \psi'(t) \leq 0 $, $ d = \psi^{-1}(a) $ e $ c = \psi^{-1}(b) $) si ha
+	\begin{align*}
+		\int_{\delta} f(x) \dif{s} & = -\int_{c}^{d} f(\gamma{(\psi(t))}) \norm{\dot{\gamma}(t)} \psi'(t) \dif{t} = - \int_{b}^{a} f(\gamma(y)) \norm{\dot{\gamma}(y)} \dif{y} \\
+		& = \int_{a}^{b} f(\gamma(y)) \norm{\dot{\gamma}(y)} \dif{y} = \int_{\gamma} f(x) \dif{s}. \qedhere
+	\end{align*}
+\end{proof}
+
+
+\begin{definition}[baricentro di una curva]
+	Sia $ \gamma \colon [a, b] \to \R^n $ una curva. Il baricentro di $ \gamma $ è il punto $ (x_G, y_G) \in \R^2 $ di coordinate
+	\begin{equation}
+		x_G \coloneqq \frac{1}{\mathrm{lung}(\gamma)} \int_{\gamma} x \dif{s} \qquad y_G \coloneqq \frac{1}{\mathrm{lung}(\gamma)} \int_{\gamma} y \dif{s}
+	\end{equation}
+\end{definition}
+
+\begin{definition}[1-forma differenziale]
+	Una forma differenziale lineare o 1-forma differenziale in un aperto $ \Omega \subseteq \R^n $ è una applicazione da $ \Omega $ al duale di $ \R^n $
+	\begin{equation*}
+		\omega \colon \Omega \to (\R^n)^{*}
+	\end{equation*}
+	Detta $ \{e_1, \ldots, e_n\} $ la base canonica di $ \R^n $ essa induce una base canonica del duale $ \{e_1^{*}, \ldots, e_n^{*}\} $ definita dalla proiezione canonica $ e^{*}_{i}(x_1, \ldots, x_n) = e^{*}_{i}(x_1e_1 + \ldots x_ne_n) = x_i $. Trattandosi di una applicazione lineare il suo differenziale coincide con la funzione. Posto allora $ \dif{e_i^{*}} = \dif{x_i} $, una forma differenziale lineare in $ \Omega $ è una funzione del tipo
+	\begin{equation}
+		\omega(x) \coloneqq \sum_{k = 1}^{n} A_k(x) \dif{x_k}
+	\end{equation}
+	dove $ A_1(x), \ldots, A_n(x) $ sono funzioni $ A_k \colon \Omega \to \R^n $ dette coefficienti della forma. \\
+	\emph{Nota}: nel seguito parleremo semplicemente di forma e sottointenderemo la notazione di appena data.
+\end{definition}
+
+\begin{definition}[integrale di una forma lungo una curva]
+	Sia $ \Omega \subseteq \R^n $ un aperto, $ \gamma \colon [a, b] \to \Omega $ una curva di classe $ C^1 $ e $ \omega $ una forma di classe $ C^0 $ ($ A_1(x), \ldots, A_n(x) $ sono funzioni continue). Poniamo allora
+	\begin{equation}
+		\int_{\gamma} \omega \coloneqq \int_{a}^{b} \left(\sum_{k = 1}^{n} A_k(\gamma(t)) \dot{\gamma}_k(t)\right) \dif{t}
+	\end{equation}
+	Se $ \gamma $ è una curva di classe $ C^1 $ a tratti, cioè $ \gamma $ è continua in $ [a, b] $ ed esiste una partizione $ a = t_0 < t_1 < \cdots < t_m = b $ tale che $ \gamma_k = \gamma\lvert_{[t_{k - 1}, t_k]} $ sia di classe $ C^1 $, si pone
+	\begin{equation}
+		\int_{\gamma} \omega \coloneqq \sum_{k = 1}^{m} \int_{\gamma_k} \omega
+	\end{equation}
+\end{definition}
+
+\begin{thm}[comportamento per riparametrizzazione]
+	Sia $ \omega $ una forma continua in un aperto $ \Omega \subseteq \R^n $. Sia $ \gamma_1 \colon [a, b] \to \Omega $ una curva di classe $ C^1, \psi \colon [c, d] \to [a, b] $ una funzione di classe $ C^1 $ e $ \gamma_1 \colon [c, d] \to \Omega $ data da $ \gamma_2(t) \coloneqq \gamma(\psi(t)) $.
+	\begin{itemize}
+		\item Se $ \psi(c) = a $ e $ \psi(d) = b $ allora $ \int_{\gamma_1} \omega = \int_{\gamma_2} \omega $
+		\item Se $ \psi(c) = b $ e $ \psi(d) = a $ allora $ \int_{\gamma_1} \omega = - \int_{\gamma_2} \omega $
+	\end{itemize}
+\end{thm}
+%
+\begin{proof}
+	Per la \emph{chain rule} $ \dot{\gamma}_2(t) = \dot{\gamma}_1(\psi(t)) \cdot \psi'(t) $, così posto $ s = \psi(t) $ e supponendo che valga $ c = \psi^{-1}(a) $ e $ d = \psi^{-1}(b) $ si ha
+	\begin{align*}
+		\int_{\gamma_2} \omega & = \int_{c}^{d} \left(\sum_{k = 1}^{n} A_k(\gamma_2(t)) \, \dot{\gamma}_{2, k}(t)\right) \dif{t}
+		= \int_{c}^{d} \left(\sum_{k = 1}^{n} A_k(\gamma_1(\psi(t))) \, \dot{\gamma}_{1, k}(\psi(t)) \cdot \psi'(t)\right) \dif{t} \\
+		& = \int_{c}^{d} \left(\sum_{k = 1}^{n} A_k(\gamma_1(\psi(t))) \, \dot{\gamma}_{1, k}(\psi(t))\right) \psi'(t) \dif{t} = \int_{a}^{b} \left(\sum_{k = 1}^{n} A_k(\gamma_1(s)) \, \dot{\gamma}_{1, k}(s)\right) \dif{s} \\
+		& = \int_{\gamma_1} \omega.
+	\end{align*}
+	Se $ d = \psi^{-1}(a) $ e $ c = \psi^{-1}(b) $) si ha
+	\begin{align*}
+		\int_{\gamma_2} \omega & = \int_{c}^{d} \left(\sum_{k = 1}^{n} A_k(\gamma_2(t)) \, \dot{\gamma}_{2, k}(t)\right) \dif{t}
+		= \int_{c}^{d} \left(\sum_{k = 1}^{n} A_k(\gamma_1(\psi(t))) \, \dot{\gamma}_{1, k}(\psi(t)) \cdot \psi'(t)\right) \dif{t} \\
+		& = \int_{c}^{d} \left(\sum_{k = 1}^{n} A_k(\gamma_1(\psi(t))) \, \dot{\gamma}_{1, k}(\psi(t))\right) \psi'(t) \dif{t} = \int_{b}^{a} \left(\sum_{k = 1}^{n} A_k(\gamma_1(s)) \, \dot{\gamma}_{1, k}(s)\right) \dif{s} \\
+		& = - \int_{a}^{b} \left(\sum_{k = 1}^{n} A_k(\gamma_1(s)) \, \dot{\gamma}_{1, k}(s)\right) \dif{s} = - \int_{\gamma_1} \omega.\qedhere
+	\end{align*}
+\end{proof}
+
+\begin{definition}[forma esatta]
+	Si dice che $ \omega $ è esatta in $ \Omega $ se esiste una funzione $ V \colon \Omega \to \R $ tale che $ \forall k \in \{1, \ldots, n\} $ si ha
+	\begin{equation}
+		\pd{V}{x_k}(x) = A_k(x) \quad \forall x \in \Omega
+	\end{equation}
+	Tale funzione $ V $ si dice \emph{primitiva} della forma differenziale. Osserviamo che due primitive di una stessa forma differiscono per una funzione localmente costante.
+\end{definition}
+
+\begin{definition}[forma chiusa]
+	Si dice che una forma $ \omega $ è chiusa in $ \Omega $ se è di classe $ C^1 $ e vale
+	\begin{equation}
+		\pd{A_i}{x_j}(x) = \pd{A_j}{x_i}(x) \quad \forall x \in \Omega
+	\end{equation}
+\end{definition}
+
+\begin{thm}
+	Se $ \omega $ è una forma esatta e di classe $ C^1 $ in $ \Omega $ allora $ \omega $ è chiusa in $ \Omega $.
+\end{thm}
+%
+\begin{proof}
+	Segue dal Teorema di Schwarz. Se $ \omega $ è esatta allora $ A_k(x) = \dpd{V}{x_k}(x) $ e quindi
+	\[
+		\pd{A_i}{x_j} = \pd{}{x_j} \left(\dpd{V}{x_i}\right) = \md{V}{2}{x_j}{}{x_i}{} = \md{V}{2}{x_i}{}{x_j}{} = \pd{}{x_i} \left(\dpd{V}{x_j}\right) = \pd{A_j}{x_i}. \qedhere
+	\]
+\end{proof}
+
+\begin{prop} \label{prop:intformaesatta}
+	Sia $ \omega $ esatta in $ \Omega $, $ V \colon \Omega \to \R $ una sua primitiva e $ \gamma \colon [a, b] \to \Omega $ una curva $ C^1 $ a tratti. Allora
+	\begin{equation}
+		\int_{\gamma} \omega = V(\gamma(b)) - V(\gamma(a))
+	\end{equation}
+\end{prop}
+%
+\begin{proof}
+	Supponaimo \emph{wlog} $ \gamma $ tutta di classe $ C^1 $. Allora per la \emph{chain rule} e il teorema fondamentale del calcolo
+	\begin{align*}
+		\int_{\gamma} \omega & = \int_{a}^{b} \left(\sum_{k = 1}^{n} A_k(\gamma(t)) \dot{\gamma}_k(t)\right) \dif{t} = \int_{a}^{b} \left(\sum_{k = 1}^{n} \dpd{V}{x_k}(\gamma(t)) \dot{\gamma}_k(t)\right) \dif{t} \\
+		& = \int_{a}^{b} \dod{}{t}\left(V(\gamma(t))\right) \dif{t} = \left[V(\gamma(t))\right]_{t = a}^{t = b} = V(\gamma(b)) - V(\gamma(a)). \qedhere
+	\end{align*}
+\end{proof}
+
+\begin{thm}[caratterizzazione dell'esattezza] \label{thm:carattesattezza}
+	Sia $ \omega $ una forma differenziale in $ \Omega $ continua. Supponiamo che $ \Omega $ sia aperto e connesso. Allora le seguenti condizioni sono equivalenti
+	\begin{enumerate}[label = (\roman*)]
+		\item $ \omega $ è esatta $ \Omega $
+		\item per ogni coppia di curve $ \gamma_1 $ e $ \gamma_2 $ con gli stessi estremi vale $ \int_{\gamma_1} \omega = \int_{\gamma_2} \omega $
+		\item per ogni curva $ \gamma $ chiusa vale $ \int_{\gamma} \omega = 0 $
+	\end{enumerate}
+\end{thm}
+%
+\begin{proof}
+	Mostriamo le varie implicazioni.
+	\begin{enumerate}
+		\item[(i) $ \Rightarrow $ (ii)] Segue dalla Proposizione \ref{prop:intformaesatta}.
+
+		\item[(i) $ \Rightarrow $ (iii)] Segue dalla Proposizione \ref{prop:intformaesatta}.
+
+		\item[(ii) $ \Rightarrow $ (iii)] Una curva $ \gamma \colon [a, b] \to \Omega $ chiusa ha gli stessi estremi di una curva costante in $ \gamma(a) = \gamma(b) $ e l'integrale di $ \omega $ su una curva costante è nullo perché $ \dot{\gamma}(t) \equiv 0 $.
+
+		\item[(iii) $ \Rightarrow $ (ii)] Basta considerare la curva ottenuta facendo prima $ \gamma_1 $ e poi $ \gamma_2 $ al contrario, $ \gamma_3 = \gamma_1 + (-\gamma_2) $
+		\[
+			0 \underset{\text{(iii)}}{=} \int_{\gamma_3} \omega = \int_{\gamma_1} \omega - \int_{\gamma_2} \omega \quad \Rightarrow \quad \int_{\gamma_1} \omega = \int_{\gamma_2} \omega.
+		\]
+
+		\item[(ii) $ \Rightarrow $ (i)] Fissato $ x_0 \in \Omega $ per ogni altro $ x \in \Omega $ consideriamo l'insieme
+		\[
+			\Gamma(x_0, x) \coloneqq \{\gamma \colon [a, b] \to \Omega : \text{ $ \gamma $ è $ C^1 $ a tratti }, \ \gamma(a) = x_0, \ \gamma(b) = x\}
+		\]
+		e definiamo $ V \colon \Omega \to \R $ come
+		\[
+			V(x) \coloneqq \int_{\gamma} \omega \qquad \gamma \in \Gamma(x_0, x)
+		\]
+		che è ben definita perché per la (ii), $ V(x) $ non dipende da $ \gamma $. Mostriamo ora che $ \pd{V}{x_i}(x) = A_i(x) $. \\
+		Consideriamo quindi il rapporto incrementale $ (V(x + he_i) - V(x))/h $. Per definire $ V(x + he_i) $ uso la curva che segue $ \gamma $ da $ x_0 $ a $ x $ e poi prosegue sul segmento $ \delta(t) \coloneqq x + t \cdot he_i $ con $ t \in [0, 1] $. Ciò è possibile se prendo $ h $ abbastanza piccolo: essendo $ \Omega $ aperto, per ogni $ x \in \Omega $ esiste un $ R > 0 $ tale che $ B_R(x) \subseteq \Omega $ ed essendo la palla convessa se prendo $ \norm{h} < R $ il sostegno di $ \delta $ è contenuto in $ \Omega $. Dunque
+		\[
+			V(x + he_i) = \int_{\gamma} \omega + \int_{\delta} \omega = V(x) + \int_{0}^{1} A_i(x + t \cdot he_i) \cdot h \dif{t}.
+		\]
+		Quindi per il Teorema della media integrale
+		\[
+			\frac{V(x + he_i) - V(x)}{h} = \int_{0}^{1}  A_i(x + t \cdot he_i) \dif{t} = A_i(x + c \cdot he_i)
+		\]
+		con $ c \in [0, 1] $. Così concludiamo
+		\[
+			\pd{V}{x_i}(x) = \lim_{h \to 0} \frac{V(x + he_i) - V(x)}{h} = \lim_{h \to 0} A_i(x + c \cdot he_i) = A_i(x). \qedhere
+		\]
+	\end{enumerate}
+\end{proof}
+
+\begin{definition}
+	Sia $ \Omega \subseteq \R^n $ un sottoinsieme non vuoto. Si dice che $ \Omega $ è
+	\begin{itemize}
+		\item \emph{convesso} se $ \forall x \in \Omega, \forall y \in \Omega, \forall \lambda \in [0, 1], \ \lambda x + (1 - \lambda) y \in \Omega $
+		\item \emph{stellato} se $ \exists x \in \Omega, \forall y \in \Omega, \forall \lambda \in [0, 1], \ \lambda x + (1 - \lambda) y \in \Omega $
+		\item \emph{connesso} se $ \forall A, B \subseteq \Omega $ aperti in $ \Omega $ vale $ A \cap B = \emptyset, \ A \cup B = \Omega, \ A \neq \emptyset \quad  \Rightarrow \quad A = \Omega \ \wedge \ B = \emptyset $
+		\item \emph{semplicemente connesso} se è connesso e vale almeno uno dei seguenti fatti equivalenti
+		\begin{enumerate}[label = (\roman*)]
+			\item ogni curva chiusa è omotopa ad una curva costante
+			\item se $ \gamma_1 $ e $ \gamma_2 $ sono due curve con gli stessi estremi allora sono omotope mediante una omotopia che lascia gli estremi fissi
+			\item ogni funzione $ f \colon S^1 \to \Omega $ continua si estende in modo continuo a tutto il disco
+		\end{enumerate}
+	\end{itemize}
+\end{definition}
+
+\begin{definition}[omotopia]
+	Siano $ \gamma_1 \colon [a, b] \to \Omega $ e $ \gamma_2 \colon [a, b] \to \Omega $ due curve continue con $ \gamma_1(a) = \gamma_2(a) $ e $ \gamma_1(b) = \gamma_2(b) $. Una omotopia che fissa gli estremi è una funzione continua $ \Phi \colon [a, b] \times [0, 1] \to \Omega $ tale che
+	\begin{enumerate}[label = (\roman*)]
+		\item $ \forall t \in [a, b], \ \Phi(t, 0) = \gamma_1(t) $
+		\item $ \forall t \in [a, b], \ \Phi(t, 1) = \gamma_2(t) $
+		\item $ \forall s \in [0, 1], \ \Phi(a, s) = \gamma_1(a) = \gamma_2(a) $
+		\item $ \forall s \in [0, 1], \ \Phi(b, s) = \gamma_1(b) = \gamma_2(b) $
+	\end{enumerate}
+\end{definition}
+
+\begin{lemma} \label{lem:omotopiaregolare}
+	Sia $ \Omega \subseteq \R^n $ un aperto semplicemente connesso. Siano $ \gamma_1, \gamma_2 \colon [a, b] \to \Omega $ due curve con gli stessi estremi di classe $ C^1 $. Allora esiste un'omotopia $ \Phi $ che lascia fissi gli estremi più regolare, cioè con $ \Phi_t(t, s) $, $ \Phi_s(t, s) $ e $ \Phi_{ts}(t, s) $ continue.
+\end{lemma}
+
+\begin{thm}
+	Sia $ \Omega \subseteq \R^n $ e $ \omega $ una forma differenziale in $ \Omega $. Supponiamo che
+	\begin{enumerate}[label = (\roman*)]
+		\item $ \Omega $ sia aperto stellato
+		\item $ \omega $ sia chiusa in $ \Omega $
+	\end{enumerate}
+	Allora $ \omega $ è esatta in $ \Omega $.
+\end{thm}
+%
+\begin{proof}
+	(caso $ n = 2 $).
+	Sia $ \omega \coloneqq A(x, y) \dif{x} + B(x, y) \dif{y} $ la forma e supponiamo \emph{wlog} $ \Omega $ stellato rispetto all'origine. Per definire la primitiva $ V(x, y) $ consideriamo la curva $ \delta(t) \coloneqq (t x, t y) $ con $ t \in [0, 1] $ e poniamo
+	\[
+		V(x, y) \coloneqq \int_{\delta} \omega = \int_{0}^{1} \left[A(tx, ty) x + B(tx, ty) y\right] \dif{t}.
+	\]
+	Per il Teorema \ref{thm:scabioderivataintegrale} e il Teorema fondamentale del calcolo vale
+	\begin{align*}
+		V_x(x, y) & = \int_{0}^{1} \left[A_x(tx, ty) tx + A(tx, ty) + B_x(tx, ty) ty\right] \dif{t} \\
+		& = \int_{0}^{1} \left[A_x(tx, ty) tx + A_y(tx, ty) ty + A(tx, ty) \right] \dif{t} \\
+		& = \int_{0}^{1} \dod{}{t}\left(A(tx, ty) t\right) \dif{t} = \left[A(tx, ty) t\right]_{t = 0}^{t = 1} = A(x, y)
+	\end{align*}
+	Il secondo passaggio segue dalla chiusura di $ \omega $ per la quale si ha $ A_x = B_y $. Allo stesso modo derivando rispetto a $ y $ si ottiene $ V_y(x, y) = B(x, y) $ da cui la tesi.
+\end{proof}
+%
+\begin{proof}
+	(caso generale).
+	Sia $ \omega \coloneqq \sum_{k = 1}^{n} A_k(x) \dif{x_k} $ la forma e supponiamo \emph{wlog} $ \Omega $ stellato rispetto all'origine. Per definire la primitiva $ V(x) $ consideriamo la curva $ \delta(t) \coloneqq t \cdot x $ con $ t \in [0, 1] $ e poniamo
+	\[
+		V(x) \coloneqq \int_{\delta} \omega = \int_{0}^{1} \left(\sum_{k = 1}^{n} A_k(tx) \cdot x_k\right) \dif{t}.
+	\]
+	Per il Teorema \ref{thm:scabioderivataintegrale} e il Teorema fondamentale del calcolo vale
+	\begin{align*}
+		\dpd{V}{x_j}(x) & = \int_{0}^{1} \left(\sum_{k = 1}^{n} \dpd{A_k}{x_j}(tx) \cdot tx_k + A_j(tx)\right)\dif{t} \\
+		& = \int_{0}^{1} \left(\sum_{k = 1}^{n} \dpd{A_j}{x_k}(tx) \cdot tx_k + A_j(tx)\right)\dif{t} \\
+		& = \int_{0}^{1} \dod{}{t}\left(A_j(tx) t\right) \dif{t} = \left[A_j(tx) t\right]_{t = 0}^{t = 1} = A_j(x)
+	\end{align*}
+	Il secondo passaggio segue dalla chiusura di $ \omega $ per la quale si ha $ \dpd{A_k}{x_j} = \dpd{A_j}{x_k} $.
+\end{proof}
+
+\begin{thm} \label{thm:chiusacurveomotope}
+	Sia $ \Omega \subseteq \R^n $ un aperto, $ \omega $ chiusa e di classe $ C^1 $ in $ \Omega $. Se $ \gamma_1 $ e $ \gamma_2 $ sono due curve di con gli stessi estremi di classe $ C^1 $ e omotope allora
+	\begin{equation*}
+		\int_{\gamma_1} \omega = \int_{\gamma_2} \omega
+	\end{equation*}
+\end{thm}
+%
+\begin{proof}
+	(caso $ n = 2 $).
+	Sia $ \omega \coloneqq A(x, y) \dif{x} + B(x, y) \dif{y} $ la forma. Per il Lemma \ref{lem:omotopiaregolare} esiste un'omotopia abbastanza regolare $ \Phi \colon [a, b] \times[0, 1] \to \Omega $ di componenti $ \Phi(t, s) \coloneqq (x(t, s), y(t, s)) $ e sia $ \gamma_s \colon [a, b] \to \Omega $ la curva a $ s $ fisso $ \delta_s(t) \coloneqq \Phi(t, s) $. Definiamo $ \varphi \colon [0, 1] \to \R $ come
+	\[
+		\varphi(s) \coloneqq \int_{\delta_s} \omega = \int_{a}^{b} \left[A(x(t, s), y(t, s)) x_t(t, s) + B(x(t, s), y(t, s)) y_t(t, s)\right] \dif{t}.
+	\]
+	Così per $ s = 0 $ si ha $ \delta_0(t) = \Phi(t, 0) = \gamma_1(t) $ e quindi $ \varphi(0) = \int_{\delta_0} \omega = \int_{\gamma_1} \omega $, mentre per $ s = 1 $ si ha $ \delta_1(t) = \Phi(t, 1) = \gamma_2(t) $ e quindi $ \varphi(1) = \int_{\delta_1} \omega = \int_{\gamma_2} \omega $. Mostriamo che $ \varphi'(s) = 0 $ per ogni $ s \in [0, 1] $, così $ \varphi $ è costante e quindi $ \int_{\gamma_1} \omega = \int_{\gamma_2} \omega $. \\
+	Per il Teorema \ref{thm:scabioderivataintegrale} si ha
+	\[
+		\varphi'(s) = \int_{a}^{b} \left[A_x x_s x_t + A_y y_s x_t +  A x_{ts} + B_x x_s y_t + B_y y_s y_t + B y_{ts} \right] \dif{t}.
+	\]
+	Integriamo per parti i termini con derivate seconde
+	\[
+		\int_{a}^{b} A x_{ts} \dif{t} = \int_{a}^{b} A {(x_s)}_t \dif{t} = \left[A x_s\right]_{t = 0}^{t = 1} - \int_{a}^{b} \od{A}{t} \cdot x_s \dif{t} = - \int_{a}^{b} \left(A_x x_t x_s + A_y y_t x_s\right) \dif{t}
+	\]
+	\[
+		\int_{a}^{b} B y_{ts} \dif{t} = \int_{a}^{b} B {(y_s)}_t \dif{t} = \left[B y_s\right]_{t = 0}^{t = 1} - \int_{a}^{b} \od{B}{t} \cdot y_s \dif{t} = - \int_{a}^{b} \left(B_x x_t y_s + B_y y_t y_s\right) \dif{t}
+	\]
+	Mettendo tutto insieme
+	\begin{align*}
+		\varphi'(s) & = \int_{a}^{b} \left[A_x x_s x_t + A_y y_s x_t - A_x x_t x_s - A_y y_t x_s + B_x x_s y_t + B_y y_s y_t - B_x x_t y_s - B_y y_t y_s \right] \dif{t} \\
+		& = \int_{a}^{b} \left[A_y y_s x_t - A_y y_t x_s + B_x x_s y_t - B_x x_t y_s \right] \dif{t} \\
+		& = \int_{a}^{b} \left[A_y y_s x_t - B_x y_t x_s + B_x x_s y_t - A_y x_t y_s \right] \dif{t} \\
+		& = 0.
+	\end{align*}
+	Il secondo passaggio segue dalla chiusura di $ \omega $ per la quale $ A_y = B_x $.
+\end{proof}
+%
+\begin{proof}
+	(caso generale).
+	Sia $ \omega \coloneqq \sum_{k = 1}^{n} A_k(x) \dif{x_k} $ la forma. Per il Lemma \ref{lem:omotopiaregolare} esiste un'omotopia abbastanza regolare $ \Phi \colon [a, b] \times [0, 1] \to \Omega $ di componenti $ \Phi_i(t, s) $ e sia $ \gamma_s \colon [a, b] \to \Omega $ la curva a $ s $ fisso $ \delta_s(t) \coloneqq \Phi(t, s) $. Definiamo $ \varphi \colon [0, 1] \to \R $ come
+	\[
+		\varphi(s) \coloneqq \int_{\delta_s} \omega = \int_{a}^{b} \left(\sum_{k = 1}^{n} A_k(\Phi(t, s)) {\Phi_{k}}_t(t, s)\right) \dif{t}.
+	\]
+	Così per $ s = 0 $ si ha $ \delta_0(t) = \Phi(t, 0) = \gamma_1(t) $ e quindi $ \varphi(0) = \int_{\delta_0} \omega = \int_{\gamma_1} \omega $, mentre per $ s = 1 $ si ha $ \delta_1(t) = \Phi(t, 1) = \gamma_2(t) $ e quindi $ \varphi(1) = \int_{\delta_1} \omega = \int_{\gamma_2} \omega $. Mostriamo che $ \varphi'(s) = 0 $ per ogni $ s \in [0, 1] $, così $ \varphi $ è costante e quindi $ \int_{\gamma_1} \omega = \int_{\gamma_2} \omega $. \\
+	Per il Teorema \ref{thm:scabioderivataintegrale} si ha
+	\[
+		\varphi'(s) = \int_{a}^{b} \left[\left(\sum_{k = 1}^{n} \sum_{j = 1}^{n} \dpd{A_k}{x_j}(\Phi) \, {\Phi_j}_s {\Phi_{k}}_t\right) + \left(\sum_{k = 1}^{n} A_k(\Phi) \, {\Phi_k}_{ts}\right) \right] \dif{t}.
+	\]
+	Integriamo per parti i termini con derivate seconde
+	\begin{align*}
+		\int_{a}^{b} A_k(\Phi) \, {\Phi_k}_{ts} \dif{t} & = \int_{a}^{b} A_k(\Phi) \, ({\Phi_k}_{s})_{t} \dif{t} = \left[A_k(\Phi) \, {\Phi_k}_{s}\right]_{t = 0}^{t = 1} - \int_{a}^{b} \dod{A_k(\Phi)}{t} \, \cdot \, {\Phi_k}_{s} \dif{t} \\
+		& = - \int_{a}^{b} \left(\sum_{j = 1}^{n} \dpd{A_k}{x_j}(\Phi) \, {\Phi_j}_t {\Phi_k}_s\right) \dif{t}
+	\end{align*}
+	Mettendo tutto insieme
+	\begin{align*}
+		\varphi'(s) & = \int_{a}^{b} \left[\left(\sum_{k = 1}^{n} \sum_{j = 1}^{n} \dpd{A_k}{x_j}(\Phi) \, {\Phi_j}_s {\Phi_{k}}_t\right) - \left(\sum_{k = 1}^{n} \sum_{j = 1}^{n} \dpd{A_k}{x_j}(\Phi) \, {\Phi_j}_t {\Phi_k}_s\right) \right] \dif{t} \\
+		& = \int_{a}^{b} \left[\left(\sum_{k = 1}^{n} \sum_{j = 1}^{n} \dpd{A_k}{x_j}(\Phi) \, {\Phi_j}_s {\Phi_{k}}_t\right) - \left(\sum_{k = 1}^{n} \sum_{j = 1}^{n} \dpd{A_j}{x_k}(\Phi) \, {\Phi_k}_t {\Phi_j}_s\right) \right] \dif{t} \\
+		& = \int_{a}^{b} \left[\sum_{k = 1}^{n} \sum_{j = 1}^{n} \left(\dpd{A_k}{x_j}(\Phi) - \dpd{A_j}{x_k}(\Phi)\right) \, {\Phi_j}_t {\Phi_k}_s\right] \dif{t} \\
+		& = 0
+	\end{align*}
+	Il primo e l'ultimo passaggio seguono dalla chiusura di $ \omega $ per la quale $ \pd{A_k}{x_j} = \pd{A_j}{x_k} $.
+\end{proof}
+
+\begin{thm} \label{thm:chiusaesatta}
+	Sia $ \Omega \subseteq \R^n $ e $ \omega $ una forma differenziale in $ \Omega $. Supponiamo che
+	\begin{enumerate}[label = (\roman*)]
+		\item $ \Omega $ sia aperto semplicemente connesso
+		\item $ \omega $ sia chiusa in $ \Omega $
+	\end{enumerate}
+	Allora $ \omega $ è esatta in $ \Omega $.
+\end{thm}
+%
+\begin{proof}
+	Segue al Teorema \ref{thm:carattesattezza} e dal Teorema \ref{thm:chiusacurveomotope}. Infatti date $ \gamma_1 $ e $ \gamma_2 $ curve con sostegno in $ \Omega $ con gli stessi estremi, essendo $ \Omega $ semplicemente connesso, sappiamo che sono omotope. Ma allora dato che $ \omega $ è chiusa
+	\[
+		\int_{\gamma_1} \omega = \int_{\gamma_2} \omega
+	\]
+	Per la caratterizzazione del''esattezza, concludiamo che $ \omega $ è esatta.
+\end{proof}
